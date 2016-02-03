@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="appBG">#462346</color>
+    <color name="primaryColor">#5B365C</color>
+    <color name="primaryColorDark">#462446</color>
+    <color name="colorAccent">#663E66</color>
+    <color name="cardBG">#593959</color>
+
+    <!-- SIDEBAR TEXT COLOR -->
+    <color name="sideBarTextColor">@android:color/primary_text_dark</color>
+
+    <!-- ICON COLORS -->
+    <color name="icons">#FFFFFF</color>
+</resources>

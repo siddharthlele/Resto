@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- NEW ACCOUNT TEXTS -->
+    <string name="nw_acc_details_label">Enter the details listed above. (<i><b>NOTE:</b> The <b><sup><small>*</small></sup></b> indicates that the field is compulsory</i>)</string>
+    <string name="nw_acc_full_name">(*) Full Name</string>
+    <string name="nw_acc_address">(*) User\'s Address</string>
+    <string name="nw_acc_add1">(*) Address 1</string>
+    <string name="nw_acc_add2">Address 2</string>
+    <string name="nw_acc_city">(*) City</string>
+    <string name="nw_acc_state">(*) State</string>
+    <string name="nw_acc_country">(*) Country</string>
+    <string name="nw_acc_zip">(*) ZIP Code</string>
+    <string name="nw_acc_phone">(*) Phone Number <i>(With code if applicable)</i></string>
+    <string name="nw_acc_user_gender_label">(*) Select The User\'s Gender</string>
+    <string name="nw_acc_female">Female</string>
+    <string name="nw_acc_male">Male</string>
+    <string name="nw_acc_user_role_prompt">(*) Select The User\'s Role</string>
+    <string name="nw_acc_user_name">User Name</string>
+    <string name="nw_acc_password">Password</string>
+    <string name="nw_acc_re_password">Re-enter The Password</string>
+    <string name="nw_acc_email">(*) EMail Address</string>
+    <string name="nw_acc_website">Website <i>(If available)</i></string>
+    <string name="nw_acc_dob">Date Of Birth</string>
+    <string name="nw_acc_user_photo_label">Choose / Capture a <b>Photo</b> of the User / Staff. Use either an existing <b>Photo</b> from the <i>Gallery app</i>, or take a new Photo using the <i>Camera app</i>.</string>
+    <string name="account_empty_duplicate_username">This Username already exists. Please select a new Username.</string>
+    <string name="modifier_acc_re_password">Re-enter The Password To Update</string>
+
+    <!-- TABLE CREATOR STRINGS -->
+    <string name="table_creator_title">Add A New Table</string>
+    <string name="table_creator_table_number">Provide / assign a <b>Table Number</b> to the new Table</string>
+    <string name="table_creator_table_number_hint"><b>(*)</b> Table Number</string>
+    <string name="table_creator_table_number_empty">Please provide a <b>Table Number</b></string>
+    <string name="table_creator_table_number_zero">The <b>Table Number</b> cannot be <b><i>0</i></b></string>
+    <string name="table_creator_table_number_duplicate">This <b>Table Number</b> is already present on record. Choose another number.</string>
+    <string name="table_creator_table_seats"><b>Number of Seats / Covers</b> at the Table</string>
+    <string name="table_creator_table_seats_hint"><b>(*)</b> Number Of Seats</string>
+    <string name="table_creator_table_seats_empty">Please provide the <i>Number of Seats</i> at the Table</string>
+    <string name="table_creator_req_fields">Fields marked with a <b>(*)</b> are <b>Required Fields</b></string>
+
+    <!-- TAX CREATOR STRINGS -->
+    <string name="tax_creator_title">Add a new Tax</string>
+    <string name="tax_creator_tax_name_label">Provide a name for the new <b>Tax</b>. For example: <i>Service Tax</i></string>
+    <string name="tax_creator_tax_name_hint"><b>(*)</b> Tax Name</string>
+    <string name="tax_creator_tax_name_empty">Please enter the <b>Tax Number</b></string>
+
+    <string name="tax_creator_tax_percentage_label">Enter the <b>Tax Percentage</b> (Enter the <b>percentage</b> without the <i>\"%\"</i> sign)</string>
+    <string name="tax_creator_tax_percentage_hint"><b>(*)</b> Tax Percentage</string>
+    <string name="tax_creator_tax_percentage_empty">Please enter the <b>Tax Percentage</b></string>
+    <string name="tax_creator_tax_percentage_zero">The <b>Tax Percentage</b> cannot be <b><i>0</i></b></string>
+    <string name="tax_creator_tax_registration_empty">Please provide the <b>Tax Registration</b>. This is provided by the Taxation Authority on registration</string>
+
+    <string name="tax_creator_tax_number_label">Enter the Tax <b>Registration Number</b>. In some cases, if a Tax is charged, providing a <b>Registration Number</b> is <i>required</i>.</string>
+    <string name="tax_creator_tax_number_hint"><b>(*)</b> Tax Registration Number</string>
+
+    <string name="tax_creator_tax_percentage_of_amount_label">Is the <b>Tax</b> charged on the entire <i>Bill Amount</i>?</string>
+    <string name="tax_creator_tax_percentage_of_amount_hint"><b>(*)</b> Percentage Of Amount</string>
+    <string name="tax_creator_tax_percentage_of_amount_empty">Please enter the <b>Percentage Of Bill To Tax</b></string>
+    <string name="tax_creator_tax_percentage_of_amount_zero">The <b>Percentage Of Bill To Tax</b> cannot be <b><i>0</i></b></string>
+    <string name="tax_creator_yes">YES</string>
+    <string name="tax_creator_no">NO</string>
+    <string name="tax_creator_popup_title">What Is This?</string>
+    <string name="tax_creator_popup_title_dismiss">Got it</string>
+    <string name="tax_creator_what_is_this">Does this <b>Tax</b> apply on the entire <i>Bill Amount</i>?
+        \n\nFor example, in <b>India</b> (<i>where we are based</i>), we have a <i>Service Tax</i> which is calculated only on <b>40%</b> of the <i>Bill Amount</i> instead of on the entire Amount.
+        \n\nSo, if a Bill amount is \u20b9 1,000, the Service Tax will be applicable <b>only</b> on \u20b9 400!</string>
+    <string name="tax_creator_duplicate_tax">This <b>Tax</b> is already present on record. Please Choose a different Tax Name.</string>
+    <string name="tax_creator_req_fields">All fields are mandatory</string>
+
+    <!-- CATEGORY CREATOR -->
+    <string name="cat_creator_title">Create A New Menu Category</string>
+    <string name="cat_creator_ID_label">MENU CATEGORY ID (<b>THIS IS AN AUTO-GENERATED NUMBER</b>)</string>
+    <string name="cat_creator_name_label">NAME THE MENU CATEGORY</string>
+    <string name="cat_creator_name">(*) Enter The Menu Category Name</string>
+    <string name="cat_creator_tax_label">CHOOSE THE TAXES THAT APPLY TO THIS CATEGORY</string>
+    <string name="cat_creator_tax_sel_1">You have selected </string>
+    <string name="cat_creator_tax_sel_2">tax(es)</string>
+    <string name="cat_creator_dish_thumb_label">Please assign an Image that will represent the Category to your Guests. You can either <i>\"click\"</i> a new Picture using a <i>Camera</i> application. Or, you can choose an Image from a <i>Gallery</i> application.</string>
+    <string name="delete_category_message">Are you sure you want to delete this Menu Category? Pressing \"Yes\" will confirm the deletion and will be <b>permanent</b></string>
+
+    <!-- MENU CREATOR -->
+    <string name="menu_creator_auto_id"><b>Resto</b> will auto-generate the Menu ID for you</string>
+    <string name="creator_inventory_spinner_prompt">CHOOSE AN INVENTORY CATEGORY</string>
+    <string name="menu_creator_choose_or_create_category">Choose a <b>Category</b> to add the new <b>Dish</b> to. Or create a new <b>Category</b></string>
+    <string name="cre_menu_new_category">&#xE147;</string>
+    <string name="creator_menu_spinner_prompt">CHOOSE A MENU CATEGORY</string>
+</resources>

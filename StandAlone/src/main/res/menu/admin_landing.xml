@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/dashHome"
+            android:checked="true"
+            android:icon="@drawable/dash_home"
+            android:title="@string/dash_btn_lbl_dashboard" />
+        <item
+            android:id="@+id/dashMenu"
+            android:checked="false"
+            android:icon="@drawable/dash_menu"
+            android:title="@string/dash_btn_lbl_menu" />
+        <item
+            android:id="@+id/dashReports"
+            android:checked="false"
+            android:icon="@drawable/dash_reports"
+            android:title="@string/dash_btn_lbl_reports" />
+        <item
+            android:id="@+id/dashTables"
+            android:checked="false"
+            android:icon="@drawable/dash_tables"
+            android:title="@string/dash_btn_lbl_tables" />
+        <item
+            android:id="@+id/dashTaxes"
+            android:checked="false"
+            android:icon="@drawable/dash_taxes"
+            android:title="@string/dash_btn_lbl_taxes" />
+        <item
+            android:id="@+id/dashPayments"
+            android:checked="false"
+            android:icon="@drawable/dash_payments"
+            android:title="@string/dash_btn_lbl_payments" />
+
+    </group>
+</menu>

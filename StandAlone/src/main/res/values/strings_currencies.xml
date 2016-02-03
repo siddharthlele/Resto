@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- CURRENCY UNICODE SYMBOLS -->
+    <string name="albania_lek_1" translatable="false">\u4c</string>
+    <string name="albania_lek_2" translatable="false">\u65</string>
+    <string name="albania_lek_3" translatable="false">\u6b</string>
+
+    <string name="afghanistan_afghani" translatable="false">\u060B</string>
+    <string name="argentina_peso" translatable="false">\u24</string>
+    <string name="aruba_guilder" translatable="false">\u192</string>
+    <string name="australia_dollar" translatable="false">\u24</string>
+
+    <string name="azerbaijan_new_manat_1" translatable="false">\u43c</string>
+    <string name="azerbaijan_new_manat_2" translatable="false">\u430</string>
+    <string name="azerbaijan_new_manat_3" translatable="false">\u43d</string>
+
+    <string name="bahamas_dollar" translatable="false">\u24</string>
+    <string name="barbados_dollar" translatable="false">\u24</string>
+
+    <string name="belarus_ruble_1" translatable="false">\u70</string>
+    <string name="belarus_ruble_2" translatable="false">\u2e</string>
+
+    <string name="belize_dollar_1" translatable="false">\u42</string>
+    <string name="belize_dollar_2" translatable="false">\u5a</string>
+    <string name="belize_dollar_3" translatable="false">\u24</string>
+
+    <string name="bermuda_dollar" translatable="false">\u24</string>
+
+    <string name="bolivia_boliviano_1" translatable="false">\u24</string>
+    <string name="bolivia_boliviano_2" translatable="false">\u62</string>
+
+    <string name="bosnia_and_herzegovina_convertible_marka_1" translatable="false">\u4b</string>
+    <string name="bosnia_and_herzegovina_convertible_marka_2" translatable="false">\u4d</string>
+
+    <string name="botswana_pula" translatable="false">\u50</string>
+
+    <string name="bulgaria_lev_1" translatable="false">\u43b</string>
+    <string name="bulgaria_lev_2" translatable="false">\u432</string>
+
+    <string name="brazil_real_1" translatable="false">\u52</string>
+    <string name="brazil_real_2" translatable="false">\u24</string>
+
+    <string name="brunei_darussalam_dollar" translatable="false">\u24</string>
+    <string name="cambodia_riel" translatable="false">\u17db</string>
+    <string name="canada_dollar" translatable="false">\u24</string>
+    <string name="cayman_islands_dollar" translatable="false">\u24</string>
+    <string name="chile_peso" translatable="false">\u24</string>
+    <string name="china_yuan_renminbi" translatable="false">\ua5</string>
+    <string name="colombia_peso" translatable="false">\u24</string>
+    <string name="costa_rica_colon" translatable="false">\u20a1</string>
+
+    <string name="croatia_kuna_1" translatable="false">\u6b</string>
+    <string name="croatia_kuna_2" translatable="false">\u6e</string>
+
+    <string name="cuba_peso" translatable="false">\u20b1</string>
+
+    <string name="czech_republic_koruna_1" translatable="false">\u4b</string>
+    <string name="czech_republic_koruna_2" translatable="false">\u10d</string>
+
+    <string name="denmark_krone_1" translatable="false">\u6b</string>
+    <string name="denmark_krone_2" translatable="false">\u72</string>
+
+    <string name="dominican_republic_peso_1" translatable="false">\u52</string>
+    <string name="dominican_republic_peso_2" translatable="false">\u44</string>
+    <string name="dominican_republic_peso_3" translatable="false">\u24</string>
+
+    <string name="east_caribbean_dollar" translatable="false">\u24</string>
+    <string name="egypt_pound" translatable="false">\ua3</string>
+    <string name="el_salvador_colon" translatable="false">\u24</string>
+
+    <string name="estonia_kroon_1" translatable="false">\u6b</string>
+    <string name="estonia_kroon_2" translatable="false">\u72</string>
+
+    <string name="euro_member_countries" translatable="false">\u20ac</string>
+    <string name="falkland_islands_malvinas_pound" translatable="false">\ua3</string>
+    <string name="fiji_dollar" translatable="false">\u24</string>
+    <string name="ghana_cedis" translatable="false">\ua2</string>
+    <string name="gibraltar_pound" translatable="false">\ua3</string>
+    <string name="guatemala_quetzal" translatable="false">\u51</string>
+    <string name="guernsey_pound" translatable="false">\ua3</string>
+    <string name="guyana_dollar" translatable="false">\u24</string>
+    <string name="honduras_lempira" translatable="false">\u4c</string>
+    <string name="hong_kong_dollar" translatable="false">\u24</string>
+
+    <string name="hungary_forint_1" translatable="false">\u46</string>
+    <string name="hungary_forint_2" translatable="false">\u74</string>
+
+    <string name="iceland_krona_1" translatable="false">\u6b</string>
+    <string name="iceland_krona_2" translatable="false">\u72</string>
+
+    <string name="india_rupee" translatable="false">\u20b9</string>
+
+    <string name="indonesia_rupiah_1" translatable="false">\u52</string>
+    <string name="indonesia_rupiah_2" translatable="false">\u70</string>
+
+    <string name="iran_rial" translatable="false">\ufdfc</string>
+    <string name="isle_of_man_pound" translatable="false">\ua3</string>
+    <string name="israel_shekel" translatable="false">\u20aa</string>
+
+    <string name="jamaica_dollar_1" translatable="false">\u4a</string>
+    <string name="jamaica_dollar_2" translatable="false">\u24</string>
+
+    <string name="japan_yen" translatable="false">\ua5</string>
+    <string name="jersey_pound" translatable="false">\ua3</string>
+
+    <string name="kazakhstan_tenge_1" translatable="false">\u43b</string>
+    <string name="kazakhstan_tenge_2" translatable="false">\u432</string>
+
+    <string name="korea_north_won" translatable="false">\u20a9</string>
+    <string name="korea_south_won" translatable="false">\u20a9</string>
+
+    <string name="kyrgyzstan_som_1" translatable="false">\u43b</string>
+    <string name="kyrgyzstan_som_2" translatable="false">\u432</string>
+
+    <string name="laos_kip" translatable="false">\u20ad</string>
+
+    <string name="latvia_lat_1" translatable="false">\u4c</string>
+    <string name="latvia_lat_2" translatable="false">\u73</string>
+
+    <string name="lebanon_pound" translatable="false">\ua3</string>
+    <string name="liberia_dollar" translatable="false">\u24</string>
+
+    <string name="lithuania_litas_1" translatable="false">\u4c</string>
+    <string name="lithuania_litas_2" translatable="false">\u74</string>
+
+    <string name="macedonia_denar_1" translatable="false">\u434</string>
+    <string name="macedonia_denar_2" translatable="false">\u435</string>
+    <string name="macedonia_denar_3" translatable="false">\u43d</string>
+
+    <string name="malaysia_ringgit_1" translatable="false">\u52</string>
+    <string name="malaysia_ringgit_2" translatable="false">\u4d</string>
+
+    <string name="mauritius_rupee" translatable="false">\u20a8</string>
+    <string name="mexico_peso" translatable="false">\u24</string>
+    <string name="mongolia_tughrik" translatable="false">\u20ae</string>
+
+    <string name="mozambique_metical_1" translatable="false">\u4d</string>
+    <string name="mozambique_metical_2" translatable="false">\u54</string>
+
+    <string name="namibia_dollar" translatable="false">\u24</string>
+    <string name="nepal_rupee" translatable="false">\u20a8</string>
+    <string name="netherlands_antilles_guilder" translatable="false">\u192</string>
+    <string name="new_zealand_dollar" translatable="false">\u24</string>
+
+    <string name="nicaragua_cordoba_1" translatable="false">\u43</string>
+    <string name="nicaragua_cordoba_2" translatable="false">\u24</string>
+
+    <string name="nigeria_naira" translatable="false">\u20a6</string>
+
+    <string name="norway_krone_1" translatable="false">\u6b</string>
+    <string name="norway_krone_2" translatable="false">\u72</string>
+
+    <!--	<string name="korea_north_won">\u20a9</string>	-->
+    <string name="oman_rial" translatable="false">\ufdfc</string>
+    <string name="pakistan_rupee" translatable="false">\u20a8</string>
+
+    <string name="panama_balboa_1" translatable="false">\u42</string>
+    <string name="panama_balboa_2" translatable="false">\u2f</string>
+    <string name="panama_balboa_3" translatable="false">\u2e</string>
+
+    <string name="paraguay_guarani_1" translatable="false">\u47</string>
+    <string name="paraguay_guarani_2" translatable="false">\u73</string>
+
+    <string name="peru_nuevo_sol_1" translatable="false">\u53</string>
+    <string name="peru_nuevo_sol_2" translatable="false">\u2f</string>
+    <string name="peru_nuevo_sol_3" translatable="false">\u2e</string>
+
+    <string name="philippines_peso" translatable="false">\u20b1</string>
+
+    <string name="poland_zloty_1" translatable="false">\u7a</string>
+    <string name="poland_zloty_2" translatable="false">\u142</string>
+
+    <string name="qatar_riyal" translatable="false">\ufdfc</string>
+
+    <string name="romania_new_leu_1" translatable="false">\u6c</string>
+    <string name="romania_new_leu_2" translatable="false">\u65</string>
+    <string name="romania_new_leu_3" translatable="false">\u69</string>
+
+    <string name="russia_ruble_1" translatable="false">\u440</string>
+    <string name="russia_ruble_2" translatable="false">\u443</string>
+    <string name="russia_ruble_3" translatable="false">\u431</string>
+
+    <string name="saint_helena_pound" translatable="false">\ua3</string>
+    <string name="saudi_arabia_riyal" translatable="false">\ufdfc</string>
+
+    <string name="serbia_dinar_1" translatable="false">\u414</string>
+    <string name="serbia_dinar_2" translatable="false">\u438</string>
+    <string name="serbia_dinar_3" translatable="false">\u43d</string>
+    <string name="serbia_dinar_4" translatable="false">\u2e</string>
+
+    <string name="seychelles_rupee" translatable="false">\u20a8</string>
+    <string name="singapore_dollar" translatable="false">\u24</string>
+    <string name="solomon_islands_dollar" translatable="false">\u24</string>
+    <string name="somalia_shilling" translatable="false">\u53</string>
+    <string name="south_africa_rand" translatable="false">\u52</string>
+    <!--	<string name="korea_south_won">\u20a9</string>	-->
+    <string name="sri_lanka_rupee" translatable="false">\u20a8</string>
+
+    <string name="sweden_krona_1" translatable="false">\u6b</string>
+    <string name="sweden_krona_2" translatable="false">\u72</string>
+
+    <string name="switzerland_franc_1" translatable="false">\u43</string>
+    <string name="switzerland_franc_2" translatable="false">\u48</string>
+    <string name="switzerland_franc_3" translatable="false">\u46</string>
+
+    <string name="suriname_dollar" translatable="false">\u24</string>
+    <string name="syria_pound" translatable="false">\ua3</string>
+
+    <string name="taiwan_new_dollar_1" translatable="false">\u4e</string>
+    <string name="taiwan_new_dollar_2" translatable="false">\u54</string>
+    <string name="taiwan_new_dollar_3" translatable="false">\u24</string>
+
+    <string name="thailand_baht" translatable="false">\ue3f</string>
+
+    <string name="trinidad_and_tobago_dollar_1" translatable="false">\u54</string>
+    <string name="trinidad_and_tobago_dollar_2" translatable="false">\u54</string>
+    <string name="trinidad_and_tobago_dollar_3" translatable="false">\u24</string>
+
+    <string name="turkey_lira" translatable="false">\u20ba</string>
+    <string name="tuvalu_dollar" translatable="false">\u24</string>
+    <string name="ukraine_hryvna" translatable="false">\u20b4</string>
+    <string name="united_kingdom_pound" translatable="false">\ua3</string>
+    <string name="united_states_dollar" translatable="false">\u24</string>
+
+    <string name="uruguay_peso_1" translatable="false">\u24</string>
+    <string name="uruguay_peso_2" translatable="false">\u55</string>
+
+    <string name="uzbekistan_som_1" translatable="false">\u43b</string>
+    <string name="uzbekistan_som_2" translatable="false">\u432</string>
+
+    <string name="venezuela_bolivar_1" translatable="false">\u42</string>
+    <string name="venezuela_bolivar_2" translatable="false">\u73</string>
+
+    <string name="viet_nam_dong" translatable="false">\u20ab</string>
+    <string name="yemen_rial" translatable="false">\ufdfc</string>
+
+    <string name="zimbabwe_dollar_1" translatable="false">\u5a</string>
+    <string name="zimbabwe_dollar_2" translatable="false">\u24</string>
+</resources>

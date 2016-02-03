@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- CATEGORIES -->
+    <string name="cat_admin_search_label">Search for a <b>Category</b></string>
+    <string name="cat_admin_empty">You haven\'t added any Meal Categories yet. </string>
+
+    <!-- MENUS -->
+    <string name="menu_admin_search_hint">Search For A <b>Dish</b></string>
+    <string name="menu_admin_empty_category">No <b>Dishes</b> have been added in this <i>Meal / Menu Category</i> yet.
+        \n\nAdd and configure <b>Dishes</b> in this Category so they will be available for your Guests to order.</string>
+
+    <!-- TAXES -->
+    <string name="tax_admin_empty">You have no <b>Taxes</b> configured yet.
+        \n\nIf any <b>Taxes</b> are applicable, please add and configure them. Orders placed by your Guests will <b>not be taxed</b> until you add and configure them here.</string>
+
+    <!-- TABLES -->
+    <string name="tbl_admin_empty">You haven\'t configured / added any <b>Tables</b> yet.
+        \n\nYou need to configure / add <b>Tables</b> before you can start taking Orders in <b>Resto</b>.</string>
+
+    <!-- ACCOUNTS -->
+    <string name="acc_admin_empty">You have no <b>User Accounts</b> in this <b>User Role</b>.
+        \n\nChange the <b>User Role</b> using the dropdown below the Search Bar. Or, add a new <b>User Account</b> to this <b>User Role</b>.</string>
+</resources>

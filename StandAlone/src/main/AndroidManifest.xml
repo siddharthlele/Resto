@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.dzinesunlimited.resto">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+
+    <application
+        android:name=".utils.AppPrefs"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Resto">
+        <activity
+            android:name=".SplashScreen"
+            android:label="@string/app_name"
+            android:theme="@style/Resto">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".welcome.WelcomeContainer"
+            android:windowSoftInputMode="adjustPan" />
+
+        <!--<activity
+            android:name=".LoginActivity"
+            android:windowSoftInputMode="adjustPan" />-->
+
+        <activity
+            android:name=".recovery.PasswordRecovery"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".backend.admin.AdminLanding"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".frontend.tables.TableSelector"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".backend.creators.TableCreator"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".backend.modifiers.TableModifier"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".backend.creators.TaxCreator"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".backend.modifiers.TaxModifier"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".backend.creators.CategoryCreator"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".backend.modifiers.CategoryModifier"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".backend.creators.MenuCreator"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".backend.modifiers.MenuModifier"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".backend.details.MenuDetails"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".backend.creators.AccountCreator"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".backend.details.AccountDetails"
+            android:windowSoftInputMode="adjustPan" />
+    </application>
+
+</manifest>

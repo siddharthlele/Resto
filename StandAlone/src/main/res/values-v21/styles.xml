@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Resto" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@color/appBG</item>
+        <item name="android:colorPrimary">@color/primaryColor</item>
+        <item name="android:colorPrimaryDark">@color/primaryColorDark</item>
+        <item name="android:colorAccent">@color/colorAccent</item>
+
+        <!-- SOME TEXT COLORS -->
+        <item name="android:textColorLink">@android:color/holo_blue_dark</item>
+        <item name="android:textColorHint">@android:color/secondary_text_dark</item>
+
+        <!-- CALLIGRAPHY ATTRIBUTE -->
+        <item name="fontPath">fonts/RobotoCondensed-Regular.ttf</item>
+    </style>
+
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="FloatingTextInput" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@android:color/tertiary_text_dark</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+</resources>

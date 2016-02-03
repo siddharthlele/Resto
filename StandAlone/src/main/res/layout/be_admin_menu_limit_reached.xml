@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="47dp"
+        android:background="@color/primaryColor">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/imgvwInfo"
+            android:layout_width="29dp"
+            android:layout_height="29dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_info_outline_white_24dp" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/txtInfoTitle"
+            fontPath="fonts/Roboto-Bold.ttf"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_toRightOf="@+id/imgvwInfo"
+            android:gravity="left|center"
+            android:text="Would You Like To Upgrade?"
+            android:textColor="@android:color/primary_text_dark"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/txtInfo"
+        fontPath="fonts/Roboto-Regular.ttf"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:gravity="top|center"
+        android:text="You have reached the limit on the number of Dishes allowed in the Free Version of the FooDzines POS application. To add all your Dishes / Menus and unlock the full potential of FooDzines, consider purchasing the Paid Version. To purchase the Paid Version, click the Purchase Now button."
+        android:textColor="@android:color/secondary_text_dark"
+        android:textSize="20sp" />
+
+</LinearLayout>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:padding="5dp">
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/txtValue"
+        fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:gravity="left|center"
+        android:maxLines="1"
+        android:padding="11dp"
+        android:text="@string/cst_spinner_item_label"
+        android:textColor="@drawable/spinner_selector"
+        android:textSize="16sp"
+        tools:ignore="MissingPrefix" />
+
+</RelativeLayout>

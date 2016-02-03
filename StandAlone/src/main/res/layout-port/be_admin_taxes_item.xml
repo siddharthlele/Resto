@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/tax_admin_crd_margin"
+    card_view:cardBackgroundColor="@color/cardBG"
+    card_view:cardCornerRadius="@dimen/tax_admin_crd_corner"
+    card_view:cardElevation="@dimen/tax_admin_crd_elevation">
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/tax_admin_top_cont_margin"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/txtNameLabel"
+                    fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/tax_admin_label_margin_lft"
+                    android:layout_marginRight="@dimen/tax_admin_label_margin_rgt"
+                    android:gravity="left|center"
+                    android:padding="@dimen/tax_admin_text_pad"
+                    android:text="@string/tax_item_name_label"
+                    android:textColor="@android:color/secondary_text_dark"
+                    android:textSize="@dimen/tax_admin_label_size"
+                    tools:ignore="MissingPrefix" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/txtName"
+                    fontPath="fonts/HelveticaNeueLTW1G-BdCn.otf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center"
+                    android:padding="@dimen/tax_admin_text_pad"
+                    android:text="@string/tax_item_name"
+                    android:textColor="@android:color/primary_text_dark"
+                    android:textSize="@dimen/tax_admin_text_size"
+                    tools:ignore="MissingPrefix" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/tax_admin_top_cont_margin"
+                android:gravity="start|center"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/txtPercentageLabel"
+                    fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/tax_admin_label_margin_lft"
+                    android:layout_marginRight="@dimen/tax_admin_label_margin_rgt"
+                    android:gravity="right|center"
+                    android:padding="@dimen/tax_admin_text_pad"
+                    android:text="@string/tax_item_percentage_label"
+                    android:textColor="@android:color/secondary_text_dark"
+                    android:textSize="@dimen/tax_admin_label_size"
+                    tools:ignore="MissingPrefix" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/txtPercentage"
+                    fontPath="fonts/HelveticaNeueLTW1G-BdCn.otf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right|center"
+                    android:padding="@dimen/tax_admin_text_pad"
+                    android:text="@string/tax_item_percentage"
+                    android:textColor="@android:color/primary_text_dark"
+                    android:textSize="@dimen/tax_admin_text_size"
+                    tools:ignore="MissingPrefix" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/tax_admin_top_cont_margin"
+                android:gravity="left|center"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/txtNumberLabel"
+                    fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/tax_admin_label_margin_lft"
+                    android:layout_marginRight="@dimen/tax_admin_label_margin_rgt"
+                    android:gravity="left|center"
+                    android:padding="@dimen/tax_admin_text_pad"
+                    android:text="@string/tax_item_regn_num_label"
+                    android:textColor="@android:color/secondary_text_dark"
+                    android:textSize="@dimen/tax_admin_label_size"
+                    tools:ignore="MissingPrefix" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/txtNumber"
+                    fontPath="fonts/HelveticaNeueLTW1G-BdCn.otf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center"
+                    android:padding="@dimen/tax_admin_text_pad"
+                    android:text="@string/tax_item_regn_num"
+                    android:textColor="@android:color/primary_text_dark"
+                    android:textSize="@dimen/tax_admin_text_size"
+                    tools:ignore="MissingPrefix" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/tax_admin_top_cont_margin"
+                android:gravity="left|center"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/txtAppliesOn"
+                    fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/tax_admin_applies_on_margin"
+                    android:layout_marginLeft="@dimen/tax_admin_applies_on_margin"
+                    android:gravity="left|center"
+                    android:padding="@dimen/tax_admin_text_pad"
+                    android:text="@string/tax_item_applies_on"
+                    android:textColor="@android:color/primary_text_dark"
+                    android:textSize="@dimen/tax_admin_text_size"
+                    tools:ignore="MissingPrefix" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/imgvwMenuOptions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|top"
+            android:layout_marginRight="@dimen/tax_admin_popup_margin"
+            android:layout_marginTop="@dimen/tax_admin_popup_margin"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_more_vert_white_24dp" />
+    </FrameLayout>
+</android.support.v7.widget.CardView>

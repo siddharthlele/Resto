@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/foo_toolbar" />
+
+    <LinearLayout
+        android:id="@+id/linlaHeaderProgress"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:id="@+id/pbHeaderProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/pb_pad" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/txtHeaderLoading"
+            fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left|center"
+            android:padding="@dimen/pb_pad"
+            android:text="@string/loading"
+            android:textSize="@dimen/pb_size" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="10dp"
+            android:fillViewport="true"
+            android:scrollbarSize="5dp"
+            android:scrollbarThumbVertical="@color/primaryColorDark"
+            android:scrollbars="vertical">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
+
+                    <android.support.v7.widget.AppCompatTextView
+                        fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/wel_rest_element_top_btm_margins"
+                        android:layout_marginTop="@dimen/wel_rest_element_top_btm_margins"
+                        android:maxLines="1"
+                        android:padding="11dp"
+                        android:text="@string/nw_acc_user_role_prompt"
+                        android:textColor="@android:color/secondary_text_dark"
+                        android:textSize="16sp" />
+
+                    <android.support.v7.widget.AppCompatSpinner
+                        android:id="@+id/spnStaffRole"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/wel_rest_element_top_btm_margins"
+                        android:layout_marginTop="@dimen/wel_rest_element_top_btm_margins" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/inputFullName"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="@dimen/wel_rest_element_top_btm_margins"
+                        android:layout_marginTop="@dimen/wel_rest_element_top_btm_margins"
+                        android:hint="@string/nw_acc_full_name"
+                        app:hintTextAppearance="@style/TextAppearance.AppCompat">
+
+                        <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/edtFullName"
+                            fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textCapWords"
+                            android:maxLines="1"
+                            android:text="Siddharth Lele"
+                            android:padding="11dp"
+                            android:singleLine="true"
+                            android:textColor="@android:color/primary_text_dark"
+                            android:textSize="16sp" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/inputAddress"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="@dimen/wel_rest_element_top_btm_margins"
+                        android:layout_marginTop="@dimen/wel_rest_element_top_btm_margins"
+                        android:hint="@string/nw_acc_address"
+                        app:hintTextAppearance="@style/TextAppearance.AppCompat">
+
+                        <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/edtAddress"
+                            fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:text="5 Shubhajay Apartment, 39/27 Erandwane, Prabhat Road "
+                            android:gravity="left|top"
+                            android:inputType="textMultiLine|textCapSentences"
+                            android:lines="4"
+                            android:maxLines="4"
+                            android:padding="11dp"
+                            android:textColor="@android:color/primary_text_dark"
+                            android:textSize="16sp" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/inputCity"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="@dimen/wel_rest_element_top_btm_margins"
+                        android:layout_marginTop="@dimen/wel_rest_element_top_btm_margins"
+                        android:hint="@string/nw_acc_city"
+                        app:hintTextAppearance="@style/TextAppearance.AppCompat">
+
+                        <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/edtCity"
+                            fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textCapWords"
+                            android:text="Pune"
+                            android:maxLines="1"
+                            android:padding="11dp"
+                            android:singleLine="true"
+                            android:textColor="@android:color/primary_text_dark"
+                            android:textSize="16sp" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/inputState"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="@dimen/wel_rest_element_top_btm_margins"
+                        android:layout_marginTop="@dimen/wel_rest_element_top_btm_margins"
+                        android:hint="@string/nw_acc_state"
+                        app:hintTextAppearance="@style/TextAppearance.AppCompat">
+
+                        <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/edtState"
+                            fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textCapWords"
+                            android:maxLines="1"
+                            android:text="Maharashtra"
+                            android:padding="11dp"
+                            android:singleLine="true"
+                            android:textColor="@android:color/primary_text_dark"
+                            android:textSize="16sp" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/inputCountry"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="@dimen/wel_rest_element_top_btm_margins"
+                        android:layout_marginTop="@dimen/wel_rest_element_top_btm_margins"
+                        android:hint="@string/nw_acc_country"
+                        app:hintTextAppearance="@style/TextAppearance.AppCompat">
+
+                        <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/edtCountry"
+                            fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:text="India"
+                            android:inputType="textCapWords"
+                            android:maxLines="1"
+                            android:padding="11dp"
+                            android:singleLine="true"
+                            android:textColor="@android:color/primary_text_dark"
+                            android:textSize="16sp" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/inputZIP"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="@dimen/wel_rest_element_top_btm_margins"
+                        android:layout_marginTop="@dimen/wel_rest_element_top_btm_margins"
+                        android:hint="@string/nw_acc_zip"
+                        app:hintTextAppearance="@style/TextAppearance.AppCompat">
+
+                        <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/edtZIP"
+                            fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:text="411004"
+                            android:inputType="number"
+                            android:maxLines="1"
+                            android:padding="11dp"
+                            android:singleLine="true"
+                            android:textColor="@android:color/primary_text_dark"
+                            android:textSize="16sp" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/inputPhone"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="@dimen/wel_rest_element_top_btm_margins"
+                        android:layout_marginTop="@dimen/wel_rest_element_top_btm_margins"
+                        android:hint="@string/nw_acc_phone"
+                        app:hintTextAppearance="@style/TextAppearance.AppCompat">
+
+                        <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/edtPhone"
+                            fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                            android:layout_width="fill_parent"
+                            android:text="8087471157"
+                            android:layout_height="wrap_content"
+                            android:inputType="phone"
+                            android:maxLines="1"
+                            android:padding="11dp"
+                            android:singleLine="true"
+                            android:textColor="@android:color/primary_text_dark"
+                            android:textSize="16sp" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:layout_marginBottom="@dimen/wel_rest_element_top_btm_margins"
+                        android:layout_marginTop="@dimen/wel_rest_element_top_btm_margins"
+                        android:orientation="horizontal">
+
+                        <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/edtDOB"
+                            fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                            android:layout_width="0dp"
+                            android:layout_height="fill_parent"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="1"
+                            android:enabled="false"
+                            android:text="29 August 1980"
+                            android:gravity="left|center"
+                            android:hint="@string/nw_acc_dob"
+                            android:maxLines="1"
+                            android:padding="11dp"
+                            android:singleLine="true"
+                            android:textColor="@android:color/primary_text_dark"
+                            android:textColorHint="@android:color/secondary_text_dark" />
+
+                        <android.support.v7.widget.AppCompatImageButton
+                            android:id="@+id/imgbtnDOB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:adjustViewBounds="true"
+                            android:padding="11dp"
+                            android:src="@drawable/ic_today_white_24dp" />
+                    </LinearLayout>
+
+                    <android.support.v7.widget.AppCompatTextView
+                        fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/wel_rest_element_top_btm_margins"
+                        android:layout_marginTop="@dimen/wel_rest_element_top_btm_margins"
+                        android:maxLines="1"
+                        android:padding="11dp"
+                        android:text="@string/nw_acc_user_gender_label"
+                        android:textColor="@android:color/secondary_text_dark"
+                        android:textSize="16sp" />
+
+                    <RadioGroup
+                        android:id="@+id/rdgGender"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:maxLines="1"
+                        android:orientation="horizontal"
+                        android:padding="11dp">
+
+                        <android.support.v7.widget.AppCompatRadioButton
+                            android:id="@+id/rdbtnMale"
+                            fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginRight="3dp"
+                            android:checked="true"
+                            android:text="@string/nw_acc_male"
+                            android:textColor="@android:color/secondary_text_dark"
+                            android:textSize="15sp" />
+
+                        <android.support.v7.widget.AppCompatRadioButton
+                            android:id="@+id/rdbtnFemale"
+                            fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginRight="3dp"
+                            android:checked="false"
+                            android:text="@string/nw_acc_female"
+                            android:textColor="@android:color/secondary_text_dark"
+                            android:textSize="15sp" />
+                    </RadioGroup>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/inputUserName"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="@dimen/wel_rest_element_top_btm_margins"
+                        android:layout_marginTop="@dimen/wel_rest_element_top_btm_margins"
+                        android:hint="@string/nw_acc_user_name"
+                        app:hintTextAppearance="@style/TextAppearance.AppCompat">
+
+                        <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/edtUserName"
+                            fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textNoSuggestions"
+                            android:maxLines="1"
+                            android:padding="11dp"
+                            android:singleLine="true"
+                            android:textColor="@android:color/primary_text_dark"
+                            android:textSize="16sp" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/inputPassword"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="@dimen/wel_rest_element_top_btm_margins"
+                        android:layout_marginTop="@dimen/wel_rest_element_top_btm_margins"
+                        android:hint="@string/nw_acc_password"
+                        app:hintTextAppearance="@style/TextAppearance.AppCompat">
+
+                        <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/edtPassword"
+                            fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPassword|textNoSuggestions"
+                            android:maxLines="1"
+                            android:padding="11dp"
+                            android:singleLine="true"
+                            android:textColor="@android:color/primary_text_dark"
+                            android:textSize="16sp" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/inputConfirmPassword"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="@dimen/wel_rest_element_top_btm_margins"
+                        android:layout_marginTop="@dimen/wel_rest_element_top_btm_margins"
+                        android:hint="@string/nw_acc_re_password"
+                        app:hintTextAppearance="@style/TextAppearance.AppCompat">
+
+                        <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/edtConfirmPassword"
+                            fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPassword|textNoSuggestions"
+                            android:maxLines="1"
+                            android:padding="11dp"
+                            android:singleLine="true"
+                            android:textColor="@android:color/primary_text_dark"
+                            android:textSize="16sp" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.v7.widget.AppCompatTextView
+                        fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:padding="11dp"
+                        android:text="@string/nw_acc_user_photo_label"
+                        android:textColor="@android:color/secondary_text_dark"
+                        android:textSize="15sp" />
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="fill_parent"
+                        android:layout_height="220dp"
+                        android:layout_marginTop="5dp"
+                        app:cardBackgroundColor="@color/cardBG"
+                        card_view:cardCornerRadius="2dp"
+                        card_view:cardElevation="1dp">
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:id="@+id/imgvwProfile"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_margin="5dp"
+                            android:adjustViewBounds="true"
+                            android:padding="4dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/empty_camera" />
+                    </android.support.v7.widget.CardView>
+
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+</LinearLayout>

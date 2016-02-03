@@ -1,0 +1,151 @@
+<resources>
+
+    <!-- PHONE / TABLET-->
+    <bool name="isTablet">false</bool>
+
+    <!-- SPLASH SCREEN -->
+    <dimen name="icon_size">180sp</dimen>
+    <dimen name="app_name_size">40sp</dimen>
+
+    <!-- SCROLL BAR SIZE -->
+    <dimen name="scroll_bar_size">5dp</dimen>
+
+    <!-- PROGRESS BAR HEADERS -->
+    <dimen name="pb_pad">2dp</dimen>
+    <dimen name="pb_size">16sp</dimen>
+
+    <!-- SEARCH DIMENSIONS -->
+    <dimen name="search_height">65dp</dimen>
+    <dimen name="search_pad_lft_rgt">9dp</dimen>
+    <dimen name="search_pad_top_btm">5dp</dimen>
+    <dimen name="search_margin">4dp</dimen>
+    <dimen name="search_draw_pad">11dp</dimen>
+    <dimen name="search_size">16sp</dimen>
+
+    <!-- EMPTY DETAILS -->
+    <dimen name="empty_margin">10dp</dimen>
+    <dimen name="empty_pad">6dp</dimen>
+    <dimen name="empty_icon">65sp</dimen>
+    <dimen name="empty_size">18sp</dimen>
+
+    <!-- LOGIN PAGE -->
+    <dimen name="log_logo_pad">5dp</dimen>
+    <dimen name="log_form_pad">11dp</dimen>
+    <dimen name="log_form_margin">5dp</dimen>
+    <dimen name="log_form_height">47dp</dimen>
+    <dimen name="log_form_draw_pad">15dp</dimen>
+    <dimen name="log_form_size">18sp</dimen>
+    <dimen name="log_form_pad_btm_top">5dp</dimen>
+    <dimen name="log_form_pad_lft_rgt">20dp</dimen>
+    <dimen name="log_form_btm_size">12sp</dimen>
+    <dimen name="log_form_sign_in_size">18sp</dimen>
+    <dimen name="log_form_sign_in_pad">11dp</dimen>
+    <dimen name="log_form_sign_in_margin_lft_rgt">50dp</dimen>
+    <dimen name="log_form_sign_in_margin_top">20dp</dimen>
+    <dimen name="log_form_divider_height_width">2dp</dimen>
+
+    <!-- WELCOME LANDING PAGE -->
+    <dimen name="wel_landing_icon">110sp</dimen>
+    <dimen name="wel_landing_name_size">25sp</dimen>
+    <dimen name="wel_landing_image_pad">11dp</dimen>
+    <dimen name="wel_landing_message_size">18sp</dimen>
+    <dimen name="wel_landing_others_size">16sp</dimen>
+    <dimen name="wel_landing_bottom_size">14sp</dimen>
+    <dimen name="wel_landing_bottom_pad">5dp</dimen>
+
+    <!-- WELCOME RESTAURANT PAGE -->
+    <dimen name="wel_rest_top_container_pad">2dp</dimen>
+    <dimen name="wel_rest_message_margin">5dp</dimen>
+    <dimen name="wel_rest_message_pad">6dp</dimen>
+    <dimen name="wel_rest_message_size">15dp</dimen>
+    <dimen name="wel_rest_element_top_btm_margins">5dp</dimen>
+    <dimen name="wel_rest_element_lft_rgt_margins">10dp</dimen>
+    <dimen name="wel_rest_name_size">20sp</dimen>
+    <dimen name="wel_rest_element_size">16sp</dimen>
+    <dimen name="wel_rest_element_pad">11dp</dimen>
+    <dimen name="wel_rest_photo_btm_margin">2dp</dimen>
+
+    <!-- WELCOME TABLES PAGE -->
+    <dimen name="wel_tbl_cont_margin">5dp</dimen>
+    <dimen name="wel_tbl_cont_corner">2dp</dimen>
+    <dimen name="wel_tbl_cont_elevation">2dp</dimen>
+    <dimen name="wel_tbl_cont_pad_top_btm">10dp</dimen>
+    <dimen name="wel_tbl_no_cont_margin">3dp</dimen>
+    <dimen name="wel_tbl_no_cont_pad">4dp</dimen>
+
+    <!-- WELCOME COUNTRIES PAGE -->
+    <dimen name="wel_country_margin">5dp</dimen>
+    <dimen name="wel_country_pad">11dp</dimen>
+    <dimen name="wel_country_size">16sp</dimen>
+
+    <!-- WELCOME CURRENCIES PAGE -->
+    <dimen name="wel_cur_item_cont_pad">11dp</dimen>
+    <dimen name="wel_cur_item_margin_pad">5dp</dimen>
+    <dimen name="wel_cur_item_name_size">20sp</dimen>
+    <dimen name="wel_cur_item_symbol_size">18sp</dimen>
+    <dimen name="wel_cur_item_code_size">20sp</dimen>
+
+    <!-- TABLE CREATOR -->
+    <dimen name="table_cre_margin_lft_rgt">5dp</dimen>
+    <dimen name="table_cre_margin_top_btm">10dp</dimen>
+    <dimen name="table_cre_global_pad">11dp</dimen>
+    <dimen name="table_cre_global_text_size">16sp</dimen>
+
+    <!-- TAX CREATOR -->
+    <dimen name="tax_cre_cont_margin">10dp</dimen>
+    <dimen name="tax_cre_global_pad">11dp</dimen>
+    <dimen name="tax_cre_btm_pad">5dp</dimen>
+    <dimen name="tax_cre_btm_mar_btm_top">5dp</dimen>
+    <dimen name="tax_cre_btm_mar_lft_rgt">10dp</dimen>
+    <dimen name="tax_cre_btm_text_size">15sp</dimen>
+    <dimen name="tax_cre_global_text_size">16sp</dimen>
+    <dimen name="tax_cre_edt_margin">5dp</dimen>
+    <dimen name="tax_cre_label_margin">10dp</dimen>
+
+    <!-- TAXES MANAGER -->
+    <dimen name="tax_admin_crd_margin">5dp</dimen>
+    <dimen name="tax_admin_crd_corner">2dp</dimen>
+    <dimen name="tax_admin_crd_elevation">5dp</dimen>
+    <dimen name="tax_admin_top_cont_margin">10dp</dimen>
+    <dimen name="tax_admin_label_margin_lft">5dp</dimen>
+    <dimen name="tax_admin_label_margin_rgt">5dp</dimen>
+    <dimen name="tax_admin_text_pad">5dp</dimen>
+    <dimen name="tax_admin_label_size">15sp</dimen>
+    <dimen name="tax_admin_text_size">18sp</dimen>
+    <dimen name="tax_admin_applies_on_margin">5dp</dimen>
+    <dimen name="tax_admin_popup_margin">5dp</dimen>
+
+    <!-- CATEGORY CREATOR -->
+    <dimen name="mnu_cat_cre_con_margin">10dp</dimen>
+    <dimen name="mnu_cat_cre_element_pad">11dp</dimen>
+    <dimen name="mnu_cat_cre_card_image_pad_margin">5dp</dimen>
+    <dimen name="mnu_cat_cre_card_image_margin">5dp</dimen>
+    <dimen name="mnu_cat_cre_image_cont_margin">10dp</dimen>
+    <dimen name="mnu_cat_cre_text_size">16sp</dimen>
+
+    <!-- MENU CREATOR -->
+    <dimen name="mnu_cre_top_text_size">16sp</dimen>
+    <dimen name="mnu_cre_top_label_mar_btm_top">5sp</dimen>
+    <dimen name="mnu_cre_top_label_mar_lft_rgt">10sp</dimen>
+    <dimen name="mnu_cre_spin_cont_mar_btm_top">5dp</dimen>
+    <dimen name="mnu_cre_spin_cont_mar_lft_rgt">10dp</dimen>
+
+    <!-- ACCOUNT FRAGMENT -->
+    <dimen name="acc_frag_filter_cont_margin">5dp</dimen>
+    <dimen name="acc_frag_filter_cont_pad">2dp</dimen>
+    <dimen name="acc_frag_grid_margin">4dp</dimen>
+    <dimen name="acc_frag_filter_label_margin">5dp</dimen>
+    <dimen name="acc_frag_filter_label_pad">11dp</dimen>
+    <dimen name="acc_frag_filter_label_size">16sp</dimen>
+
+    <!-- ADMIN ACCOUNTS - ITEM -->
+    <dimen name="admin_acc_main_cont_margin">1dp</dimen>
+    <dimen name="admin_acc_main_cont_pad">5dp</dimen>
+    <dimen name="admin_acc_card_margin">5dp</dimen>
+    <dimen name="admin_acc_card_elevation">5dp</dimen>
+    <dimen name="admin_acc_frame_height">200dp</dimen>
+    <dimen name="admin_acc_frame_margin">5dp</dimen>
+    <dimen name="admin_acc_popup_margin">5dp</dimen>
+    <dimen name="admin_acc_text_size">18sp</dimen>
+    <dimen name="admin_acc_text_padding">15dp</dimen>
+</resources>

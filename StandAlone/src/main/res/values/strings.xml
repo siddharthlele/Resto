@@ -1,0 +1,56 @@
+<resources>
+    <string name="app_name">Resto</string>
+    <string name="action_settings">Settings</string>
+    <string name="app_name_splash">RESTO</string>
+    <string name="app_icon">&#xE561;</string>
+
+    <!-- PROGRESSBAR: LOADING TEXT -->
+    <string name="loading">Loading....</string>
+
+    <!-- CUSTOM SPINNER ITEM -->
+    <string name="cst_spinner_item_label">SOME VALUE</string>
+
+    <!-- LOGIN ACTIVITY STRINGS -->
+    <string name="log_username">Username</string>
+    <string name="log_password">Password</string>
+    <string name="log_login_btn">SIGN IN</string>
+    <string name="empty_creds">Please enter your <b>User Name</b> and <b>Password</b> to authenticate and access your Account.
+        \n\nThe <b>User Name</b> and <b>Password</b> fields cannot be empty</string>
+    <string name="wrong_creds">You seem to have entered the wrong Credentials.
+        Please try again after having checked that you have entered the
+        	right <b>User Name</b> and <b>Password</b> combination.</string>
+    <string name="log_info_title">LOGIN HELP</string>
+    <string name="log_info">This is the Resto <i>Login Screen</i>.
+        \nTo help you get started, we have a created a default <b>Login</b> and <b>Password</b>. This Login ID gives you complete access (<i>Administrative Privileges</i>) to the Resto POS application.
+        \n\nHere is the Username Password combination
+        \nUsername: <i>superadmin</i>
+        \nPassword: <i>admin1234</i>
+        \n\n<b>Don\'t forget to change your Password</b> once you have logged in to the <i>Dashboard</i> from the <i>Accounts</i> section.
+        You can also create multiple <i>Accounts</i> for your Staff with different Privileges</string>
+
+    <!-- DASHBOARD OPEN AND CLOSE STRINGS -->
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+
+    <!-- DASHBOARD STRINGS -->
+    <string name="dash_sales_in_units_label">TODAY\'S SALES (IN UNITS)</string>
+    <string name="dash_todays_sales_label">TODAY\'S SALES</string>
+    <string name="dash_btn_lbl_dashboard">Dashboard</string>
+    <string name="dash_btn_lbl_menu">Menu</string>
+    <string name="dash_btn_lbl_reports">Reports</string>
+    <string name="dash_btn_lbl_tables">Tables</string>
+    <string name="dash_btn_lbl_taxes">Taxes</string>
+    <string name="dash_btn_lbl_payments">Payments Manager</string>
+
+    <!-- COUNTRIES LIST ITEM -->
+    <string name="countries_item_label">COUNTRY NAME</string>
+
+    <!-- DISH CUSTOM ITEM -->
+    <string name="dish_adap_dish_name">Dish Name</string>
+    <string name="dish_adap_price">PRICE</string>
+
+    <!-- ACCOUNT ADMINISTRATOR -->
+    <string name="acc_admin_search">Search For An Account</string>
+    <string name="acc_admin_role_filter">FILTER THE USER ROLES</string>
+    <string name="acc_mngr_user_roles_prompt">SELECT A USER ROLE</string>
+</resources>

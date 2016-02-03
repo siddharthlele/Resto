@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/foo_toolbar" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:scrollbarSize="@dimen/scroll_bar_size"
+        android:scrollbarThumbVertical="@color/primaryColorDark">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:baselineAligned="false"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/mnu_cat_cre_con_margin"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.AppCompatTextView
+                    fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/mnu_cat_cre_element_pad"
+                    android:text="@string/cat_creator_name_label"
+                    android:textColor="@android:color/secondary_text_dark"
+                    android:textSize="15sp" />
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/edtCategoryName"
+                    fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/mnu_cat_cre_card_image_pad_margin"
+                    android:layout_marginTop="@dimen/mnu_cat_cre_card_image_pad_margin"
+                    android:gravity="left|center"
+                    android:hint="@string/cat_creator_name"
+                    android:inputType="textCapWords"
+                    android:maxLines="1"
+                    android:padding="@dimen/mnu_cat_cre_element_pad"
+                    android:paddingLeft="@dimen/mnu_cat_cre_card_image_pad_margin"
+                    android:paddingRight="@dimen/mnu_cat_cre_card_image_pad_margin"
+                    android:textColor="@android:color/primary_text_dark"
+                    android:textSize="@dimen/mnu_cat_cre_text_size" />
+
+                <LinearLayout
+                    android:id="@+id/linlaImageContainer"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginBottom="@dimen/mnu_cat_cre_image_cont_margin"
+                    android:layout_marginTop="@dimen/mnu_cat_cre_image_cont_margin"
+                    android:orientation="vertical">
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/txtCategoryThumbLabel"
+                        fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/mnu_cat_cre_card_image_pad_margin"
+                        android:layout_marginLeft="@dimen/mnu_cat_cre_card_image_margin"
+                        android:layout_marginRight="@dimen/mnu_cat_cre_card_image_margin"
+                        android:layout_marginTop="@dimen/mnu_cat_cre_card_image_pad_margin"
+                        android:gravity="center"
+                        android:text="@string/cat_creator_dish_thumb_label"
+                        android:textColor="@android:color/secondary_text_dark"
+                        android:textSize="@dimen/mnu_cat_cre_text_size" />
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/crdvwCategoryThumb"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_margin="@dimen/mnu_cat_cre_card_image_pad_margin"
+                        android:padding="@dimen/mnu_cat_cre_card_image_pad_margin"
+                        card_view:cardBackgroundColor="@color/cardBG"
+                        card_view:cardCornerRadius="2dp"
+                        card_view:cardElevation="5dp">
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:id="@+id/imgvwCategoryThumb"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_margin="@dimen/mnu_cat_cre_card_image_margin"
+                            android:adjustViewBounds="true"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/empty_camera" />
+                    </android.support.v7.widget.CardView>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

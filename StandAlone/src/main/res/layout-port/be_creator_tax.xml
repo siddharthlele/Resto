@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/foo_toolbar" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:scrollbarSize="@dimen/scroll_bar_size"
+        android:scrollbarThumbVertical="@color/primaryColorDark"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/tax_cre_cont_margin"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/txtTaxNameLabel"
+                    fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/tax_cre_global_pad"
+                    android:text="@string/tax_creator_tax_name_label"
+                    android:textColor="@android:color/secondary_text_dark"
+                    android:textSize="@dimen/tax_cre_global_text_size"
+                    tools:ignore="MissingPrefix" />
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/edtTaxName"
+                    fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/tax_cre_edt_margin"
+                    android:hint="@string/tax_creator_tax_name_hint"
+                    android:inputType="textCapWords"
+                    android:padding="@dimen/tax_cre_global_pad"
+                    android:textColor="@android:color/primary_text_dark"
+                    android:textColorHint="@android:color/secondary_text_dark"
+                    android:textSize="@dimen/tax_cre_global_text_size"
+                    tools:ignore="MissingPrefix" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/txtTaxPercentageLabel"
+                    fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/tax_cre_label_margin"
+                    android:padding="@dimen/tax_cre_global_pad"
+                    android:text="@string/tax_creator_tax_percentage_label"
+                    android:textColor="@android:color/secondary_text_dark"
+                    android:textSize="@dimen/tax_cre_global_text_size"
+                    tools:ignore="MissingPrefix" />
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/edtTaxPercentage"
+                    fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/tax_cre_edt_margin"
+                    android:hint="@string/tax_creator_tax_percentage_hint"
+                    android:inputType="numberDecimal"
+                    android:maxLength="50"
+                    android:padding="@dimen/tax_cre_global_pad"
+                    android:textColor="@android:color/primary_text_dark"
+                    android:textColorHint="@android:color/secondary_text_dark"
+                    android:textSize="@dimen/tax_cre_global_text_size"
+                    tools:ignore="MissingPrefix" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/txtTaxRegistrationLabel"
+                    fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/tax_cre_label_margin"
+                    android:padding="@dimen/tax_cre_global_pad"
+                    android:text="@string/tax_creator_tax_number_label"
+                    android:textColor="@android:color/secondary_text_dark"
+                    android:textSize="@dimen/tax_cre_global_text_size"
+                    tools:ignore="MissingPrefix" />
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/edtTaxRegistration"
+                    fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/tax_cre_edt_margin"
+                    android:hint="@string/tax_creator_tax_number_hint"
+                    android:inputType="textCapCharacters"
+                    android:maxLines="1"
+                    android:padding="@dimen/tax_cre_global_pad"
+                    android:textColor="@android:color/primary_text_dark"
+                    android:textColorHint="@android:color/secondary_text_dark"
+                    android:textSize="@dimen/tax_cre_global_text_size"
+                    tools:ignore="MissingPrefix" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/txtTaxPercentageOfAmountLabel"
+                    fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/tax_cre_label_margin"
+                    android:padding="@dimen/tax_cre_global_pad"
+                    android:text="@string/tax_creator_tax_percentage_of_amount_label"
+                    android:textColor="@android:color/secondary_text_dark"
+                    android:textSize="@dimen/tax_cre_global_text_size"
+                    tools:ignore="MissingPrefix" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/tax_cre_global_pad">
+
+                    <RadioGroup
+                        android:id="@+id/rdgrpPercentOfAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <android.support.v7.widget.AppCompatRadioButton
+                            android:id="@+id/rdbtnYes"
+                            fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:text="@string/tax_creator_yes"
+                            tools:ignore="MissingPrefix" />
+
+                        <android.support.v7.widget.AppCompatRadioButton
+                            android:id="@+id/rdbtnNo"
+                            fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:text="@string/tax_creator_no"
+                            tools:ignore="MissingPrefix" />
+                    </RadioGroup>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linlaPercentageOfAmount"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/edtTaxPercentageOfAmount"
+                        fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/tax_cre_edt_margin"
+                        android:layout_weight="1"
+                        android:hint="@string/tax_creator_tax_percentage_of_amount_hint"
+                        android:inputType="numberDecimal"
+                        android:padding="@dimen/tax_cre_global_pad"
+                        android:textColor="@android:color/primary_text_dark"
+                        android:textColorHint="@android:color/secondary_text_dark"
+                        android:textSize="@dimen/tax_cre_global_text_size"
+                        tools:ignore="MissingPrefix" />
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/imgvwWhatIsThis"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/tax_cre_edt_margin"
+                        android:layout_marginRight="@dimen/tax_cre_edt_margin"
+                        android:adjustViewBounds="true"
+                        android:gravity="center"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_info_outline_white_24dp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/txtRequiredFields"
+        fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/tax_cre_btm_mar_btm_top"
+        android:layout_marginLeft="@dimen/tax_cre_btm_mar_lft_rgt"
+        android:layout_marginRight="@dimen/tax_cre_btm_mar_lft_rgt"
+        android:layout_marginTop="@dimen/tax_cre_btm_mar_btm_top"
+        android:gravity="right|center"
+        android:padding="@dimen/tax_cre_btm_pad"
+        android:text="@string/tax_creator_req_fields"
+        android:textSize="@dimen/tax_cre_btm_text_size"
+        tools:ignore="MissingPrefix" />
+
+</LinearLayout>

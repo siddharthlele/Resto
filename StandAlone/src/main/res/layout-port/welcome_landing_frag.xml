@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="40"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatTextView
+            fontPath="fonts/MaterialIcons-Regular.ttf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/app_icon"
+            android:padding="@dimen/wel_landing_image_pad"
+            android:textColor="@android:color/holo_orange_dark"
+            android:textSize="@dimen/wel_landing_icon" />
+
+        <android.support.v7.widget.AppCompatTextView
+            fontPath="fonts/Roboto-Thin.ttf"
+            android:layout_width="fill_parent"
+            android:padding="@dimen/wel_landing_image_pad"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/app_name_splash"
+            android:textColor="@android:color/secondary_text_dark"
+            android:textSize="@dimen/wel_landing_name_size" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="60"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.AppCompatTextView
+                fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="5dp"
+                android:gravity="top|center"
+                android:text="@string/welcome_landing_welcome_message"
+                android:textColor="@android:color/primary_text_dark"
+                android:textSize="@dimen/wel_landing_message_size" />
+
+            <android.support.v7.widget.AppCompatTextView
+                fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtWelcomeMessage"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:text="@string/welcome_landing_enjoy_text"
+                android:textColor="@android:color/secondary_text_dark"
+                android:textSize="@dimen/wel_landing_others_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linlaBottomContainer"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/wel_rest_element_top_btm_margins"
+            android:layout_marginLeft="@dimen/wel_rest_element_top_btm_margins"
+            android:layout_marginRight="@dimen/wel_rest_element_top_btm_margins"
+            android:layout_marginTop="@dimen/wel_rest_element_lft_rgt_margins"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txtStep"
+                fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start|center"
+                android:paddingLeft="@dimen/wel_landing_bottom_pad"
+                android:text="@string/welcome_screen_activity_step"
+                android:textColor="@android:color/secondary_text_dark"
+                android:textSize="@dimen/wel_landing_bottom_size" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txtSwipeToContinue"
+                fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end|center"
+                android:paddingRight="@dimen/wel_landing_bottom_pad"
+                android:text="@string/tutorial_welcome_swipe"
+                android:textColor="@android:color/secondary_text_dark"
+                android:textSize="@dimen/wel_landing_bottom_size" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

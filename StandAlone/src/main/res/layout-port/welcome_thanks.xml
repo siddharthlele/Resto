@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/profile_scroll_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:fadingEdge="none"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="0dip"
+            android:layout_weight="1"
+            android:fillViewport="true"
+            android:scrollbarSize="5dp"
+            android:scrollbarThumbVertical="@color/primaryColorDark"
+            android:scrollbars="vertical">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dip"
+                    android:layout_weight="40"
+                    android:gravity="center">
+
+                    <android.support.v7.widget.AppCompatTextView
+                        fontPath="fonts/MaterialIcons-Regular.ttf"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="@dimen/wel_landing_image_pad"
+                        android:text="@string/app_icon"
+                        android:textColor="@android:color/holo_orange_dark"
+                        android:textSize="@dimen/wel_landing_icon" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dip"
+                    android:layout_weight="60"
+                    android:orientation="vertical">
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/txtThanksIntro"
+                        fontPath="fonts/Roboto-Regular.ttf"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:text="@string/tutorial_thanks_intro"
+                        android:textSize="16sp" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/txtThanksFeedback"
+                        fontPath="fonts/Roboto-Regular.ttf"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:autoLink="all"
+                        android:gravity="center"
+                        android:text="@string/tutorial_thanks_feedback"
+                        android:textSize="16sp" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/txtAcceptTerms"
+                        fontPath="fonts/Roboto-Regular.ttf"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"
+                        android:padding="6dp"
+                        android:text="@string/tutorial_thanks_tos"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btnAccept"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:text="@string/tutorial_thanks_done_button"
+            android:textColor="@android:color/secondary_text_dark" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linlaBottomContainer"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/wel_rest_element_top_btm_margins"
+        android:layout_marginLeft="@dimen/wel_rest_element_top_btm_margins"
+        android:layout_marginRight="@dimen/wel_rest_element_top_btm_margins"
+        android:layout_marginTop="@dimen/wel_rest_element_lft_rgt_margins"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/txtStep"
+            fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left|center"
+            android:paddingLeft="@dimen/wel_landing_bottom_pad"
+            android:text="@string/welcome_thanks_step"
+            android:textColor="@android:color/secondary_text_dark"
+            android:textSize="@dimen/wel_landing_bottom_size" />
+    </LinearLayout>
+</LinearLayout>

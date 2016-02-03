@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="login_tb">"Login In To Resto"</string>
+    <string name="welcome_container_tb">"Resto Configuration"</string>
+    <string name="dashboard_title">Dashboard</string>
+    <string name="category_manager_title">Categories Manager</string>
+    <string name="menu_creator_title">Add A New Dish</string>
+    <string name="taxes_manager_title">Taxes Manager</string>
+    <string name="tables_manager_title">Tables Manager</string>
+    <string name="account_manager_title">Accounts Manager</string>
+    <string name="reports_title">Reports</string>
+    <string name="account_creator_title">Create New Account</string>
+    <string name="account_modifier_title">Update Account</string>
+</resources>

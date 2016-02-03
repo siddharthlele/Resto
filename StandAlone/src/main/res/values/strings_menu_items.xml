@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="generic_mb_new">New</string>
+    <string name="generic_mb_add">Add</string>
+    <string name="generic_mb_save">Save</string>
+    <string name="generic_mb_clear">Clear</string>
+    <string name="generic_mb_cancel">Cancel</string>
+    <string name="generic_mb_edit">Edit</string>
+    <string name="generic_mb_delete">Delete</string>
+    <string name="generic_mb_delete_question">Delete?</string>
+    <string name="generic_mb_help">Help</string>
+    <string name="generic_mb_yes">Yes</string>
+    <string name="generic_mb_no">No</string>
+    <string name="generic_mb_details">Details</string>
+    <string name="generic_mb_order_cart">Order Cart</string>
+    <string name="generic_mb_checkout">Checkout</string>
+    <string name="generic_mb_taxes">Configure Taxes</string>
+
+    <string name="tb_start_orders">Take Orders</string>
+
+    <string name="menu_admin_mb_new_category">Category</string>
+
+    <string name="menu_admin_mb_new_menu">Menu</string>
+
+    <string name="menu_editor_menu_bar_edit">Edit</string>
+    <string name="menu_editor_menu_bar_details">View Details</string>
+
+    <string name="menu_creator_menu_bar_save">Save</string>
+    <string name="menu_creator_menu_bar_cancel">Cancel</string>
+
+    <string name="acc_mgr_menu_bar_new_account">New Account</string>
+</resources>

@@ -1,0 +1,9 @@
+<resources>
+
+    <!-- PHONE / TABLET-->
+    <bool name="isTablet">true</bool>
+
+    <!-- SPLASH SCREEN -->
+    <dimen name="icon_size">200sp</dimen>
+    <dimen name="app_name_size">80sp</dimen>
+</resources>

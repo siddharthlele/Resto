@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- WELCOME SCREEN TOOLBAR TITLES -->
+    <string name="welcome_screen_activity_title">Welcome To Resto</string>
+    <string name="welcome_screen_activity_step">STEP 1 OF 4</string>
+    <string name="welcome_screen_rest_details_title">Restaurant Details</string>
+    <string name="welcome_screen_rest_details_step">STEP 2 OF 4</string>
+    <string name="welcome_screen_tables_title">Add / Configure Your Tables</string>
+    <string name="welcome_screen_tables_step">STEP 3 OF 8</string>
+    <string name="welcome_screen_countries_title">Select Your Default Country</string>
+    <string name="welcome_screen_countries_step">STEP 4 OF 8</string>
+    <string name="welcome_screen_currency_title">Select Your Default Currency</string>
+    <string name="welcome_screen_currency_step">STEP 3 OF 4</string>
+    <string name="welcome_screen_taxes_title">Configure your Taxes</string>
+    <string name="welcome_screen_taxes_step">STEP 6 OF 8</string>
+    <string name="welcome_screen_status_title">Final Status Check</string>
+    <string name="welcome_screen_status_step">STEP 7 OF 8</string>
+    <string name="welcome_thanks_title">Thank You For Installing Resto</string>
+    <string name="welcome_thanks_step">STEP 4 OF 4</string>
+
+    <!--<string name="welcome_screen_activity_title">Welcome To Resto</string>
+    <string name="welcome_screen_activity_step">STEP 1 OF 8</string>
+    <string name="welcome_screen_rest_details_title">Restaurant Details</string>
+    <string name="welcome_screen_rest_details_step">STEP 2 OF 8</string>
+    <string name="welcome_screen_tables_title">Add / Configure Your Tables</string>
+    <string name="welcome_screen_tables_step">STEP 3 OF 8</string>
+    <string name="welcome_screen_countries_title">Select Your Default Country</string>
+    <string name="welcome_screen_countries_step">STEP 4 OF 8</string>
+    <string name="welcome_screen_currency_title">Select Your Default Currency</string>
+    <string name="welcome_screen_currency_step">STEP 5 OF 8</string>
+    <string name="welcome_screen_taxes_title">Configure your Taxes</string>
+    <string name="welcome_screen_taxes_step">STEP 6 OF 8</string>
+    <string name="welcome_screen_status_title">Final Status Check</string>
+    <string name="welcome_screen_status_step">STEP 7 OF 8</string>
+    <string name="welcome_thanks_title">Thank You For Installing Resto</string>
+    <string name="welcome_thanks_step">STEP 8 OF 8</string>-->
+
+    <!-- WELCOME SCREEN - WELCOME ACTIVITY -->
+    <string name="tutorial_welcome_swipe">« Swipe to continue</string>
+    <string name="tutorial_welcome_select"><i>« Select an Item to continue</i></string>
+
+    <!-- WELCOME PAGE - LANDING -->
+    <string name="welcome_landing_logo_description">Resto Logo</string>
+    <string name="welcome_landing_welcome_message">Thank You for installing <b>Resto</b> - The Restaurant Manager</string>
+    <string name="welcome_landing_enjoy_text">We hope you not only enjoy using it but also find it <i>productive</i>. We also hope (<i>even more actually ;-)</i>) that your Guests love it too.
+    \n\nThe next few screens will help you <i>configure</i>, <i>customize</i> and <i>personalize</i> your copy of <b>Resto</b>.</string>
+
+    <!-- WELCOME PAGE - RESTAURANT -->
+    <string name="welcome_rest_save_progress">Please wait while your Restaurant Details are being configured in Resto.</string>
+    <string name="welcome_rest_top_label">Provide the name of your Restaurant <i>(You can change it later from the <b>Settings</b> panel.)</i></string>
+    <string name="welcome_rest_name_hint">Enter your Restaurant\'s Name</string>
+    <string name="welcome_rest_add_1">(*) Address 1</string>
+    <string name="welcome_rest_add_2">Address 2</string>
+    <string name="welcome_rest_city">(*) City</string>
+    <string name="welcome_rest_state">(*) State</string>
+    <string name="welcome_rest_country">(*) Country</string>
+    <string name="welcome_rest_currency">(*) Default Currency</string>
+    <string name="welcome_rest_zip">(*) ZIP Code</string>
+    <string name="welcome_rest_contact">(*) Contact Number <i>(With code if applicable)</i></string>
+    <string name="welcome_rest_email">(*) EMail Address</string>
+    <string name="welcome_rest_website">Website <i>(If available)</i></string>
+    <string name="welcome_rest_logo_hint">Select a <b><i>high-res</i></b> image of your Restaurant\'s Logo to ensure better clarity for a great experience for your <i>Guests</i>. The Logo <b>should preferably</b> be selected from the <b>Gallery</b> as against the <i>Camera</i>.</string>
+    <string name="welcome_rest_logo_description">Provide the Restaurant\'s Logo</string>
+    <string name="welcome_rest_logo_missing">Please select an <b>Image</b> to use as your <b>Restaurant\'s Logo</b></string>
+    <string name="welcome_rest_details_missing">A few Required Fields are missing. Please add where required.</string>
+
+    <!-- TAXES ITEM -->
+    <string name="taxes_top_configure">You can change, modify, or edit your Taxes from the Settings Console later.</string>
+    <string name="taxes_selected_country_label"><b>COUNTRY SELECTED</b></string>
+    <string name="taxes_selected_country">COUNTRY</string>
+    <string name="taxes_please_select_country">Please Select Your Default Country</string>
+    <string name="taxes_selected_currency_label"><b>CURRENCY SELECTED</b></string>
+    <string name="taxes_selected_currency">CURRENCY</string>
+    <string name="taxes_please_select_currency">Please Select The Default Currency</string>
+
+    <string name="tax_item_name_label">TAX NAME:</string>
+    <string name="tax_item_name">TAX NAME</string>
+    <string name="tax_item_percentage_label">TAX PERCENTAGE:</string>
+    <string name="tax_item_percentage">TAX PERCENTAGE</string>
+    <string name="tax_item_regn_num_label">REGISTRATION NUMBER:</string>
+    <string name="tax_item_regn_num">TAX NUMBER</string>
+    <string name="tax_item_applies_on">APPLIES ON</string>
+
+    <!-- WELCOME - STATUS CHECK -->
+    <string name="status_final_check_label"><![CDATA[This is the <b>final</b> <i>Status Check</i> to ensure all necessary information has been filled in.<br />
+        <font color=\"#55680e\"><b>Green</b></font> indicates you are <i>good to go</i>. <font color=\"#ff0000\"><b>Red</b></font> indicates you have <i>unfilled / unselected details remaining. (Tap to fix)</i>.]]></string>
+    <string name="status_restaurant">RESTAURANT DETAILS STATUS</string>
+    <string name="status_country">COUNTRY DETAILS STATUS</string>
+    <string name="status_currency">CURRENCY DETAILS STATUS</string>
+
+    <!-- THANKS ACTIVITY -->
+    <string name="tutorial_thanks_intro">Thank you for installing Resto!\nAgain, we are hopeful you like it and so do your Guests.</string>
+    <string name="tutorial_thanks_feedback">If you have any suggestions for us or want to report a bug please do not hesitate to reach us at resto@dzinesunlimited.com or log on to our website at www.dzinesunlimited.com</string>
+    <string name="tutorial_thanks_tos">By continuing, you accept the Resto <a href="http://www.dzinesunlimited.com/termsofservice">Terms</a> and <a href="http://www.dzinesunlimited.com/privacy">Privacy Policy</a>.</string>
+    <string name="tutorial_thanks_done_button">Take me to the app!</string>
+
+    <!-- THANKS ACTIVITY - MISSING DETAILS -->
+    <string name="tut_rest_details_missing">You seem to have missed filling in the <b>Restaurant Details</b>.
+        \n\nThis is an essential detail which will be used in <b>Resto</b>. For example, On the <b>Bills</b>printed for your <i>Guests</i>.</string>
+    <string name="tut_country_details_missing">You seem to have missed selecting your default <b>Country</b>.
+        \n\nThis is an essential detail which will be used in various parts of <b>Resto</b>.
+        \n\nPlease select a default Country for your Restaurant</string>
+    <string name="tut_currency_details_missing">You seem to have missed selecting your default <b>Currency</b>.
+        \n\nThis is an essential detail which will be used in various parts of <b>Resto</b> For example, the <b>Currency</b> you select will be used when displaying the prices of your Dishes, in your Reports, in the generation / printing of your Guests Bills, etc.</string>
+</resources>

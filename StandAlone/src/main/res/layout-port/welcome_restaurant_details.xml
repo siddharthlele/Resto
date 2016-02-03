@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linlaRestDetailsContainer"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:scrollbarSize="@dimen/scroll_bar_size"
+        android:scrollbarThumbVertical="@color/primaryColorDark"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/wel_rest_top_container_pad">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/txtRestaurantNameLabel"
+                    fontPath="fonts/RobotoCondensed-Regular.ttf"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/wel_rest_message_margin"
+                    android:layout_marginRight="@dimen/wel_rest_message_margin"
+                    android:gravity="center"
+                    android:padding="@dimen/wel_rest_message_pad"
+                    android:text="@string/welcome_rest_top_label"
+                    android:textColor="@android:color/primary_text_dark"
+                    android:textSize="@dimen/wel_rest_message_size" />
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/edtRestaurantName"
+                    fontPath="fonts/Museo300-Regular.otf"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/wel_rest_element_lft_rgt_margins"
+                    android:layout_marginRight="@dimen/wel_rest_element_lft_rgt_margins"
+                    android:hint="@string/welcome_rest_name_hint"
+                    android:inputType="textCapWords"
+                    android:padding="@dimen/wel_rest_element_pad"
+                    android:singleLine="true"
+                    android:text="FooDzines"
+                    android:textColor="@android:color/primary_text_dark"
+                    android:textColorHint="@android:color/secondary_text_dark"
+                    android:textSize="@dimen/wel_rest_name_size" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/rellaPrimaryContainer"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputAddress1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="@dimen/wel_rest_element_top_btm_margins"
+                    android:layout_marginLeft="@dimen/wel_rest_element_lft_rgt_margins"
+                    android:layout_marginRight="@dimen/wel_rest_element_lft_rgt_margins"
+                    android:layout_marginTop="@dimen/wel_rest_element_top_btm_margins"
+                    android:textColorHint="@android:color/secondary_text_dark">
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/edtAddress1"
+                        fontPath="fonts/RobotoCondensed-Regular.ttf"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:hint="@string/welcome_rest_add_1"
+                        android:inputType="textCapWords"
+                        android:padding="@dimen/wel_rest_element_pad"
+                        android:singleLine="true"
+                        android:text="5, Shubhajay Apartment"
+                        android:textColor="@android:color/primary_text_dark"
+                        android:textSize="@dimen/wel_rest_element_size" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputAddress2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/inputAddress1"
+                    android:layout_below="@+id/inputAddress1"
+                    android:layout_marginBottom="@dimen/wel_rest_element_top_btm_margins"
+                    android:layout_marginRight="@dimen/wel_rest_element_lft_rgt_margins"
+                    android:layout_marginTop="@dimen/wel_rest_element_top_btm_margins"
+                    android:textColorHint="@android:color/secondary_text_dark">
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/edtAddress2"
+                        fontPath="fonts/RobotoCondensed-Regular.ttf"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/welcome_rest_add_2"
+                        android:inputType="textCapWords"
+                        android:padding="@dimen/wel_rest_element_pad"
+                        android:singleLine="true"
+                        android:text="39/27 Erandwane, Prabhat Road - Lane No. 9"
+                        android:textColor="@android:color/primary_text_dark"
+                        android:textSize="@dimen/wel_rest_element_size" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputCity"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/inputAddress2"
+                    android:layout_below="@+id/inputAddress2"
+                    android:layout_marginBottom="@dimen/wel_rest_element_top_btm_margins"
+                    android:layout_marginRight="@dimen/wel_rest_element_lft_rgt_margins"
+                    android:layout_marginTop="@dimen/wel_rest_element_top_btm_margins"
+                    android:textColorHint="@android:color/secondary_text_dark">
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/edtCity"
+                        fontPath="fonts/RobotoCondensed-Regular.ttf"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/welcome_rest_city"
+                        android:inputType="textCapWords"
+                        android:padding="@dimen/wel_rest_element_pad"
+                        android:singleLine="true"
+                        android:text="Pune"
+                        android:textColor="@android:color/primary_text_dark"
+                        android:textSize="@dimen/wel_rest_element_size" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputState"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/inputCity"
+                    android:layout_below="@+id/inputCity"
+                    android:layout_marginBottom="@dimen/wel_rest_element_top_btm_margins"
+                    android:layout_marginRight="@dimen/wel_rest_element_lft_rgt_margins"
+                    android:layout_marginTop="@dimen/wel_rest_element_top_btm_margins"
+                    android:textColorHint="@android:color/secondary_text_dark">
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/edtState"
+                        fontPath="fonts/RobotoCondensed-Regular.ttf"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/inputCity"
+                        android:layout_below="@+id/inputCity"
+                        android:hint="@string/welcome_rest_state"
+                        android:inputType="textCapWords"
+                        android:padding="@dimen/wel_rest_element_pad"
+                        android:singleLine="true"
+                        android:text="Maharashtra"
+                        android:textColor="@android:color/primary_text_dark"
+                        android:textSize="@dimen/wel_rest_element_size" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputCountry"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/inputState"
+                    android:layout_below="@+id/inputState"
+                    android:layout_marginBottom="@dimen/wel_rest_element_top_btm_margins"
+                    android:layout_marginRight="@dimen/wel_rest_element_lft_rgt_margins"
+                    android:layout_marginTop="@dimen/wel_rest_element_top_btm_margins"
+                    android:textColorHint="@android:color/secondary_text_dark">
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/edtCountry"
+                        fontPath="fonts/RobotoCondensed-Regular.ttf"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/inputState"
+                        android:layout_below="@+id/inputState"
+                        android:hint="@string/welcome_rest_country"
+                        android:inputType="textCapWords"
+                        android:padding="@dimen/wel_rest_element_pad"
+                        android:singleLine="true"
+                        android:text="India"
+                        android:textColor="@android:color/primary_text_dark"
+                        android:textSize="@dimen/wel_rest_element_size" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputZIP"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/inputCountry"
+                    android:layout_below="@+id/inputCountry"
+                    android:layout_marginBottom="@dimen/wel_rest_element_top_btm_margins"
+                    android:layout_marginRight="@dimen/wel_rest_element_lft_rgt_margins"
+                    android:layout_marginTop="@dimen/wel_rest_element_top_btm_margins"
+                    android:textColorHint="@android:color/secondary_text_dark">
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/edtZIP"
+                        fontPath="fonts/RobotoCondensed-Regular.ttf"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/inputCountry"
+                        android:layout_below="@+id/inputCountry"
+                        android:hint="@string/welcome_rest_zip"
+                        android:inputType="number"
+                        android:padding="@dimen/wel_rest_element_pad"
+                        android:singleLine="true"
+                        android:text="411004"
+                        android:textColor="@android:color/primary_text_dark"
+                        android:textColorHint="@android:color/secondary_text_dark"
+                        android:textSize="@dimen/wel_rest_element_size" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputPhone"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/inputZIP"
+                    android:layout_below="@+id/inputZIP"
+                    android:layout_marginBottom="@dimen/wel_rest_element_top_btm_margins"
+                    android:layout_marginRight="@dimen/wel_rest_element_lft_rgt_margins"
+                    android:layout_marginTop="@dimen/wel_rest_element_top_btm_margins"
+                    android:textColorHint="@android:color/secondary_text_dark">
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/edtPhone"
+                        fontPath="fonts/RobotoCondensed-Regular.ttf"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/inputZIP"
+                        android:layout_below="@+id/inputZIP"
+                        android:hint="@string/welcome_rest_contact"
+                        android:inputType="phone"
+                        android:padding="@dimen/wel_rest_element_pad"
+                        android:singleLine="true"
+                        android:text="8087471157"
+                        android:textColor="@android:color/primary_text_dark"
+                        android:textSize="@dimen/wel_rest_element_size" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputEmail"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/inputPhone"
+                    android:layout_below="@+id/inputPhone"
+                    android:layout_marginBottom="@dimen/wel_rest_element_top_btm_margins"
+                    android:layout_marginRight="@dimen/wel_rest_element_lft_rgt_margins"
+                    android:layout_marginTop="@dimen/wel_rest_element_top_btm_margins"
+                    android:textColorHint="@android:color/secondary_text_dark">
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/edtEmail"
+                        fontPath="fonts/RobotoCondensed-Regular.ttf"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/inputPhone"
+                        android:layout_below="@+id/inputPhone"
+                        android:hint="@string/welcome_rest_email"
+                        android:inputType="textEmailAddress"
+                        android:padding="@dimen/wel_rest_element_pad"
+                        android:singleLine="true"
+                        android:text="siddharth@dzinesunlimited.com"
+                        android:textColor="@android:color/primary_text_dark"
+                        android:textSize="@dimen/wel_rest_element_size" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/inputWebsite"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/inputEmail"
+                    android:layout_below="@+id/inputEmail"
+                    android:layout_marginBottom="@dimen/wel_rest_element_top_btm_margins"
+                    android:layout_marginRight="@dimen/wel_rest_element_lft_rgt_margins"
+                    android:layout_marginTop="@dimen/wel_rest_element_top_btm_margins"
+                    android:textColorHint="@android:color/secondary_text_dark">
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/edtWebsite"
+                        fontPath="fonts/RobotoCondensed-Regular.ttf"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/inputEmail"
+                        android:layout_below="@+id/inputEmail"
+                        android:hint="@string/welcome_rest_website"
+                        android:padding="@dimen/wel_rest_element_pad"
+                        android:singleLine="true"
+                        android:text="www.dzinesunlimited.com"
+                        android:textColor="@android:color/primary_text_dark"
+                        android:textSize="@dimen/wel_rest_element_size" />
+                </android.support.design.widget.TextInputLayout>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/rellaSecondaryContainer"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/wel_rest_element_lft_rgt_margins"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.AppCompatTextView
+                    fontPath="fonts/RobotoCondensed-Regular.ttf"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="@dimen/wel_rest_photo_btm_margin"
+                    android:layout_marginRight="@dimen/wel_rest_element_lft_rgt_margins"
+                    android:gravity="center"
+                    android:text="@string/welcome_rest_logo_hint"
+                    android:textColor="@android:color/primary_text_dark"
+                    android:textSize="@dimen/wel_rest_element_size" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_alignLeft="@+id/txtRestaurantLogoLabel"
+                    android:layout_below="@+id/txtRestaurantLogoLabel"
+                    android:layout_marginBottom="@dimen/wel_rest_element_top_btm_margins"
+                    android:layout_marginLeft="@dimen/wel_rest_element_lft_rgt_margins"
+                    android:layout_marginRight="@dimen/wel_rest_element_lft_rgt_margins"
+                    android:layout_marginTop="@dimen/wel_rest_element_top_btm_margins"
+                    android:background="@drawable/photo_frame_bg"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/imgvwRestaurantLogo"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="@string/welcome_rest_logo_description"
+                        android:padding="@dimen/wel_rest_message_pad"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/empty_camera" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/linlaBottomContainer"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/wel_rest_element_top_btm_margins"
+        android:layout_marginLeft="@dimen/wel_rest_element_top_btm_margins"
+        android:layout_marginRight="@dimen/wel_rest_element_top_btm_margins"
+        android:layout_marginTop="@dimen/wel_rest_element_lft_rgt_margins"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/txtStep"
+            fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left|center"
+            android:paddingLeft="@dimen/wel_landing_bottom_pad"
+            android:text="@string/welcome_screen_rest_details_step"
+            android:textColor="@android:color/secondary_text_dark"
+            android:textSize="@dimen/wel_landing_bottom_size" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/txtSwipeToContinue"
+            fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right|center"
+            android:paddingRight="@dimen/wel_landing_bottom_pad"
+            android:text="@string/tutorial_welcome_swipe"
+            android:textColor="@android:color/secondary_text_dark"
+            android:textSize="@dimen/wel_landing_bottom_size" />
+    </LinearLayout>
+
+</LinearLayout>

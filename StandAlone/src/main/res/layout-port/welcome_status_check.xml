@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txtFinalStatusLabel"
+                fontPath="fonts/RobotoCondensed-Regular.ttf"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="5dp"
+                android:gravity="center"
+                android:text="@string/status_final_check_label"
+                android:textColor="@android:color/secondary_text_dark"
+                android:textSize="16sp" />
+
+            <RelativeLayout
+                android:id="@+id/rellaRestaurantDetails"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtFinalStatusLabel"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="20dp"
+                android:padding="11dp">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/txtRestaurantDetails"
+                    fontPath="fonts/RobotoCondensed-Regular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:text="@string/status_restaurant"
+                    android:textColor="@android:color/primary_text_dark"
+                    android:textSize="20sp" />
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/imgvwRestaurantDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/ic_signal_green" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rellaCountryDetails"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/rellaRestaurantDetails"
+                android:layout_below="@+id/rellaRestaurantDetails"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="10dp"
+                android:padding="11dp">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/txtCountryDetails"
+                    fontPath="fonts/RobotoCondensed-Regular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:text="@string/status_country"
+                    android:textColor="@android:color/primary_text_dark"
+                    android:textSize="20sp" />
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/imgvwCountryDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/ic_signal_green" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rellaCurrencyDetails"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/rellaCountryDetails"
+                android:layout_below="@+id/rellaCountryDetails"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="10dp"
+                android:padding="11dp">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/txtCurrencyDetails"
+                    fontPath="fonts/RobotoCondensed-Regular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:text="@string/status_currency"
+                    android:textColor="@android:color/primary_text_dark"
+                    android:textSize="20sp" />
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/imgvwCurrencyDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/ic_signal_green" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linlaBottomContainer"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/wel_rest_element_top_btm_margins"
+        android:layout_marginLeft="@dimen/wel_rest_element_top_btm_margins"
+        android:layout_marginRight="@dimen/wel_rest_element_top_btm_margins"
+        android:layout_marginTop="@dimen/wel_rest_element_lft_rgt_margins"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/txtStep"
+            fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left|center"
+            android:paddingLeft="@dimen/wel_landing_bottom_pad"
+            android:text="@string/welcome_screen_status_step"
+            android:textColor="@android:color/secondary_text_dark"
+            android:textSize="@dimen/wel_landing_bottom_size" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/txtSwipeToContinue"
+            fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right|center"
+            android:paddingRight="@dimen/wel_landing_bottom_pad"
+            android:text="@string/tutorial_welcome_swipe"
+            android:textColor="@android:color/secondary_text_dark"
+            android:textSize="@dimen/wel_landing_bottom_size" />
+    </LinearLayout>
+</LinearLayout>

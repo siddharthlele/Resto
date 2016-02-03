@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    tools:ignore="RtlCompat">
+
+    <include layout="@layout/foo_toolbar" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="40"
+        android:gravity="center"
+        android:padding="@dimen/log_logo_pad">
+
+        <android.support.v7.widget.AppCompatTextView
+            fontPath="fonts/MaterialIcons-Regular.ttf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/app_icon"
+            android:textColor="@android:color/holo_orange_dark"
+            android:textSize="@dimen/icon_size" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="60"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/log_form_pad">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/log_form_margin"
+            android:layout_marginRight="@dimen/log_form_margin"
+            app:cardBackgroundColor="@color/cardBG"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="4dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/log_form_pad">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/edtUserName"
+                    fontPath="fonts/RobotoCondensed-Regular.ttf"
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/log_form_height"
+                    android:layout_marginBottom="@dimen/log_form_margin"
+                    android:background="@null"
+                    android:cursorVisible="true"
+                    android:drawablePadding="@dimen/log_form_draw_pad"
+                    android:drawableStart="@drawable/ic_person_white_24dp"
+                    android:hint="@string/log_username"
+                    android:inputType="textNoSuggestions"
+                    android:maxLines="1"
+                    android:paddingBottom="@dimen/log_form_pad_btm_top"
+                    android:paddingLeft="@dimen/log_form_pad_lft_rgt"
+                    android:paddingRight="@dimen/log_form_pad_lft_rgt"
+                    android:paddingTop="@dimen/log_form_pad_btm_top"
+                    android:textColor="@android:color/primary_text_dark"
+                    android:textColorHint="@android:color/secondary_text_dark"
+                    android:textSize="@dimen/log_form_size" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/log_form_divider_height_width"
+                    android:layout_gravity="bottom|center"
+                    android:layout_marginLeft="@dimen/log_form_margin"
+                    android:layout_marginRight="@dimen/log_form_margin"
+                    android:background="@drawable/fixed_divider_horizontal_bright" />
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/edtPassword"
+                    fontPath="fonts/RobotoCondensed-Regular.ttf"
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/log_form_height"
+                    android:layout_marginTop="@dimen/log_form_margin"
+                    android:background="@null"
+                    android:cursorVisible="true"
+                    android:drawablePadding="@dimen/log_form_draw_pad"
+                    android:drawableStart="@drawable/ic_lock_white_24dp"
+                    android:hint="@string/log_password"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:paddingBottom="@dimen/log_form_pad_btm_top"
+                    android:paddingLeft="@dimen/log_form_pad_lft_rgt"
+                    android:paddingRight="@dimen/log_form_pad_lft_rgt"
+                    android:paddingTop="@dimen/log_form_pad_btm_top"
+                    android:textColor="@android:color/primary_text_dark"
+                    android:textColorHint="@android:color/secondary_text_dark"
+                    android:textSize="@dimen/log_form_size" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btnSignIn"
+            fontPath="fonts/RobotoCondensed-Regular.ttf"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/log_form_sign_in_margin_lft_rgt"
+            android:layout_marginRight="@dimen/log_form_sign_in_margin_lft_rgt"
+            android:layout_marginTop="@dimen/log_form_sign_in_margin_top"
+            android:background="@drawable/login_button_bg"
+            android:gravity="center"
+            android:text="@string/log_login_btn"
+            android:textColor="@android:color/primary_text_dark"
+            android:textSize="@dimen/log_form_sign_in_size" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="@dimen/log_form_sign_in_pad">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txtCreateAccount"
+                fontPath="fonts/RobotoCondensed-Regular.ttf"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end|center"
+                android:padding="@dimen/log_form_pad_btm_top"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textSize="@dimen/log_form_btm_size" />
+
+            <View
+                android:layout_width="@dimen/log_form_divider_height_width"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/log_form_margin"
+                android:background="@drawable/fixed_divider_horizontal_bright" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txtForgotPassword"
+                fontPath="fonts/RobotoCondensed-Regular.ttf"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:autoLink="all"
+                android:gravity="start|center"
+                android:padding="@dimen/log_form_pad_btm_top"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textSize="@dimen/log_form_btm_size" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

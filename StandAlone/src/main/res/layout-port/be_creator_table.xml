@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/foo_toolbar" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fillViewport="true"
+        android:scrollbarSize="@dimen/scroll_bar_size"
+        android:scrollbarThumbVertical="@color/primaryColorDark"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txtTableNumberLabel"
+                fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/table_cre_margin_lft_rgt"
+                android:layout_marginRight="@dimen/table_cre_margin_lft_rgt"
+                android:layout_marginTop="@dimen/table_cre_margin_top_btm"
+                android:gravity="left|center"
+                android:padding="@dimen/table_cre_global_pad"
+                android:text="@string/table_creator_table_number"
+                android:textColor="@android:color/secondary_text_dark"
+                android:textSize="@dimen/table_cre_global_text_size" />
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/edtTableNumber"
+                fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/table_cre_margin_lft_rgt"
+                android:layout_marginRight="@dimen/table_cre_margin_lft_rgt"
+                android:hint="@string/table_creator_table_number_hint"
+                android:inputType="number"
+                android:padding="@dimen/table_cre_global_pad"
+                android:textColor="@android:color/primary_text_dark"
+                android:textColorHint="@android:color/tertiary_text_dark"
+                android:textSize="@dimen/table_cre_global_text_size" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txtTableSeatsLabel"
+                fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/table_cre_margin_lft_rgt"
+                android:layout_marginRight="@dimen/table_cre_margin_lft_rgt"
+                android:layout_marginTop="@dimen/table_cre_margin_top_btm"
+                android:padding="@dimen/table_cre_global_pad"
+                android:text="@string/table_creator_table_seats"
+                android:textColor="@android:color/secondary_text_dark"
+                android:textSize="@dimen/table_cre_global_text_size" />
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/edtTableSeats"
+                fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/table_cre_margin_lft_rgt"
+                android:layout_marginRight="@dimen/table_cre_margin_lft_rgt"
+                android:hint="@string/table_creator_table_seats_hint"
+                android:inputType="number"
+                android:padding="@dimen/table_cre_global_pad"
+                android:textColor="@android:color/primary_text_dark"
+                android:textColorHint="@android:color/tertiary_text_dark"
+                android:textSize="@dimen/table_cre_global_text_size" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
