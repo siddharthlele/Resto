@@ -12,8 +12,9 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="0dip"
-        android:layout_weight="40"
+        android:layout_weight="50"
         android:gravity="center"
+        android:orientation="vertical"
         android:padding="@dimen/log_logo_pad">
 
         <android.support.v7.widget.AppCompatTextView
@@ -23,14 +24,24 @@
             android:gravity="center"
             android:text="@string/app_icon"
             android:textColor="@android:color/holo_orange_dark"
-            android:textSize="@dimen/icon_size" />
+            android:textSize="@dimen/log_icon_size" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/txtAppName"
+            fontPath="fonts/Roboto-Thin.ttf"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/app_name_splash"
+            android:textColor="@android:color/secondary_text_dark"
+            android:textSize="@dimen/app_name_size" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="0dip"
-        android:layout_weight="60"
-        android:gravity="center"
+        android:layout_weight="50"
+        android:gravity="center|bottom"
         android:orientation="vertical"
         android:padding="@dimen/log_form_pad">
 
@@ -106,6 +117,7 @@
             fontPath="fonts/RobotoCondensed-Regular.ttf"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/log_form_sign_in_margin_top"
             android:layout_marginLeft="@dimen/log_form_sign_in_margin_lft_rgt"
             android:layout_marginRight="@dimen/log_form_sign_in_margin_lft_rgt"
             android:layout_marginTop="@dimen/log_form_sign_in_margin_top"
@@ -114,25 +126,6 @@
             android:text="@string/log_login_btn"
             android:textColor="@android:color/primary_text_dark"
             android:textSize="@dimen/log_form_sign_in_size" />
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="@dimen/log_form_sign_in_pad">
-
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/txtCreateAccount"
-                fontPath="fonts/RobotoCondensed-Regular.ttf"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:padding="@dimen/log_form_pad_btm_top"
-                android:textColor="@android:color/holo_blue_dark"
-                android:textSize="@dimen/log_form_btm_size" />
-        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

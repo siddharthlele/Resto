@@ -8,11 +8,6 @@
             android:icon="@drawable/dash_home"
             android:title="@string/dash_btn_lbl_dashboard" />
         <item
-            android:id="@+id/dashAccounts"
-            android:checked="false"
-            android:icon="@drawable/dash_accounts"
-            android:title="@string/dash_btn_lbl_accounts" />
-        <item
             android:id="@+id/dashMenu"
             android:checked="false"
             android:icon="@drawable/dash_menu"
@@ -37,6 +32,10 @@
             android:checked="false"
             android:icon="@drawable/dash_payments"
             android:title="@string/dash_btn_lbl_payments" />
-
+        <item
+            android:id="@+id/dashAccounts"
+            android:checked="false"
+            android:icon="@drawable/dash_accounts"
+            android:title="@string/dash_btn_lbl_accounts" />
     </group>
 </menu>

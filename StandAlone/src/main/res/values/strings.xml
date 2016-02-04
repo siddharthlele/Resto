@@ -21,12 +21,12 @@
         	right <b>User Name</b> and <b>Password</b> combination.</string>
     <string name="log_info_title">LOGIN HELP</string>
     <string name="log_info">This is the Resto <i>Login Screen</i>.
-        \nTo help you get started, we have a created a default <b>Login</b> and <b>Password</b>. This Login ID gives you complete access (<i>Administrative Privileges</i>) to the Resto POS application.
-        \n\nHere is the Username Password combination
-        \nUsername: <i>superadmin</i>
-        \nPassword: <i>admin1234</i>
+        \nTo help you get started, we have a created a default <b>Username</b> and <b>Password</b>. This Login ID gives you complete access (<i>Administrative Privileges</i>) to the Resto - Restaurant Manager.
+        \n\nThese are the credentials:
+        \nUsername: <i>admin</i>
+        \nPassword: <i>1234</i>
         \n\n<b>Don\'t forget to change your Password</b> once you have logged in to the <i>Dashboard</i> from the <i>Accounts</i> section.
-        You can also create multiple <i>Accounts</i> for your Staff with different Privileges</string>
+        You can also create multiple <i>Accounts</i> for your Staff with different Privileges from there.</string>
 
     <!-- DASHBOARD OPEN AND CLOSE STRINGS -->
     <string name="drawer_open">Open</string>

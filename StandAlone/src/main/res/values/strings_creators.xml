@@ -24,7 +24,7 @@
     <string name="nw_acc_dob">Date Of Birth</string>
     <string name="nw_acc_user_photo_label">Choose / Capture a <b>Photo</b> of the User / Staff. Use either an existing <b>Photo</b> from the <i>Gallery app</i>, or take a new Photo using the <i>Camera app</i>.</string>
     <string name="account_empty_duplicate_username">This Username already exists. Please select a new Username.</string>
-    <string name="modifier_acc_re_password">Re-enter The Password To Update</string>
+    <string name="modifier_acc_re_password"><b>Confirm</b> your Password to update the Account</string>
 
     <!-- TABLE CREATOR STRINGS -->
     <string name="table_creator_title">Add A New Table</string>

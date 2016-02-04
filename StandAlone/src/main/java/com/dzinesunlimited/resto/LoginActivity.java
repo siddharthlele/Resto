@@ -9,11 +9,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
-import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.style.UnderlineSpan;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,7 +20,6 @@ import android.view.View;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.dzinesunlimited.resto.backend.admin.AdminLanding;
-import com.dzinesunlimited.resto.backend.creators.AccountCreator;
 import com.dzinesunlimited.resto.frontend.tables.TableSelector;
 import com.dzinesunlimited.resto.utils.AppPrefs;
 import com.dzinesunlimited.resto.utils.TypefaceSpan;
@@ -35,8 +32,6 @@ public class LoginActivity extends AppCompatActivity {
     /***** DECLARE THE LAYOUT ELEMENTS *****/
     private AppCompatEditText edtUserName;
     private AppCompatEditText edtPassword;
-    private AppCompatTextView txtCreateAccount;
-    private AppCompatButton btnSignIn;
 
     /** STRING TO HOLD THE USERNAME AND PASSWORD ENTERED BY THE USER **/
     private String strTypedUserName;
@@ -66,33 +61,11 @@ public class LoginActivity extends AppCompatActivity {
 
         edtUserName = (AppCompatEditText) findViewById(R.id.edtUserName);
         edtPassword = (AppCompatEditText) findViewById(R.id.edtPassword);
-        txtCreateAccount = (AppCompatTextView) findViewById(R.id.txtCreateAccount);
-        btnSignIn = (AppCompatButton) findViewById(R.id.btnSignIn);
+        AppCompatButton btnSignIn = (AppCompatButton) findViewById(R.id.btnSignIn);
 
         /** FOR TESTING ONLY!!!! **/
-        edtUserName.setText("superadmin");
-        edtPassword.setText("admin1234");
-
-        /** UNDERLINE THE TEXTVIEWS **/
-		/* GET THE STRINGS TO UNDERLINE */
-        String strCreateAccount = "CREATE ACCOUNT";
-
-		/* CREATE THE UNDERLINED TEXT */
-        SpannableString spanCreateAccount = new SpannableString(strCreateAccount);
-        spanCreateAccount.setSpan(new UnderlineSpan(), 0, strCreateAccount.length(), 0);
-
-		/* SET THE "UNDERLINED" TEXT */
-        txtCreateAccount.setText(spanCreateAccount);
-
-        /***** CREATE A NEW ACCOUNT *****/
-        txtCreateAccount.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent createAccount = new Intent(LoginActivity.this, AccountCreator.class);
-                startActivity(createAccount);
-            }
-        });
+        edtUserName.setText("admin");
+        edtPassword.setText("1234");
 
         /***** PERFORM LOGIN *****/
         btnSignIn.setOnClickListener(doLogin);

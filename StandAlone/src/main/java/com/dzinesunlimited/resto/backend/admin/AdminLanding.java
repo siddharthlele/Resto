@@ -129,10 +129,6 @@ public class AdminLanding extends AppCompatActivity {
                         mContent = new Dashboard();
                         switchFragment(mContent);
                         return true;
-                    case R.id.dashAccounts:
-                        mContent = new Accounts();
-                        switchFragment(mContent);
-                        return true;
                     case R.id.dashMenu:
                         mContent = new Categories();
                         switchFragment(mContent);
@@ -151,6 +147,10 @@ public class AdminLanding extends AppCompatActivity {
                         return true;
                     case R.id.dashPayments:
                         mContent = new PaymentsManager();
+                        switchFragment(mContent);
+                        return true;
+                    case R.id.dashAccounts:
+                        mContent = new Accounts();
                         switchFragment(mContent);
                         return true;
                     default:

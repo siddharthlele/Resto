@@ -486,29 +486,22 @@ public class DBResto {
         /***** ADD A FEW DUMMY VALUES *****/
         ContentValues cv = new ContentValues();
 
-        /** Super Administrator **/
-        cv.put(ROLE_ID, 1);
-        cv.put(ROLE_CODE, "superadmin");
-        cv.put(ROLE_TEXT, "Super Administrator");
-        cv.put(ROLE_DESCRIPTION, "Super Administrator. There Can Be Only ONE Of These!!");
-        db.insert(STAFF_ROLES, null, cv);
-
         /** Administrator **/
-        cv.put(ROLE_ID, 2);
+        cv.put(ROLE_ID, 1);
         cv.put(ROLE_CODE, "admin");
         cv.put(ROLE_TEXT, "Administrator");
         cv.put(ROLE_DESCRIPTION, "For Users who need Administrative Privileges.");
         db.insert(STAFF_ROLES, null, cv);
 
         /** Stewards / Captains **/
-        cv.put(ROLE_ID, 3);
+        cv.put(ROLE_ID, 2);
         cv.put(ROLE_CODE, "steward");
         cv.put(ROLE_TEXT, "Steward");
         cv.put(ROLE_DESCRIPTION, "For Users who need Privileges granted for Steward / Captains.");
         db.insert(STAFF_ROLES, null, cv);
 
         /** Servers / Waiters **/
-        cv.put(ROLE_ID, 4);
+        cv.put(ROLE_ID, 3);
         cv.put(ROLE_CODE, "server");
         cv.put(ROLE_TEXT, "Server / Waiter");
         cv.put(ROLE_DESCRIPTION, "For Users who need Privileges granted for Servers / Waiters.");
@@ -536,10 +529,10 @@ public class DBResto {
 
         /** SUPER ADMIN **/
         cv.put(STAFF_ROLE_ID, "1");
-        cv.put(STAFF_FULL_NAME, "Super Admin");
-        cv.put(STAFF_USER_NAME, "superadmin");
-        cv.put(STAFF_PASSWORD, "admin1234");
-        bArray = JPGConverter("Staff/superadmin.jpg");
+        cv.put(STAFF_FULL_NAME, "Admin");
+        cv.put(STAFF_USER_NAME, "admin");
+        cv.put(STAFF_PASSWORD, "1234");
+        bArray = PNGConverter("default_admin.png");
         cv.put(STAFF_PROFILE_PICTURE, bArray);
         db.insert(STAFF, null, cv);
     }
