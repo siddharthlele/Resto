@@ -128,26 +128,7 @@
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="end|center"
-                android:padding="@dimen/log_form_pad_btm_top"
-                android:textColor="@android:color/holo_blue_dark"
-                android:textSize="@dimen/log_form_btm_size" />
-
-            <View
-                android:layout_width="@dimen/log_form_divider_height_width"
-                android:layout_height="fill_parent"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/log_form_margin"
-                android:background="@drawable/fixed_divider_horizontal_bright" />
-
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/txtForgotPassword"
-                fontPath="fonts/RobotoCondensed-Regular.ttf"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:autoLink="all"
-                android:gravity="start|center"
+                android:gravity="center"
                 android:padding="@dimen/log_form_pad_btm_top"
                 android:textColor="@android:color/holo_blue_dark"
                 android:textSize="@dimen/log_form_btm_size" />

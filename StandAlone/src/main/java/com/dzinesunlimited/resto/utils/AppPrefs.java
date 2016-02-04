@@ -23,17 +23,9 @@ public class AppPrefs extends Application {
     /* RESTAURANT SET */
     private final String RESTAURANT_SET = "restaurant_set";
 
-    /* RESTAURANT DETAILS */
-    private final String RESTAURANT_NAME = "restaurant_name";
-    private final String RESTAURANT_ADDRESS_1 = "restaurant_add1";
-    private final String RESTAURANT_ADDRESS_2 = "restaurant_add2";
-    private final String RESTAURANT_CITY = "restaurant_city";
-    private final String RESTAURANT_STATE = "restaurant_state";
-    private final String RESTAURANT_COUNTRY = "restaurant_country";
-    private final String RESTAURANT_ZIP = "restaurant_zip";
-    private final String RESTAURANT_CONTACT_NUMBER = "restaurant_contact_number";
-    private final String RESTAURANT_EMAIL = "restaurant_email";
-    private final String RESTAURANT_WEBSITE = "restaurant_website";
+    /** LOGIN USER ID AND NAME **/
+    private final String LOGIN_USER_ID = "userID";
+    private final String LOGIN_USERNAME = "userName";
 
     /* CURRENCY SELECTED */
     private final String CURRENCY_SET = "currency_set";
@@ -88,43 +80,20 @@ public class AppPrefs extends Application {
         return mPreferences.getBoolean(RESTAURANT_SET, false);
     }
 
-    /** SET THE RESTAURANT DETAILS **/
-    public void setRestaurantDetails(
-            String name, String address1, String address2,
-            String city, String state, String country, String zip,
-            String contactNo, String emailAddress, String website) {
-
+    /** SET THE LOGIN - USERNAME **/
+    public void setLogin(String strUserID, String strUserName) {
         final Editor edit = mPreferences.edit();
-        edit.putString(RESTAURANT_NAME, name);
-        edit.putString(RESTAURANT_ADDRESS_1, address1);
-        edit.putString(RESTAURANT_ADDRESS_2, address2);
-        edit.putString(RESTAURANT_CITY, city);
-        edit.putString(RESTAURANT_STATE, state);
-        edit.putString(RESTAURANT_COUNTRY, country);
-        edit.putString(RESTAURANT_ZIP, zip);
-        edit.putString(RESTAURANT_CONTACT_NUMBER, contactNo);
-        edit.putString(RESTAURANT_EMAIL, emailAddress);
-        edit.putString(RESTAURANT_WEBSITE, website);
+        edit.putString(LOGIN_USER_ID, strUserID);
+        edit.putString(LOGIN_USERNAME, strUserName);
         edit.apply();
     }
 
-    /** GET THE RESTAURANT DETAILS **/
-    public String[] getRestaurantDetails()	{
-        String name = mPreferences.getString(RESTAURANT_NAME, null);
-        String address1 = mPreferences.getString(RESTAURANT_ADDRESS_1, null);
-        String address2 = mPreferences.getString(RESTAURANT_ADDRESS_2, null);
-        String city = mPreferences.getString(RESTAURANT_CITY, null);
-        String state = mPreferences.getString(RESTAURANT_STATE, null);
-        String country = mPreferences.getString(RESTAURANT_COUNTRY, null);
-        String zip = mPreferences.getString(RESTAURANT_ZIP, null);
-        String contact = mPreferences.getString(RESTAURANT_CONTACT_NUMBER, null);
-        String emailAddress = mPreferences.getString(RESTAURANT_EMAIL, null);
-        String website = mPreferences.getString(RESTAURANT_WEBSITE, null);
+    /** GET THE LOGIN - USERNAME **/
+    public String[] getLogin()	{
+        String strUserID = mPreferences.getString(LOGIN_USER_ID, null);
+        String strUserName = mPreferences.getString(LOGIN_USERNAME, null);
 
-        return new String[]	{
-                name, address1, address2,
-                city, state, country, zip,
-                contact, emailAddress, website};
+        return new String[]	{ strUserID, strUserName };
     }
 
     /** A CURRENCY IS SET **/

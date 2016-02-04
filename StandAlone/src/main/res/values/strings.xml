@@ -36,6 +36,7 @@
     <string name="dash_sales_in_units_label">TODAY\'S SALES (IN UNITS)</string>
     <string name="dash_todays_sales_label">TODAY\'S SALES</string>
     <string name="dash_btn_lbl_dashboard">Dashboard</string>
+    <string name="dash_btn_lbl_accounts">Accounts</string>
     <string name="dash_btn_lbl_menu">Menu</string>
     <string name="dash_btn_lbl_reports">Reports</string>
     <string name="dash_btn_lbl_tables">Tables</string>
@@ -50,7 +51,7 @@
     <string name="dish_adap_price">PRICE</string>
 
     <!-- ACCOUNT ADMINISTRATOR -->
-    <string name="acc_admin_search">Search For An Account</string>
+    <string name="acc_admin_search">Search For An <b>Account</b></string>
     <string name="acc_admin_role_filter">FILTER THE USER ROLES</string>
     <string name="acc_mngr_user_roles_prompt">SELECT A USER ROLE</string>
 </resources>

@@ -63,7 +63,7 @@ public class SplashScreen extends AppCompatActivity {
                     boolean blnTutorial = getApp().getTutorialCompleted();
                     if (blnTutorial) {
                         /* SHOW THE LOGIN PAGE */
-                        Intent startMainPage = new Intent(SplashScreen.this, AdminLanding.class);
+                        Intent startMainPage = new Intent(SplashScreen.this, LoginActivity.class);
                         startMainPage.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(startMainPage);
 
@@ -136,7 +136,7 @@ public class SplashScreen extends AppCompatActivity {
             /** CHECK TUTORIAL STATUS **/
             boolean blnTutorial = getApp().getTutorialCompleted();
             if (blnTutorial) {
-                Intent startMainPage = new Intent(SplashScreen.this, AdminLanding.class);
+                Intent startMainPage = new Intent(SplashScreen.this, LoginActivity.class);
                 startMainPage.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(startMainPage);
 

@@ -581,8 +581,8 @@ public class WelcomeRestaurantFrag extends Fragment {
                         CONTACT_NO, EMAIL_ADDRESS, WEBSITE);
 
                 /** SET RESTAURANT NAME **/
-                getApp().setRestaurantDetails(NAME, ADDRESS_1, ADDRESS_2, CITY, STATE, COUNTRY, ZIP,
-                        CONTACT_NO, EMAIL_ADDRESS, WEBSITE);
+//                getApp().setRestaurantDetails(NAME, ADDRESS_1, ADDRESS_2, CITY, STATE, COUNTRY, ZIP,
+//                        CONTACT_NO, EMAIL_ADDRESS, WEBSITE);
 
                 /** SET RESTAURANT DETAILS FILLED **/
                 getApp().setRestaurantSet();

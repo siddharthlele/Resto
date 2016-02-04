@@ -30,9 +30,9 @@
             android:name=".welcome.WelcomeContainer"
             android:windowSoftInputMode="adjustPan" />
 
-        <!--<activity
+        <activity
             android:name=".LoginActivity"
-            android:windowSoftInputMode="adjustPan" />-->
+            android:windowSoftInputMode="adjustPan" />
 
         <activity
             android:name=".recovery.PasswordRecovery"
@@ -84,6 +84,10 @@
 
         <activity
             android:name=".backend.creators.AccountCreator"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".backend.modifiers.AccountModifier"
             android:windowSoftInputMode="adjustPan" />
 
         <activity

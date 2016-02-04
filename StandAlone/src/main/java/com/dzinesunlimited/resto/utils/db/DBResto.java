@@ -44,6 +44,8 @@ public class DBResto {
 
 	/*****	THE TABLE NAMES	*****/
 	public final String RESTAURANT = "restaurant";
+    public final String STAFF_ROLES = "roles";
+    public final String STAFF = "staff";
     public final String CATEGORY = "category";
     public final String MENU = "menu";
     public final String TABLES = "tables";
@@ -53,18 +55,33 @@ public class DBResto {
     public final String ORDER_CART = "orderCart";
 
     /* RESTAURANT */
-    public final String RESTAURANT_ID = "rest_id";
-    public final String RESTAURANT_NAME = "rest_name";
-    public final String RESTAURANT_ADDRESS_1 = "rest_add_1";
-    public final String RESTAURANT_ADDRESS_2 = "rest_add_2";
-    public final String RESTAURANT_CITY = "rest_city";
-    public final String RESTAURANT_STATE = "rest_state";
-    public final String RESTAURANT_COUNTRY = "rest_country";
-    public final String RESTAURANT_ZIP = "rest_zip";
-    public final String RESTAURANT_PHONE = "rest_phone";
-    public final String RESTAURANT_EMAIL = "rest_email";
-    public final String RESTAURANT_WEBSITE = "rest_website";
-    public final String RESTAURANT_LOGO = "rest_logo";
+    public final String RESTAURANT_ID = "restID";
+    public final String RESTAURANT_NAME = "restName";
+    public final String RESTAURANT_ADDRESS_1 = "restAddress1";
+    public final String RESTAURANT_ADDRESS_2 = "restAddress2";
+    public final String RESTAURANT_CITY = "restCity";
+    public final String RESTAURANT_STATE = "restState";
+    public final String RESTAURANT_COUNTRY = "restCountry";
+    public final String RESTAURANT_ZIP = "restZip";
+    public final String RESTAURANT_PHONE = "restPhone";
+    public final String RESTAURANT_EMAIL = "restEmail";
+    public final String RESTAURANT_WEBSITE = "restWebsite";
+    public final String RESTAURANT_LOGO = "restLogo";
+
+    /* STAFF ROLES TABLE */
+    public final String ROLE_ID = "roleID";
+    public final String ROLE_CODE = "roleCode";
+    public final String ROLE_TEXT = "roleText";
+    public final String ROLE_DESCRIPTION = "roleDescription";
+
+    /* STAFF */
+    public final String STAFF_ID = "staffID";
+    public final String STAFF_ROLE_ID = "roleID";
+    public final String STAFF_FULL_NAME = "staffFullName";
+    public final String STAFF_PHONE = "staffPhone";
+    public final String STAFF_USER_NAME = "staffUserName";
+    public final String STAFF_PASSWORD = "staffPassword";
+    public final String STAFF_PROFILE_PICTURE = "staffProfilePicture";
 
     /* MEAL TYPE */
     public final String CATEGORY_ID = "categoryID";
@@ -82,35 +99,35 @@ public class DBResto {
     public final String MENU_SERVES = "menuServes";
 
     /* TABLES */
-    public final String TABLE_ID = "table_id";
-    public final String TABLE_SEATS = "table_seats";
-    public final String TABLE_OCCUPANCY = "table_occupancy";
+    public final String TABLE_ID = "tableID";
+    public final String TABLE_SEATS = "tableSeats";
+    public final String TABLE_OCCUPANCY = "tableOccupancy";
 
     /* ORDER CART */
-    public final String ORDER_CART_ID = "order_cart_id";
-    public final String ORDER_TABLE_ID = "order_table_id";
-    public final String ORDER_MEAL_ID = "order_meal_id";
-    public final String ORDER_QUANTITY = "order_quantity";
-    public final String ORDER_STATUS = "order_status";
-    public final String ORDER_TIMESTAMP = "order_time";
+    public final String ORDER_CART_ID = "orderID";
+    public final String ORDER_TABLE_ID = "tableID";
+    public final String ORDER_MENU_ID = "menuID";
+    public final String ORDER_QUANTITY = "orderQuantity";
+    public final String ORDER_STATUS = "orderStatus";
+    public final String ORDER_TIMESTAMP = "orderTimestamp";
 
     /* TAXES */
-    public final String TAX_ID = "tax_id";
-    public final String TAX_NAME = "tax_name";
-    public final String TAX_REGISTRATION = "tax_registration";
-    public final String TAX_PERCENTAGE = "tax_percentage";
-    public final String TAX_ENTIRE_AMOUNT = "tax_entire_amount";
-    public final String TAX_TAXABLE_PERCENTAGE = "tax_taxable_percentage";
+    public final String TAX_ID = "taxID";
+    public final String TAX_NAME = "taxName";
+    public final String TAX_REGISTRATION = "taxRegistration";
+    public final String TAX_PERCENTAGE = "taxPercentage";
+    public final String TAX_ENTIRE_AMOUNT = "taxEntireAmount";
+    public final String TAX_TAXABLE_PERCENTAGE = "taxTaxablePercentage";
 
     /* THE COUNTRIES TABLE */
-    public final String COUNTRY_ID = "country_id";
-    public final String COUNTRY_NAME = "country_name";
+    public final String COUNTRY_ID = "countryID";
+    public final String COUNTRY_NAME = "countryName";
 
     /* CURRENCY */
-    public final String CURRENCY_ID = "currency_id";
-    public final String CURRENCY_NAME = "currency_name";
-    public final String CURRENCY_ISO_CODE = "currency_iso_code";
-    public final String CURRENCY_SYMBOL = "currency_symbol";
+    public final String CURRENCY_ID = "currencyID";
+    public final String CURRENCY_NAME = "currencyName";
+    public final String CURRENCY_ISO_CODE = "currencyISOCode";
+    public final String CURRENCY_SYMBOL = "currencySymbol";
 
     /** GET ALL THE DATA IN THE DATABASE BASED ON THE QUERY **/
     public Cursor selectAllData(String strQueryData) {
@@ -167,6 +184,27 @@ public class DBResto {
 
 		/* INSERT THE COLLECTED DATA TO THE TABLES TABLE */
         db.insert(RESTAURANT, null, valRestaurantDetails);
+    }
+
+    /** ADD A NEW ACCOUNT TO THE STAFF TABLE **/
+    public void addStaff(
+            String roleId, String fullName, String phone,
+            String userName, String password, byte[] profilePicture) {
+
+		/* OPEN THE DATABASE AGAIN */
+        this.db = helper.getWritableDatabase();
+
+        /** ADD AND CREATE KEY VALUE PAIRS FOR CREATING A NEW ACCOUNT **/
+        ContentValues valNewAccount = new ContentValues();
+        valNewAccount.put(STAFF_ROLE_ID, roleId);
+        valNewAccount.put(STAFF_FULL_NAME, fullName);
+        valNewAccount.put(STAFF_PHONE, phone);
+        valNewAccount.put(STAFF_USER_NAME, userName);
+        valNewAccount.put(STAFF_PASSWORD, password);
+        valNewAccount.put(STAFF_PROFILE_PICTURE, profilePicture);
+
+		/* INSERT THE COLLECTED DATA TO THE STAFF TABLE */
+        db.insert(STAFF, null, valNewAccount);
     }
 
     /** ADD A NEW TABLE **/
@@ -247,7 +285,7 @@ public class DBResto {
         /** ADD AND CREATE KEY VALUE PAIRS FOR ADDING A DISH / MENU TO THE DATABASE **/
         ContentValues valNewOrder = new ContentValues();
         valNewOrder.put(ORDER_TABLE_ID, tableID);
-        valNewOrder.put(ORDER_MEAL_ID, mealID);
+        valNewOrder.put(ORDER_MENU_ID, mealID);
         valNewOrder.put(ORDER_QUANTITY, mealQuantity);
         valNewOrder.put(ORDER_STATUS, orderStatus);
 
@@ -346,6 +384,11 @@ public class DBResto {
         db.update(MENU, valUpdateMenu, MENU_ID + "=" + menuID, null);
     }
 
+    /***** DELETE A ACCOUNT / STAFF *****/
+    public void deleteStaff(String strStaffID) {
+        db.delete(STAFF, STAFF_ID + "=" + strStaffID, null);
+    }
+
     /***** DELETE A TABLE *****/
     public void deleteTable(String strTableID) {
         db.delete(TABLES, TABLE_ID + "=" + strTableID, null);
@@ -394,6 +437,12 @@ public class DBResto {
 			/** CREATE THE RESTAURANT TABLE **/
             createRestaurantTable(db);
 
+			/** CREATE THE STAFF ROLES TABLE **/
+            createStaffRolesTable(db);
+
+			/** CREATE THE STAFF TABLE **/
+            createStaffTable(db);
+
 			/** CREATE THE MEAL TYPE TABLE **/
             createMealTypesTable(db);
 
@@ -421,13 +470,87 @@ public class DBResto {
 		}
 	}
 
+    private void createStaffRolesTable(SQLiteDatabase db) {
+
+        String strCreateStaffRolesTable = "create table " + STAFF_ROLES +
+                " (" +
+                ROLE_ID + " integer primary key, " +
+                ROLE_CODE + " text, " +
+                ROLE_TEXT + " text, " +
+                ROLE_DESCRIPTION + " text, " +
+                "UNIQUE" + " (" + ROLE_CODE + " )" + ");";
+
+        // EXECUTE THE strCreateStaffRolesTable TO CREATE THE TABLE
+        db.execSQL(strCreateStaffRolesTable);
+
+        /***** ADD A FEW DUMMY VALUES *****/
+        ContentValues cv = new ContentValues();
+
+        /** Super Administrator **/
+        cv.put(ROLE_ID, 1);
+        cv.put(ROLE_CODE, "superadmin");
+        cv.put(ROLE_TEXT, "Super Administrator");
+        cv.put(ROLE_DESCRIPTION, "Super Administrator. There Can Be Only ONE Of These!!");
+        db.insert(STAFF_ROLES, null, cv);
+
+        /** Administrator **/
+        cv.put(ROLE_ID, 2);
+        cv.put(ROLE_CODE, "admin");
+        cv.put(ROLE_TEXT, "Administrator");
+        cv.put(ROLE_DESCRIPTION, "For Users who need Administrative Privileges.");
+        db.insert(STAFF_ROLES, null, cv);
+
+        /** Stewards / Captains **/
+        cv.put(ROLE_ID, 3);
+        cv.put(ROLE_CODE, "steward");
+        cv.put(ROLE_TEXT, "Steward");
+        cv.put(ROLE_DESCRIPTION, "For Users who need Privileges granted for Steward / Captains.");
+        db.insert(STAFF_ROLES, null, cv);
+
+        /** Servers / Waiters **/
+        cv.put(ROLE_ID, 4);
+        cv.put(ROLE_CODE, "server");
+        cv.put(ROLE_TEXT, "Server / Waiter");
+        cv.put(ROLE_DESCRIPTION, "For Users who need Privileges granted for Servers / Waiters.");
+        db.insert(STAFF_ROLES, null, cv);
+    }
+
+    private void createStaffTable(SQLiteDatabase db) {
+
+        String strCreateStaffTable = "create table " + STAFF +
+                " (" +
+                STAFF_ID + " integer primary key autoincrement, " +
+                STAFF_ROLE_ID + " text, " +
+                STAFF_FULL_NAME + " text, " +
+                STAFF_PHONE + " text, " +
+                STAFF_USER_NAME + " text, " +
+                STAFF_PASSWORD + " text, " +
+                STAFF_PROFILE_PICTURE + " BLOB, " +
+                "UNIQUE" + " (" + STAFF_USER_NAME + " )" + ");";
+
+        // EXECUTE THE strCreateStaffTable TO CREATE THE TABLE
+        db.execSQL(strCreateStaffTable);
+
+        /***** ADD A FEW DUMMY VALUES *****/
+        ContentValues cv = new ContentValues();
+
+        /** SUPER ADMIN **/
+        cv.put(STAFF_ROLE_ID, "1");
+        cv.put(STAFF_FULL_NAME, "Super Admin");
+        cv.put(STAFF_USER_NAME, "superadmin");
+        cv.put(STAFF_PASSWORD, "admin1234");
+        bArray = JPGConverter("Staff/superadmin.jpg");
+        cv.put(STAFF_PROFILE_PICTURE, bArray);
+        db.insert(STAFF, null, cv);
+    }
+
     private void createOrderCartTable(SQLiteDatabase db) {
 
         String strCreateOrderCartTable = "create table " + ORDER_CART +
                 " (" +
                 ORDER_CART_ID + " integer primary key, " +
                 ORDER_TABLE_ID + " integer, " +
-                ORDER_MEAL_ID + " integer, " +
+                ORDER_MENU_ID + " integer, " +
                 ORDER_QUANTITY + " integer, " +
                 ORDER_STATUS + " boolean, " +
                 ORDER_TIMESTAMP + " timestamp default current_timestamp," +

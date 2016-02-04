@@ -1,9 +1,12 @@
 package com.dzinesunlimited.resto.backend.creators;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -19,19 +22,18 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.RadioGroup;
 
 import com.dzinesunlimited.resto.R;
 import com.dzinesunlimited.resto.utils.TypefaceSpan;
 import com.dzinesunlimited.resto.utils.db.DBResto;
+import com.dzinesunlimited.resto.utils.helpers.adapters.backend.AccountsRolesAdapter;
+import com.dzinesunlimited.resto.utils.helpers.pojos.backend.AccountsRolesData;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -40,7 +42,7 @@ import pl.aprilapps.easyphotopicker.DefaultCallback;
 import pl.aprilapps.easyphotopicker.EasyImage;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class AccountCreator extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class AccountCreator extends AppCompatActivity {
 
     /** THE DATABASE INSTANCE **/
     DBResto db;
@@ -48,34 +50,14 @@ public class AccountCreator extends AppCompatActivity implements DatePickerDialo
     /** DECLARE THE LAYOUT ELEMENTS **/
     @Bind(R.id.spnStaffRole)AppCompatSpinner spnStaffRole;
     @Bind(R.id.inputFullName)TextInputLayout inputFullName;
-    @Bind(R.id.inputAddress)TextInputLayout inputAddress;
-    @Bind(R.id.inputCity)TextInputLayout inputCity;
-    @Bind(R.id.inputState)TextInputLayout inputState;
-    @Bind(R.id.inputCountry)TextInputLayout inputCountry;
-    @Bind(R.id.inputZIP)TextInputLayout inputZIP;
-    @Bind(R.id.inputPhone)TextInputLayout inputPhone;
-    @Bind(R.id.inputUserName)TextInputLayout inputUserName;
-    @Bind(R.id.inputPassword)TextInputLayout inputPassword;
-    @Bind(R.id.inputConfirmPassword)TextInputLayout inputConfirmPassword;
     @Bind(R.id.edtFullName)AppCompatEditText edtFullName;
-    @Bind(R.id.edtAddress)AppCompatEditText edtAddress;
-    @Bind(R.id.edtCity)AppCompatEditText edtCity;
-    @Bind(R.id.edtState)AppCompatEditText edtState;
-    @Bind(R.id.edtCountry)AppCompatEditText edtCountry;
-    @Bind(R.id.edtZIP)AppCompatEditText edtZIP;
+    @Bind(R.id.inputPhone)TextInputLayout inputPhone;
     @Bind(R.id.edtPhone)AppCompatEditText edtPhone;
-    @Bind(R.id.edtDOB)AppCompatEditText edtDOB;
-    @OnClick(R.id.imgbtnDOB) protected void PickDOB()   {
-        Calendar myCalendar = Calendar.getInstance();
-        DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(AccountCreator.this,
-                myCalendar.get(Calendar.YEAR),
-                myCalendar.get(Calendar.MONTH),
-                myCalendar.get(Calendar.DAY_OF_MONTH));
-        datePickerDialog.show(getFragmentManager(), "DatePickerDialog");
-    }
-    @Bind(R.id.rdgGender)RadioGroup rdgGender;
+    @Bind(R.id.inputUserName)TextInputLayout inputUserName;
     @Bind(R.id.edtUserName)AppCompatEditText edtUserName;
+    @Bind(R.id.inputPassword)TextInputLayout inputPassword;
     @Bind(R.id.edtPassword)AppCompatEditText edtPassword;
+    @Bind(R.id.inputConfirmPassword)TextInputLayout inputConfirmPassword;
     @Bind(R.id.edtConfirmPassword)AppCompatEditText edtConfirmPassword;
     @Bind(R.id.imgvwProfile)AppCompatImageView imgvwProfile;
     @OnClick(R.id.imgvwProfile) protected void GetImage() {
@@ -83,19 +65,12 @@ public class AccountCreator extends AppCompatActivity implements DatePickerDialo
     }
 
     /** ARRAYLIST FOR THE SPINNER (USER ROLES) **/
-//    ArrayList<AccountsRolesData> arrRoles = new ArrayList<>();
+    ArrayList<AccountsRolesData> arrRoles = new ArrayList<>();
 
     /** VARIABLES TO HOLD THE COLLECTED DATA **/
     private String SELECTED_ROLE_ID = null;
     private String FULL_NAME = null;
-    private String ADDRESS = null;
-    private String CITY = null;
-    private String STATE = null;
-    private String COUNTRY = null;
-    private String ZIP = null;
     private String PHONE = null;
-    private String GENDER = "Male";
-    private String DOB = null;
     private String USER_NAME = null;
     private String PASSWORD = null;
     private String CONFIRM_PASSWORD = null;
@@ -114,109 +89,106 @@ public class AccountCreator extends AppCompatActivity implements DatePickerDialo
         configAB();
 
         /** FETCH THE LIST OF ALL ACCOUNT CATEGORIES **/
-//        new fetchAllUserRoles().execute();
+        new fetchAllUserRoles().execute();
 
         /** CHANGE THE USER ROLES AND SHOW IT'S USERS **/
         spnStaffRole.setOnItemSelectedListener(selectRole);
-
-        /** SELECT THE USER'S GENDER **/
-        rdgGender.setOnCheckedChangeListener(selectGender);
     }
 
     /** FETCH THE LIST OF ALL ACCOUNT CATEGORIES **/
-//    private class fetchAllUserRoles extends AsyncTask<Void, Void, Void> {
-//
-//        /** A CURSOR INSTANCE **/
-//        Cursor cursor;
-//
-//        @Override
-//        protected void onPreExecute() {
-//            super.onPreExecute();
-//
-//            /** INSTANTIATE THE DATABASE HELPER CLASS **/
-//            db = new DBResto(AccountCreator.this);
-//
-//            /** CONSTRUCT THE QUERY TO FETCH ALL TWEETS FROM THE DATABASE **/
-//            String strQueryData = "SELECT * FROM " + db.STAFF_ROLES;
-//            Log.e("CREATOR ROLES QUERY", strQueryData);
-//
-//            /** CAST THE QUERY IN THE CURSOR TO FETCH THE RESULTS **/
-//            cursor = db.selectAllData(strQueryData);
-//        }
-//
-//        @Override
-//        protected Void doInBackground(Void... params) {
-//
-//            /** CHECK THAT THE DATABASE QUERY RETURNED SOME RESULTS **/
-//            if (cursor != null && cursor.getCount() != 0)	{
-//
-//				/* AN INSTANCE OF THE AccountsUserRolesData POJO CLASS */
-//                AccountsRolesData accRoles;
-//
-//                /** LOOP THROUGH THE RESULT SET AND PARSE NECESSARY INFORMATION **/
-//                for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-//
-//                    /***** INSTANTIATE THE AccountsUserRolesData INSTANCE "accRoles" *****/
-//                    accRoles = new AccountsRolesData();
-//
-//                    /** GET THE STAFF_ROLE_ID **/
-//                    if (cursor.getString(cursor.getColumnIndex(db.ROLE_ID)) != null)	{
-//                        String ROLE_ID = cursor.getString(cursor.getColumnIndex(db.ROLE_ID));
-//                        accRoles.setStffRoleID(ROLE_ID);
-//                    } else {
-//                        accRoles.setStffRoleID(null);
-//                    }
-//
-//                    /** GET THE STAFF_ROLE_CODE **/
-//                    if (cursor.getString(cursor.getColumnIndex(db.ROLE_CODE)) != null)	{
-//                        String ROLE_CODE = cursor.getString(cursor.getColumnIndex(db.ROLE_CODE));
-//                        accRoles.setStffRoleCode(ROLE_CODE);
-//                    } else {
-//                        accRoles.setStffRoleCode(null);
-//                    }
-//
-//                    /** GET THE STAFF_ROLE_TEXT **/
-//                    if (cursor.getString(cursor.getColumnIndex(db.ROLE_TEXT)) != null)	{
-//                        String ROLE_TEXT = cursor.getString(cursor.getColumnIndex(db.ROLE_TEXT));
-//                        accRoles.setStffRoleText(ROLE_TEXT);
-//                    } else {
-//                        accRoles.setStffRoleText(null);
-//                    }
-//
-//                    /** GET THE STAFF_ROLE_DESCRIPTION **/
-//                    if (cursor.getString(cursor.getColumnIndex(db.ROLE_DESCRIPTION)) != null)	{
-//                        String ROLE_DESCRIPTION = cursor.getString(cursor.getColumnIndex(db.ROLE_DESCRIPTION));
-//                        accRoles.setStffRoleDescription(ROLE_DESCRIPTION);
-//                    } else {
-//                        accRoles.setStffRoleDescription(null);
-//                    }
-//
-//                    /** ADD THE COLLECTED DATA TO THE ARRAYLIST **/
-//                    arrRoles.add(accRoles);
-//                }
-//            }
-//            return null;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(Void aVoid) {
-//            super.onPostExecute(aVoid);
-//
-//            /** CLOSE THE CURSOR **/
-//            if (cursor != null && !cursor.isClosed())	{
-//                cursor.close();
-//            }
-//
-//            /** CLOSE THE DATABASE **/
-//            db.close();
-//
-//            /** SET THE ADAPTER TO THE USER ROLES SPINNER **/
-//            spnStaffRole.setAdapter(new AccountsRolesAdapter(
-//                    AccountCreator.this,
-//                    R.layout.custom_spinner_row,
-//                    arrRoles));
-//        }
-//    }
+    private class fetchAllUserRoles extends AsyncTask<Void, Void, Void> {
+
+        /** A CURSOR INSTANCE **/
+        Cursor cursor;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            /** INSTANTIATE THE DATABASE HELPER CLASS **/
+            db = new DBResto(AccountCreator.this);
+
+            /** CONSTRUCT THE QUERY TO FETCH ALL TWEETS FROM THE DATABASE **/
+            String strQueryData = "SELECT * FROM " + db.STAFF_ROLES;
+            Log.e("CREATOR ROLES QUERY", strQueryData);
+
+            /** CAST THE QUERY IN THE CURSOR TO FETCH THE RESULTS **/
+            cursor = db.selectAllData(strQueryData);
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            /** CHECK THAT THE DATABASE QUERY RETURNED SOME RESULTS **/
+            if (cursor != null && cursor.getCount() != 0)	{
+
+				/* AN INSTANCE OF THE AccountsUserRolesData POJO CLASS */
+                AccountsRolesData accRoles;
+
+                /** LOOP THROUGH THE RESULT SET AND PARSE NECESSARY INFORMATION **/
+                for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+
+                    /***** INSTANTIATE THE AccountsUserRolesData INSTANCE "accRoles" *****/
+                    accRoles = new AccountsRolesData();
+
+                    /** GET THE STAFF_ROLE_ID **/
+                    if (cursor.getString(cursor.getColumnIndex(db.ROLE_ID)) != null)	{
+                        String ROLE_ID = cursor.getString(cursor.getColumnIndex(db.ROLE_ID));
+                        accRoles.setRoleID(ROLE_ID);
+                    } else {
+                        accRoles.setRoleID(null);
+                    }
+
+                    /** GET THE STAFF_ROLE_CODE **/
+                    if (cursor.getString(cursor.getColumnIndex(db.ROLE_CODE)) != null)	{
+                        String ROLE_CODE = cursor.getString(cursor.getColumnIndex(db.ROLE_CODE));
+                        accRoles.setRoleCode(ROLE_CODE);
+                    } else {
+                        accRoles.setRoleCode(null);
+                    }
+
+                    /** GET THE STAFF_ROLE_TEXT **/
+                    if (cursor.getString(cursor.getColumnIndex(db.ROLE_TEXT)) != null)	{
+                        String ROLE_TEXT = cursor.getString(cursor.getColumnIndex(db.ROLE_TEXT));
+                        accRoles.setRoleText(ROLE_TEXT);
+                    } else {
+                        accRoles.setRoleText(null);
+                    }
+
+                    /** GET THE STAFF_ROLE_DESCRIPTION **/
+                    if (cursor.getString(cursor.getColumnIndex(db.ROLE_DESCRIPTION)) != null)	{
+                        String ROLE_DESCRIPTION = cursor.getString(cursor.getColumnIndex(db.ROLE_DESCRIPTION));
+                        accRoles.setRoleDescription(ROLE_DESCRIPTION);
+                    } else {
+                        accRoles.setRoleDescription(null);
+                    }
+
+                    /** ADD THE COLLECTED DATA TO THE ARRAYLIST **/
+                    arrRoles.add(accRoles);
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            /** CLOSE THE CURSOR **/
+            if (cursor != null && !cursor.isClosed())	{
+                cursor.close();
+            }
+
+            /** CLOSE THE DATABASE **/
+            db.close();
+
+            /** SET THE ADAPTER TO THE USER ROLES SPINNER **/
+            spnStaffRole.setAdapter(new AccountsRolesAdapter(
+                    AccountCreator.this,
+                    R.layout.custom_spinner_row,
+                    arrRoles));
+        }
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
@@ -312,33 +284,6 @@ public class AccountCreator extends AppCompatActivity implements DatePickerDialo
         }
     };
 
-    /***** SELECT THE USER'S GENDER *****/
-    private final RadioGroup.OnCheckedChangeListener selectGender = new RadioGroup.OnCheckedChangeListener() {
-
-        @Override
-        public void onCheckedChanged(RadioGroup group, int checkedId) {
-
-            switch (checkedId) {
-                case R.id.rdbtnMale:
-
-                    /** SET THE GENDER TO MALE **/
-                    GENDER = "Male";
-
-                    break;
-
-                case R.id.rdbtnFemale:
-
-                    /** SET THE GENDER TO FEMALE **/
-                    GENDER = "Female";
-
-                    break;
-
-                default:
-                    break;
-            }
-        }
-    };
-
     /***** CONFIGURE THE ACTIONBAR *****/
     private void configAB() {
 
@@ -400,13 +345,7 @@ public class AccountCreator extends AppCompatActivity implements DatePickerDialo
 
         /** GET THE DATA **/
         FULL_NAME = edtFullName.getText().toString();
-        ADDRESS = edtAddress.getText().toString();
-        CITY = edtCity.getText().toString();
-        STATE = edtState.getText().toString();
-        COUNTRY = edtCountry.getText().toString();
-        ZIP = edtZIP.getText().toString();
         PHONE = edtPhone.getText().toString();
-        DOB = edtDOB.getText().toString();
         USER_NAME = edtUserName.getText().toString();
         PASSWORD = edtPassword.getText().toString();
         CONFIRM_PASSWORD = edtConfirmPassword.getText().toString();
@@ -415,21 +354,6 @@ public class AccountCreator extends AppCompatActivity implements DatePickerDialo
         if (FULL_NAME.length() == 0)   {
             inputFullName.setError("Please provide the Full Name");
             edtFullName.requestFocus();
-        } else if (ADDRESS.length() == 0) {
-            inputAddress.setError("Please provide the User's Address");
-            edtAddress.requestFocus();
-        } else if (CITY.length() == 0)  {
-            inputCity.setError("Please provide the User's City");
-            edtCity.requestFocus();
-        } else if (STATE.length() == 0) {
-            inputState.setError("Please provide the User's State");
-            edtState.requestFocus();
-        } else if (COUNTRY.length() == 0)   {
-            inputCountry.setError("Please provide the User's Country");
-            edtCountry.requestFocus();
-        } else if (ZIP.length() == 0)    {
-            inputZIP.setError("Please provide a valid ZIP / Pincode");
-            edtZIP.requestFocus();
         } else if (PHONE.length() == 0) {
           inputPhone.setError("Please provide the User's Phone Number");
             edtPhone.requestFocus();
@@ -447,157 +371,110 @@ public class AccountCreator extends AppCompatActivity implements DatePickerDialo
             edtConfirmPassword.requestFocus();
         } else {
             /** CHECK IF THE USERNAME ALREADY EXISTS **/
-//            new CheckExistingUser().execute();
+            new CheckExistingUser().execute();
         }
     }
 
-//    private class CheckExistingUser extends AsyncTask<Void, Void, Void> {
-//
-//        /** A PROGRESS DIALOG INSTANCE **/
-//        ProgressDialog dialog;
-//
-//        /** A CURSOR INSTANCE **/
-//        Cursor cursor;
-//
-//        /** A BOOLEAN INSTANCE **/
-//        Boolean blnUserExists = false;
-//
-//        @Override
-//        protected void onPreExecute() {
-//            super.onPreExecute();
-//
-//            /** INSTANTIATE AND CONFIGURE THE PROGRESSDIALOG **/
-//            dialog = new ProgressDialog (AccountCreator.this);
-//            dialog.setMessage("Please wait while the new User Account is being created.");
-//            dialog.setIndeterminate(false);
-//            dialog.setCancelable(false);
-//            dialog.show();
-//
-//            /** INSTANTIATE THE DATABASE HELPER CLASS **/
-//            db = new DBResto(AccountCreator.this);
-//
-//			/* GET THE TYPED USERNAME */
-//            String strUserName = edtUserName.getText().toString();
-//
-//            /** CONSTRUCT A QUERY TO FETCH ACCOUNTS ON RECORD **/
-//            String strQueryData = "SELECT * FROM " + db.STAFF + " WHERE " + db.STAFF_USER_NAME + " = '" + strUserName + "'";
-//
-//            /** CAST THE QUERY IN THE CURSOR TO FETCH THE RESULTS **/
-//            cursor = db.selectAllData(strQueryData);
-//        }
-//
-//        @Override
-//        protected Void doInBackground(Void... params) {
-//
-//            /** CHECK THAT THE DATABASE QUERY RETURNED SOME RESULTS **/
-//            if (cursor != null && cursor.getCount() != 0)	{
-//                /** LOOP THROUGH THE RESULT SET AND PARSE NECESSARY INFORMATION **/
-//                for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-//                    /** GET THE USERNAME **/
-//                    if (cursor.getString(cursor.getColumnIndex(db.STAFF_USER_NAME)) != null)	{
-//                        String strUserName = cursor.getString(cursor.getColumnIndex(db.STAFF_USER_NAME));
-//                        if (strUserName.equals(USER_NAME))	{
-//							/* TOGGLE THE BOOLEAN TO INDICATE THE USERNAME EXISTS */
-//                            blnUserExists = true;
-//                        } else {
-//							/* TOGGLE THE BOOLEAN TO INDICATE THE USERNAME DOES NOT EXIST */
-//                            blnUserExists = false;
-//                        }
-//                    } else {
-//						/* TOGGLE THE BOOLEAN TO INDICATE THE USERNAME DOES NOT EXIST */
-//                        blnUserExists = false;
-//                    }
-//                }
-//            } else {
-//                blnUserExists = false;
-//            }
-//            return null;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(Void aVoid) {
-//            super.onPostExecute(aVoid);
-//
-//            /***** CHECK USERNAME STATUS (EXISTS | DOES NOT EXIST) *****/
-//            if (!blnUserExists)	{
-//
-//                /** ADD THE NEW ACCOUNT TO THE DATABASE **/
-//                db.addStaff(
-//                        SELECTED_ROLE_ID, FULL_NAME, ADDRESS, CITY, STATE, COUNTRY, ZIP,
-//                        PHONE, GENDER, DOB, USER_NAME, PASSWORD, PROFILE_PICTURE);
-//
-//                /** CLOSE THE CURSOR **/
-//                if (cursor != null && !cursor.isClosed())	{
-//                    cursor.close();
-//                }
-//
-//                /** CLOSE THE DATABASE **/
-//                db.close();
-//
-//                /** DISMISS THE DIALOG **/
-//                dialog.dismiss();
-//
-//                /***** SET THE RESULT TO "RESULT_OK" AND FINISH THE ACTIVITY *****/
-//                Intent createdAccount = new Intent();
-//                setResult(RESULT_OK, createdAccount);
-//
-//                /** FINISH THE ACTIVITY **/
-//                finish();
-//
-//            } else {
-//
-//                /** DISMISS THE DIALOG **/
-//                dialog.dismiss();
-//
-//                /** SET THE ERROR MESSAGE **/
-//                edtUserName.setError(getResources().getString(R.string.account_empty_duplicate_username));
-//            }
-//        }
-//    }
+    private class CheckExistingUser extends AsyncTask<Void, Void, Void> {
 
-    @Override
-    public void onDateSet(DatePickerDialog datePickerDialog, int year, int month, int date) {
-        String strMonth = null;
-        switch (month)  {
-            case 0:
-                strMonth = "January";
-                break;
-            case 1:
-                strMonth = "February";
-                break;
-            case 2:
-                strMonth = "March";
-                break;
-            case 3:
-                strMonth = "April";
-                break;
-            case 4:
-                strMonth = "May";
-                break;
-            case 5:
-                strMonth = "June";
-                break;
-            case 6:
-                strMonth = "July";
-                break;
-            case 7:
-                strMonth = "August";
-                break;
-            case 8:
-                strMonth = "September";
-                break;
-            case 9:
-                strMonth = "October";
-                break;
-            case 10:
-                strMonth = "November";
-                break;
-            case 11:
-                strMonth = "December";
-                break;
+        /** A PROGRESS DIALOG INSTANCE **/
+        ProgressDialog dialog;
+
+        /** A CURSOR INSTANCE **/
+        Cursor cursor;
+
+        /** A BOOLEAN INSTANCE **/
+        Boolean blnUserExists = false;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            /** INSTANTIATE AND CONFIGURE THE PROGRESSDIALOG **/
+            dialog = new ProgressDialog (AccountCreator.this);
+            dialog.setMessage("Please wait while the new User Account is being created.");
+            dialog.setIndeterminate(false);
+            dialog.setCancelable(false);
+            dialog.show();
+
+            /** INSTANTIATE THE DATABASE HELPER CLASS **/
+            db = new DBResto(AccountCreator.this);
+
+			/* GET THE TYPED USERNAME */
+            String strUserName = edtUserName.getText().toString();
+
+            /** CONSTRUCT A QUERY TO FETCH ACCOUNTS ON RECORD **/
+            String strQueryData = "SELECT * FROM " + db.STAFF + " WHERE " + db.STAFF_USER_NAME + " = '" + strUserName + "'";
+
+            /** CAST THE QUERY IN THE CURSOR TO FETCH THE RESULTS **/
+            cursor = db.selectAllData(strQueryData);
         }
-        String strDate = date + " " + strMonth + " " + year;
-        edtDOB.setText(strDate);
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            /** CHECK THAT THE DATABASE QUERY RETURNED SOME RESULTS **/
+            if (cursor != null && cursor.getCount() != 0)	{
+                /** LOOP THROUGH THE RESULT SET AND PARSE NECESSARY INFORMATION **/
+                for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                    /** GET THE USERNAME **/
+                    if (cursor.getString(cursor.getColumnIndex(db.STAFF_USER_NAME)) != null)	{
+                        String strUserName = cursor.getString(cursor.getColumnIndex(db.STAFF_USER_NAME));
+                        if (strUserName.equals(USER_NAME))	{
+							/* TOGGLE THE BOOLEAN TO INDICATE THE USERNAME EXISTS */
+                            blnUserExists = true;
+                        } else {
+							/* TOGGLE THE BOOLEAN TO INDICATE THE USERNAME DOES NOT EXIST */
+                            blnUserExists = false;
+                        }
+                    } else {
+						/* TOGGLE THE BOOLEAN TO INDICATE THE USERNAME DOES NOT EXIST */
+                        blnUserExists = false;
+                    }
+                }
+            } else {
+                blnUserExists = false;
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            /***** CHECK USERNAME STATUS (EXISTS | DOES NOT EXIST) *****/
+            if (!blnUserExists)	{
+
+                /** ADD THE NEW ACCOUNT TO THE DATABASE **/
+                db.addStaff(SELECTED_ROLE_ID, FULL_NAME, PHONE, USER_NAME, PASSWORD, PROFILE_PICTURE);
+
+                /** CLOSE THE CURSOR **/
+                if (cursor != null && !cursor.isClosed())	{
+                    cursor.close();
+                }
+
+                /** CLOSE THE DATABASE **/
+                db.close();
+
+                /** DISMISS THE DIALOG **/
+                dialog.dismiss();
+
+                /***** SET THE RESULT TO "RESULT_OK" AND FINISH THE ACTIVITY *****/
+                Intent createdAccount = new Intent();
+                setResult(RESULT_OK, createdAccount);
+
+                /** FINISH THE ACTIVITY **/
+                finish();
+
+            } else {
+
+                /** DISMISS THE DIALOG **/
+                dialog.dismiss();
+
+                /** SET THE ERROR MESSAGE **/
+                edtUserName.setError(getResources().getString(R.string.account_empty_duplicate_username));
+            }
+        }
     }
 
     @Override

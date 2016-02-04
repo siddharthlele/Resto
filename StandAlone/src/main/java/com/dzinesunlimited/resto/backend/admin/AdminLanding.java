@@ -17,26 +17,21 @@ import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.dzinesunlimited.resto.R;
+import com.dzinesunlimited.resto.backend.admin.frags.Accounts;
 import com.dzinesunlimited.resto.backend.admin.frags.Categories;
 import com.dzinesunlimited.resto.backend.admin.frags.Dashboard;
 import com.dzinesunlimited.resto.backend.admin.frags.PaymentsManager;
 import com.dzinesunlimited.resto.backend.admin.frags.Reports;
 import com.dzinesunlimited.resto.backend.admin.frags.Tables;
 import com.dzinesunlimited.resto.backend.admin.frags.Taxes;
-import com.dzinesunlimited.resto.utils.AppPrefs;
 import com.dzinesunlimited.resto.utils.db.DBResto;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class AdminLanding extends AppCompatActivity {
-
-    private AppPrefs getApp()	{
-        return (AppPrefs) getApplication();
-    }
 
     /** DECLARE THE LAYOUT ELEMENTS **/
     private NavigationView navigationView;
@@ -132,6 +127,10 @@ public class AdminLanding extends AppCompatActivity {
                 switch (menuItem.getItemId()){
                     case R.id.dashHome:
                         mContent = new Dashboard();
+                        switchFragment(mContent);
+                        return true;
+                    case R.id.dashAccounts:
+                        mContent = new Accounts();
                         switchFragment(mContent);
                         return true;
                     case R.id.dashMenu:
