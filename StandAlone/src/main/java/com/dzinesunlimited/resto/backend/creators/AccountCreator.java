@@ -131,7 +131,7 @@ public class AccountCreator extends AppCompatActivity {
                     /***** INSTANTIATE THE AccountsUserRolesData INSTANCE "accRoles" *****/
                     accRoles = new AccountsRolesData();
 
-                    /** GET THE STAFF_ROLE_ID **/
+                    /** GET THE ROLE_ID **/
                     if (cursor.getString(cursor.getColumnIndex(db.ROLE_ID)) != null)	{
                         String ROLE_ID = cursor.getString(cursor.getColumnIndex(db.ROLE_ID));
                         accRoles.setRoleID(ROLE_ID);
@@ -139,28 +139,12 @@ public class AccountCreator extends AppCompatActivity {
                         accRoles.setRoleID(null);
                     }
 
-                    /** GET THE STAFF_ROLE_CODE **/
-                    if (cursor.getString(cursor.getColumnIndex(db.ROLE_CODE)) != null)	{
-                        String ROLE_CODE = cursor.getString(cursor.getColumnIndex(db.ROLE_CODE));
-                        accRoles.setRoleCode(ROLE_CODE);
-                    } else {
-                        accRoles.setRoleCode(null);
-                    }
-
-                    /** GET THE STAFF_ROLE_TEXT **/
+                    /** GET THE ROLE_TEXT **/
                     if (cursor.getString(cursor.getColumnIndex(db.ROLE_TEXT)) != null)	{
                         String ROLE_TEXT = cursor.getString(cursor.getColumnIndex(db.ROLE_TEXT));
                         accRoles.setRoleText(ROLE_TEXT);
                     } else {
                         accRoles.setRoleText(null);
-                    }
-
-                    /** GET THE STAFF_ROLE_DESCRIPTION **/
-                    if (cursor.getString(cursor.getColumnIndex(db.ROLE_DESCRIPTION)) != null)	{
-                        String ROLE_DESCRIPTION = cursor.getString(cursor.getColumnIndex(db.ROLE_DESCRIPTION));
-                        accRoles.setRoleDescription(ROLE_DESCRIPTION);
-                    } else {
-                        accRoles.setRoleDescription(null);
                     }
 
                     /** ADD THE COLLECTED DATA TO THE ARRAYLIST **/
@@ -225,8 +209,6 @@ public class AccountCreator extends AppCompatActivity {
         @Override
         public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
 
-//            Bitmap BMP_PROFILE_IMAGE;
-
             if (imgSource == 1) {
                 Log.e("HEIGHT / WIDTH", String.valueOf(bitmap.getHeight()) + " " + String.valueOf(bitmap.getWidth()));
 
@@ -275,7 +257,7 @@ public class AccountCreator extends AppCompatActivity {
 
         @Override
         public void onItemSelected(AdapterView<?> parentView, View v, int position, long id) {
-//            SELECTED_ROLE_ID = arrRoles.get(position).getStffRoleID();
+            SELECTED_ROLE_ID = arrRoles.get(position).getRoleID();
         }
 
         @Override

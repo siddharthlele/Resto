@@ -259,7 +259,7 @@ public class LoginActivity extends AppCompatActivity {
                         .content(R.string.wrong_creds)
                         .positiveText("Re-enter Credentials")
                         .theme(Theme.LIGHT)
-                        .icon(getResources().getDrawable(R.drawable.ic_info_outline_white_24dp))
+                        .icon(ContextCompat.getDrawable(LoginActivity.this, R.drawable.ic_info_outline_white_24dp))
                         .typeface("HelveticaNeueLTW1G-MdCn.otf", "HelveticaNeueLTW1G-Cn.otf")
                         .show();
             }
@@ -320,6 +320,7 @@ public class LoginActivity extends AppCompatActivity {
                 .title(R.string.log_info_title)
                 .content(R.string.log_info)
                 .positiveText("OKAY")
+                .theme(Theme.LIGHT)
                 .icon(ContextCompat.getDrawable(LoginActivity.this, R.drawable.ic_info_outline_white_24dp))
                 .typeface("HelveticaNeueLTW1G-MdCn.otf", "HelveticaNeueLTW1G-Cn.otf")
                 .show();

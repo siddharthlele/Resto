@@ -24,6 +24,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
 import com.dzinesunlimited.resto.R;
 import com.dzinesunlimited.resto.utils.TypefaceSpan;
 import com.dzinesunlimited.resto.utils.db.DBResto;
@@ -140,6 +141,7 @@ public class TaxCreator extends AppCompatActivity {
                         .title(R.string.tax_creator_popup_title)
                         .content(R.string.tax_creator_what_is_this)
                         .positiveText(R.string.tax_creator_popup_title_dismiss)
+                        .theme(Theme.LIGHT)
                         .icon(ContextCompat.getDrawable(TaxCreator.this, R.drawable.ic_info_outline_white_24dp))
                         .typeface("HelveticaNeueLTW1G-MdCn.otf", "HelveticaNeueLTW1G-Cn.otf")
                         .show();

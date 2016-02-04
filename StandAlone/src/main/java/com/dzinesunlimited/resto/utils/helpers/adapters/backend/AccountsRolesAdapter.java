@@ -69,6 +69,7 @@ public class AccountsRolesAdapter extends ArrayAdapter<AccountsRolesData> {
         return getCustomView(position, convertView, parent);
     }
 
+    @SuppressWarnings("UnusedParameters")
     private View getCustomView(int position, View convertView, ViewGroup parent) {
 
         /********** Inflate spinner_rows.xml file for each row ( Defined below ) ************/
