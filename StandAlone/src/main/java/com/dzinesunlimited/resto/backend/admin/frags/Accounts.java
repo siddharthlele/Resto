@@ -569,7 +569,6 @@ public class Accounts extends Fragment {
                                     /** DELETE THE ACCOUNT **/
                                     final String STAFF_ID = account.getStaffID();
                                     String STAFF_USER_NAME = account.getStaffUserName();
-                                    String STAFF_ROLE_ID = account.getStaffRoleID();
 
                                     if (STAFF_USER_NAME.equals("admin"))   {
                                         Toast.makeText(getActivity(), "You cannot delete the default \"Admin\" account", Toast.LENGTH_LONG).show();
