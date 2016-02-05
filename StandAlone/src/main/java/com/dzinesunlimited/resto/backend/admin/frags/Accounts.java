@@ -23,7 +23,6 @@ import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -480,52 +479,18 @@ public class Accounts extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (resultCode != android.app.Activity.RESULT_CANCELED)	{
-            switch (requestCode) {
 
-                case ACTION_REQUEST_NEW_ACCOUNT:
+            /** CLEAR THE ARRAYLIST **/
+            arrUsers.clear();
 
-                    /** CLEAR THE ARRAYLIST **/
-                    arrUsers.clear();
+            /** RESET THE SPINNER **/
+            spnUserRoles.setOnItemSelectedListener(selectRole);
 
-                    /** INVALIDATE THE GRID VIEW **/
-                    gridUsers.invalidate();
-                    adapUsers.notifyDataSetChanged();
+            /** FETCH THE USERS FROM THE SELECTED USER ROLES **/
+            new fetchUsers().execute();
 
-                    /** RESET THE SPINNER **/
-                    spnUserRoles.setOnItemSelectedListener(selectRole);
-
-                    /** FETCH THE USERS FROM THE SELECTED USER ROLES **/
-                    new fetchUsers().execute();
-
-					/* RE-INSTANTIATE THE ADAPTER */
-                    adapUsers = new AccountsUsersAdapter(getActivity(), arrUsers);
-
-                    break;
-
-
-                case ACTION_REQUEST_EDIT_ACCOUNT:
-
-                    /** CLEAR THE ARRAYLIST **/
-                    arrUsers.clear();
-
-                    /** INVALIDATE THE GRID VIEW **/
-                    gridUsers.invalidate();
-                    adapUsers.notifyDataSetChanged();
-
-                    /** RESET THE SPINNER **/
-                    spnUserRoles.setOnItemSelectedListener(selectRole);
-
-                    /** FETCH THE USERS FROM THE SELECTED USER ROLES **/
-                    new fetchUsers().execute();
-
-					/* RE-INSTANTIATE THE ADAPTER */
-                    adapUsers = new AccountsUsersAdapter(getActivity(), arrUsers);
-
-                    break;
-
-                default:
-                    break;
-            }
+            /** RE-INSTANTIATE THE ADAPTER **/
+            adapUsers = new AccountsUsersAdapter(getActivity(), arrUsers);
         }
     }
 
@@ -605,7 +570,6 @@ public class Accounts extends Fragment {
                                     final String STAFF_ID = account.getStaffID();
                                     String STAFF_USER_NAME = account.getStaffUserName();
                                     String STAFF_ROLE_ID = account.getStaffRoleID();
-                                    Log.e("ROLE ID", STAFF_ROLE_ID);
 
                                     if (STAFF_USER_NAME.equals("admin"))   {
                                         Toast.makeText(getActivity(), "You cannot delete the default \"Admin\" account", Toast.LENGTH_LONG).show();

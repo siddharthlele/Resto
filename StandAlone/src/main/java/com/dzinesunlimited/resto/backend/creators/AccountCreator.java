@@ -16,7 +16,6 @@ import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -110,7 +109,6 @@ public class AccountCreator extends AppCompatActivity {
 
             /** CONSTRUCT THE QUERY TO FETCH ALL TWEETS FROM THE DATABASE **/
             String strQueryData = "SELECT * FROM " + db.STAFF_ROLES;
-            Log.e("CREATOR ROLES QUERY", strQueryData);
 
             /** CAST THE QUERY IN THE CURSOR TO FETCH THE RESULTS **/
             cursor = db.selectAllData(strQueryData);
@@ -184,7 +182,6 @@ public class AccountCreator extends AppCompatActivity {
             public void onImagePicked(File imageFile, EasyImage.ImageSource source) {
                 super.onImagePicked(imageFile, source);
                 onPhotoReturned(imageFile);
-                Log.e("DATA", String.valueOf(data));
 
                 if (source == EasyImage.ImageSource.CAMERA) {
                     imgSource = 1;
@@ -210,8 +207,7 @@ public class AccountCreator extends AppCompatActivity {
         public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
 
             if (imgSource == 1) {
-                Log.e("HEIGHT / WIDTH", String.valueOf(bitmap.getHeight()) + " " + String.valueOf(bitmap.getWidth()));
-
+//                Log.e("HEIGHT / WIDTH", String.valueOf(bitmap.getHeight()) + " " + String.valueOf(bitmap.getWidth()));
                 imgvwProfile.setImageBitmap(bitmap);
                 imgvwProfile.setScaleType(AppCompatImageView.ScaleType.CENTER_CROP);
 
@@ -221,8 +217,7 @@ public class AccountCreator extends AppCompatActivity {
                 PROFILE_PICTURE = bos.toByteArray();
 
             } else if (imgSource == 2)  {
-                Log.e("HEIGHT / WIDTH", String.valueOf(bitmap.getHeight()) + " " + String.valueOf(bitmap.getWidth()));
-
+//                Log.e("HEIGHT / WIDTH", String.valueOf(bitmap.getHeight()) + " " + String.valueOf(bitmap.getWidth()));
                 imgvwProfile.setImageBitmap(bitmap);
                 imgvwProfile.setScaleType(AppCompatImageView.ScaleType.CENTER_CROP);
 

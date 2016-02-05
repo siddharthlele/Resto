@@ -384,6 +384,27 @@ public class DBResto {
         db.update(MENU, valUpdateMenu, MENU_ID + "=" + menuID, null);
     }
 
+    /***** UPDATE AND STAFF ACCOUNT *****/
+    public void updateStaff(
+            String staffID, String strRoleID, String strFName,
+            String strPhone, String strUsername, String strPassword, byte[] bytProfile) {
+
+		/* OPEN THE DATABASE AGAIN */
+        this.db = helper.getWritableDatabase();
+
+        /** ADD AND CREATE KEY VALUE PAIRS FOR ADDING A NEW ACCOUNT TO THE DATABASE **/
+        ContentValues valUpdateStaff = new ContentValues();
+        valUpdateStaff.put(STAFF_ROLE_ID, strRoleID);
+        valUpdateStaff.put(STAFF_FULL_NAME, strFName);
+        valUpdateStaff.put(STAFF_PHONE, strPhone);
+        valUpdateStaff.put(STAFF_USER_NAME, strUsername);
+        valUpdateStaff.put(STAFF_PASSWORD, strPassword);
+        valUpdateStaff.put(STAFF_PROFILE_PICTURE, bytProfile);
+
+		/* UPDATE THE ROW WITH THE NEW COLLECTED DATA IN THE STAFF TABLE */
+        db.update(STAFF, valUpdateStaff, STAFF_ID + "=" + staffID, null);
+    }
+
     /***** DELETE A ACCOUNT / STAFF *****/
     public void deleteStaff(String strStaffID) {
         db.delete(STAFF, STAFF_ID + "=" + strStaffID, null);
@@ -508,6 +529,7 @@ public class DBResto {
         db.insert(STAFF_ROLES, null, cv);
     }
 
+    /** CREATE A NEW STAFF TABLE **/
     private void createStaffTable(SQLiteDatabase db) {
 
         String strCreateStaffTable = "create table " + STAFF +
