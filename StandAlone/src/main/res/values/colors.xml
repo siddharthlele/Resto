@@ -1,14 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="appBG">#462346</color>
-    <color name="primaryColor">#5B365C</color>
-    <color name="primaryColorDark">#462446</color>
-    <color name="colorAccent">#663E66</color>
-    <color name="cardBG">#593959</color>
+    <color name="appBG">#303030</color>
+    <color name="primaryColor">#212121</color>
+    <color name="primaryColorDark">#000000</color>
+    <color name="colorAccent">#448AFF</color>
+    <color name="cardBG">#424242</color>
 
     <!-- SIDEBAR TEXT COLOR -->
     <color name="sideBarTextColor">@android:color/primary_text_dark</color>
 
     <!-- ICON COLORS -->
     <color name="icons">#FFFFFF</color>
+
+    <!--<color name="appBG">#462346</color>
+    <color name="primaryColor">#5B365C</color>
+    <color name="primaryColorDark">#462446</color>
+    <color name="colorAccent">#663E66</color>
+    <color name="cardBG">#593959</color>
+
+    &lt;!&ndash; SIDEBAR TEXT COLOR &ndash;&gt;
+    <color name="sideBarTextColor">@android:color/primary_text_dark</color>
+
+    &lt;!&ndash; ICON COLORS &ndash;&gt;
+    <color name="icons">#FFFFFF</color>-->
 </resources>

@@ -4,6 +4,8 @@
     <string name="welcome_container_tb">"Resto Configuration"</string>
     <string name="dashboard_title">Dashboard</string>
     <string name="category_manager_title">Categories Manager</string>
+    <string name="category_creator_title">Create A New Menu Category</string>
+    <string name="category_modifier_title">Update Category</string>
     <string name="menu_creator_title">Add A New Dish</string>
     <string name="taxes_manager_title">Taxes Manager</string>
     <string name="tables_manager_title">Tables Manager</string>

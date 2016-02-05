@@ -11,7 +11,6 @@ import android.support.v7.widget.AppCompatTextView;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 
-import com.dzinesunlimited.resto.backend.admin.AdminLanding;
 import com.dzinesunlimited.resto.utils.AppPrefs;
 import com.dzinesunlimited.resto.utils.db.DBResto;
 import com.dzinesunlimited.resto.welcome.WelcomeContainer;

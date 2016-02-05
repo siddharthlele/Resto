@@ -1,62 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/mainContainer"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:padding="5dp">
+    android:layout_width="match_parent"
+    android:layout_height="220dp"
+    android:orientation="vertical">
 
     <android.support.v7.widget.CardView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        app:cardBackgroundColor="@android:color/tertiary_text_light"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="4dp"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="4dp"
+        app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="true">
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="fill_parent">
 
-            <FrameLayout
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/imgvwCategory"
                 android:layout_width="fill_parent"
-                android:layout_height="200dp"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:layout_height="fill_parent"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/beverages" />
 
-                <android.support.v7.widget.AppCompatImageView
-                    android:id="@+id/imgvwCategory"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_gravity="center"
-                    android:adjustViewBounds="true"
-                    android:scaleType="centerCrop" />
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:layout_marginBottom="20dp"
+                android:layout_marginRight="20dp"
+                android:background="#99DCDCDC"
+                android:orientation="vertical">
 
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/txtCategoryName"
-                    fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                    fontPath="fonts/HelveticaNeueLTW1G-MdCn.otf"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|center"
-                    android:background="#99000000"
-                    android:gravity="center"
-                    android:padding="11dp"
-                    android:text="CATEGORY NAME"
-                    android:textColor="@android:color/primary_text_dark"
-                    android:textSize="18sp" />
+                    android:padding="20dp"
+                    android:text="DISH NAME"
+                    android:textColor="@android:color/primary_text_light"
+                    android:textSize="20sp" />
+            </LinearLayout>
 
-                <android.support.v7.widget.AppCompatImageView
-                    android:id="@+id/imgvwCategoryOptions"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end|top"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginTop="5dp"
-                    android:adjustViewBounds="true"
-                    android:background="#CCDCDCDC"
-                    android:padding="11dp"
-                    android:src="@drawable/ic_more_vert_black_24dp" />
-            </FrameLayout>
-        </LinearLayout>
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/imgvwCategoryOptions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|top"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:adjustViewBounds="true"
+                android:background="#CCDCDCDC"
+                android:padding="11dp"
+                android:src="@drawable/ic_more_vert_black_24dp" />
+        </FrameLayout>
     </android.support.v7.widget.CardView>
-
-</RelativeLayout>
+</LinearLayout>

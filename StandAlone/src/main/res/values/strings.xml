@@ -4,6 +4,9 @@
     <string name="app_name_splash">RESTO</string>
     <string name="app_icon">&#xE561;</string>
 
+    <!-- STAR SYMBOL -->
+    <string name="star_symbol">&#9733;</string>
+
     <!-- PROGRESSBAR: LOADING TEXT -->
     <string name="loading">Loading....</string>
 

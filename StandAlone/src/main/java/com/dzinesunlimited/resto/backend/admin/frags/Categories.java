@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatEditText;
@@ -30,7 +31,6 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -66,7 +66,6 @@ public class Categories extends Fragment {
     /** THE ACTION DECLARATIONS **/
     private static final int ACTION_NEW_CATEGORY = 101;
     private static final int ACTION_EDIT_CATEGORY = 102;
-    private static final int ACTION_EDIT_CATEGORY_TAX = 103;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -344,15 +343,6 @@ public class Categories extends Fragment {
 
                     break;
 
-                case ACTION_EDIT_CATEGORY_TAX:
-                    /** CLEAR THE ARRAYLIST **/
-                    arrCategories.clear();
-
-                    /** FETCH THE CATEGORIES AGAIN **/
-                    new fetchAllCategories().execute();
-
-                    break;
-
                 default:
                     break;
             }
@@ -408,57 +398,77 @@ public class Categories extends Fragment {
                     pm.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
-//                            Toast.makeText(getActivity(), String.valueOf(item.getTitle()), Toast.LENGTH_SHORT).show();
-
                             switch (item.getItemId())   {
-
                                 case R.id.catEdit:
-
                                     /** EDIT THE CATEGORY **/
                                     Intent editCategory = new Intent(getActivity(), CategoryModifier.class);
                                     editCategory.putExtra("CATEGORY_ID", md.getCatID());
                                     editCategory.putExtra("CATEGORY_NAME", md.getCatName());
                                     startActivityForResult(editCategory, ACTION_EDIT_CATEGORY);
-
                                     break;
-
                                 case R.id.catDelete:
+                                    /** CHECK IF THE CATEGORY CONTAINS ANY DISHES / MEALS **/
+                                    db = new DBResto(getActivity());
+                                    String s = "SELECT * FROM " + db.MENU + " WHERE " + db.MENU_CATEGORY_ID + "=" + md.getCatID();
+                                    Cursor cursor = db.selectAllData(s);
 
-                                    /** DELETE THE CATEGORY **/
-                                    final String CAT_ID = md.getCatID();
-                                    String strTitle = "DELETE \"" + md.getCatName().toUpperCase() + "\"?";
-                                    String strMessage = getResources().getString(R.string.delete_category_message);
-                                    String strYes = getResources().getString(R.string.generic_mb_yes);
-                                    String strNo = getResources().getString(R.string.generic_mb_no);
+                                    if (cursor.getCount() != 0) {
+                                        String message = "\"" + md.getCatName().toUpperCase() + "\"" + " CONTAINS DISHES. YOU WILL NEED TO EITHER DELETE THE DISHES OR CHANGE THEIR CATEGORIES BEFORE DELETING THIS CATEGORY";
+                                        String title = "Cannot Delete " + md.getCatName();
+                                        String okay = getResources().getString(R.string.generic_mb_ok);
 
-                                    /** CONFIGURE THE ALERTDIALOG **/
-                                    new MaterialDialog.Builder(activity)
-                                            .icon(getResources().getDrawable(R.drawable.ic_info_outline_black_24dp))
-                                            .title(strTitle)
-                                            .content(strMessage)
-                                            .positiveText(strYes)
-                                            .negativeText(strNo)
-                                            .theme(Theme.LIGHT)
-                                            .typeface("HelveticaNeueLTW1G-MdCn.otf", "HelveticaNeueLTW1G-Cn.otf")
-                                            .onPositive(new MaterialDialog.SingleButtonCallback() {
-                                                @Override
-                                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                                    db = new DBResto(activity);
-                                                    db.deleteCategory(CAT_ID);
+                                        /** CONFIGURE THE DIALOG **/
+                                        new MaterialDialog.Builder(activity)
+                                                .icon(ContextCompat.getDrawable(getActivity(), R.drawable.ic_info_outline_black_24dp))
+                                                .title(title)
+                                                .content(message)
+                                                .neutralText(okay)
+                                                .theme(Theme.LIGHT)
+                                                .typeface("HelveticaNeueLTW1G-MdCn.otf", "HelveticaNeueLTW1G-Cn.otf")
+                                                .onNeutral(new MaterialDialog.SingleButtonCallback() {
+                                                    @Override
+                                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                                        dialog.dismiss();
+                                                    }
+                                                }).show();
 
-                                                    /** CLEAR THE ARRAYLIST **/
-                                                    arrCategories.clear();
+                                    } else {
+                                        /** DELETE THE CATEGORY **/
+                                        final String CAT_ID = md.getCatID();
+                                        String strTitle = "DELETE \"" + md.getCatName().toUpperCase() + "\"?";
+                                        String strMessage = getResources().getString(R.string.delete_category_message);
+                                        String strYes = getResources().getString(R.string.generic_mb_yes);
+                                        String strNo = getResources().getString(R.string.generic_mb_no);
 
-                                                    /** REFRESH THE LIST OF MENU CATEGORIES **/
-                                                    new fetchAllCategories().execute();
-                                                }
-                                            })
-                                            .onNegative(new MaterialDialog.SingleButtonCallback() {
-                                                @Override
-                                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                                    dialog.dismiss();
-                                                }
-                                            }).show();
+                                        /** CONFIGURE THE DIALOG **/
+                                        new MaterialDialog.Builder(activity)
+                                                .icon(ContextCompat.getDrawable(getActivity(), R.drawable.ic_info_outline_black_24dp))
+                                                .title(strTitle)
+                                                .content(strMessage)
+                                                .positiveText(strYes)
+                                                .negativeText(strNo)
+                                                .theme(Theme.LIGHT)
+                                                .typeface("HelveticaNeueLTW1G-MdCn.otf", "HelveticaNeueLTW1G-Cn.otf")
+                                                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                                    @Override
+                                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                                        db = new DBResto(activity);
+                                                        db.deleteCategory(CAT_ID);
+
+                                                        /** CLEAR THE ARRAYLIST **/
+                                                        arrCategories.clear();
+
+                                                        /** REFRESH THE LIST OF MENU CATEGORIES **/
+                                                        new fetchAllCategories().execute();
+                                                    }
+                                                })
+                                                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                                                    @Override
+                                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                                        dialog.dismiss();
+                                                    }
+                                                }).show();
+                                    }
 
                                     break;
 
@@ -474,7 +484,7 @@ public class Categories extends Fragment {
             });
 
             /** SHOW THE LIST OF DISHES IN THIS CATEGORY **/
-            holder.mainContainer.setOnClickListener(new View.OnClickListener() {
+            holder.imgvwCategory.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent showMenu = new Intent(activity, Menus.class);
@@ -497,7 +507,7 @@ public class Categories extends Fragment {
 
         public class CategoriesVH extends RecyclerView.ViewHolder	{
 
-            RelativeLayout mainContainer;
+//            RelativeLayout mainContainer;
             AppCompatImageView imgvwCategory;
             AppCompatTextView txtCategoryName;
             AppCompatImageView imgvwCategoryOptions;
@@ -506,7 +516,7 @@ public class Categories extends Fragment {
                 super(v);
 
                 /*****	CAST THE LAYOUT ELEMENTS	*****/
-                mainContainer = (RelativeLayout) v.findViewById(R.id.mainContainer);
+//                mainContainer = (RelativeLayout) v.findViewById(R.id.mainContainer);
                 imgvwCategory = (AppCompatImageView) v.findViewById(R.id.imgvwCategory);
                 txtCategoryName = (AppCompatTextView) v.findViewById(R.id.txtCategoryName);
                 imgvwCategoryOptions = (AppCompatImageView) v.findViewById(R.id.imgvwCategoryOptions);

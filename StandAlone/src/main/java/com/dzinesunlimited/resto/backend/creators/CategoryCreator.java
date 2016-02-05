@@ -141,7 +141,7 @@ public class CategoryCreator extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.myToolbar);
         setSupportActionBar(myToolbar);
 
-        String strTitle = getResources().getString(R.string.cat_creator_title);
+        String strTitle = getResources().getString(R.string.category_creator_title);
         SpannableString s = new SpannableString(strTitle);
         s.setSpan(new TypefaceSpan(
                 CategoryCreator.this, "RobotoCondensed-Regular.ttf"), 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -201,7 +201,7 @@ public class CategoryCreator extends AppCompatActivity {
         /** CHECK THAT THE CATEGORY NAME AND THE CATEGORY THUMB ARE NOT EMPTY **/
         if (edtCategoryName.getText().toString().length() == 0 && CATEGORY_THUMB == null)	{
             edtCategoryName.setError("You need to enter the Category Name");
-            String strMessage = "An image representing the Category is necssary to save it!";
+            String strMessage = "An image representing the Category is necessary to save it!";
             Toast.makeText(getApplicationContext(), strMessage, Toast.LENGTH_SHORT).show();
         } else if (edtCategoryName.getText().toString().length() == 0 && CATEGORY_THUMB != null) {
             edtCategoryName.setError("You need to enter the Category Name");

@@ -111,7 +111,7 @@
                     android:gravity="center"
                     android:padding="@dimen/empty_pad"
                     android:text="@string/cat_admin_empty"
-                    android:textColor="@android:color/tertiary_text_dark"
+                    android:textColor="@android:color/secondary_text_dark"
                     android:textSize="@dimen/empty_size" />
             </LinearLayout>
         </FrameLayout>

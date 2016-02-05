@@ -68,7 +68,6 @@
     <string name="tax_creator_req_fields">All fields are mandatory</string>
 
     <!-- CATEGORY CREATOR -->
-    <string name="cat_creator_title">Create A New Menu Category</string>
     <string name="cat_creator_ID_label">MENU CATEGORY ID (<b>THIS IS AN AUTO-GENERATED NUMBER</b>)</string>
     <string name="cat_creator_name_label">NAME THE MENU CATEGORY</string>
     <string name="cat_creator_name">(*) Enter The Menu Category Name</string>
@@ -77,6 +76,8 @@
     <string name="cat_creator_tax_sel_2">tax(es)</string>
     <string name="cat_creator_dish_thumb_label">Please assign an Image that will represent the Category to your Guests. You can either <i>\"click\"</i> a new Picture using a <i>Camera</i> application. Or, you can choose an Image from a <i>Gallery</i> application.</string>
     <string name="delete_category_message">Are you sure you want to delete this Menu Category? Pressing \"Yes\" will confirm the deletion and will be <b>permanent</b></string>
+    <string name="cat_modifier_duplicate_error_title">Duplicate Category!!</string>
+    <string name="cat_modifier_duplicate_error_message">A Category with the same name already exists in the database. Please choose a different name for this Category</string>
 
     <!-- MENU CREATOR -->
     <string name="menu_creator_auto_id"><b>Resto</b> will auto-generate the Menu ID for you</string>

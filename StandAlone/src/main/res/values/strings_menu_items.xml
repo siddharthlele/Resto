@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="generic_mb_ok">Okay</string>
     <string name="generic_mb_new">New</string>
     <string name="generic_mb_add">Add</string>
     <string name="generic_mb_save">Save</string>

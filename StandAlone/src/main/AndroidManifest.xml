@@ -35,11 +35,11 @@
             android:windowSoftInputMode="adjustPan" />
 
         <activity
-            android:name=".recovery.PasswordRecovery"
+            android:name=".backend.admin.AdminLanding"
             android:windowSoftInputMode="adjustPan" />
 
         <activity
-            android:name=".backend.admin.AdminLanding"
+            android:name=".backend.admin.frags.Menus"
             android:windowSoftInputMode="adjustPan" />
 
         <activity
