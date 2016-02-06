@@ -294,7 +294,6 @@ public class AccountCreator extends AppCompatActivity {
                 /***** SET THE RESULT TO "RESULT_CANCELED" AND FINISH THE ACTIVITY *****/
                 Intent intent = new Intent();
                 setResult(RESULT_CANCELED, intent);
-
                 /** FINISH THE ACTIVITY **/
                 this.finish();
                 break;

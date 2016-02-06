@@ -7,6 +7,7 @@
     <string name="category_creator_title">Create A New Menu Category</string>
     <string name="category_modifier_title">Update Category</string>
     <string name="menu_creator_title">Add A New Dish</string>
+    <string name="menu_modifier_title">Update Dish</string>
     <string name="taxes_manager_title">Taxes Manager</string>
     <string name="tables_manager_title">Tables Manager</string>
     <string name="account_manager_title">Accounts Manager</string>

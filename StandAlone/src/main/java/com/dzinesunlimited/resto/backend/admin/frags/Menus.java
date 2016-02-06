@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatImageView;
@@ -35,6 +36,7 @@ import android.widget.PopupMenu;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
 import com.dzinesunlimited.resto.R;
 import com.dzinesunlimited.resto.backend.creators.MenuCreator;
 import com.dzinesunlimited.resto.backend.details.MenuDetails;
@@ -505,7 +507,7 @@ public class Menus extends AppCompatActivity {
             /* SHOW THE RATING */
             holder.rtbarDishRating.setRating(4.2f);
 
-            /** EDIT THE DISH **/
+            /** SHOW THE POPUP MENU **/
             holder.imgvwMenuOptions.setOnClickListener(new View.OnClickListener() {
 
                 @Override
@@ -521,72 +523,54 @@ public class Menus extends AppCompatActivity {
                             switch (item.getItemId())   {
 
                                 case R.id.menuEdit:
-
                                     String strMenuNo = md.getMealNo();
                                     Intent editDish = new Intent(Menus.this, MenuModifier.class);
                                     editDish.putExtra("MENU_ID", strMenuNo);
                                     editDish.putExtra("MENU_NAME", md.getMealName());
                                     startActivityForResult(editDish, 110);
-
                                     break;
 
                                 case R.id.menuView:
-
                                     Intent showDetails = new Intent(Menus.this, MenuDetails.class);
                                     showDetails.putExtra("MENU_ID", md.getMealNo());
                                     startActivity(showDetails);
-
                                     break;
 
                                 case R.id.menuDelete:
+                                    final String MENU_ID = md.getMealNo();
+                                    String strTitle = "DELETE \"" + md.getMealName().toUpperCase() + "\"?";
+                                    String strMessage = getResources().getString(R.string.delete_menu_message);
+                                    String strYes = getResources().getString(R.string.generic_mb_yes);
+                                    String strNo = getResources().getString(R.string.generic_mb_no);
 
-//                                    /** DELETE THE ACCOUNT **/
-//                                    String STAFF_USER_NAME = md.getMealNo();
-//                                    if (STAFF_USER_NAME.equals("superadmin"))   {
-//                                        Toast.makeText(Menus.this, "You cannot delete a Super Admin", Toast.LENGTH_SHORT).show();
-//                                    } else {
-//                                        final String STAFF_ID = account.getStaffID();
-//                                        String strTitle = getResources().getString(R.string.generic_mb_delete_question);
-//                                        String strMessage = "Are you sure you want to delete this Account? Pressing \\'Yes\\' will confirm the deletion and is <b>permanent</b>.";
-//                                        String strYes = getResources().getString(R.string.generic_mb_yes);
-//                                        String strNo = getResources().getString(R.string.generic_mb_no);
-//
-//                                        /** CONFIGURE THE ALERTDIALOG **/
-//                                        android.app.AlertDialog.Builder alertDelete = new android.app.AlertDialog.Builder(activity);
-//                                        alertDelete.setIcon(R.drawable.ic_warning_black_24dp);
-//                                        alertDelete.setTitle(strTitle);
-//                                        alertDelete.setMessage(strMessage);
-//
-//                                        alertDelete.setNegativeButton(strNo, new DialogInterface.OnClickListener() {
-//                                            @Override
-//                                            public void onClick(DialogInterface dialog, int which) {
-//                                                /** DISMISS THE DIALOG **/
-//                                                dialog.dismiss();
-//                                            }
-//                                        });
-//
-//                                        alertDelete.setPositiveButton(strYes, new DialogInterface.OnClickListener() {
-//                                            @Override
-//                                            public void onClick(DialogInterface dialog, int which) {
-//                                                db = new DBResto(activity);
-//                                                db.deleteStaff(STAFF_ID);
-//
-//                                                /* INVALIDATE THE RECIPE ITEMS LISTVIEW (RECYCLERVIEW) */
-//                                                gridUsers.invalidate();
-//
-//                                                /* NOTIFY THE ADAPTER */
-//                                                adapUsers.notifyDataSetChanged();
-//
-//                                                /* CLEAR THE ARRAYLIST */
-//                                                arrUsers.clear();
-//
-//                                                /** REFRESH THE SUPPLIERS LIST  **/
-//                                                new fetchUsers().execute();
-//                                            }
-//                                        });
-//                                        alertDelete.show();
-//                                    }
+                                    /** CONFIGURE THE DIALOG **/
+                                    new MaterialDialog.Builder(activity)
+                                            .icon(ContextCompat.getDrawable(activity, R.drawable.ic_info_outline_black_24dp))
+                                            .title(strTitle)
+                                            .content(strMessage)
+                                            .positiveText(strYes)
+                                            .negativeText(strNo)
+                                            .theme(Theme.LIGHT)
+                                            .typeface("HelveticaNeueLTW1G-MdCn.otf", "HelveticaNeueLTW1G-Cn.otf")
+                                            .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                                @Override
+                                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                                    db = new DBResto(activity);
+                                                    db.deleteMenu(MENU_ID);
 
+                                                    /** CLEAR THE ARRAYLIST **/
+                                                    arrMenu.clear();
+
+                                                    /** REFRESH THE LIST OF MENUS / DISHES **/
+                                                    new fetchMenus().execute();
+                                                }
+                                            })
+                                            .onNegative(new MaterialDialog.SingleButtonCallback() {
+                                                @Override
+                                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                                    dialog.dismiss();
+                                                }
+                                            }).show();
                                     break;
 
                                 default:

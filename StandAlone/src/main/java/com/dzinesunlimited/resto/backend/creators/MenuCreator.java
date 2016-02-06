@@ -238,19 +238,13 @@ public class MenuCreator extends AppCompatActivity {
 
                 switch (checkedId) {
                     case R.id.rdbtnVeg:
-
-                        /** SET THE GENDER TO MALE **/
+                        /** SET THE DISH TYPE TO "VEG" **/
                         MEAL_TYPE = "Veg";
-
                         break;
-
                     case R.id.rdbtnNonVeg:
-
-                        /** SET THE GENDER TO FEMALE **/
+                        /** SET THE DISH TYPE TO "NON-VEG" **/
                         MEAL_TYPE = "Non-veg";
-
                         break;
-
                     default:
                         break;
                 }
@@ -271,7 +265,7 @@ public class MenuCreator extends AppCompatActivity {
         imgvwAddPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EasyImage.openChooser(MenuCreator.this, "Pick Image Source");
+                EasyImage.openChooser(MenuCreator.this, "Pick Image Source", true);
             }
         });
 
@@ -302,31 +296,39 @@ public class MenuCreator extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        EasyImage.handleActivityResult(requestCode, resultCode, data, this, new DefaultCallback() {
+        if (resultCode == RESULT_OK && requestCode == ACTION_REQUEST_NEW_CATEGORY)    {
 
-            @Override
-            public void onImagePicked(File imageFile, EasyImage.ImageSource source) {
-                super.onImagePicked(imageFile, source);
-                onPhotoReturned(imageFile);
+            /** CLEAR THE ARRAYLIST AND REFRESH THE SPINNER CATEGORIES DATA **/
+            arrCategory.clear();
+            new fetchMenuCategories().execute();
+
+        } else if (resultCode == RESULT_OK) {
+            EasyImage.handleActivityResult(requestCode, resultCode, data, this, new DefaultCallback() {
+
+                @Override
+                public void onImagePicked(File imageFile, EasyImage.ImageSource source) {
+                    super.onImagePicked(imageFile, source);
+                    onPhotoReturned(imageFile);
 //                Log.e("DATA", String.valueOf(data));
 
-                if (source == EasyImage.ImageSource.CAMERA) {
-                    imgSource = 1;
-                } else {
-                    imgSource = 2;
+                    if (source == EasyImage.ImageSource.CAMERA) {
+                        imgSource = 1;
+                    } else {
+                        imgSource = 2;
+                    }
                 }
-            }
 
-            @Override
-            public void onImagePickerError(Exception e, EasyImage.ImageSource source) {
-                super.onImagePickerError(e, source);
-            }
+                @Override
+                public void onImagePickerError(Exception e, EasyImage.ImageSource source) {
+                    super.onImagePickerError(e, source);
+                }
 
-            @Override
-            public void onCanceled(EasyImage.ImageSource source) {
-                super.onCanceled(source);
-            }
-        });
+                @Override
+                public void onCanceled(EasyImage.ImageSource source) {
+                    super.onCanceled(source);
+                }
+            });
+        }
     }
 
     private Target target = new Target() {
@@ -619,11 +621,6 @@ public class MenuCreator extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
-
     /** THE CUSTOM MENU CATEGORIES ADAPTER **/
     private class MenuCreatorCategoryAdapter extends ArrayAdapter<MenuCategoryData> {
 
@@ -695,5 +692,10 @@ public class MenuCreator extends AppCompatActivity {
 
             return row;
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }

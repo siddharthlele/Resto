@@ -85,4 +85,5 @@
     <string name="menu_creator_choose_or_create_category">Choose a <b>Category</b> to add the new <b>Dish</b> to. Or create a new <b>Category</b></string>
     <string name="cre_menu_new_category">&#xE147;</string>
     <string name="creator_menu_spinner_prompt">CHOOSE A MENU CATEGORY</string>
+    <string name="delete_menu_message">Are you sure you want to delete this Dish? Pressing \"Yes\" will confirm the deletion and will be <b>permanent</b>. This will also permanently delete all the feedback on this Dish along with other statistics such as the number of times this Dish was ordered etc.</string>
 </resources>

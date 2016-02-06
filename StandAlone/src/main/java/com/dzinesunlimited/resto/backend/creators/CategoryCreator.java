@@ -76,7 +76,7 @@ public class CategoryCreator extends AppCompatActivity {
         imgvwCategoryThumb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EasyImage.openChooser(CategoryCreator.this, "Pick Image Source");
+                EasyImage.openChooser(CategoryCreator.this, "Pick Image Source", true);
             }
         });
     }

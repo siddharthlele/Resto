@@ -420,6 +420,11 @@ public class DBResto {
         db.delete(CATEGORY, CATEGORY_ID + "=" + catId, null);
     }
 
+    /** DELETE THE DISH **/
+    public void deleteMenu(String menuId) {
+        db.delete(MENU, MENU_ID + "=" + menuId, null);
+    }
+
     /** DELETE AN EXISTING TAX **/
     public void deleteTax(String taxId) {
         db.delete(TAXES, TAX_ID + "=" + taxId , null);

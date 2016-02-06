@@ -390,6 +390,7 @@ public class Categories extends Fragment {
 
             /** SHOW THE POPUP MENU **/
             holder.imgvwCategoryOptions.setOnClickListener(new View.OnClickListener() {
+
                 @Override
                 public void onClick(View v) {
 
