@@ -36,6 +36,7 @@ import android.widget.TextView;
 import com.dzinesunlimited.resto.R;
 import com.dzinesunlimited.resto.utils.TypefaceSpan;
 import com.dzinesunlimited.resto.utils.db.DBResto;
+import com.dzinesunlimited.resto.utils.helpers.adapters.backend.MenuCategoriesAdapter;
 import com.dzinesunlimited.resto.utils.helpers.adapters.backend.MenuServesAdapter;
 import com.dzinesunlimited.resto.utils.helpers.pojos.MenuCategoryData;
 import com.squareup.picasso.Picasso;
@@ -100,9 +101,6 @@ public class MenuCreator extends AppCompatActivity {
 
         /***** CONFIGURE THE ACTIONBAR *****/
         configAB();
-
-        /** HIDE THE KEYBOARD **/
-        hideKeyboard();
 
         /***** CAST THE LAYOUT ELEMENTS *****/
         castLayoutElements();
@@ -206,7 +204,7 @@ public class MenuCreator extends AppCompatActivity {
             db.close();
 
             /** SET THE ADAPTER TO THE SPINNER **/
-            spnMenuCategory.setAdapter(new MenuCreatorCategoryAdapter(
+            spnMenuCategory.setAdapter(new MenuCategoriesAdapter(
                     MenuCreator.this,
                     R.layout.custom_spinner_row,
                     arrCategory));
@@ -602,96 +600,6 @@ public class MenuCreator extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setTitle(s);
         getSupportActionBar().setSubtitle(null);
-    }
-
-    /** HIDE THE KEYBOARD **/
-    private void hideKeyboard() {
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-    }
-
-
-    /***** CHECK IF THE USER HAS CREATED A RECIPE FOR THE NEW DISH / MENU / MEAL *****/
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-
-        if (keyCode == KeyEvent.KEYCODE_BACK)   {
-//            Toast.makeText(MenuCreator.this, "BACK BUTTON PRESSED", Toast.LENGTH_SHORT).show();
-        }
-
-        return super.onKeyDown(keyCode, event);
-    }
-
-    /** THE CUSTOM MENU CATEGORIES ADAPTER **/
-    private class MenuCreatorCategoryAdapter extends ArrayAdapter<MenuCategoryData> {
-
-        /** THE ACTIVITY INSTANCE FOR USE IN THE ADAPTER **/
-        private Activity activity;
-
-        /** LAYOUT INFLATER TO USE A CUSTOM LAYOUT **/
-        private LayoutInflater inflater = null;
-
-        /** ARRAYLIST TO GET DATA FROM THE ACTIVITY **/
-        private ArrayList<MenuCategoryData> arrAdapCategory;
-
-        public MenuCreatorCategoryAdapter(
-                Activity activity,
-                int resource,
-                ArrayList<MenuCategoryData> arrAdapCategory) {
-            super(activity, resource);
-
-            /** CAST THE ACTIVITY FROM THE METHOD TO THE LOCAL ACTIVITY INSTANCE **/
-            this.activity = activity;
-
-            /** CAST THE CONTENTS OF THE ARRAYLIST IN THE METHOD TO THE LOCAL INSTANCE **/
-            this.arrAdapCategory = arrAdapCategory;
-
-            /** INSTANTIATE THE LAYOUTINFLATER **/
-            inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        }
-
-        @Override
-        public int getCount() {
-            return arrAdapCategory.size();
-        }
-
-        @Override
-        public MenuCategoryData getItem(int position) {
-            return arrAdapCategory.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getDropDownView(int position, View convertView, ViewGroup parent) {
-            // TODO Auto-generated method stub
-            return getCustomView(position, convertView, parent);
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            // TODO Auto-generated method stub
-            return getCustomView(position, convertView, parent);
-        }
-
-        private View getCustomView(int position, View convertView, ViewGroup parent) {
-            // TODO Auto-generated method stub
-
-            /********** Inflate spinner_rows.xml file for each row ( Defined below ) ************/
-            View row = inflater.inflate(R.layout.custom_spinner_row, parent, false);
-
-            TextView txtCategoryCode = (TextView) row.findViewById(R.id.txtValue);
-
-            /** SET THE MENU CATEGORY NAME **/
-            String strCategoryName = arrAdapCategory.get(position).getCatName();
-            if (strCategoryName != null)	{
-                txtCategoryCode.setText(strCategoryName);
-            }
-
-            return row;
-        }
     }
 
     @Override

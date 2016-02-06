@@ -17,14 +17,24 @@ import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.RadioGroup;
 
 import com.dzinesunlimited.resto.R;
 import com.dzinesunlimited.resto.utils.TypefaceSpan;
 import com.dzinesunlimited.resto.utils.db.DBResto;
+import com.dzinesunlimited.resto.utils.helpers.adapters.backend.MenuCategoriesAdapter;
+import com.dzinesunlimited.resto.utils.helpers.adapters.backend.MenuServesAdapter;
+import com.dzinesunlimited.resto.utils.helpers.pojos.MenuCategoryData;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -59,12 +69,26 @@ public class MenuModifier extends AppCompatActivity {
     }
 
     /***** DATA TYPES TO HOLD DISH DETAILS *****/
+    private String MENU_CATEGORY_ID = null;
     private String MENU_NAME;
     private String MENU_DESCRIPTION;
     private String MENU_PRICE;
     private String MENU_TYPE = "Veg";
     private String MENU_SERVES;
     private byte[] MENU_IMAGE;
+
+    /***** ADAPTER AND ARRAYLIST FOR MENU CATEGORIES *****/
+    private ArrayList<MenuCategoryData> arrCategory = new ArrayList<>();
+    private List<String> arrServes = new ArrayList<>();
+
+    /***** DATA TYPES TO HOLD VARIOUS DISH DETAILS *****/
+    private String SELECTED_CATEGORY_ID;
+
+    /***** THE REQUEST ID FOR A NEW CATEGORY *****/
+    private static final int ACTION_REQUEST_NEW_CATEGORY = 101;
+
+    /** IMAGE SOURCE **/
+    int imgSource = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -75,8 +99,31 @@ public class MenuModifier extends AppCompatActivity {
         /***** CONFIGURE THE ACTIONBAR *****/
         configAB();
 
-        /** GET THE INCOMING DATA **/
-        fetchIncomingData();
+        /***** FETCH THE MENU CATEGORIES *****/
+        new fetchMenuCategories().execute();
+
+        /** POPULATE THE SPINNER **/
+        String[] strServes = getResources().getStringArray(R.array.menuServes);
+        arrServes = Arrays.asList(strServes);
+        spnServes.setAdapter(new MenuServesAdapter(
+                MenuModifier.this,
+                R.layout.custom_spinner_row,
+                arrServes));
+
+        /** CHANGE THE MENU SERVES NUMBER **/
+        spnServes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                MENU_SERVES = arrServes.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        /***** SELECT A MENU CATEGORY FOR THE DISH TO GO IN *****/
+        spnMenuCategory.setOnItemSelectedListener(selectCategory);
 
         /** CHANGE THE DISH TYPE **/
         rdgDishType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -97,6 +144,9 @@ public class MenuModifier extends AppCompatActivity {
                 }
             }
         });
+
+        /** GET THE INCOMING DATA **/
+        fetchIncomingData();
     }
 
     /** FETCH EXISTING DISH DETAILS **/
@@ -123,6 +173,12 @@ public class MenuModifier extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
             if (cursor != null && cursor.getCount() != 0) {
                 for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                    /** GET THE MENU CATEGORY ID**/
+                    if (cursor.getString(cursor.getColumnIndex(db.MENU_CATEGORY_ID)) != null)	{
+                        MENU_CATEGORY_ID = cursor.getString(cursor.getColumnIndex(db.MENU_CATEGORY_ID));
+                    } else {
+                        MENU_CATEGORY_ID = null;
+                    }
                     /** GET THE MENU NAME **/
                     if (cursor.getString(cursor.getColumnIndex(db.MENU_NAME)) != null)	{
                         MENU_NAME = cursor.getString(cursor.getColumnIndex(db.MENU_NAME));
@@ -183,6 +239,11 @@ public class MenuModifier extends AppCompatActivity {
             db.close();
 
             /***** SET THE COLLECTED DATA *****/
+            if (MENU_CATEGORY_ID != null)   {
+                int posCategory = getCategoryIndex(arrCategory, MENU_CATEGORY_ID);
+                spnMenuCategory.setSelection(posCategory);
+            }
+
             if (MENU_NAME != null)  {
                 edtDishName.setText(MENU_NAME);
             }
@@ -208,6 +269,12 @@ public class MenuModifier extends AppCompatActivity {
                 edtDishPrice.setText(MENU_PRICE);
             }
 
+            if (MENU_SERVES != null)    {
+                Log.e("SERVES", MENU_SERVES);
+                int posServes = getServesIndex(arrServes, MENU_SERVES);
+                spnMenuCategory.setSelection(posServes);
+            }
+
             if (MENU_IMAGE != null) {
                 Bitmap bitmap = BitmapFactory.decodeByteArray(MENU_IMAGE, 0, MENU_IMAGE.length);
                 imgvwAddPhoto.setScaleType(AppCompatImageView.ScaleType.CENTER_CROP);
@@ -215,6 +282,128 @@ public class MenuModifier extends AppCompatActivity {
             }
         }
     }
+
+    /***** GET THE CATEGORY POSITION *****/
+    private int getCategoryIndex(ArrayList<MenuCategoryData> array, String catID) {
+        int index = 0;
+        for (int i =0; i < array.size(); i++) {
+            if (array.get(i).getCatID().equalsIgnoreCase(catID))   {
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
+
+    /***** GET THE SERVES POSITION *****/
+    private int getServesIndex(List<String> array, String serves) {
+        int index = 0;
+        for (int i =0; i < array.size(); i++) {
+            if (array.get(i).equalsIgnoreCase(serves))   {
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
+
+    /***** FETCH THE MENU CATEGORIES *****/
+    private class fetchMenuCategories extends AsyncTask<Void, Void, Void> {
+
+        /** A CURSOR INSTANCE **/
+        Cursor cursor;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+//			/***** SHOW THE PROGRESS WHILE LOADING THE CATEGORIES AND THE MENU IN THEM *****/
+//			linlaHeaderProgress.setVisibility(View.VISIBLE);
+
+            /** INSTANTIATE THE DATABASE HELPER CLASS **/
+            db = new DBResto(MenuModifier.this);
+
+            /** CONSTRUCT THE QUERY TO FETCH ALL MENU CATEGORIES FROM THE DATABASE **/
+            String strQueryData = "SELECT * FROM " + db.CATEGORY;
+
+            /** CAST THE QUERY IN THE CURSOR TO FETCH THE RESULTS **/
+            cursor = db.selectAllData(strQueryData);
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            /** CHECK THAT THE DATABASE QUERY RETURNED SOME RESULTS **/
+            if (cursor != null && cursor.getCount() != 0)	{
+
+				/* AN INSTANCE OF THE MenuCategoryData POJO CLASS */
+                MenuCategoryData menuCategory;
+
+                /** LOOP THROUGH THE RESULT SET AND PARSE NECESSARY INFORMATION **/
+                for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+
+                    /***** INSTANTIATE THE MenuCreatorCategoryData INSTANCE "menuCategory" *****/
+                    menuCategory = new MenuCategoryData();
+
+                    /** GET THE CATEGORY ID **/
+                    if (cursor.getString(cursor.getColumnIndex(db.CATEGORY_ID)) != null)	{
+                        String strMenuCatID = cursor.getString(cursor.getColumnIndex(db.CATEGORY_ID));
+                        menuCategory.setCatID(strMenuCatID);
+                    } else {
+                        menuCategory.setCatID(null);
+                    }
+
+                    /** GET THE CATEGORY NAME **/
+                    if (cursor.getString(cursor.getColumnIndex(db.CATEGORY_NAME)) != null)	{
+                        String strCatName = cursor.getString(cursor.getColumnIndex(db.CATEGORY_NAME));
+                        menuCategory.setCatName(strCatName);
+                    } else {
+                        menuCategory.setCatName(null);
+                    }
+
+                    /** ADD THE COLLECTED DATA TO THE ARRAYLIST **/
+                    arrCategory.add(menuCategory);
+
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+            /** CLOSE THE CURSOR **/
+            if (cursor != null && !cursor.isClosed())	{
+                cursor.close();
+            }
+
+            /** CLOSE THE DATABASE **/
+            db.close();
+
+            /** SET THE ADAPTER TO THE SPINNER **/
+            spnMenuCategory.setAdapter(new MenuCategoriesAdapter(
+                    MenuModifier.this,
+                    R.layout.custom_spinner_row,
+                    arrCategory));
+        }
+    }
+
+    /***** SELECT A MENU CATEGORY FOR THE DISH TO GO IN *****/
+    private final AdapterView.OnItemSelectedListener selectCategory = new AdapterView.OnItemSelectedListener() {
+
+        @Override
+        public void onItemSelected(AdapterView<?> parentView, View v, int position, long id) {
+
+			/** GET THE CURRENT SELECTED MENU CATEGORY **/
+            SELECTED_CATEGORY_ID = arrCategory.get(position).getCatID();
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parentView) {
+
+        }
+    };
 
     /** GET THE INCOMING DATA **/
     private void fetchIncomingData() {
