@@ -383,6 +383,7 @@ public class Tables extends Fragment {
                                     String strNo = getResources().getString(R.string.generic_mb_no);
 
                                     /** CONFIGURE THE DIALOG **/
+                                    //JUST ADDING SOME CRAP!!
                                     new MaterialDialog.Builder(activity)
                                             .icon(ContextCompat.getDrawable(activity, R.drawable.ic_info_outline_black_24dp))
                                             .title(strTitle)
