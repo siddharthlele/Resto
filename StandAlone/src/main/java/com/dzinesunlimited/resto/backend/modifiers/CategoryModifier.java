@@ -313,9 +313,6 @@ public class CategoryModifier extends AppCompatActivity {
         /** A BOOLEAN TO TRACK EXISTING CATEGORY NAME **/
         boolean blnCatExists = false;
 
-        /** STRING TO HOLD THE CATEGORY NAME **/
-        String strCatName;
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -326,9 +323,6 @@ public class CategoryModifier extends AppCompatActivity {
             pdUpdateCategory.setIndeterminate(false);
             pdUpdateCategory.setCancelable(false);
             pdUpdateCategory.show();
-
-            /** GET THE CURRENT TYPED NAME **/
-            strCatName = edtCategoryName.getText().toString().trim();
 
             /** INSTANTIATE THE DATABASE INSTANCE **/
             db = new DBResto(CategoryModifier.this);
@@ -351,7 +345,7 @@ public class CategoryModifier extends AppCompatActivity {
                     if (cursor.getString(cursor.getColumnIndex(db.CATEGORY_NAME)) != null)	{
                         String catName = cursor.getString(cursor.getColumnIndex(db.CATEGORY_NAME));
                         if (catName.equals(CATEGORY_NAME))	{
-                            if (strCatName.equalsIgnoreCase(INCOMING_CATEGORY_NAME))   {
+                            if (CATEGORY_NAME.equalsIgnoreCase(INCOMING_CATEGORY_NAME))   {
 							    /* TOGGLE THE BOOLEAN TO INDICATE THE CATEGORY DOES NOT EXIST */
                                 blnCatExists = false;
                             } else {

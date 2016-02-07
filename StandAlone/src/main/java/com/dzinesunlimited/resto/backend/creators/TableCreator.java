@@ -184,8 +184,7 @@ public class TableCreator extends AppCompatActivity {
             TABLE_NUMBER = Integer.valueOf(edtTableNumber.getText().toString());
 
             /** CONSTRUCT A QUERY TO FETCH TABLES ON RECORD **/
-            String strQueryData =
-                    "SELECT * FROM tables WHERE table_id = '" + String.valueOf(TABLE_NUMBER) + "'";
+            String strQueryData = "SELECT * FROM " + db.TABLES + " WHERE " + db.TABLE_ID + " = " + TABLE_NUMBER;
 
             /** CAST THE QUERY IN THE CURSOR TO FETCH THE RESULTS **/
             cursor = db.selectAllData(strQueryData);

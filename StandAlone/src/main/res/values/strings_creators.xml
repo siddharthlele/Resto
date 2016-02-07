@@ -37,6 +37,7 @@
     <string name="table_creator_table_seats_hint"><b>(*)</b> Number Of Seats</string>
     <string name="table_creator_table_seats_empty">Please provide the <i>Number of Seats</i> at the Table</string>
     <string name="table_creator_req_fields">Fields marked with a <b>(*)</b> are <b>Required Fields</b></string>
+    <string name="delete_table_message">Are you sure you want to delete this Table? Pressing \"Yes\" will confirm the deletion and will be <b>permanent</b>. You will also not be able to accept orders for this Table.</string>
 
     <!-- TAX CREATOR STRINGS -->
     <string name="tax_creator_title">Add a new Tax</string>

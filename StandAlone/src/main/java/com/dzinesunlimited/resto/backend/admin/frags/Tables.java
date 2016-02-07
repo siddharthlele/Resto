@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
@@ -25,6 +27,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
 import com.dzinesunlimited.resto.R;
 import com.dzinesunlimited.resto.backend.creators.TableCreator;
 import com.dzinesunlimited.resto.backend.modifiers.TableModifier;
@@ -364,65 +369,48 @@ public class Tables extends Fragment {
                     pm.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
-//                            Toast.makeText(getActivity(), String.valueOf(item.getTitle()), Toast.LENGTH_SHORT).show();
-
                             switch (item.getItemId())   {
-
                                 case R.id.menuEdit:
-
                                     /** EDIT THE TABLE **/
                                     Intent editTable = new Intent(getActivity(), TableModifier.class);
                                     editTable.putExtra("TABLE_NO", td.getTableNo());
                                     startActivityForResult(editTable, ACTION_REQUEST_EDIT_TABLE);
-
                                     break;
-
                                 case R.id.menuDelete:
-
-                                    /** DELETE THE TABLE **/
-                                    final String TABLE_NO = td.getTableNo();
-                                    String strTitle = "Delete Table \"No. " + td.getTableNo() + "\"?";
-                                    String strMessage = "Are you sure you want to delete this Table? Pressing \"Yes\" will confirm the deletion and will be <b>permanent</b>.";
+                                    String strTitle = "DELETE TABLE NUMBER \"" + td.getTableNo() + "\"?";
+                                    String strMessage = getResources().getString(R.string.delete_table_message);
                                     String strYes = getResources().getString(R.string.generic_mb_yes);
                                     String strNo = getResources().getString(R.string.generic_mb_no);
 
-                                    /** CONFIGURE THE ALERTDIALOG **/
-                                    AlertDialog.Builder alertDelete = new AlertDialog.Builder(activity);
-                                    alertDelete.setIcon(R.drawable.ic_info_outline_black_24dp);
-                                    alertDelete.setTitle(strTitle);
-                                    alertDelete.setMessage(strMessage);
+                                    /** CONFIGURE THE DIALOG **/
+                                    new MaterialDialog.Builder(activity)
+                                            .icon(ContextCompat.getDrawable(activity, R.drawable.ic_info_outline_black_24dp))
+                                            .title(strTitle)
+                                            .content(strMessage)
+                                            .positiveText(strYes)
+                                            .negativeText(strNo)
+                                            .theme(Theme.LIGHT)
+                                            .typeface("HelveticaNeueLTW1G-MdCn.otf", "HelveticaNeueLTW1G-Cn.otf")
+                                            .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                                @Override
+                                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                                    db = new DBResto(activity);
+                                                    db.deleteTable(td.getTableNo());
 
-                                    alertDelete.setNegativeButton(strNo, new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            /** DISMISS THE DIALOG **/
-                                            dialog.dismiss();
-                                        }
-                                    });
+                                                    /** CLEAR THE ARRAYLIST **/
+                                                    arrTables.clear();
 
-                                    alertDelete.setPositiveButton(strYes, new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            db = new DBResto(activity);
-                                            db.deleteTable(TABLE_NO);
-
-                                            /* INVALIDATE THE TABLES LISTVIEW (RECYCLERVIEW) */
-                                            listTables.invalidate();
-
-                                            /* NOTIFY THE ADAPTER */
-                                            adapter.notifyDataSetChanged();
-
-                                            /* CLEAR THE ARRAYLIST */
-                                            arrTables.clear();
-
-                                            /** REFRESH THE SUPPLIERS LIST  **/
-                                            new showTables().execute();
-                                        }
-                                    });
-                                    alertDelete.show();
-
+                                                    /** REFRESH THE SUPPLIERS LIST  **/
+                                                    new showTables().execute();
+                                                }
+                                            })
+                                            .onNegative(new MaterialDialog.SingleButtonCallback() {
+                                                @Override
+                                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                                    dialog.dismiss();
+                                                }
+                                            }).show();
                                     break;
-
                                 default:
                                     break;
                             }

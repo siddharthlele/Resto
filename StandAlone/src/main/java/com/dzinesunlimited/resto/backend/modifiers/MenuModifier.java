@@ -1,10 +1,13 @@
 package com.dzinesunlimited.resto.backend.modifiers;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -22,8 +25,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.dzinesunlimited.resto.R;
 import com.dzinesunlimited.resto.utils.TypefaceSpan;
@@ -31,7 +36,11 @@ import com.dzinesunlimited.resto.utils.db.DBResto;
 import com.dzinesunlimited.resto.utils.helpers.adapters.backend.MenuCategoriesAdapter;
 import com.dzinesunlimited.resto.utils.helpers.adapters.backend.MenuServesAdapter;
 import com.dzinesunlimited.resto.utils.helpers.pojos.MenuCategoryData;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -39,6 +48,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import pl.aprilapps.easyphotopicker.DefaultCallback;
 import pl.aprilapps.easyphotopicker.EasyImage;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -115,15 +125,13 @@ public class MenuModifier extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 MENU_SERVES = arrServes.get(position);
+                Log.e("MENU SERVES", MENU_SERVES);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-
-        /***** SELECT A MENU CATEGORY FOR THE DISH TO GO IN *****/
-        spnMenuCategory.setOnItemSelectedListener(selectCategory);
 
         /** CHANGE THE DISH TYPE **/
         rdgDishType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -144,9 +152,6 @@ public class MenuModifier extends AppCompatActivity {
                 }
             }
         });
-
-        /** GET THE INCOMING DATA **/
-        fetchIncomingData();
     }
 
     /** FETCH EXISTING DISH DETAILS **/
@@ -270,9 +275,8 @@ public class MenuModifier extends AppCompatActivity {
             }
 
             if (MENU_SERVES != null)    {
-                Log.e("SERVES", MENU_SERVES);
                 int posServes = getServesIndex(arrServes, MENU_SERVES);
-                spnMenuCategory.setSelection(posServes);
+                spnServes.setSelection(posServes);
             }
 
             if (MENU_IMAGE != null) {
@@ -328,6 +332,9 @@ public class MenuModifier extends AppCompatActivity {
 
             /** CAST THE QUERY IN THE CURSOR TO FETCH THE RESULTS **/
             cursor = db.selectAllData(strQueryData);
+//			Log.e("CURSOR", DatabaseUtils.dumpCursorToString(cursor));
+
+            arrCategory.clear();
         }
 
         @Override
@@ -386,6 +393,12 @@ public class MenuModifier extends AppCompatActivity {
                     MenuModifier.this,
                     R.layout.custom_spinner_row,
                     arrCategory));
+
+            /***** SELECT A MENU CATEGORY FOR THE DISH TO GO IN *****/
+            spnMenuCategory.setOnItemSelectedListener(selectCategory);
+
+            /** GET THE INCOMING DATA **/
+            fetchIncomingData();
         }
     }
 
@@ -397,6 +410,7 @@ public class MenuModifier extends AppCompatActivity {
 
 			/** GET THE CURRENT SELECTED MENU CATEGORY **/
             SELECTED_CATEGORY_ID = arrCategory.get(position).getCatID();
+            Log.e("SELECTED CATEGORY ID", SELECTED_CATEGORY_ID);
         }
 
         @Override
@@ -419,6 +433,100 @@ public class MenuModifier extends AppCompatActivity {
         } else {
             //TODO: SHOW AN ERROR
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK && requestCode == ACTION_REQUEST_NEW_CATEGORY)    {
+
+            /** CLEAR THE ARRAYLIST AND REFRESH THE SPINNER CATEGORIES DATA **/
+            arrCategory.clear();
+            new fetchMenuCategories().execute();
+
+        } else if (resultCode == RESULT_OK) {
+            EasyImage.handleActivityResult(requestCode, resultCode, data, this, new DefaultCallback() {
+
+                @Override
+                public void onImagePicked(File imageFile, EasyImage.ImageSource source) {
+                    super.onImagePicked(imageFile, source);
+                    onPhotoReturned(imageFile);
+//                Log.e("DATA", String.valueOf(data));
+
+                    if (source == EasyImage.ImageSource.CAMERA) {
+                        imgSource = 1;
+                    } else {
+                        imgSource = 2;
+                    }
+                }
+
+                @Override
+                public void onImagePickerError(Exception e, EasyImage.ImageSource source) {
+                    super.onImagePickerError(e, source);
+                }
+
+                @Override
+                public void onCanceled(EasyImage.ImageSource source) {
+                    super.onCanceled(source);
+                }
+            });
+        }
+    }
+
+    private Target target = new Target() {
+        @Override
+        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+
+            Bitmap BMP_MEAL_IMAGE;
+
+            if (imgSource == 1) {
+                BMP_MEAL_IMAGE = resizeCameraBitmap(bitmap);
+
+                imgvwAddPhoto.setImageBitmap(BMP_MEAL_IMAGE);
+                imgvwAddPhoto.setScaleType(AppCompatImageView.ScaleType.CENTER_CROP);
+
+                /** CONVERT THE BITMAP TO A BYTE ARRAY **/
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                BMP_MEAL_IMAGE.compress(Bitmap.CompressFormat.PNG, 100, bos);
+                MENU_IMAGE = bos.toByteArray();
+
+            } else if (imgSource == 2)  {
+                imgvwAddPhoto.setImageBitmap(bitmap);
+                imgvwAddPhoto.setScaleType(AppCompatImageView.ScaleType.CENTER_CROP);
+
+                /** CONVERT THE BITMAP TO A BYTE ARRAY **/
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, bos);
+                MENU_IMAGE = bos.toByteArray();
+            }
+        }
+
+        @Override
+        public void onBitmapFailed(Drawable errorDrawable) {
+
+        }
+
+        @Override
+        public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+        }
+    };
+
+    /** RESIZE THE CAMERA IMAGE **/
+    private Bitmap resizeCameraBitmap(Bitmap bitmap) {
+
+        return Bitmap.createScaledBitmap(
+                bitmap,
+                (int)(bitmap.getWidth() * 0.4),
+                (int)(bitmap.getHeight() * 0.4),
+                true);
+    }
+
+    private void onPhotoReturned(File photoFile) {
+        Picasso.with(this)
+                .load(photoFile)
+                .into(target);
     }
 
     /***** CONFIGURE THE ACTIONBAR *****/
@@ -478,6 +586,136 @@ public class MenuModifier extends AppCompatActivity {
 
     /** VALIDATE NECESSARY DATA BEFORE CREATING UPDATING THE DISH **/
     private void validateData() {
+
+		/* HIDE THE KEYBOARD */
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(edtDishName.getWindowToken(), 0);
+
+        /** GET THE REQUIRED DATA **/
+        MENU_NAME = edtDishName.getText().toString().trim();
+        MENU_DESCRIPTION = edtDishDescription.getText().toString().trim();
+        MENU_PRICE = edtDishPrice.getText().toString().trim();
+
+        if (MENU_NAME.length() == 0) {
+            inputDishName.setError("Menu / Dish name cannot be empty!");
+            edtDishName.requestFocus();
+        } else if (MENU_DESCRIPTION.length() == 0) {
+            inputDishDescription.setError("Please provide the Menu / Dish Description");
+            edtDishDescription.requestFocus();
+        } else if (MENU_PRICE.length() == 0) {
+            inputDishPrice.setError("The Menu / Dish needs to have a Price");
+            edtDishPrice.requestFocus();
+        } else if (MENU_IMAGE == null)    {
+            Toast.makeText(getApplicationContext(), "Please select an Image for your Dish", Toast.LENGTH_LONG).show();
+        } else {
+            /* REMOVE THE ERRORS (IF SHOWN) */
+            inputDishName.setErrorEnabled(false);
+            inputDishDescription.setErrorEnabled(false);
+            inputDishPrice.setErrorEnabled(false);
+
+            /* CHECK FOR UNIQUE MENU / DISH NAME */
+            new checkUniqueDishName().execute();
+        }
+    }
+
+    private class checkUniqueDishName extends AsyncTask<Void, Void, Void>   {
+
+        /** A PROGRESS DIALOG INSTANCE **/
+        ProgressDialog pdUpdateMenu;
+
+        /** A CURSOR INSTANCE **/
+        Cursor cursor;
+
+        /** A BOOLEAN TO TRACK EXISTING MENU NAME **/
+        boolean blnMenuExists = false;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            /** INSTANTIATE AND CONFIGURE THE PROGRESS DIALOG **/
+            pdUpdateMenu = new ProgressDialog(MenuModifier.this);
+            pdUpdateMenu.setMessage("Please wait while the new Dish / Menu is being updated....");
+            pdUpdateMenu.setIndeterminate(false);
+            pdUpdateMenu.setCancelable(true);
+            pdUpdateMenu.show();
+
+            /** INSTANTIATE THE DATABASE HELPER CLASS **/
+            db = new DBResto(MenuModifier.this);
+
+			/** CONSTRUCT A QUERY TO FETCH DISHES / MENUS ON RECORD **/
+            String strQueryData = "SELECT * FROM " + db.MENU + " WHERE " + db.MENU_NAME + " = '" + MENU_NAME + "'";
+
+			/** CAST THE QUERY IN THE CURSOR TO FETCH THE RESULTS **/
+            cursor = db.selectAllData(strQueryData);
+            Log.e("MENUS", DatabaseUtils.dumpCursorToString(cursor));
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+			/* CHECK THAT THE DATABASE QUERY RETURNED SOME RESULTS */
+            if (cursor != null && cursor.getCount() != 0)	{
+				/* LOOP THROUGH THE RESULT SET AND PARSE NECESSARY INFORMATION */
+                for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+					/* GET THE MENU NAMES */
+                    if (cursor.getString(cursor.getColumnIndex(db.MENU_NAME)) != null)	{
+                        String strMenuName = cursor.getString(cursor.getColumnIndex(db.MENU_NAME));
+                        if (strMenuName.equalsIgnoreCase(INCOMING_MENU_NAME))   {
+                            blnMenuExists = false;
+                        } else if (strMenuName.equalsIgnoreCase(MENU_NAME))    {
+                            blnMenuExists = true;
+                        }
+                    } else {
+                        blnMenuExists = false;
+                    }
+                }
+            } else {
+                blnMenuExists = false;
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            /** CLOSE THE CURSOR **/
+            if (cursor != null && !cursor.isClosed())	{
+                cursor.close();
+            }
+
+            /** CLOSE THE DATABASE **/
+            db.close();
+
+            /***** CHECK IF THE DISH / MENU EXISTS *****/
+            if (!blnMenuExists)	{
+
+                /***** UPDATE THE DISH IN THE DATABASE *****/
+                db.updateMenu(
+                        INCOMING_MENU_ID, SELECTED_CATEGORY_ID, MENU_NAME, MENU_DESCRIPTION,
+                        MENU_PRICE, MENU_TYPE, MENU_SERVES, MENU_IMAGE);
+
+				/* DISMISS THE DIALOG */
+                pdUpdateMenu.dismiss();
+
+                /***** SET THE RESULT TO "RESULT_OK" AND FINISH THE ACTIVITY *****/
+                Intent updatedMenu = new Intent();
+                setResult(RESULT_OK, updatedMenu);
+
+                /** FINISH THE ACTIVITY **/
+                finish();
+            } else {
+				/* SET THE ERROR MESSAGE */
+                //TODO: ADD THE ERROR TO THE STRINGS.XML
+                inputDishName.setError("A Dish with the same name exists. Choose a different name");
+                inputDishName.requestFocus();
+
+				/* DISMISS THE DIALOG */
+                pdUpdateMenu.dismiss();
+            }
+        }
     }
 
     @Override
