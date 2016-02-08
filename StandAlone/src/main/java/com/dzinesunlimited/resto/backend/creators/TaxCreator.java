@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatEditText;
-import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -37,28 +36,21 @@ public class TaxCreator extends AppCompatActivity {
     DBResto db;
 
     /***** DECLARE THE LAYOUT ELEMENTS *****/
-    AppCompatTextView txtTaxNameLabel;
     AppCompatEditText edtTaxName;
-    AppCompatTextView txtTaxPercentageLabel;
     AppCompatEditText edtTaxPercentage;
-    AppCompatTextView txtTaxRegistrationLabel;
     AppCompatEditText edtTaxRegistration;
-    AppCompatTextView txtTaxPercentageOfAmountLabel;
     RadioGroup rdgrpPercentOfAmount;
     RadioButton rdbtnYes, rdbtnNo;
     LinearLayout linlaPercentageOfAmount;
     AppCompatEditText edtTaxPercentageOfAmount;
     ImageView imgvwWhatIsThis;
-    AppCompatTextView txtRequiredFields;
-
-    /** BOOLEAN TO CHECK IF TAX APPLIES TO THE ENTIRE BILL OR PART OF THE BILL **/
-    boolean COMPLETE_AMOUNT = true;
 
     /** STRINGS TO HOLD THE COLLECTED DATA **/
     String TAX_NAME;
     String TAX_PERCENTAGE;
     String TAX_REGISTRATION;
     String TAX_PERCENT_OF_AMOUNT;
+    boolean TAX_COMPLETE_AMOUNT = true;
 
     /** A PROGRESSDIALOG INSTANCE TO SHOW THE PROGRESS **/
     ProgressDialog pdNewTax;
@@ -80,51 +72,37 @@ public class TaxCreator extends AppCompatActivity {
 
     /** CAST THE LAYOUT ELEMENTS **/
     private void castLayoutElements() {
-        txtTaxNameLabel = (AppCompatTextView) findViewById(R.id.txtTaxNameLabel);
         edtTaxName = (AppCompatEditText) findViewById(R.id.edtTaxName);
-        txtTaxPercentageLabel = (AppCompatTextView) findViewById(R.id.txtTaxPercentageLabel);
         edtTaxPercentage = (AppCompatEditText) findViewById(R.id.edtTaxPercentage);
-        txtTaxRegistrationLabel = (AppCompatTextView) findViewById(R.id.txtTaxRegistrationLabel);
         edtTaxRegistration = (AppCompatEditText) findViewById(R.id.edtTaxRegistration);
-        txtTaxPercentageOfAmountLabel = (AppCompatTextView) findViewById(R.id.txtTaxPercentageOfAmountLabel);
         rdgrpPercentOfAmount = (RadioGroup) findViewById(R.id.rdgrpPercentOfAmount);
         rdbtnYes = (RadioButton) findViewById(R.id.rdbtnYes);
         rdbtnNo = (RadioButton) findViewById(R.id.rdbtnNo);
         linlaPercentageOfAmount = (LinearLayout) findViewById(R.id.linlaPercentageOfAmount);
         edtTaxPercentageOfAmount = (AppCompatEditText) findViewById(R.id.edtTaxPercentageOfAmount);
         imgvwWhatIsThis = (ImageView) findViewById(R.id.imgvwWhatIsThis);
-        txtRequiredFields = (AppCompatTextView) findViewById(R.id.txtRequiredFields);
 
         /** CHECK PERCENTAGE OF AMOUNT RADIOBUTTON CLICK **/
         rdgrpPercentOfAmount.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-
                 int position = rdgrpPercentOfAmount.indexOfChild(findViewById(checkedId));
                 switch (position) {
                     case 0:
-
                         /** SET ENTIRE AMOUNT TAXABLE **/
-                        COMPLETE_AMOUNT = true;
-//                        Log.e("BOOLEAN", String.valueOf(COMPLETE_AMOUNT));
+                        TAX_COMPLETE_AMOUNT = true;
 
                         /** HIDE THE PERCENTAGE OF AMOUNT AppCompatEditText **/
                         linlaPercentageOfAmount.setVisibility(View.GONE);
-
                         break;
-
                     case 1:
-
                         /** SET PART OF AMOUNT TAXABLE **/
-                        COMPLETE_AMOUNT = false;
-//                        Log.e("BOOLEAN", String.valueOf(COMPLETE_AMOUNT));
+                        TAX_COMPLETE_AMOUNT = false;
 
                         /** SHOW THE PERCENTAGE OF AMOUNT AppCompatEditText **/
                         linlaPercentageOfAmount.setVisibility(View.VISIBLE);
-
                         break;
-
                     default:
                         break;
                 }
@@ -186,7 +164,7 @@ public class TaxCreator extends AppCompatActivity {
 
             case R.id.save:
 
-                /** CHECK FOR EMPTY EDITTEXTS **/
+                /** CHECK FOR EMPTY EDITTEXT **/
                 checkEmpty();
 
                 break;
@@ -220,7 +198,7 @@ public class TaxCreator extends AppCompatActivity {
         TAX_NAME = edtTaxName.getText().toString();
         TAX_PERCENTAGE = edtTaxPercentage.getText().toString();
         TAX_REGISTRATION = edtTaxRegistration.getText().toString();
-        if (COMPLETE_AMOUNT)    {
+        if (TAX_COMPLETE_AMOUNT)    {
             TAX_PERCENT_OF_AMOUNT = "100";
         } else {
             TAX_PERCENT_OF_AMOUNT = edtTaxPercentageOfAmount.getText().toString();
@@ -241,7 +219,7 @@ public class TaxCreator extends AppCompatActivity {
         } else if (edtTaxRegistration.getText().toString().length() == 0)    {
             edtTaxRegistration.setError(getResources().getString(R.string.tax_creator_tax_registration_empty));
             edtTaxRegistration.requestFocus();
-        } else if (!COMPLETE_AMOUNT && edtTaxPercentageOfAmount.getText().toString().length() == 0) {
+        } else if (!TAX_COMPLETE_AMOUNT && edtTaxPercentageOfAmount.getText().toString().length() == 0) {
             edtTaxPercentageOfAmount.setError(getResources().getString(R.string.tax_creator_tax_percentage_of_amount_empty));
             edtTaxPercentageOfAmount.requestFocus();
         } else if (edtTaxPercentageOfAmount.getText().toString().equals("0") ||
@@ -276,10 +254,10 @@ public class TaxCreator extends AppCompatActivity {
             /** INSTANTIATE THE DATABASE HELPER CLASS **/
             db = new DBResto(TaxCreator.this);
 
-            String strTaxName = edtTaxName.getText().toString();
+            String strTaxName = edtTaxName.getText().toString().trim();
 
             /** CONSTRUCT A QUERY TO FETCH TABLES ON RECORD **/
-            String strQueryData = "SELECT * FROM taxes WHERE tax_name = '" + strTaxName + "'";
+            String strQueryData = "SELECT * FROM " + db.TAXES + " WHERE " + db.TAX_NAME + " = '" + strTaxName + "'";
 
             /** CAST THE QUERY IN THE CURSOR TO FETCH THE RESULTS **/
             cursor = db.selectAllData(strQueryData);
@@ -327,7 +305,7 @@ public class TaxCreator extends AppCompatActivity {
                         TAX_NAME,
                         TAX_PERCENTAGE,
                         TAX_REGISTRATION,
-                        COMPLETE_AMOUNT,
+                        TAX_COMPLETE_AMOUNT,
                         TAX_PERCENT_OF_AMOUNT);
 
                 /** CLOSE THE CURSOR **/

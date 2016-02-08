@@ -100,6 +100,8 @@
     <dimen name="tax_cre_btm_mar_lft_rgt">10dp</dimen>
     <dimen name="tax_cre_btm_text_size">15sp</dimen>
     <dimen name="tax_cre_global_text_size">16sp</dimen>
+    <dimen name="tax_cre_bottom_note_pad">5dp</dimen>
+    <dimen name="tax_cre_bottom_note_text_size">12sp</dimen>
     <dimen name="tax_cre_edt_margin">5dp</dimen>
     <dimen name="tax_cre_label_margin">10dp</dimen>
 

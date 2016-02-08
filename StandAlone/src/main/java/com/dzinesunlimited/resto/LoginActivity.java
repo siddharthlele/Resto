@@ -204,7 +204,7 @@ public class LoginActivity extends AppCompatActivity {
 
             if (strUserName.equals(strTypedUserName) && strPassword.equals(strTypedPassword)) {
 
-                if (strUserRole.equals("1") || strUserRole.equals("2")) {
+                if (strUserRole.equals("1")) {
                     Intent startMainPage = new Intent(LoginActivity.this, AdminLanding.class);
                     startMainPage.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(startMainPage);

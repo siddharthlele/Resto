@@ -1,13 +1,13 @@
 package com.dzinesunlimited.resto.backend.admin.frags;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Fragment;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatTextView;
@@ -25,6 +25,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
 import com.dzinesunlimited.resto.R;
 import com.dzinesunlimited.resto.backend.creators.TaxCreator;
 import com.dzinesunlimited.resto.backend.modifiers.TaxModifier;
@@ -389,69 +392,55 @@ public class Taxes extends Fragment {
                     pm.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
-//                            Toast.makeText(getActivity(), String.valueOf(item.getTitle()), Toast.LENGTH_SHORT).show();
-
                             switch (item.getItemId())   {
-
                                 case R.id.menuEdit:
-
                                     /** EDIT THE TABLE **/
                                     Intent editTable = new Intent(getActivity(), TaxModifier.class);
                                     editTable.putExtra("TAX_ID", items.getTaxID());
+                                    editTable.putExtra("TAX_NAME", items.getTaxName());
                                     startActivityForResult(editTable, ACTION_REQUEST_EDIT_TAX);
-
                                     break;
-
                                 case R.id.menuDelete:
-
                                     /** DELETE THE TABLE **/
                                     final String TAX_ID = items.getTaxID();
                                     String strTitle = "Delete \"" + items.getTaxName() + "\"";
-                                    String strMessage = "Are you sure you want to delete this Tax? Pressing \"Yes\" will confirm the deletion and will be <b>permanent</b>.";
+                                    String strMessage = getResources().getString(R.string.tax_delete_message);
                                     String strYes = getResources().getString(R.string.generic_mb_yes);
                                     String strNo = getResources().getString(R.string.generic_mb_no);
 
                                     /** CONFIGURE THE ALERTDIALOG **/
-                                    AlertDialog.Builder alertDelete = new AlertDialog.Builder(activity);
-                                    alertDelete.setIcon(R.drawable.ic_info_outline_black_24dp);
-                                    alertDelete.setTitle(strTitle);
-                                    alertDelete.setMessage(strMessage);
+                                    new MaterialDialog.Builder(activity)
+                                            .icon(ContextCompat.getDrawable(activity, R.drawable.ic_info_outline_black_24dp))
+                                            .title(strTitle)
+                                            .cancelable(false)
+                                            .content(strMessage)
+                                            .positiveText(strYes)
+                                            .negativeText(strNo)
+                                            .theme(Theme.LIGHT)
+                                            .typeface("HelveticaNeueLTW1G-MdCn.otf", "HelveticaNeueLTW1G-Cn.otf")
+                                            .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                                @Override
+                                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                                    db = new DBResto(activity);
+                                                    db.deleteTax(TAX_ID);
 
-                                    alertDelete.setNegativeButton(strNo, new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            /** DISMISS THE DIALOG **/
-                                            dialog.dismiss();
-                                        }
-                                    });
+                                                    /** CLEAR THE ARRAYLIST **/
+                                                    arrTaxes.clear();
 
-                                    alertDelete.setPositiveButton(strYes, new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            db = new DBResto(activity);
-                                            db.deleteTax(TAX_ID);
-
-                                            /* INVALIDATE THE TABLES LISTVIEW (RECYCLERVIEW) */
-                                            listTaxes.invalidate();
-
-                                            /* NOTIFY THE ADAPTER */
-                                            adapter.notifyDataSetChanged();
-
-                                            /* CLEAR THE ARRAYLIST */
-                                            arrTaxes.clear();
-
-                                            /** REFRESH THE LIST OF TAXES **/
-                                            new fetchTaxes().execute();
-                                        }
-                                    });
-                                    alertDelete.show();
-
+                                                    /** REFRESH THE LIST OF TAXES **/
+                                                    new fetchTaxes().execute();
+                                                }
+                                            })
+                                            .onNegative(new MaterialDialog.SingleButtonCallback() {
+                                                @Override
+                                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                                    dialog.dismiss();
+                                                }
+                                            }).show();
                                     break;
-
                                 default:
                                     break;
                             }
-
                             return true;
                         }
                     });
