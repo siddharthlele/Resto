@@ -21,4 +21,9 @@
     <!-- ACCOUNTS -->
     <string name="acc_admin_empty">You have no <b>User Accounts</b> in this <b>User Role</b>.
         \n\nChange the <b>User Role</b> using the dropdown below the Search Bar. Or, add a new <b>User Account</b> to this <b>User Role</b>.</string>
+
+    <!-- FRONTEND -->
+    <string name="frontend_empty_categories">There are no Menu Categories available. Please consult the Staff.</string>
+    <string name="frontend_empty_menus">There are no Dishes available in this Category :-(</string>
+    <string name="frontend_empty_order_cart">You have no Dishes added to your Cart. \n\nBrowse the Menu and add Dishes to your Cart.</string>
 </resources>

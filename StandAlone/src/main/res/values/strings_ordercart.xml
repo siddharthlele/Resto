@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--<string name="cart_add">&#xf217;</string>-->
+    <!--<string name="cart_cancel">&#xf00d;</string>-->
+    <string name="cart_add">&#xE854;</string>
+    <string name="cart_cancel">&#xE14C;</string>
+    <string name="order_cart_default_zero">0</string>
+</resources>

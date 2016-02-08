@@ -1,10 +1,12 @@
 <resources>
-
     <style name="Resto" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@color/appBG</item>
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryDark">@color/primaryColorDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <!-- CARDVIEW STYLE -->
+        <item name="cardStyle">@style/RestoCards</item>
 
         <!-- SOME TEXT COLORS -->
         <item name="android:textColorLink">@android:color/holo_blue_dark</item>
@@ -26,5 +28,11 @@
     <style name="NavigationDrawerStyle">
         <item name="android:textSize">17sp</item>
         <item name="android:textColor">@color/sideBarTextColor</item>
+    </style>
+
+    <!-- CARD VIEW STYLE -->
+    <attr name="cardStyle" format="reference" />
+    <style name="RestoCards" parent="CardView">
+        <item name="cardBackgroundColor">@color/cardBG</item>
     </style>
 </resources>

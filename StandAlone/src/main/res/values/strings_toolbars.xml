@@ -16,4 +16,7 @@
     <string name="reports_title">Reports</string>
     <string name="account_creator_title">Create New Account</string>
     <string name="account_modifier_title">Update Account</string>
+
+    <!-- FRONT END -->
+    <string name="table_selector_title">Select A Table</string>
 </resources>

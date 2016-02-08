@@ -624,141 +624,141 @@ public class DBResto {
         // EXECUTE THE strCreateMealTypesTable TO CREATE THE TABLE
         db.execSQL(strCreateMealTypesTable);
 
-//        /***** ADD A FEW DUMMY VALUES *****/
-//        ContentValues cv = new ContentValues();
-//
-//        /** STARTERS **/
-//        cv.put(CATEGORY_ID, Integer.valueOf("01"));
-//        cv.put(CATEGORY_NAME, "Starters");
-//        bArray = PNGConverter("Categories/starters.png");
-//        cv.put(CATEGORY_IMAGE, bArray);
-//        db.insert(CATEGORY, null, cv);
-//
-//        /** SALADS **/
-//        cv.put(CATEGORY_ID, Integer.valueOf("02"));
-//        cv.put(CATEGORY_NAME, "Salads");
-//        bArray = PNGConverter("Categories/salads.png");
-//        cv.put(CATEGORY_IMAGE, bArray);
-//        db.insert(CATEGORY, null, cv);
-//
-//        /** SOUPS **/
-//        cv.put(CATEGORY_ID, Integer.valueOf("03"));
-//        cv.put(CATEGORY_NAME, "Soup");
-//        bArray = PNGConverter("Categories/soups.png");
-//        cv.put(CATEGORY_IMAGE, bArray);
-//        db.insert(CATEGORY, null, cv);
-//
-//        /** VEGETARIAN **/
-//        cv.put(CATEGORY_ID, Integer.valueOf("04"));
-//        cv.put(CATEGORY_NAME, "Vegetarian");
-//        bArray = PNGConverter("Categories/vegetarian.png");
-//        cv.put(CATEGORY_IMAGE, bArray);
-//        db.insert(CATEGORY, null, cv);
-//
-//        /** PASTA **/
-//        cv.put(CATEGORY_ID, Integer.valueOf("05"));
-//        cv.put(CATEGORY_NAME, "Pasta");
-//        bArray = PNGConverter("Categories/pasta.png");
-//        cv.put(CATEGORY_IMAGE, bArray);
-//        db.insert(CATEGORY, null, cv);
-//
-//        /** PRAWNS **/
-//        cv.put(CATEGORY_ID, Integer.valueOf("06"));
-//        cv.put(CATEGORY_NAME, "Prawns");
-//        bArray = PNGConverter("Categories/prawns.png");
-//        cv.put(CATEGORY_IMAGE, bArray);
-//        db.insert(CATEGORY, null, cv);
-//
-//        /** FISH **/
-//        cv.put(CATEGORY_ID, Integer.valueOf("07"));
-//        cv.put(CATEGORY_NAME, "Fish");
-//        bArray = PNGConverter("Categories/fish.png");
-//        cv.put(CATEGORY_IMAGE, bArray);
-//        db.insert(CATEGORY, null, cv);
-//
-//        /** CHICKEN **/
-//        cv.put(CATEGORY_ID, Integer.valueOf("08"));
-//        cv.put(CATEGORY_NAME, "Chicken");
-//        bArray = PNGConverter("Categories/chicken.png");
-//        cv.put(CATEGORY_IMAGE, bArray);
-//        db.insert(CATEGORY, null, cv);
-//
-//        /** TURKEY **/
-//        cv.put(CATEGORY_ID, Integer.valueOf("09"));
-//        cv.put(CATEGORY_NAME, "Turkey");
-//        bArray = PNGConverter("Categories/turkey.png");
-//        cv.put(CATEGORY_IMAGE, bArray);
-//        db.insert(CATEGORY, null, cv);
-//
-//        /** LAMB **/
-//        cv.put(CATEGORY_ID, Integer.valueOf("10"));
-//        cv.put(CATEGORY_NAME, "Lamb");
-//        bArray = PNGConverter("Categories/lamb.png");
-//        cv.put(CATEGORY_IMAGE, bArray);
-//        db.insert(CATEGORY, null, cv);
-//
-//        /** ORIENTAL **/
-//        cv.put(CATEGORY_ID, Integer.valueOf("11"));
-//        cv.put(CATEGORY_NAME, "Oriental");
-//        bArray = PNGConverter("Categories/oriental.png");
-//        cv.put(CATEGORY_IMAGE, bArray);
-//        db.insert(CATEGORY, null, cv);
-//
-//        /** ITALIAN **/
-//        cv.put(CATEGORY_ID, Integer.valueOf("12"));
-//        cv.put(CATEGORY_NAME, "Italian");
-//        bArray = PNGConverter("Categories/italian.png");
-//        cv.put(CATEGORY_IMAGE, bArray);
-//        db.insert(CATEGORY, null, cv);
-//
-//        /** SUSHI **/
-//        cv.put(CATEGORY_ID, Integer.valueOf("13"));
-//        cv.put(CATEGORY_NAME, "Sushi");
-//        bArray = PNGConverter("Categories/sushi.png");
-//        cv.put(CATEGORY_IMAGE, bArray);
-//        db.insert(CATEGORY, null, cv);
-//
-//        /** CONTINENTAL **/
-//        cv.put(CATEGORY_ID, Integer.valueOf("14"));
-//        cv.put(CATEGORY_NAME, "Continental");
-//        bArray = PNGConverter("Categories/continental.png");
-//        cv.put(CATEGORY_IMAGE, bArray);
-//        db.insert(CATEGORY, null, cv);
-//
-//        /** MEXICAN **/
-//        cv.put(CATEGORY_ID, Integer.valueOf("15"));
-//        cv.put(CATEGORY_NAME, "Mexican");
-//        bArray = PNGConverter("Categories/mexican.png");
-//        cv.put(CATEGORY_IMAGE, bArray);
-//        db.insert(CATEGORY, null, cv);
-//
-//        /** MOCKTAILS **/
-//        cv.put(CATEGORY_ID, Integer.valueOf("16"));
-//        cv.put(CATEGORY_NAME, "Mocktails");
-//        bArray = PNGConverter("Categories/mocktails.png");
-//        cv.put(CATEGORY_IMAGE, bArray);
-//        db.insert(CATEGORY, null, cv);
-//
-//        /** COCKTAILS **/
-//        cv.put(CATEGORY_ID, Integer.valueOf("17"));
-//        cv.put(CATEGORY_NAME, "Cocktails");
-//        bArray = PNGConverter("Categories/cocktails.png");
-//        cv.put(CATEGORY_IMAGE, bArray);
-//        db.insert(CATEGORY, null, cv);
-//
-//        /** BEVERAGES **/
-//        cv.put(CATEGORY_ID, Integer.valueOf("18"));
-//        cv.put(CATEGORY_NAME, "Beverages");
-//        bArray = PNGConverter("Categories/beverages.png");
-//        cv.put(CATEGORY_IMAGE, bArray);
-//        db.insert(CATEGORY, null, cv);
-//
-//        /** DESSERTS **/
-//        cv.put(CATEGORY_ID, Integer.valueOf("19"));
-//        cv.put(CATEGORY_NAME, "Desserts");
-//        bArray = PNGConverter("Categories/desserts.png");
-//        cv.put(CATEGORY_IMAGE, bArray);
-//        db.insert(CATEGORY, null, cv);
+        /***** ADD A FEW DUMMY VALUES *****/
+        ContentValues cv = new ContentValues();
+
+        /** STARTERS **/
+        cv.put(CATEGORY_ID, Integer.valueOf("01"));
+        cv.put(CATEGORY_NAME, "Starters");
+        bArray = PNGConverter("Categories/starters.png");
+        cv.put(CATEGORY_IMAGE, bArray);
+        db.insert(CATEGORY, null, cv);
+
+        /** SALADS **/
+        cv.put(CATEGORY_ID, Integer.valueOf("02"));
+        cv.put(CATEGORY_NAME, "Salads");
+        bArray = PNGConverter("Categories/salads.png");
+        cv.put(CATEGORY_IMAGE, bArray);
+        db.insert(CATEGORY, null, cv);
+
+        /** SOUPS **/
+        cv.put(CATEGORY_ID, Integer.valueOf("03"));
+        cv.put(CATEGORY_NAME, "Soup");
+        bArray = PNGConverter("Categories/soups.png");
+        cv.put(CATEGORY_IMAGE, bArray);
+        db.insert(CATEGORY, null, cv);
+
+        /** VEGETARIAN **/
+        cv.put(CATEGORY_ID, Integer.valueOf("04"));
+        cv.put(CATEGORY_NAME, "Vegetarian");
+        bArray = PNGConverter("Categories/vegetarian.png");
+        cv.put(CATEGORY_IMAGE, bArray);
+        db.insert(CATEGORY, null, cv);
+
+        /** PASTA **/
+        cv.put(CATEGORY_ID, Integer.valueOf("05"));
+        cv.put(CATEGORY_NAME, "Pasta");
+        bArray = PNGConverter("Categories/pasta.png");
+        cv.put(CATEGORY_IMAGE, bArray);
+        db.insert(CATEGORY, null, cv);
+
+        /** PRAWNS **/
+        cv.put(CATEGORY_ID, Integer.valueOf("06"));
+        cv.put(CATEGORY_NAME, "Prawns");
+        bArray = PNGConverter("Categories/prawns.png");
+        cv.put(CATEGORY_IMAGE, bArray);
+        db.insert(CATEGORY, null, cv);
+
+        /** FISH **/
+        cv.put(CATEGORY_ID, Integer.valueOf("07"));
+        cv.put(CATEGORY_NAME, "Fish");
+        bArray = PNGConverter("Categories/fish.png");
+        cv.put(CATEGORY_IMAGE, bArray);
+        db.insert(CATEGORY, null, cv);
+
+        /** CHICKEN **/
+        cv.put(CATEGORY_ID, Integer.valueOf("08"));
+        cv.put(CATEGORY_NAME, "Chicken");
+        bArray = PNGConverter("Categories/chicken.png");
+        cv.put(CATEGORY_IMAGE, bArray);
+        db.insert(CATEGORY, null, cv);
+
+        /** TURKEY **/
+        cv.put(CATEGORY_ID, Integer.valueOf("09"));
+        cv.put(CATEGORY_NAME, "Turkey");
+        bArray = PNGConverter("Categories/turkey.png");
+        cv.put(CATEGORY_IMAGE, bArray);
+        db.insert(CATEGORY, null, cv);
+
+        /** LAMB **/
+        cv.put(CATEGORY_ID, Integer.valueOf("10"));
+        cv.put(CATEGORY_NAME, "Lamb");
+        bArray = PNGConverter("Categories/lamb.png");
+        cv.put(CATEGORY_IMAGE, bArray);
+        db.insert(CATEGORY, null, cv);
+
+        /** ORIENTAL **/
+        cv.put(CATEGORY_ID, Integer.valueOf("11"));
+        cv.put(CATEGORY_NAME, "Oriental");
+        bArray = PNGConverter("Categories/oriental.png");
+        cv.put(CATEGORY_IMAGE, bArray);
+        db.insert(CATEGORY, null, cv);
+
+        /** ITALIAN **/
+        cv.put(CATEGORY_ID, Integer.valueOf("12"));
+        cv.put(CATEGORY_NAME, "Italian");
+        bArray = PNGConverter("Categories/italian.png");
+        cv.put(CATEGORY_IMAGE, bArray);
+        db.insert(CATEGORY, null, cv);
+
+        /** SUSHI **/
+        cv.put(CATEGORY_ID, Integer.valueOf("13"));
+        cv.put(CATEGORY_NAME, "Sushi");
+        bArray = PNGConverter("Categories/sushi.png");
+        cv.put(CATEGORY_IMAGE, bArray);
+        db.insert(CATEGORY, null, cv);
+
+        /** CONTINENTAL **/
+        cv.put(CATEGORY_ID, Integer.valueOf("14"));
+        cv.put(CATEGORY_NAME, "Continental");
+        bArray = PNGConverter("Categories/continental.png");
+        cv.put(CATEGORY_IMAGE, bArray);
+        db.insert(CATEGORY, null, cv);
+
+        /** MEXICAN **/
+        cv.put(CATEGORY_ID, Integer.valueOf("15"));
+        cv.put(CATEGORY_NAME, "Mexican");
+        bArray = PNGConverter("Categories/mexican.png");
+        cv.put(CATEGORY_IMAGE, bArray);
+        db.insert(CATEGORY, null, cv);
+
+        /** MOCKTAILS **/
+        cv.put(CATEGORY_ID, Integer.valueOf("16"));
+        cv.put(CATEGORY_NAME, "Mocktails");
+        bArray = PNGConverter("Categories/mocktails.png");
+        cv.put(CATEGORY_IMAGE, bArray);
+        db.insert(CATEGORY, null, cv);
+
+        /** COCKTAILS **/
+        cv.put(CATEGORY_ID, Integer.valueOf("17"));
+        cv.put(CATEGORY_NAME, "Cocktails");
+        bArray = PNGConverter("Categories/cocktails.png");
+        cv.put(CATEGORY_IMAGE, bArray);
+        db.insert(CATEGORY, null, cv);
+
+        /** BEVERAGES **/
+        cv.put(CATEGORY_ID, Integer.valueOf("18"));
+        cv.put(CATEGORY_NAME, "Beverages");
+        bArray = PNGConverter("Categories/beverages.png");
+        cv.put(CATEGORY_IMAGE, bArray);
+        db.insert(CATEGORY, null, cv);
+
+        /** DESSERTS **/
+        cv.put(CATEGORY_ID, Integer.valueOf("19"));
+        cv.put(CATEGORY_NAME, "Desserts");
+        bArray = PNGConverter("Categories/desserts.png");
+        cv.put(CATEGORY_IMAGE, bArray);
+        db.insert(CATEGORY, null, cv);
     }
 
     private void createMealsTable(SQLiteDatabase db) {
@@ -778,514 +778,624 @@ public class DBResto {
         // EXECUTE THE strCreateMealsTable TO CREATE THE TABLE
         db.execSQL(strCreateMealsTable);
 
-//        /***** ADD A FEW DUMMY VALUES *****/
-//        ContentValues cv = new ContentValues();
-//
-//		/* STARTERS */
-//        /** Stuffed Mushrooms **/
-//        cv.put(MENU_NAME, "Stuffed Mushrooms");
-//        cv.put(MENU_DESCRIPTION, "These delicious mushrooms taste just like restaurant-style stuffed mushrooms and are my guy's absolute favorite.");
-//        bArray = JPGConverter("Starters/stuffed_mushrooms.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "200.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("01"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Double Tomato Bruschetta **/
-//        cv.put(MENU_NAME, "Double Tomato Bruschetta");
-//        cv.put(MENU_DESCRIPTION, "A delicious and easy appetizer. The balsamic vinegar gives it a little bite. Dried basil can be substituted but it is best with fresh.");
-//        bArray = JPGConverter("Starters/double_tomato_bruschetta.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "200.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("01"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Marinated Grilled Shrimp **/
-//        cv.put(MENU_NAME, "Marinated Grilled Shrimp");
-//        cv.put(MENU_DESCRIPTION, "A very simple and easy marinade that makes your shrimp so yummy you don't even need cocktail sauce! Don't let the cayenne pepper scare you, you don't even taste it. Try it with a salad, baked potato, and garlic bread. You will not be disappointed!");
-//        bArray = JPGConverter("Starters/marinated_grilled_shrimp.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "470.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("01"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Cocktail Meatballs **/
-//        cv.put(MENU_NAME, "Cocktail Meatballs");
-//        cv.put(MENU_DESCRIPTION, "These tasty meatballs will disappear quickly from your plates!");
-//        bArray = JPGConverter("Starters/cocktail_meatballs.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "300.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("01"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Brown Sugar Smokies **/
-//        cv.put(MENU_NAME, "Brown Sugar Smokies");
-//        cv.put(MENU_DESCRIPTION, "Bacon-wrapped yummies!");
-//        bArray = JPGConverter("Starters/brown_sugar_smokies.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "380.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("01"));
-//        db.insert(MENU, null, cv);
-//
-//		/* SALADS */
-//        /** Asian Salad **/
-//        cv.put(MENU_NAME, "Asian Salad");
-//        cv.put(MENU_DESCRIPTION, "This salad is appreciated by everyone because of its unique blend of flavors.");
-//        bArray = JPGConverter("Salads/asian_salad.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "200.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("02"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Authentic German Potato Salad **/
-//        cv.put(MENU_NAME, "Authentic German Potato Salad");
-//        cv.put(MENU_DESCRIPTION, "");
-//        bArray = JPGConverter("Salads/authentic_german_potato_salad.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "290.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("02"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Strawberry Avocado Salad **/
-//        cv.put(MENU_NAME, "Strawberry Avocado Salad");
-//        cv.put(MENU_DESCRIPTION, "This salad is appreciated by everyone because of its unique blend of flavors.");
-//        bArray = JPGConverter("Salads/strawberry_avocado_salad.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "250.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("02"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Spinach and Orzo Salad **/
-//        cv.put(MENU_NAME, "Spinach and Orzo Salad");
-//        cv.put(MENU_DESCRIPTION, "A light, easy to make salad that's pleasing to the palate.");
-//        bArray = JPGConverter("Salads/spinach_and_orzo_salad.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "210.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("02"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Creamy Spiced Coleslaw **/
-//        cv.put(MENU_NAME, "Creamy Spiced Coleslaw");
-//        cv.put(MENU_DESCRIPTION, "A creamy coleslaw with lots of flavor. The seasonings complement each other and the cabbage.");
-//        bArray = JPGConverter("Salads/creamy_spiced_coleslaw.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "350.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("02"));
-//        db.insert(MENU, null, cv);
-//
-//		/* SOUPS */
-//        /** Absolutely Ultimate Potato Soup **/
-//        cv.put(MENU_NAME, "Absolutely Ultimate Potato Soup");
-//        cv.put(MENU_DESCRIPTION, "");
-//        bArray = JPGConverter("Soups/absolutely_ultimate_potato_soup.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "110.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("03"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Bean Soup With Kale **/
-//        cv.put(MENU_NAME, "Bean Soup With Kale");
-//        cv.put(MENU_DESCRIPTION, "");
-//        bArray = JPGConverter("Soups/bean_soup_with_kale.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "110.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("03"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Cream of Mushroom Soup **/
-//        cv.put(MENU_NAME, "Cream of Mushroom Soup");
-//        cv.put(MENU_DESCRIPTION, "");
-//        bArray = JPGConverter("Soups/cream_of_mushroom_soup.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "150.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("03"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Broccoli Cheese Soup **/
-//        cv.put(MENU_NAME, "Broccoli Cheese Soup");
-//        cv.put(MENU_DESCRIPTION, "This is a great, very flavorful soup. Good for serving at luncheons or special gatherings with a quiche.");
-//        bArray = JPGConverter("Soups/broccoli_cheese_soup.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "160.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("03"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Potato Leek Soup **/
-//        cv.put(MENU_NAME, "Potato Leek Soup");
-//        cv.put(MENU_DESCRIPTION, "A creamy soup with a strong leek flavor. Goes wonderfully with sourdough bread.");
-//        bArray = JPGConverter("Soups/potato_leek_soup.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "140.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("03"));
-//        db.insert(MENU, null, cv);
-//
-//		/* Vegetarian */
-//        /** Skillet Zucchini **/
-//        cv.put(MENU_NAME, "Skillet Zucchini");
-//        cv.put(MENU_DESCRIPTION, "A one-skillet dish that makes a wonderful side or meal in itself.");
-//        bArray = JPGConverter("Vegetarian/skillet_zucchini.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "230.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("04"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Old Fashioned Mac and Cheese **/
-//        cv.put(MENU_NAME, "Old Fashioned Mac and Cheese");
-//        cv.put(MENU_DESCRIPTION, "This is a classic recipe for macaroni and cheese. The kids will love this!");
-//        bArray = JPGConverter("Vegetarian/old_fashioned_mac_and_cheese.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "250.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("04"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Lemon Orzo Primavera **/
-//        cv.put(MENU_NAME, "Lemon Orzo Primavera");
-//        cv.put(MENU_DESCRIPTION, "Colorful vegetables and the flavors of lemon and thyme make this orzo dish great.");
-//        bArray = JPGConverter("Vegetarian/lemon_orzo_primavera.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "265.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("04"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Eggplant Parmesan **/
-//        cv.put(MENU_NAME, "Eggplant Parmesan");
-//        cv.put(MENU_DESCRIPTION, "");
-//        bArray = JPGConverter("Vegetarian/eggplant_parmesan.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "245.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("04"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Hearty Vegetable Lasagna **/
-//        cv.put(MENU_NAME, "Hearty Vegetable Lasagna");
-//        cv.put(MENU_DESCRIPTION, "");
-//        bArray = JPGConverter("Vegetarian/hearty_vegetable_lasagna.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "350.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("04"));
-//        db.insert(MENU, null, cv);
-//
-//		/* Pasta */
-//        /** Baked Spaghetti **/
-//        cv.put(MENU_NAME, "Baked Spaghetti");
-//        cv.put(MENU_DESCRIPTION, "");
-//        bArray = JPGConverter("Pasta/baked_spaghetti.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "360.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("05"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Macaroni and Cheese **/
-//        cv.put(MENU_NAME, "Macaroni and Cheese");
-//        cv.put(MENU_DESCRIPTION, "");
-//        bArray = JPGConverter("Pasta/macaroni_and_cheese.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "315.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("05"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Spinach Tomato Tortellini **/
-//        cv.put(MENU_NAME, "Spinach Tomato Tortellini");
-//        cv.put(MENU_DESCRIPTION, "");
-//        bArray = JPGConverter("Pasta/spinach_tomato_tortellini.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "360.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("05"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Baked Ziti **/
-//        cv.put(MENU_NAME, "Baked Ziti");
-//        cv.put(MENU_DESCRIPTION, "");
-//        bArray = JPGConverter("Pasta/baked_ziti.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "380.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("05"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Bow Ties with Sausage, Tomatoes and Cream **/
-//        cv.put(MENU_NAME, "Bow Ties with Sausage, Tomatoes and Cream");
-//        cv.put(MENU_DESCRIPTION, "");
-//        bArray = JPGConverter("Pasta/bow_ties_with_sausage_tomatoes_and_cream.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "400.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("05"));
-//        db.insert(MENU, null, cv);
-//
-//		/* Prawns */
-//        /** Shrimp Lemon Pepper Linguini **/
-//        cv.put(MENU_NAME, "Shrimp Lemon Pepper Linguini");
-//        cv.put(MENU_DESCRIPTION, "So easy to make, done in minutes, and absolutely delicious. ");
-//        bArray = JPGConverter("Prawns/shrimp_lemon_pepper_linguini.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "360.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("06"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Ginger Shrimp and Broccoli with Garlic **/
-//        cv.put(MENU_NAME, "Ginger Shrimp and Broccoli with Garlic");
-//        cv.put(MENU_DESCRIPTION, "Parchment packets filled with shrimp and broccoli florets and seasoned with an Asian-inspired ginger sauce are baked for a delicious and easy-clean-up dinner.");
-//        bArray = JPGConverter("Prawns/ginger_shrimp_and_broccoli_with_garlic.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "405.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("06"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Shrimp Scampi **/
-//        cv.put(MENU_NAME, "Shrimp Scampi");
-//        cv.put(MENU_DESCRIPTION, "Easy version of this classic with the wonderful 'zip' of Dijon-style mustard.");
-//        bArray = JPGConverter("Prawns/shrimp_scampi.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "470.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("06"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Shrimp and Cheese Grits **/
-//        cv.put(MENU_NAME, "Shrimp and Cheese Grits");
-//        cv.put(MENU_DESCRIPTION, "This is a quick, delicious recipe that showcases shrimp AND grits at their best.");
-//        bArray = JPGConverter("Prawns/shrimp_and_cheese_grits.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "405.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("06"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Shrimp and Tomato Broil **/
-//        cv.put(MENU_NAME, "Shrimp and Tomato Broil");
-//        cv.put(MENU_DESCRIPTION, "This is a fast recipe that always gets great reviews.");
-//        bArray = JPGConverter("Prawns/shrimp_and_tomato_broil.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "400.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("06"));
-//        db.insert(MENU, null, cv);
-//
-//		/* Fish */
-//        /** Ginger Glazed Mahi Mahi **/
-//        cv.put(MENU_NAME, "Ginger Glazed Mahi Mahi");
-//        cv.put(MENU_DESCRIPTION, "This Ginger Glazed Mahi Mahi is bursting with flavor and combines both sweet and sour taste sensations.");
-//        bArray = JPGConverter("Fish/ginger_glazed_mahi_mahi.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "560.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("07"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Baked Salmon **/
-//        cv.put(MENU_NAME, "Baked Salmon");
-//        cv.put(MENU_DESCRIPTION, "");
-//        bArray = JPGConverter("Fish/baked_salmon.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "405.00");
-//        cv.put(CATEGORY_ID, Integer.valueOf("07"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Savory Crab Stuffed Mushrooms **/
-//        cv.put(MENU_NAME, "Savory Crab Stuffed Mushrooms");
-//        cv.put(MENU_DESCRIPTION, "Baked mushroom caps filled with a deliciously cheesy crabmeat mixture.");
-//        bArray = JPGConverter("Fish/savory_crab_stuffed_mushrooms.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "470.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("07"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Clams And Garlic **/
-//        cv.put(MENU_NAME, "Clams And Garlic");
-//        cv.put(MENU_DESCRIPTION, "So simple, but so good - steamed clams served in their own liqueur. Tastes even better when served with a crusty Italian bread, or over pasta.");
-//        bArray = JPGConverter("Fish/clams_and_garlic.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "465.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("07"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Pasta with Scallops, Zucchini, and Tomatoes **/
-//        cv.put(MENU_NAME, "Pasta with Scallops, Zucchini, and Tomatoes");
-//        cv.put(MENU_DESCRIPTION, "");
-//        bArray = JPGConverter("Fish/pasta_with_scallops_zucchini_and_tomatoes.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "410.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("07"));
-//        db.insert(MENU, null, cv);
-//
-//		/* Chicken */
-//        /** Spicy Rapid Roast Chicken **/
-//        cv.put(MENU_NAME, "Spicy Rapid Roast Chicken");
-//        cv.put(MENU_DESCRIPTION, "");
-//        bArray = JPGConverter("Chicken/spicy_rapid_roast_chicken.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "470.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("08"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Chicken Marsala **/
-//        cv.put(MENU_NAME, "Chicken Marsala");
-//        cv.put(MENU_DESCRIPTION, "");
-//        bArray = JPGConverter("Chicken/chicken_marsala.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "380.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("08"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Buffalo Chicken Wings **/
-//        cv.put(MENU_NAME, "Buffalo Chicken Wings");
-//        cv.put(MENU_DESCRIPTION, "");
-//        bArray = JPGConverter("Chicken/buffalo_chicken_wings.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "470.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("08"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Caramelized Baked Chicken **/
-//        cv.put(MENU_NAME, "Caramelized Baked Chicken");
-//        cv.put(MENU_DESCRIPTION, "");
-//        bArray = JPGConverter("Chicken/caramelized_baked_chicken.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "480.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("08"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Rosemary Chicken with Orange-Maple Glaze **/
-//        cv.put(MENU_NAME, "Rosemary Chicken with Orange-Maple Glaze");
-//        cv.put(MENU_DESCRIPTION, "");
-//        bArray = JPGConverter("Chicken/rosemary_chicken_with_orange_maple_glaze.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "480.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("08"));
-//        db.insert(MENU, null, cv);
-//
-//		/* Turkey */
-//        /** Maple Basted Roast Turkey with Cranberry Pan Gravy **/
-//        cv.put(MENU_NAME, "Maple Basted Roast Turkey with Cranberry Pan Gravy");
-//        cv.put(MENU_DESCRIPTION, "Roast turkey is basted with maple syrup for a sweet glaze; cranberry juice and sweetened dried cranberries bring a sweet-tart fruit dimension to the pan gravy.");
-//        bArray = JPGConverter("Turkey/maple_basted_roast_turkey_with_cranberry_pan_gravy.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "560.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("09"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Grilled Turkey Cuban Sandwiches **/
-//        cv.put(MENU_NAME, "Grilled Turkey Cuban Sandwiches");
-//        cv.put(MENU_DESCRIPTION, "Grilled turkey breast, ham, cheese and pickles in a panini-style sandwich.");
-//        bArray = JPGConverter("Turkey/grilled_turkey_cuban_sandwiches.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "500.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("09"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Smoked Turkey **/
-//        cv.put(MENU_NAME, "Smoked Turkey");
-//        cv.put(MENU_DESCRIPTION, "");
-//        bArray = JPGConverter("Turkey/smoked_turkey.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "520.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("09"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Roast Turkey With Tasty Chestnut Stuffing **/
-//        cv.put(MENU_NAME, "Roast Turkey With Tasty Chestnut Stuffing");
-//        cv.put(MENU_DESCRIPTION, "Simple but seriously yummy.");
-//        bArray = JPGConverter("Turkey/roast_turkey_with_tasty_chestnut_stuffing.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "650.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("09"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Cola Roast Turkey **/
-//        cv.put(MENU_NAME, "Cola Roast Turkey");
-//        cv.put(MENU_DESCRIPTION, "");
-//        bArray = JPGConverter("Turkey/cola_roast_turkey.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "575.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("09"));
-//        db.insert(MENU, null, cv);
-//
-//		/* Lamb */
-//        /** Butter Lamb Gravy **/
-//        cv.put(MENU_NAME, "Butter Lamb Gravy");
-//        cv.put(MENU_DESCRIPTION, "Lamb is simmered in a spicy tomato and cream sauce. This is a very mouthwatering dish that is easy to make.");
-//        bArray = JPGConverter("Lamb/butter_lamb_gravy.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "360.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("10"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Baked Lamb Chops **/
-//        cv.put(MENU_NAME, "Baked Lamb Chops");
-//        cv.put(MENU_DESCRIPTION, "These are very tasty, and make for an easy main meal to prepare. Try serving them with mashed potatoes, peas and pumpkin.");
-//        bArray = JPGConverter("Lamb/baked_lamb_chops.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "300.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("10"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Stout-Braised Lamb Shanks **/
-//        cv.put(MENU_NAME, "Stout Braised Lamb Shanks");
-//        cv.put(MENU_DESCRIPTION, "");
-//        bArray = JPGConverter("Lamb/stout_braised_lamb_shanks.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "360.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("10"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Roast Leg of Lamb with Rosemary **/
-//        cv.put(MENU_NAME, "Roast Leg of Lamb with Rosemary");
-//        cv.put(MENU_DESCRIPTION, "This leg of lamb is marinated overnight with fresh rosemary, garlic, mustard, honey and lemon zest.");
-//        bArray = JPGConverter("Lamb/roast_leg_of_lamb_with_rosemary.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "470.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("10"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Grilled Lamb with Brown Sugar Glaze **/
-//        cv.put(MENU_NAME, "Grilled Lamb with Brown Sugar Glaze");
-//        cv.put(MENU_DESCRIPTION, "Sweet and savory, perfect for a spring meal with noodles and a green vegetable.");
-//        bArray = JPGConverter("Lamb/grilled_lamb_with_brown_sugar_glaze.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "380.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("10"));
-//        db.insert(MENU, null, cv);
-//
-//		/* Chinese */
-//        /** Chinese Spareribs **/
-//        cv.put(MENU_NAME, "Chinese Spareribs");
-//        cv.put(MENU_DESCRIPTION, "");
-//        bArray = JPGConverter("Chinese/chinese_spareribs.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "300.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("11"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Chinese Broccoli Slaw **/
-//        cv.put(MENU_NAME, "Chinese Broccoli Slaw");
-//        cv.put(MENU_DESCRIPTION, "");
-//        bArray = JPGConverter("Chinese/chinese_broccoli_slaw.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "290.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("11"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Sweet and Sour Chicken **/
-//        cv.put(MENU_NAME, "Sweet and Sour Chicken");
-//        cv.put(MENU_DESCRIPTION, "Pan fried chicken cubes served with a sweet and sour sauce.");
-//        bArray = JPGConverter("Chinese/sweet_and_sour_chicken.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "250.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("11"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Szechwan Shrimp **/
-//        cv.put(MENU_NAME, "Szechwan Shrimp");
-//        cv.put(MENU_DESCRIPTION, "");
-//        bArray = JPGConverter("Chinese/szechwan_shrimp.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "365.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("11"));
-//        db.insert(MENU, null, cv);
-//
-//        /** Kung Pao Chicken **/
-//        cv.put(MENU_NAME, "Kung Pao Chicken");
-//        cv.put(MENU_DESCRIPTION, "");
-//        bArray = JPGConverter("Chinese/kung_pao_chicken.jpg");
-//        cv.put(MENU_IMAGE, bArray);
-//        cv.put(MENU_PRICE, "250.00");
-//        cv.put(MENU_CATEGORY_ID, Integer.valueOf("11"));
-//        db.insert(MENU, null, cv);
+        /***** ADD A FEW DUMMY VALUES *****/
+        ContentValues cv = new ContentValues();
+
+		/* STARTERS */
+        /** Stuffed Mushrooms **/
+        cv.put(MENU_NAME, "Stuffed Mushrooms");
+        cv.put(MENU_DESCRIPTION, "These delicious mushrooms taste just like restaurant-style stuffed mushrooms and are my guy's absolute favorite.");
+        bArray = JPGConverter("Starters/stuffed_mushrooms.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_PRICE, "200.00");
+        cv.put(MENU_TYPE, "Veg");
+        cv.put(MENU_SERVES, "2");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("01"));
+        db.insert(MENU, null, cv);
+
+        /** Double Tomato Bruschetta **/
+        cv.put(MENU_NAME, "Double Tomato Bruschetta");
+        cv.put(MENU_DESCRIPTION, "A delicious and easy appetizer. The balsamic vinegar gives it a little bite. Dried basil can be substituted but it is best with fresh.");
+        bArray = JPGConverter("Starters/double_tomato_bruschetta.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_PRICE, "200.00");
+        cv.put(MENU_TYPE, "Veg");
+        cv.put(MENU_SERVES, "4");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("01"));
+        db.insert(MENU, null, cv);
+
+        /** Marinated Grilled Shrimp **/
+        cv.put(MENU_NAME, "Marinated Grilled Shrimp");
+        cv.put(MENU_DESCRIPTION, "A very simple and easy marinade that makes your shrimp so yummy you don't even need cocktail sauce! Don't let the cayenne pepper scare you, you don't even taste it. Try it with a salad, baked potato, and garlic bread. You will not be disappointed!");
+        bArray = JPGConverter("Starters/marinated_grilled_shrimp.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_PRICE, "470.00");
+        cv.put(MENU_TYPE, "Non-veg");
+        cv.put(MENU_SERVES, "2");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("01"));
+        db.insert(MENU, null, cv);
+
+        /** Cocktail Meatballs **/
+        cv.put(MENU_NAME, "Cocktail Meatballs");
+        cv.put(MENU_DESCRIPTION, "These tasty meatballs will disappear quickly from your plates!");
+        bArray = JPGConverter("Starters/cocktail_meatballs.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_TYPE, "Non-veg");
+        cv.put(MENU_SERVES, "3");
+        cv.put(MENU_PRICE, "300.00");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("01"));
+        db.insert(MENU, null, cv);
+
+        /** Brown Sugar Smokies **/
+        cv.put(MENU_NAME, "Brown Sugar Smokies");
+        cv.put(MENU_DESCRIPTION, "Bacon-wrapped yummies!");
+        bArray = JPGConverter("Starters/brown_sugar_smokies.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_PRICE, "380.00");
+        cv.put(MENU_TYPE, "Non-veg");
+        cv.put(MENU_SERVES, "2");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("01"));
+        db.insert(MENU, null, cv);
+
+		/* SALADS */
+        /** Asian Salad **/
+        cv.put(MENU_NAME, "Asian Salad");
+        cv.put(MENU_DESCRIPTION, "This salad is appreciated by everyone because of its unique blend of flavors.");
+        bArray = JPGConverter("Salads/asian_salad.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_TYPE, "Veg");
+        cv.put(MENU_SERVES, "4");
+        cv.put(MENU_PRICE, "200.00");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("02"));
+        db.insert(MENU, null, cv);
+
+        /** Authentic German Potato Salad **/
+        cv.put(MENU_NAME, "Authentic German Potato Salad");
+        cv.put(MENU_DESCRIPTION, "");
+        bArray = JPGConverter("Salads/authentic_german_potato_salad.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_TYPE, "Veg");
+        cv.put(MENU_SERVES, "6");
+        cv.put(MENU_PRICE, "290.00");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("02"));
+        db.insert(MENU, null, cv);
+
+        /** Strawberry Avocado Salad **/
+        cv.put(MENU_NAME, "Strawberry Avocado Salad");
+        cv.put(MENU_DESCRIPTION, "This salad is appreciated by everyone because of its unique blend of flavors.");
+        bArray = JPGConverter("Salads/strawberry_avocado_salad.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_PRICE, "250.00");
+        cv.put(MENU_TYPE, "Veg");
+        cv.put(MENU_SERVES, "2");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("02"));
+        db.insert(MENU, null, cv);
+
+        /** Spinach and Orzo Salad **/
+        cv.put(MENU_NAME, "Spinach and Orzo Salad");
+        cv.put(MENU_DESCRIPTION, "A light, easy to make salad that's pleasing to the palate.");
+        bArray = JPGConverter("Salads/spinach_and_orzo_salad.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_PRICE, "210.00");
+        cv.put(MENU_TYPE, "Veg");
+        cv.put(MENU_SERVES, "4");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("02"));
+        db.insert(MENU, null, cv);
+
+        /** Creamy Spiced Coleslaw **/
+        cv.put(MENU_NAME, "Creamy Spiced Coleslaw");
+        cv.put(MENU_DESCRIPTION, "A creamy coleslaw with lots of flavor. The seasonings complement each other and the cabbage.");
+        bArray = JPGConverter("Salads/creamy_spiced_coleslaw.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_TYPE, "Veg");
+        cv.put(MENU_SERVES, "3");
+        cv.put(MENU_PRICE, "350.00");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("02"));
+        db.insert(MENU, null, cv);
+
+		/* SOUPS */
+        /** Absolutely Ultimate Potato Soup **/
+        cv.put(MENU_NAME, "Absolutely Ultimate Potato Soup");
+        cv.put(MENU_DESCRIPTION, "");
+        bArray = JPGConverter("Soups/absolutely_ultimate_potato_soup.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_PRICE, "110.00");
+        cv.put(MENU_TYPE, "Veg");
+        cv.put(MENU_SERVES, "1");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("03"));
+        db.insert(MENU, null, cv);
+
+        /** Bean Soup With Kale **/
+        cv.put(MENU_NAME, "Bean Soup With Kale");
+        cv.put(MENU_DESCRIPTION, "");
+        bArray = JPGConverter("Soups/bean_soup_with_kale.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_TYPE, "Veg");
+        cv.put(MENU_SERVES, "1");
+        cv.put(MENU_PRICE, "110.00");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("03"));
+        db.insert(MENU, null, cv);
+
+        /** Cream of Mushroom Soup **/
+        cv.put(MENU_NAME, "Cream of Mushroom Soup");
+        cv.put(MENU_DESCRIPTION, "");
+        bArray = JPGConverter("Soups/cream_of_mushroom_soup.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_PRICE, "150.00");
+        cv.put(MENU_TYPE, "Veg");
+        cv.put(MENU_SERVES, "1");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("03"));
+        db.insert(MENU, null, cv);
+
+        /** Broccoli Cheese Soup **/
+        cv.put(MENU_NAME, "Broccoli Cheese Soup");
+        cv.put(MENU_DESCRIPTION, "This is a great, very flavorful soup. Good for serving at luncheons or special gatherings with a quiche.");
+        bArray = JPGConverter("Soups/broccoli_cheese_soup.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_PRICE, "160.00");
+        cv.put(MENU_TYPE, "Veg");
+        cv.put(MENU_SERVES, "1");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("03"));
+        db.insert(MENU, null, cv);
+
+        /** Potato Leek Soup **/
+        cv.put(MENU_NAME, "Potato Leek Soup");
+        cv.put(MENU_DESCRIPTION, "A creamy soup with a strong leek flavor. Goes wonderfully with sourdough bread.");
+        bArray = JPGConverter("Soups/potato_leek_soup.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_PRICE, "140.00");
+        cv.put(MENU_TYPE, "Veg");
+        cv.put(MENU_SERVES, "1");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("03"));
+        db.insert(MENU, null, cv);
+
+		/* Vegetarian */
+        /** Skillet Zucchini **/
+        cv.put(MENU_NAME, "Skillet Zucchini");
+        cv.put(MENU_DESCRIPTION, "A one-skillet dish that makes a wonderful side or meal in itself.");
+        bArray = JPGConverter("Vegetarian/skillet_zucchini.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_PRICE, "230.00");
+        cv.put(MENU_TYPE, "Veg");
+        cv.put(MENU_SERVES, "2");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("04"));
+        db.insert(MENU, null, cv);
+
+        /** Old Fashioned Mac and Cheese **/
+        cv.put(MENU_NAME, "Old Fashioned Mac and Cheese");
+        cv.put(MENU_DESCRIPTION, "This is a classic recipe for macaroni and cheese. The kids will love this!");
+        bArray = JPGConverter("Vegetarian/old_fashioned_mac_and_cheese.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_PRICE, "250.00");
+        cv.put(MENU_TYPE, "Veg");
+        cv.put(MENU_SERVES, "4");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("04"));
+        db.insert(MENU, null, cv);
+
+        /** Lemon Orzo Primavera **/
+        cv.put(MENU_NAME, "Lemon Orzo Primavera");
+        cv.put(MENU_DESCRIPTION, "Colorful vegetables and the flavors of lemon and thyme make this orzo dish great.");
+        bArray = JPGConverter("Vegetarian/lemon_orzo_primavera.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_PRICE, "265.00");
+        cv.put(MENU_TYPE, "Veg");
+        cv.put(MENU_SERVES, "5");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("04"));
+        db.insert(MENU, null, cv);
+
+        /** Eggplant Parmesan **/
+        cv.put(MENU_NAME, "Eggplant Parmesan");
+        cv.put(MENU_TYPE, "Veg");
+        cv.put(MENU_SERVES, "6");
+        cv.put(MENU_DESCRIPTION, "");
+        bArray = JPGConverter("Vegetarian/eggplant_parmesan.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_PRICE, "245.00");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("04"));
+        db.insert(MENU, null, cv);
+
+        /** Hearty Vegetable Lasagna **/
+        cv.put(MENU_TYPE, "Veg");
+        cv.put(MENU_SERVES, "3");
+        cv.put(MENU_NAME, "Hearty Vegetable Lasagna");
+        cv.put(MENU_DESCRIPTION, "");
+        bArray = JPGConverter("Vegetarian/hearty_vegetable_lasagna.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_PRICE, "350.00");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("04"));
+        db.insert(MENU, null, cv);
+
+		/* Pasta */
+        /** Baked Spaghetti **/
+        cv.put(MENU_NAME, "Baked Spaghetti");
+        cv.put(MENU_DESCRIPTION, "");
+        bArray = JPGConverter("Pasta/baked_spaghetti.jpg");
+        cv.put(MENU_TYPE, "Veg");
+        cv.put(MENU_SERVES, "5");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_PRICE, "360.00");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("05"));
+        db.insert(MENU, null, cv);
+
+        /** Macaroni and Cheese **/
+        cv.put(MENU_NAME, "Macaroni and Cheese");
+        cv.put(MENU_DESCRIPTION, "");
+        cv.put(MENU_TYPE, "Veg");
+        cv.put(MENU_SERVES, "2");
+        bArray = JPGConverter("Pasta/macaroni_and_cheese.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_PRICE, "315.00");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("05"));
+        db.insert(MENU, null, cv);
+
+        /** Spinach Tomato Tortellini **/
+        cv.put(MENU_NAME, "Spinach Tomato Tortellini");
+        cv.put(MENU_DESCRIPTION, "");
+        bArray = JPGConverter("Pasta/spinach_tomato_tortellini.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_TYPE, "Veg");
+        cv.put(MENU_SERVES, "4");
+        cv.put(MENU_PRICE, "360.00");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("05"));
+        db.insert(MENU, null, cv);
+
+        /** Baked Ziti **/
+        cv.put(MENU_NAME, "Baked Ziti");
+        cv.put(MENU_DESCRIPTION, "");
+        bArray = JPGConverter("Pasta/baked_ziti.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_PRICE, "380.00");
+        cv.put(MENU_TYPE, "Veg");
+        cv.put(MENU_SERVES, "6");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("05"));
+        db.insert(MENU, null, cv);
+
+        /** Bow Ties with Sausage, Tomatoes and Cream **/
+        cv.put(MENU_NAME, "Bow Ties with Sausage, Tomatoes and Cream");
+        cv.put(MENU_DESCRIPTION, "");
+        bArray = JPGConverter("Pasta/bow_ties_with_sausage_tomatoes_and_cream.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_TYPE, "Veg");
+        cv.put(MENU_SERVES, "2");
+        cv.put(MENU_PRICE, "400.00");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("05"));
+        db.insert(MENU, null, cv);
+
+		/* Prawns */
+        /** Shrimp Lemon Pepper Linguini **/
+        cv.put(MENU_NAME, "Shrimp Lemon Pepper Linguini");
+        cv.put(MENU_DESCRIPTION, "So easy to make, done in minutes, and absolutely delicious. ");
+        bArray = JPGConverter("Prawns/shrimp_lemon_pepper_linguini.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_PRICE, "360.00");
+        cv.put(MENU_TYPE, "Non-veg");
+        cv.put(MENU_SERVES, "2");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("06"));
+        db.insert(MENU, null, cv);
+
+        /** Ginger Shrimp and Broccoli with Garlic **/
+        cv.put(MENU_NAME, "Ginger Shrimp and Broccoli with Garlic");
+        cv.put(MENU_DESCRIPTION, "Parchment packets filled with shrimp and broccoli florets and seasoned with an Asian-inspired ginger sauce are baked for a delicious and easy-clean-up dinner.");
+        bArray = JPGConverter("Prawns/ginger_shrimp_and_broccoli_with_garlic.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_PRICE, "405.00");
+        cv.put(MENU_TYPE, "Non-veg");
+        cv.put(MENU_SERVES, "2");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("06"));
+        db.insert(MENU, null, cv);
+
+        /** Shrimp Scampi **/
+        cv.put(MENU_NAME, "Shrimp Scampi");
+        cv.put(MENU_DESCRIPTION, "Easy version of this classic with the wonderful 'zip' of Dijon-style mustard.");
+        bArray = JPGConverter("Prawns/shrimp_scampi.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_TYPE, "Non-veg");
+        cv.put(MENU_SERVES, "2");
+        cv.put(MENU_PRICE, "470.00");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("06"));
+        db.insert(MENU, null, cv);
+
+        /** Shrimp and Cheese Grits **/
+        cv.put(MENU_NAME, "Shrimp and Cheese Grits");
+        cv.put(MENU_TYPE, "Non-veg");
+        cv.put(MENU_SERVES, "2");
+        cv.put(MENU_DESCRIPTION, "This is a quick, delicious recipe that showcases shrimp AND grits at their best.");
+        bArray = JPGConverter("Prawns/shrimp_and_cheese_grits.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_PRICE, "405.00");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("06"));
+        db.insert(MENU, null, cv);
+
+        /** Shrimp and Tomato Broil **/
+        cv.put(MENU_NAME, "Shrimp and Tomato Broil");
+        cv.put(MENU_DESCRIPTION, "This is a fast recipe that always gets great reviews.");
+        bArray = JPGConverter("Prawns/shrimp_and_tomato_broil.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_PRICE, "400.00");
+        cv.put(MENU_TYPE, "Non-veg");
+        cv.put(MENU_SERVES, "2");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("06"));
+        db.insert(MENU, null, cv);
+
+		/* Fish */
+        /** Ginger Glazed Mahi Mahi **/
+        cv.put(MENU_NAME, "Ginger Glazed Mahi Mahi");
+        cv.put(MENU_DESCRIPTION, "This Ginger Glazed Mahi Mahi is bursting with flavor and combines both sweet and sour taste sensations.");
+        bArray = JPGConverter("Fish/ginger_glazed_mahi_mahi.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_PRICE, "560.00");
+        cv.put(MENU_TYPE, "Non-veg");
+        cv.put(MENU_SERVES, "2");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("07"));
+        db.insert(MENU, null, cv);
+
+        /** Baked Salmon **/
+        cv.put(MENU_NAME, "Baked Salmon");
+        cv.put(MENU_DESCRIPTION, "");
+        bArray = JPGConverter("Fish/baked_salmon.jpg");
+        cv.put(MENU_TYPE, "Non-veg");
+        cv.put(MENU_SERVES, "2");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_PRICE, "405.00");
+        cv.put(CATEGORY_ID, Integer.valueOf("07"));
+        db.insert(MENU, null, cv);
+
+        /** Savory Crab Stuffed Mushrooms **/
+        cv.put(MENU_NAME, "Savory Crab Stuffed Mushrooms");
+        cv.put(MENU_DESCRIPTION, "Baked mushroom caps filled with a deliciously cheesy crabmeat mixture.");
+        bArray = JPGConverter("Fish/savory_crab_stuffed_mushrooms.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_PRICE, "470.00");
+        cv.put(MENU_TYPE, "Non-veg");
+        cv.put(MENU_SERVES, "2");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("07"));
+        db.insert(MENU, null, cv);
+
+        /** Clams And Garlic **/
+        cv.put(MENU_NAME, "Clams And Garlic");
+        cv.put(MENU_DESCRIPTION, "So simple, but so good - steamed clams served in their own liqueur. Tastes even better when served with a crusty Italian bread, or over pasta.");
+        bArray = JPGConverter("Fish/clams_and_garlic.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_PRICE, "465.00");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("07"));
+        cv.put(MENU_TYPE, "Non-veg");
+        cv.put(MENU_SERVES, "2");
+        db.insert(MENU, null, cv);
+
+        /** Pasta with Scallops, Zucchini, and Tomatoes **/
+        cv.put(MENU_NAME, "Pasta with Scallops, Zucchini, and Tomatoes");
+        cv.put(MENU_DESCRIPTION, "");
+        bArray = JPGConverter("Fish/pasta_with_scallops_zucchini_and_tomatoes.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_PRICE, "410.00");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("07"));
+        cv.put(MENU_TYPE, "Non-veg");
+        cv.put(MENU_SERVES, "2");
+        db.insert(MENU, null, cv);
+
+		/* Chicken */
+        /** Spicy Rapid Roast Chicken **/
+        cv.put(MENU_NAME, "Spicy Rapid Roast Chicken");
+        cv.put(MENU_DESCRIPTION, "");
+        cv.put(MENU_TYPE, "Non-veg");
+        cv.put(MENU_SERVES, "2");
+        bArray = JPGConverter("Chicken/spicy_rapid_roast_chicken.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_PRICE, "470.00");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("08"));
+        db.insert(MENU, null, cv);
+
+        /** Chicken Marsala **/
+        cv.put(MENU_NAME, "Chicken Marsala");
+        cv.put(MENU_DESCRIPTION, "");
+        bArray = JPGConverter("Chicken/chicken_marsala.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_TYPE, "Non-veg");
+        cv.put(MENU_SERVES, "2");
+        cv.put(MENU_PRICE, "380.00");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("08"));
+        db.insert(MENU, null, cv);
+
+        /** Buffalo Chicken Wings **/
+        cv.put(MENU_NAME, "Buffalo Chicken Wings");
+        cv.put(MENU_DESCRIPTION, "");
+        bArray = JPGConverter("Chicken/buffalo_chicken_wings.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_TYPE, "Non-veg");
+        cv.put(MENU_SERVES, "2");
+        cv.put(MENU_PRICE, "470.00");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("08"));
+        db.insert(MENU, null, cv);
+
+        /** Caramelized Baked Chicken **/
+        cv.put(MENU_NAME, "Caramelized Baked Chicken");
+        cv.put(MENU_DESCRIPTION, "");
+        bArray = JPGConverter("Chicken/caramelized_baked_chicken.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_TYPE, "Non-veg");
+        cv.put(MENU_SERVES, "2");
+        cv.put(MENU_PRICE, "480.00");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("08"));
+        db.insert(MENU, null, cv);
+
+        /** Rosemary Chicken with Orange-Maple Glaze **/
+        cv.put(MENU_NAME, "Rosemary Chicken with Orange-Maple Glaze");
+        cv.put(MENU_DESCRIPTION, "");
+        bArray = JPGConverter("Chicken/rosemary_chicken_with_orange_maple_glaze.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_TYPE, "Non-veg");
+        cv.put(MENU_SERVES, "2");
+        cv.put(MENU_PRICE, "480.00");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("08"));
+        db.insert(MENU, null, cv);
+
+		/* Turkey */
+        /** Maple Basted Roast Turkey with Cranberry Pan Gravy **/
+        cv.put(MENU_NAME, "Maple Basted Roast Turkey with Cranberry Pan Gravy");
+        cv.put(MENU_DESCRIPTION, "Roast turkey is basted with maple syrup for a sweet glaze; cranberry juice and sweetened dried cranberries bring a sweet-tart fruit dimension to the pan gravy.");
+        bArray = JPGConverter("Turkey/maple_basted_roast_turkey_with_cranberry_pan_gravy.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_PRICE, "560.00");
+        cv.put(MENU_TYPE, "Non-veg");
+        cv.put(MENU_SERVES, "2");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("09"));
+        db.insert(MENU, null, cv);
+
+        /** Grilled Turkey Cuban Sandwiches **/
+        cv.put(MENU_NAME, "Grilled Turkey Cuban Sandwiches");
+        cv.put(MENU_DESCRIPTION, "Grilled turkey breast, ham, cheese and pickles in a panini-style sandwich.");
+        bArray = JPGConverter("Turkey/grilled_turkey_cuban_sandwiches.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_TYPE, "Non-veg");
+        cv.put(MENU_SERVES, "2");
+        cv.put(MENU_PRICE, "500.00");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("09"));
+        db.insert(MENU, null, cv);
+
+        /** Smoked Turkey **/
+        cv.put(MENU_NAME, "Smoked Turkey");
+        cv.put(MENU_DESCRIPTION, "");
+        bArray = JPGConverter("Turkey/smoked_turkey.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_TYPE, "Non-veg");
+        cv.put(MENU_SERVES, "2");
+        cv.put(MENU_PRICE, "520.00");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("09"));
+        db.insert(MENU, null, cv);
+
+        /** Roast Turkey With Tasty Chestnut Stuffing **/
+        cv.put(MENU_NAME, "Roast Turkey With Tasty Chestnut Stuffing");
+        cv.put(MENU_DESCRIPTION, "Simple but seriously yummy.");
+        bArray = JPGConverter("Turkey/roast_turkey_with_tasty_chestnut_stuffing.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_PRICE, "650.00");
+        cv.put(MENU_TYPE, "Non-veg");
+        cv.put(MENU_SERVES, "2");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("09"));
+        db.insert(MENU, null, cv);
+
+        /** Cola Roast Turkey **/
+        cv.put(MENU_NAME, "Cola Roast Turkey");
+        cv.put(MENU_DESCRIPTION, "");
+        bArray = JPGConverter("Turkey/cola_roast_turkey.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_PRICE, "575.00");
+        cv.put(MENU_TYPE, "Non-veg");
+        cv.put(MENU_SERVES, "2");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("09"));
+        db.insert(MENU, null, cv);
+
+		/* Lamb */
+        /** Butter Lamb Gravy **/
+        cv.put(MENU_NAME, "Butter Lamb Gravy");
+        cv.put(MENU_DESCRIPTION, "Lamb is simmered in a spicy tomato and cream sauce. This is a very mouthwatering dish that is easy to make.");
+        bArray = JPGConverter("Lamb/butter_lamb_gravy.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_PRICE, "360.00");
+        cv.put(MENU_TYPE, "Non-veg");
+        cv.put(MENU_SERVES, "2");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("10"));
+        db.insert(MENU, null, cv);
+
+        /** Baked Lamb Chops **/
+        cv.put(MENU_NAME, "Baked Lamb Chops");
+        cv.put(MENU_DESCRIPTION, "These are very tasty, and make for an easy main meal to prepare. Try serving them with mashed potatoes, peas and pumpkin.");
+        bArray = JPGConverter("Lamb/baked_lamb_chops.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_PRICE, "300.00");
+        cv.put(MENU_TYPE, "Non-veg");
+        cv.put(MENU_SERVES, "2");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("10"));
+        db.insert(MENU, null, cv);
+
+        /** Stout-Braised Lamb Shanks **/
+        cv.put(MENU_NAME, "Stout Braised Lamb Shanks");
+        cv.put(MENU_DESCRIPTION, "");
+        bArray = JPGConverter("Lamb/stout_braised_lamb_shanks.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_TYPE, "Non-veg");
+        cv.put(MENU_SERVES, "2");
+        cv.put(MENU_PRICE, "360.00");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("10"));
+        db.insert(MENU, null, cv);
+
+        /** Roast Leg of Lamb with Rosemary **/
+        cv.put(MENU_NAME, "Roast Leg of Lamb with Rosemary");
+        cv.put(MENU_DESCRIPTION, "This leg of lamb is marinated overnight with fresh rosemary, garlic, mustard, honey and lemon zest.");
+        bArray = JPGConverter("Lamb/roast_leg_of_lamb_with_rosemary.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_PRICE, "470.00");
+        cv.put(MENU_TYPE, "Non-veg");
+        cv.put(MENU_SERVES, "2");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("10"));
+        db.insert(MENU, null, cv);
+
+        /** Grilled Lamb with Brown Sugar Glaze **/
+        cv.put(MENU_NAME, "Grilled Lamb with Brown Sugar Glaze");
+        cv.put(MENU_DESCRIPTION, "Sweet and savory, perfect for a spring meal with noodles and a green vegetable.");
+        bArray = JPGConverter("Lamb/grilled_lamb_with_brown_sugar_glaze.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_TYPE, "Non-veg");
+        cv.put(MENU_SERVES, "2");
+        cv.put(MENU_PRICE, "380.00");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("10"));
+        db.insert(MENU, null, cv);
+
+		/* Chinese */
+        /** Chinese Spareribs **/
+        cv.put(MENU_NAME, "Chinese Spareribs");
+        cv.put(MENU_DESCRIPTION, "");
+        bArray = JPGConverter("Chinese/chinese_spareribs.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_PRICE, "300.00");
+        cv.put(MENU_TYPE, "Non-veg");
+        cv.put(MENU_SERVES, "2");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("11"));
+        db.insert(MENU, null, cv);
+
+        /** Chinese Broccoli Slaw **/
+        cv.put(MENU_NAME, "Chinese Broccoli Slaw");
+        cv.put(MENU_DESCRIPTION, "");
+        bArray = JPGConverter("Chinese/chinese_broccoli_slaw.jpg");
+        cv.put(MENU_TYPE, "Veg");
+        cv.put(MENU_SERVES, "2");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_PRICE, "290.00");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("11"));
+        db.insert(MENU, null, cv);
+
+        /** Sweet and Sour Chicken **/
+        cv.put(MENU_NAME, "Sweet and Sour Chicken");
+        cv.put(MENU_DESCRIPTION, "Pan fried chicken cubes served with a sweet and sour sauce.");
+        bArray = JPGConverter("Chinese/sweet_and_sour_chicken.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_PRICE, "250.00");
+        cv.put(MENU_TYPE, "Non-veg");
+        cv.put(MENU_SERVES, "2");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("11"));
+        db.insert(MENU, null, cv);
+
+        /** Szechwan Shrimp **/
+        cv.put(MENU_NAME, "Szechwan Shrimp");
+        cv.put(MENU_DESCRIPTION, "");
+        bArray = JPGConverter("Chinese/szechwan_shrimp.jpg");
+        cv.put(MENU_TYPE, "Non-veg");
+        cv.put(MENU_SERVES, "2");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_PRICE, "365.00");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("11"));
+        db.insert(MENU, null, cv);
+
+        /** Kung Pao Chicken **/
+        cv.put(MENU_NAME, "Kung Pao Chicken");
+        cv.put(MENU_DESCRIPTION, "");
+        cv.put(MENU_TYPE, "Non-veg");
+        cv.put(MENU_SERVES, "2");
+        bArray = JPGConverter("Chinese/kung_pao_chicken.jpg");
+        cv.put(MENU_IMAGE, bArray);
+        cv.put(MENU_PRICE, "250.00");
+        cv.put(MENU_CATEGORY_ID, Integer.valueOf("11"));
+        db.insert(MENU, null, cv);
     }
 
     private void createTablesTable(SQLiteDatabase db) {

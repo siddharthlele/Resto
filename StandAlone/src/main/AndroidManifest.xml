@@ -43,10 +43,6 @@
             android:windowSoftInputMode="adjustPan" />
 
         <activity
-            android:name=".frontend.tables.TableSelector"
-            android:windowSoftInputMode="adjustPan" />
-
-        <activity
             android:name=".backend.creators.TableCreator"
             android:windowSoftInputMode="adjustPan" />
 
@@ -92,6 +88,26 @@
 
         <activity
             android:name=".backend.details.AccountDetails"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".frontend.tables.TableSelector"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".frontend.menu.CategorySelector"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".frontend.menu.MenuActivity"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".frontend.menu.OrderCart"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".frontend.menu.MenuDetails"
             android:windowSoftInputMode="adjustPan" />
     </application>
 

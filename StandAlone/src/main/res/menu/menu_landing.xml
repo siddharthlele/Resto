@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menuOrderCart"
+        android:actionLayout="@layout/order_cart_item"
+        android:icon="@drawable/ic_shopping_cart_white_24dp"
+        android:showAsAction="always"
+        android:title="@string/generic_mb_order_cart" />
+
+    <item
+        android:id="@+id/menuCheckout"
+        android:icon="@drawable/ic_done_all_white_24dp"
+        android:showAsAction="always"
+        android:title="@string/generic_mb_checkout" />
+
+</menu>

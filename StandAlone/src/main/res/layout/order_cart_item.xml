@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@android:style/Widget.ActionButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:gravity="center">
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/imgvwOrderCart"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center"
+        android:layout_margin="0dp"
+        android:gravity="center"
+        android:src="@drawable/ic_shopping_cart_white_24dp" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/txtOrderCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:background="@drawable/rounded_square"
+        android:gravity="center"
+        android:padding="2dp"
+        android:text="@string/order_cart_default_zero"
+        android:textColor="#ffffff"
+        android:textSize="12sp" />
+</FrameLayout>
