@@ -359,6 +359,16 @@ public class DBResto {
         db.update(TAXES, valUpdateTax, TAX_ID + "=" + taxID, null);
     }
 
+    /** UPDATE AN EXISTING TABLE **/
+    public void updateTable(String tableID, String tableSeats, String tableStatus) {
+        this.db = helper.getWritableDatabase();
+        ContentValues valUpdateTable = new ContentValues();
+        valUpdateTable.put(TABLE_ID, tableID);
+        valUpdateTable.put(TABLE_SEATS, tableSeats);
+        valUpdateTable.put(TABLE_OCCUPANCY, tableStatus);
+        db.update(TABLES, valUpdateTable, TABLE_ID + "=" + tableID, null);
+    }
+
     /** UPDATE THE TABLE OCCUPATION STATUS **/
     public void updateTableStatus(String tableNo, String tableStatus) {
         this.db = helper.getWritableDatabase();

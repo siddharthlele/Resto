@@ -10,6 +10,8 @@
     <string name="menu_modifier_title">Update Dish</string>
     <string name="taxes_manager_title">Taxes Manager</string>
     <string name="tables_manager_title">Tables Manager</string>
+    <string name="table_creator_title">Add A New Table</string>
+    <string name="table_modifier_title">Update Table</string>
     <string name="account_manager_title">Accounts Manager</string>
     <string name="reports_title">Reports</string>
     <string name="account_creator_title">Create New Account</string>

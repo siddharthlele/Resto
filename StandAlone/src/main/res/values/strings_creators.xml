@@ -27,7 +27,6 @@
     <string name="modifier_acc_re_password"><b>Confirm</b> your Password to update the Account</string>
 
     <!-- TABLE CREATOR STRINGS -->
-    <string name="table_creator_title">Add A New Table</string>
     <string name="table_creator_table_number">Provide / assign a <b>Table Number</b> to the new Table</string>
     <string name="table_creator_table_number_hint"><b>(*)</b> Table Number</string>
     <string name="table_creator_table_number_empty">Please provide a <b>Table Number</b></string>

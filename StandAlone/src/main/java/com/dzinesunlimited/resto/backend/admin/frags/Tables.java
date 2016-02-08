@@ -253,18 +253,11 @@ public class Tables extends Fragment {
 
         if (resultCode != android.app.Activity.RESULT_CANCELED)	{
 
-			/* INVALIDATE THE LISTVIEW */
-            listTables.invalidate();
-
-			/* NOTIFY ADAPTER */
-            adapter.notifyDataSetChanged();
-
 			/* CLEAR THE ARRAYLIST */
             arrTables.clear();
 
             /** REFRESH THE LIST OF TABLES **/
             new showTables().execute();
-
         }
     }
 
@@ -383,7 +376,6 @@ public class Tables extends Fragment {
                                     String strNo = getResources().getString(R.string.generic_mb_no);
 
                                     /** CONFIGURE THE DIALOG **/
-                                    //JUST ADDING SOME CRAP!!
                                     new MaterialDialog.Builder(activity)
                                             .icon(ContextCompat.getDrawable(activity, R.drawable.ic_info_outline_black_24dp))
                                             .title(strTitle)
