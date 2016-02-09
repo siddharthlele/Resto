@@ -107,7 +107,9 @@ public class DBResto {
     public final String ORDER_CART_ID = "orderID";
     public final String ORDER_TABLE_ID = "tableID";
     public final String ORDER_MENU_ID = "menuID";
+    public final String ORDER_MENU_PRICE = "menuPrice";
     public final String ORDER_QUANTITY = "orderQuantity";
+    public final String ORDER_TOTAL = "orderTotal";
     public final String ORDER_STATUS = "orderStatus";
     public final String ORDER_TIMESTAMP = "orderTimestamp";
 
@@ -276,7 +278,9 @@ public class DBResto {
     public void addOrder(
             int tableID,
             int mealID,
+            String mealPrice,
             int mealQuantity,
+            String orderTotal,
             boolean orderStatus) {
 
 		/* OPEN THE DATABASE AGAIN */
@@ -286,7 +290,9 @@ public class DBResto {
         ContentValues valNewOrder = new ContentValues();
         valNewOrder.put(ORDER_TABLE_ID, tableID);
         valNewOrder.put(ORDER_MENU_ID, mealID);
+        valNewOrder.put(ORDER_MENU_PRICE, mealPrice);
         valNewOrder.put(ORDER_QUANTITY, mealQuantity);
+        valNewOrder.put(ORDER_TOTAL, orderTotal);
         valNewOrder.put(ORDER_STATUS, orderStatus);
 
 		/* INSERT THE COLLECTED DATA TO THE ORDERS TABLE */
@@ -578,10 +584,12 @@ public class DBResto {
 
         String strCreateOrderCartTable = "create table " + ORDER_CART +
                 " (" +
-                ORDER_CART_ID + " integer primary key, " +
+                ORDER_CART_ID + " integer primary key autoincrement, " +
                 ORDER_TABLE_ID + " integer, " +
                 ORDER_MENU_ID + " integer, " +
+                ORDER_MENU_PRICE + " text, " +
                 ORDER_QUANTITY + " integer, " +
+                ORDER_TOTAL + " text, " +
                 ORDER_STATUS + " boolean, " +
                 ORDER_TIMESTAMP + " timestamp default current_timestamp," +
                 "UNIQUE" + " (" + ORDER_CART_ID + " )" + ");";

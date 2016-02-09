@@ -6,4 +6,8 @@
     <string name="cart_add">&#xE854;</string>
     <string name="cart_cancel">&#xE14C;</string>
     <string name="order_cart_default_zero">0</string>
+    <string name="order_cart_default_one">1</string>
+    <string name="cart_plus">&#xE145;</string>
+    <string name="cart_minus">&#xE15B;</string>
+    <string name="cart_delete">&#xE872;</string>
 </resources>

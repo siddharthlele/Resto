@@ -267,14 +267,13 @@ public class Tables extends Fragment {
 		/* PROGRESS BAR */
         linlaHeaderProgress = (LinearLayout) view.findViewById(R.id.linlaHeaderProgress);
         listTables = (RecyclerView) view.findViewById(R.id.listTables);
+        linlaEmpty = (LinearLayout) view.findViewById(R.id.linlaEmpty);
 
         /* CONFIGURE THE RECYCLER VIEW */
         listTables.setHasFixedSize(false);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         listTables.setLayoutManager(llm);
-
-        linlaEmpty = (LinearLayout) view.findViewById(R.id.linlaEmpty);
     }
 
     /***** CONFIGURE THE ACTIONBAR *****/

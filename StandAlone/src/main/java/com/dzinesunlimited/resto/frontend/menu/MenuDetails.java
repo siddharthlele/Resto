@@ -53,6 +53,7 @@ public class MenuDetails extends AppCompatActivity {
     byte[] MEAL_IMAGE;
     String CURRENCY_CODE;
     String MEAL_PRICE;
+    String ORDER_TOTAL;
     String MEAL_TYPE;
 
     private AppPrefs getApp()	{
@@ -200,6 +201,12 @@ public class MenuDetails extends AppCompatActivity {
                 txtDishPrice.setText(CURRENCY_CODE + " " + MEAL_PRICE);
             }
 
+            /** CALCULATE THE ORDER TOTAL **/
+            Double dblMealPrice = Double.valueOf(MEAL_PRICE);
+            Double dblQuantity = Double.valueOf(1);
+            Double dblOrderTotal = dblMealPrice * dblQuantity;
+            ORDER_TOTAL = String.valueOf(dblOrderTotal);
+
             /** SET THE MEAL DESCRIPTION **/
             if (MEAL_DESCRIPTION != null)	{
                 txtDishDescription.setText(MEAL_DESCRIPTION);
@@ -276,7 +283,13 @@ public class MenuDetails extends AppCompatActivity {
                             Toast.LENGTH_LONG).show();
                 } else {
                     /** ADD THE DATA TO THE ORDER CART **/
-                    db.addOrder(Integer.valueOf(INCOMING_TABLE_NO), Integer.valueOf(INCOMING_DISH_ID), 1, false);
+                    db.addOrder(
+                            Integer.valueOf(INCOMING_TABLE_NO),
+                            Integer.valueOf(INCOMING_DISH_ID),
+                            MEAL_PRICE,
+                            1,
+                            ORDER_TOTAL,
+                            false);
 
                     /** SHOW ORDER ADDED NOTE **/
                     Toast.makeText(getApplicationContext(), "Dish added successfully", Toast.LENGTH_LONG).show();

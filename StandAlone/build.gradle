@@ -39,11 +39,7 @@ dependencies {
     /** CALLIGRAPHY **/
     compile 'uk.co.chrisjenx:calligraphy:2.1.0'
 
-    /** TIMES SQUARE **/
-    compile 'com.squareup:android-times-square:1.6.4@aar'
-
     /** THE IMAGE PICKER LIBRARY **/
-//    compile 'com.github.jkwiecien:EasyImage:1.1.0'
     compile 'com.github.jkwiecien:EasyImage:1.1.3'
 
     /** PICASSO LIBRARY **/
@@ -60,9 +56,6 @@ dependencies {
 
     /** BUTTERKNIFE **/
     compile 'com.jakewharton:butterknife:7.0.1'
-
-    /** THE MATERIAL DATE TIME PICKER LIBRARY **/
-    compile 'com.wdullaer:materialdatetimepicker:2.1.1'
 
     /** MATERIAL DIALOGS **/
     compile('com.github.afollestad.material-dialogs:core:0.8.5.3@aar') {

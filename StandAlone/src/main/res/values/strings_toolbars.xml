@@ -19,4 +19,6 @@
 
     <!-- FRONT END -->
     <string name="table_selector_title">Select A Table</string>
+    <string name="order_cart_title">Your Orders</string>
+    <string name="checkout_title">Get Your Bill</string>
 </resources>

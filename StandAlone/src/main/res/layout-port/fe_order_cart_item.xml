@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    card_view:cardBackgroundColor="@color/cardBG"
+    card_view:cardCornerRadius="2dp"
+    card_view:cardElevation="2dp">
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgvwMenu"
+                    android:layout_width="74dp"
+                    android:layout_height="74dp"
+                    android:layout_margin="5dp"
+                    android:padding="2dp"
+                    android:src="@drawable/beverages"
+                    app:civ_border_color="#CC212121"
+                    app:civ_border_width="3dp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/txtMenuName"
+                        fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:gravity="left|center"
+                        android:padding="11dp"
+                        android:text="MENU NAME"
+                        android:textColor="@android:color/primary_text_dark"
+                        android:textSize="16sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/txtQtyMinus"
+                            fontPath="fonts/MaterialIcons-Regular.ttf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="11dp"
+                            android:text="@string/cart_minus"
+                            android:textColor="@android:color/secondary_text_dark"
+                            android:textSize="25sp" />
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/txtQuantity"
+                            fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="11dp"
+                            android:text="@string/order_cart_default_one"
+                            android:textColor="@android:color/primary_text_dark"
+                            android:textSize="18sp" />
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/txtQtyPlus"
+                            fontPath="fonts/MaterialIcons-Regular.ttf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="11dp"
+                            android:text="@string/cart_plus"
+                            android:textColor="@android:color/secondary_text_dark"
+                            android:textSize="25sp" />
+                    </LinearLayout>
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/txtDishTotal"
+                        fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right|center"
+                        android:padding="11dp"
+                        android:text="4,000"
+                        android:textColor="@android:color/primary_text_dark"
+                        android:textSize="16sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/txtRemoveDish"
+            fontPath="fonts/MaterialIcons-Regular.ttf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|top"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:text="@string/cart_delete"
+            android:textColor="@android:color/secondary_text_dark"
+            android:textSize="22sp" />
+    </FrameLayout>
+
+</android.support.v7.widget.CardView>

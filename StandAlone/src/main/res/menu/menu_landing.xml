@@ -10,7 +10,7 @@
 
     <item
         android:id="@+id/menuCheckout"
-        android:icon="@drawable/ic_done_all_white_24dp"
+        android:icon="@drawable/ic_local_atm_white_24dp"
         android:showAsAction="always"
         android:title="@string/generic_mb_checkout" />
 
