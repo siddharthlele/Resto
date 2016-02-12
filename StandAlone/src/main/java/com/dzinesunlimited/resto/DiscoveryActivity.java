@@ -37,7 +37,7 @@ public class DiscoveryActivity extends Activity implements View.OnClickListener,
         button.setOnClickListener(this);
 
         mPrinterList = new ArrayList<HashMap<String, String>>();
-        mPrinterListAdapter = new SimpleAdapter(this, mPrinterList, R.layout.list_at,
+        mPrinterListAdapter = new SimpleAdapter(this, mPrinterList, R.layout.be_printer_discovery_item,
                                                 new String[] { "PrinterName", "Target" },
                                                 new int[] { R.id.PrinterName, R.id.Target });
         ListView list = (ListView)findViewById(R.id.lstReceiveData);

@@ -45,7 +45,7 @@ public class PrinterDiscovery extends AppCompatActivity {
         ButterKnife.bind(this);
 
         mPrinterList = new ArrayList<>();
-        mPrinterListAdapter = new SimpleAdapter(this, mPrinterList, R.layout.list_at,
+        mPrinterListAdapter = new SimpleAdapter(this, mPrinterList, R.layout.be_printer_discovery_item,
                 new String[] { "PrinterName", "Target" },
                 new int[] { R.id.PrinterName, R.id.Target });
         listPrinters.setAdapter(mPrinterListAdapter);
