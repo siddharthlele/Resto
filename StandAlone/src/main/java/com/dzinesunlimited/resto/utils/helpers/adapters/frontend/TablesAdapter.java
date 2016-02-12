@@ -2,9 +2,12 @@ package com.dzinesunlimited.resto.utils.helpers.adapters.frontend;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +19,7 @@ import com.dzinesunlimited.resto.utils.db.DBResto;
 import com.dzinesunlimited.resto.utils.helpers.pojos.backend.TablesData;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class TablesAdapter extends RecyclerView.Adapter<TablesAdapter.TablesVH> {
 
@@ -43,7 +47,7 @@ public class TablesAdapter extends RecyclerView.Adapter<TablesAdapter.TablesVH> 
     }
 
     @Override
-    public void onBindViewHolder(TablesVH holder, final int position) {
+    public void onBindViewHolder(final TablesVH holder, final int position) {
         final TablesData td = arrTables.get(position);
 
         /** SET THE TABLE NUMBER **/
@@ -59,7 +63,7 @@ public class TablesAdapter extends RecyclerView.Adapter<TablesAdapter.TablesVH> 
         }
 
         /** SET THE OCCUPATION STATUS */
-        String strOccupationStatus = td.getTableOccupationStatus();
+        String strOccupationStatus = td.getTableStatus();
         if (strOccupationStatus != null)	{
 			/* TRUE -> OCCUPIED	||	FALSE -> VACANT */
             if (strOccupationStatus.equals("true"))	{
@@ -76,20 +80,52 @@ public class TablesAdapter extends RecyclerView.Adapter<TablesAdapter.TablesVH> 
             @Override
             public void onClick(View v) {
 
+                /** A CURSOR INSTANCE **/
+                Cursor curSession = null;
+
                 /** GET THE TABLE ID AND NUMBER **/
                 String TABLE_NO = td.getTableNo();
-                String TABLE_STATUS = td.getTableOccupationStatus();
-                if (TABLE_STATUS != null) {
-//                    Log.e("STATUS", TABLE_STATUS);
-                }
+                String SESSION_ID = null;
 
-                /** TOGGLE THE TABLE STATUS **/
+                /** CHECK IF A SESSION EXISTS AND IS OPEN **/
                 db = new DBResto(activity);
-                db.updateTableStatus(td.getTableNo(), "true");
-                db.close();
+                String qryOpenSession =
+                        "SELECT * FROM " + db.SESSIONS +
+                                " WHERE " + db.SESSION_TABLE_ID + " = " + TABLE_NO +
+                                " AND " + db.SESSION_STATUS + " = 'open'";
+                Log.e("OPEN SESSION QUERY", qryOpenSession);
+                curSession = db.selectAllData(qryOpenSession);
+                Log.e("CURSOR DUMP", DatabaseUtils.dumpCursorToString(curSession));
+//                db.close();
+                if (curSession != null && curSession.getCount() != 0) {
+                    /* SESSION ALREADY EXISTS. GET THE CURRENT SESSION ID */
+                    for (curSession.moveToFirst(); !curSession.isAfterLast(); curSession.moveToNext()) {
+                        /** GET THE SESSION TOKEN **/
+                        if (curSession.getString(curSession.getColumnIndex(db.SESSION_TOKEN)) != null)	{
+                            SESSION_ID = curSession.getString(curSession.getColumnIndex(db.SESSION_TOKEN));
+                            Log.e("OPEN SESSION ID", SESSION_ID);
+                        } else {
+                            SESSION_ID = null;
+                        }
+                    }
+                } else {
+                    /** GENERATE A SESSION TOKEN **/
+                    UUID uuid = UUID.randomUUID();
+                    String sessionToken = String.valueOf(uuid);
+//                    Log.e("SESSION ID", sessionToken);
+
+                    /** TOGGLE THE TABLE STATUS **/
+//                    db = new DBResto(activity);
+                    db.updateTableStatus(td.getTableNo(), "true");
+
+                    /** CREATE A NEW SESSION FOR THE CURRENT SELECTED TABLE **/
+                    db.generateSession(sessionToken, td.getTableNo(), "open");
+//                    db.close();
+                }
 
                 Intent startTakingOrders = new Intent(activity, CategorySelector.class);
                 startTakingOrders.putExtra("TABLE_NO", TABLE_NO);
+                startTakingOrders.putExtra("SESSION", SESSION_ID);
                 activity.startActivity(startTakingOrders);
             }
         });

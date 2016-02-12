@@ -5,35 +5,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/linlaHeaderProgress"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:visibility="gone">
-
-        <ProgressBar
-            android:id="@+id/pbHeaderProgress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/pb_pad" />
-
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/txtHeaderLoading"
-            fontPath="fonts/RobotoCondensed-Regular.ttf"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="left|center"
-            android:padding="@dimen/pb_pad"
-            android:text="@string/loading"
-            android:textSize="@dimen/pb_size" />
-    </LinearLayout>
-
     <android.support.v7.widget.CardView
+        android:id="@+id/crdDishContainer"
         style="?attr/cardStyle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="240dp"
         android:layout_margin="4dp"
         app:cardCornerRadius="5dp"
         app:cardElevation="4dp"
@@ -93,58 +69,58 @@
                         android:orientation="vertical"
                         android:padding="15dp">
 
-                        <android.support.v7.widget.AppCompatTextView
-                            fontPath="fonts/HelveticaNeueLTW1G-BdCn.otf"
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:padding="5dp"
-                            android:text="RATING"
-                            android:textColor="@android:color/secondary_text_light"
-                            android:textSize="15sp" />
+                            android:orientation="horizontal">
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/txtCurrency"
+                                fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                                android:layout_width="wrap_content"
+                                android:layout_height="fill_parent"
+                                android:gravity="center"
+                                android:paddingBottom="5dp"
+                                android:paddingLeft="5dp"
+                                android:paddingRight="0dp"
+                                android:paddingTop="5dp"
+                                android:text="@string/india_rupee"
+                                android:textColor="@android:color/holo_green_dark"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/txtPrice"
+                                fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="@string/dish_adap_price"
+                                android:textColor="@android:color/holo_green_dark"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="fill_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginBottom="4dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="4dp"
+                            android:background="#888888" />
 
                         <android.support.v7.widget.AppCompatTextView
                             android:id="@+id/txtRating"
                             fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
                             android:layout_width="fill_parent"
                             android:layout_height="fill_parent"
-                            android:layout_marginBottom="10dp"
                             android:gravity="center"
                             android:padding="5dp"
                             android:text="@string/star_symbol"
                             android:textColor="@android:color/holo_green_dark"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-
-                        <View
-                            android:layout_width="fill_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginBottom="4dp"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="20dp"
-                            android:layout_marginTop="4dp"
-                            android:background="#888888" />
-
-                        <android.support.v7.widget.AppCompatTextView
-                            fontPath="fonts/HelveticaNeueLTW1G-BdCn.otf"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:padding="5dp"
-                            android:text="PRICE"
-                            android:textColor="@android:color/secondary_text_light"
-                            android:textSize="15sp" />
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:id="@+id/txtDishPrice"
-                            fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
-                            android:layout_width="wrap_content"
-                            android:layout_height="fill_parent"
-                            android:layout_marginTop="10dp"
-                            android:gravity="center"
-                            android:padding="6dp"
-                            android:text="PRICE"
-                            android:textColor="@android:color/holo_green_dark"
-                            android:textSize="18sp"
+                            android:textSize="20sp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
@@ -152,7 +128,6 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom|right"
-                        android:layout_marginBottom="20dp"
                         android:layout_marginRight="20dp"
                         android:background="#99DCDCDC"
                         android:orientation="vertical">
@@ -166,19 +141,6 @@
                             android:text="DISH NAME"
                             android:textColor="@android:color/primary_text_light"
                             android:textSize="18sp" />
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:id="@+id/txtDishDescription"
-                            fontPath="fonts/HelveticaNeueLTW1G-ThCn.otf"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:ellipsize="end"
-                            android:maxLines="5"
-                            android:padding="11dp"
-                            android:text="DISH DESCRIPTION"
-                            android:textColor="@android:color/secondary_text_light"
-                            android:textSize="18sp" />
                     </LinearLayout>
                 </FrameLayout>
             </LinearLayout>
@@ -190,6 +152,17 @@
                 android:orientation="horizontal">
 
                 <android.support.v7.widget.AppCompatTextView
+                    fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_marginRight="11dp"
+                    android:gravity="left|center"
+                    android:padding="5dp"
+                    android:text="QUICK ADD"
+                    android:textColor="@android:color/primary_text_dark"
+                    android:textSize="16sp" />
+
+                <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/txtAddToCart"
                     fontPath="fonts/MaterialIcons-Regular.ttf"
                     android:layout_width="wrap_content"
@@ -199,18 +172,6 @@
                     android:padding="5dp"
                     android:text="@string/cart_add"
                     android:textColor="@android:color/holo_blue_bright"
-                    android:textSize="29sp" />
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/txtCancel"
-                    fontPath="fonts/MaterialIcons-Regular.ttf"
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
-                    android:layout_marginRight="11dp"
-                    android:gravity="left|center"
-                    android:padding="5dp"
-                    android:text="@string/cart_cancel"
-                    android:textColor="@android:color/holo_red_light"
                     android:textSize="29sp" />
             </LinearLayout>
         </LinearLayout>

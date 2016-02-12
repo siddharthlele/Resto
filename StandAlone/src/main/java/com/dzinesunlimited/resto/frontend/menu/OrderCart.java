@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +18,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -31,6 +33,9 @@ import java.util.UUID;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
+import pl.aprilapps.easyphotopicker.EasyImage;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class OrderCart extends AppCompatActivity {
@@ -46,7 +51,16 @@ public class OrderCart extends AppCompatActivity {
     @Bind(R.id.orderCart)RecyclerView orderCart;
     @Bind(R.id.linlaEmpty)LinearLayout linlaEmpty;
     @Bind(R.id.txtOrderTotal)AppCompatTextView txtOrderTotal;
-    
+    @Bind(R.id.btnSignIn)AppCompatButton btnSignIn;
+    @OnClick(R.id.btnSignIn) protected void PrintKOT() {
+        /** PRINT THE KOT **/
+        printKOT();
+    }
+
+    /** PRINT THE KOT AND CONFIRM THE ORDER (UPDATE ORDER STATUS) **/
+    private void printKOT() {
+    }
+
     /** THE ADAPTER AND THE ARRAYLIST **/
     OrderAdapter adapter;
     ArrayList<OrderData> arrOrders = new ArrayList<>();
@@ -54,23 +68,11 @@ public class OrderCart extends AppCompatActivity {
     /** THE ORDER TOTAL **/
     Double ORDER_TOTAL;
 
-    /** TOTAL DISHES ORDERED (NOT QUANTITY OF DISHES) **/
-    int orderTotal = 0;
-
-    /** (ADAPTER) ORDER QUANTITY **/
-    int dishQuantity = 1;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fe_order_cart);
         ButterKnife.bind(this);
-
-        //TODO: REMOVE AFTER TESTING (FIND A FUCKING SOLUTION!!!!) !!!!
-        /** TESTING A SESSION GENERATOR **/
-        UUID uuid = UUID.randomUUID();
-        String sessionID = String.valueOf(uuid);
-        Log.e("SESSION ID", sessionID);
 
         /***** CONFIGURE THE ACTIONBAR *****/
         configAB();
@@ -91,7 +93,9 @@ public class OrderCart extends AppCompatActivity {
     /** REFRESH THE CURRENT ORDER TOTAL **/
     private void refreshOrderTotal() {
         DBResto resto = new DBResto(OrderCart.this);
-        String s = "SELECT SUM(" + db.ORDER_TOTAL + ") FROM " + db.ORDER_CART;
+        String s =
+                "SELECT SUM(" + db.ORDER_TOTAL + ") FROM " + db.ORDER_CART +
+                        " WHERE " + db.ORDER_TABLE_ID + " = " + INCOMING_TABLE_ID;
         Cursor cursor = resto.selectAllData(s);
         if (cursor != null && cursor.getCount() != 0)	{
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
@@ -228,9 +232,6 @@ public class OrderCart extends AppCompatActivity {
 
                     /** ADD THE COLLECTED DATA TO THE ARRAYLIST **/
                     arrOrders.add(data);
-
-                    /** SET THE TOTAL ORDERS **/
-                    orderTotal = arrOrders.size();
                 }
 
                 /** SHOW THE LISTVIEW AND HIDE THE EMPTY CONTAINER **/
@@ -319,6 +320,19 @@ public class OrderCart extends AppCompatActivity {
         getSupportActionBar().setSubtitle(null);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+            default:
+                break;
+        }
+        return false;
+    }
+
     /** CONFIGURE THE RECYCLER VIEW **/
     private void configRecyclerView() {
         orderCart.setHasFixedSize(true);
@@ -366,33 +380,35 @@ public class OrderCart extends AppCompatActivity {
             }
 
             /** SET THE DEFAULT QUANTITY **/
-            holder.txtQuantity.setText(String.valueOf(dishQuantity));
+            holder.txtQuantity.setText(String.valueOf(1));
 
             /** SET THE DISH PRICE **/
             String strDishPrice = data.getMenuPrice();
             double dishBasePrice = Double.parseDouble(strDishPrice);
-            double dishTotal = dishBasePrice * dishQuantity;
+            double dishTotal = dishBasePrice * 1;
             holder.txtDishTotal.setText(String.valueOf(dishTotal));
 
             /** INCREASE THE DISH QUANTITY **/
             holder.txtQtyPlus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    int qty = Integer.parseInt(holder.txtQuantity.getText().toString());
+
                     /** INCREMENT THE QUANTITY BY 1 **/
-                    dishQuantity++;
+                    qty++;
 
                     /** SET THE NEW ORDER QUANTITY **/
-                    holder.txtQuantity.setText(String.valueOf(dishQuantity));
+                    holder.txtQuantity.setText(String.valueOf(qty));
 
                     /** UPDATE THE DISH PRICE **/
                     String strDishPrice = data.getMenuPrice();
                     double dishBasePrice = Double.parseDouble(strDishPrice);
-                    double dishTotal = dishBasePrice * dishQuantity;
+                    double dishTotal = dishBasePrice * qty;
                     holder.txtDishTotal.setText(String.valueOf(dishTotal));
 
                     /** UPDATE THE ORDER IN THE ORDER CART TABLE **/
                     db = new DBResto(activity);
-                    db.updateOrderQuantity(data.getOrderID(), dishQuantity);
+                    db.updateOrderQuantity(data.getOrderID(), qty, String.valueOf(dishTotal));
                     db.close();
 
                     /** REFRESH THE ORDER TOTAL **/
@@ -404,22 +420,24 @@ public class OrderCart extends AppCompatActivity {
             holder.txtQtyMinus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    int qty = Integer.parseInt(holder.txtQuantity.getText().toString());
+
                     /** DECREASE THE QUANTITY BY 1 **/
-                    if (dishQuantity > 1) {
-                        dishQuantity--;
+                    if (qty > 1) {
+                        qty--;
 
                         /** SET THE NEW ORDER QUANTITY **/
-                        holder.txtQuantity.setText(String.valueOf(dishQuantity));
+                        holder.txtQuantity.setText(String.valueOf(qty));
 
                         /** UPDATE THE DISH PRICE **/
                         String strDishPrice = data.getMenuPrice();
                         double dishBasePrice = Double.parseDouble(strDishPrice);
-                        double dishTotal = dishBasePrice * dishQuantity;
+                        double dishTotal = dishBasePrice * qty;
                         holder.txtDishTotal.setText(String.valueOf(dishTotal));
 
                         /** UPDATE THE ORDER IN THE ORDER CART TABLE **/
                         db = new DBResto(activity);
-                        db.updateOrderQuantity(data.getOrderID(), dishQuantity);
+                        db.updateOrderQuantity(data.getOrderID(), qty, String.valueOf(dishTotal));
                         db.close();
 
                         /** REFRESH THE ORDER TOTAL **/
@@ -429,28 +447,28 @@ public class OrderCart extends AppCompatActivity {
             });
 
             /** REMOVE THE DISH FROM THE ORDER CART **/
-//            holder.txtRemoveDish.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-////                    Log.e("STATUS", String.valueOf(data.isOrderStatus()));
-//                    removeAt(position);
-//
-//                    /** DELETE THE ORDER FROM THE DATABASE **/
-//                    if (!data.isOrderStatus())   {
-//                        /* OPEN THE DATABASE CONNECTION */
-//                        db = new DBResto(activity);
-//
-//                        /* DELETE THE ORDER CART RECORD */
-//                        db.deleteOrder(data.getOrderID());
-//
-//                        /* CLOSE THE DATABASE CONNECTION */
-//                        db.close();
-//
-//                        /** REFRESH THE ORDER TOTAL **/
-//                        refreshOrderTotal();
-//                    }
-//                }
-//            });
+            holder.txtRemoveDish.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    Log.e("STATUS", String.valueOf(data.isOrderStatus()));
+                    removeAt(position);
+
+                    /** DELETE THE ORDER FROM THE DATABASE **/
+                    if (!data.isOrderStatus())   {
+                        /* OPEN THE DATABASE CONNECTION */
+                        db = new DBResto(activity);
+
+                        /* DELETE THE ORDER CART RECORD */
+                        db.deleteOrder(data.getOrderID());
+
+                        /* CLOSE THE DATABASE CONNECTION */
+                        db.close();
+
+                        /** REFRESH THE ORDER TOTAL **/
+                        refreshOrderTotal();
+                    }
+                }
+            });
         }
 
         private void removeAt(int position) {
@@ -464,15 +482,15 @@ public class OrderCart extends AppCompatActivity {
 
             View itemView = LayoutInflater.
                     from(parent.getContext()).
-                    inflate(R.layout.fe_order_cart_item_test, parent, false);
+                    inflate(R.layout.fe_order_cart_item, parent, false);
 
             return new OrdersVH(itemView);
         }
 
         public class OrdersVH extends RecyclerView.ViewHolder	{
 
-//            AppCompatTextView txtRemoveDish;
-            AppCompatImageView imgvwMenu;
+            AppCompatTextView txtRemoveDish;
+            CircleImageView imgvwMenu;
             AppCompatTextView txtMenuName;
             AppCompatTextView txtQtyMinus;
             AppCompatTextView txtQuantity;
@@ -481,8 +499,8 @@ public class OrderCart extends AppCompatActivity {
 
             public OrdersVH(View v) {
                 super(v);
-//                txtRemoveDish = (AppCompatTextView) v.findViewById(R.id.txtRemoveDish);
-                imgvwMenu = (AppCompatImageView) v.findViewById(R.id.imgvwMenu);
+                txtRemoveDish = (AppCompatTextView) v.findViewById(R.id.txtRemoveDish);
+                imgvwMenu = (CircleImageView) v.findViewById(R.id.imgvwMenu);
                 txtMenuName = (AppCompatTextView) v.findViewById(R.id.txtMenuName);
                 txtQtyMinus = (AppCompatTextView) v.findViewById(R.id.txtQtyMinus);
                 txtQuantity = (AppCompatTextView) v.findViewById(R.id.txtQuantity);

@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Resto</string>
-    <string name="action_settings">Settings</string>
     <string name="app_name_splash">RESTO</string>
     <string name="app_icon">&#xE561;</string>
 
@@ -45,6 +44,7 @@
     <string name="dash_btn_lbl_tables">Tables</string>
     <string name="dash_btn_lbl_taxes">Taxes</string>
     <string name="dash_btn_lbl_payments">Payments Manager</string>
+    <string name="dash_btn_lbl_printers">Printers</string>
 
     <!-- COUNTRIES LIST ITEM -->
     <string name="countries_item_label">COUNTRY NAME</string>

@@ -1,6 +1,7 @@
 package com.dzinesunlimited.resto.frontend.menu;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -13,6 +14,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -26,7 +28,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.dzinesunlimited.resto.R;
 import com.dzinesunlimited.resto.utils.AppPrefs;
@@ -399,13 +401,13 @@ public class MenuActivity extends AppCompatActivity {
 
 			/* GET THE SUB MENU NAME */
             final String SUB_MENU_NAME = md.getMenuName();
-            holder.txtName.setText(SUB_MENU_NAME);
+            holder.txtDishName.setText(SUB_MENU_NAME);
 
 			/* GET THE SUB MENU THUMBNAIL */
             byte[] MEAL_THUMB = md.getMenuImage();
             if (MEAL_THUMB != null)	{
                 Bitmap bmpThumb = BitmapFactory.decodeByteArray(MEAL_THUMB, 0, MEAL_THUMB.length);
-                holder.imgvwThumb.setImageBitmap(bmpThumb);
+                holder.imgvwDish.setImageBitmap(bmpThumb);
             }
 
 		    /* GET THE DISH PRICE */
@@ -427,7 +429,7 @@ public class MenuActivity extends AppCompatActivity {
             }
 
             /** SHOW THE DISH DETAILS **/
-            holder.rellaDishContainer.setOnClickListener(new View.OnClickListener() {
+            holder.crdDishContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
@@ -437,6 +439,75 @@ public class MenuActivity extends AppCompatActivity {
                     activity.startActivityForResult(showDishDetails, ACTION_ADD_ORDER);
                 }
             });
+
+            /** ADD THE DISH TO THE ORDER CART **/
+            holder.txtAddToCart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    /** GET THE SELECTED DISH ID **/
+                    String MENU_ID = md.getMenuID();
+                    String MENU_PRICE = md.getMenuPrice();
+
+                    /** CALCULATE THE ORDER TOTAL **/
+                    Double dblMealPrice = Double.valueOf(MENU_PRICE);
+                    Double dblQuantity = Double.valueOf(1);
+                    Double dblOrderTotal = dblMealPrice * dblQuantity;
+                    String ORDER_TOTAL = String.valueOf(dblOrderTotal);
+
+                    /** INSTANTIATE THE DATABASE INSTANCE **/
+                    db = new DBResto(MenuActivity.this);
+
+                    /** SHOW A PROGRESS DIALOG WHILE ADDING DISH TO CART **/
+                    ProgressDialog dialog = new ProgressDialog(MenuActivity.this);
+                    dialog.setCancelable(false);
+                    dialog.setMessage("Adding Dish to the Order Cart....");
+                    dialog.setIndeterminate(true);
+                    dialog.show();
+
+                    /** CHECK IF THE ORDER EXISTS IN THE ORDER CART **/
+                    db = new DBResto(MenuActivity.this);
+                    String strQueryData =
+                            "SELECT * FROM " + db.ORDER_CART + " WHERE " + db.ORDER_MENU_ID + " = " + MENU_ID +
+                                    " AND " + db.ORDER_STATUS + " = 0 AND " + db.ORDER_TABLE_ID + " = " + INCOMING_TABLE_NO;
+//                Log.e("QUERY", strQueryData);
+                    Cursor cursor = db.selectAllData(strQueryData);
+                    if (cursor.getCount() != 0) {
+                        Toast.makeText(
+                                getApplicationContext(),
+                                "Dish already present in your Order Cart. Change the quantity from the Order Cart on the previous page",
+                                Toast.LENGTH_SHORT).show();
+                    } else {
+                        /** ADD THE DATA TO THE ORDER CART **/
+                        db.addOrder(
+                                Integer.valueOf(INCOMING_TABLE_NO),
+                                Integer.valueOf(MENU_ID),
+                                MENU_PRICE,
+                                1,
+                                ORDER_TOTAL,
+                                false);
+
+                        /** REFRESH THE ORDER CART COUNT **/
+                        db = new DBResto(MenuActivity.this);
+                        String s = "SELECT * FROM " + db.ORDER_CART + " WHERE " + db.ORDER_TABLE_ID + " = " + INCOMING_TABLE_NO;
+                        Cursor curOrders  = db.selectAllData(s);
+                        ORDER_CART_COUNT = curOrders.getCount();
+                        db.close();
+
+                        /** INVALIDATE THE OPTIONS MENU **/
+                        invalidateOptionsMenu();
+
+                        /** SHOW ORDER ADDED NOTE **/
+                        Toast.makeText(getApplicationContext(), "Dish added successfully", Toast.LENGTH_SHORT).show();
+                    }
+
+                    /** DISMISS THE DIALOG **/
+                    dialog.dismiss();
+
+                    /** CLOSE THE DATABASE CONNECTION **/
+                    db.close();
+                }
+            });
         }
 
         @Override
@@ -444,32 +515,34 @@ public class MenuActivity extends AppCompatActivity {
 
             View itemView = LayoutInflater.
                     from(parent.getContext()).
-                    inflate(R.layout.fe_menu_item, parent, false);
+                    inflate(R.layout.fe_menu_item_test, parent, false);
 
             return new DishesVH(itemView);
         }
 
         public class DishesVH extends RecyclerView.ViewHolder	{
 
-            RelativeLayout rellaDishContainer;
-            AppCompatImageView imgvwThumb;
+            CardView crdDishContainer;
+            AppCompatImageView imgvwDish;
             AppCompatImageView imgvwMealType;
             AppCompatTextView txtCurrency;
             AppCompatTextView txtPrice;
-            AppCompatTextView txtName;
             AppCompatTextView txtRating;
+            AppCompatTextView txtDishName;
+            AppCompatTextView txtAddToCart;
 
             public DishesVH(View v) {
                 super(v);
 
                 /*****	CAST THE LAYOUT ELEMENTS	*****/
-                rellaDishContainer = (RelativeLayout) v.findViewById(R.id.rellaDishContainer);
-                imgvwThumb = (AppCompatImageView) v.findViewById(R.id.imgvwThumb);
+                crdDishContainer = (CardView) v.findViewById(R.id.crdDishContainer);
+                imgvwDish = (AppCompatImageView) v.findViewById(R.id.imgvwDish);
                 imgvwMealType = (AppCompatImageView) v.findViewById(R.id.imgvwMealType);
                 txtCurrency = (AppCompatTextView) v.findViewById(R.id.txtCurrency);
                 txtPrice = (AppCompatTextView) v.findViewById(R.id.txtPrice);
-                txtName = (AppCompatTextView) v.findViewById(R.id.txtName);
                 txtRating = (AppCompatTextView) v.findViewById(R.id.txtRating);
+                txtDishName = (AppCompatTextView) v.findViewById(R.id.txtDishName);
+                txtAddToCart = (AppCompatTextView) v.findViewById(R.id.txtAddToCart);
             }
         }
     }

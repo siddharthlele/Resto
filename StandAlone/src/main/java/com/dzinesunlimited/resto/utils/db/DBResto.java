@@ -53,6 +53,7 @@ public class DBResto {
     public final String COUNTRIES = "countries";
     public final String CURRENCY = "currency";
     public final String ORDER_CART = "orderCart";
+    public final String SESSIONS = "sessions";
 
     /* RESTAURANT */
     public final String RESTAURANT_ID = "restID";
@@ -101,7 +102,7 @@ public class DBResto {
     /* TABLES */
     public final String TABLE_ID = "tableID";
     public final String TABLE_SEATS = "tableSeats";
-    public final String TABLE_OCCUPANCY = "tableOccupancy";
+    public final String TABLE_STATUS = "tableStatus";
 
     /* ORDER CART */
     public final String ORDER_CART_ID = "orderID";
@@ -112,6 +113,18 @@ public class DBResto {
     public final String ORDER_TOTAL = "orderTotal";
     public final String ORDER_STATUS = "orderStatus";
     public final String ORDER_TIMESTAMP = "orderTimestamp";
+
+    /* SESSIONS MANAGER TABLE */
+    public final String SESSION_TOKEN = "sessionToken";
+    public final String SESSION_TABLE_ID = "sessionTableID";
+    public final String SESSION_STATUS = "sessionStatus";
+    public final String SESSION_CREATED = "sessionCreated";
+
+    /* TABLE TRANSACTIONS */
+    /*public final String TRANS_TABLE_PRIMARY = "transID";
+    public final String TRANS_TABLE_ID = "tableID";
+    public final String TRANS_SESSION_TOKEN = "sessionToken";
+    public final String TRANS_SESSION_STATUS = "transSessionStatus";*/
 
     /* TAXES */
     public final String TAX_ID = "taxID";
@@ -221,7 +234,7 @@ public class DBResto {
         ContentValues valNewTable = new ContentValues();
         valNewTable.put(TABLE_ID, strTableNumber);
         valNewTable.put(TABLE_SEATS, strTableSeats);
-        valNewTable.put(TABLE_OCCUPANCY, strOccupationStatus);
+        valNewTable.put(TABLE_STATUS, strOccupationStatus);
 
 		/* INSERT THE COLLECTED DATA TO THE TABLES TABLE */
         db.insert(TABLES, null, valNewTable);
@@ -314,6 +327,22 @@ public class DBResto {
         db.insert(CATEGORY, null, valNewCategory);
     }
 
+    /** CREATE A NEW SESSION FOR THE SELECTED TABLE **/
+    public void generateSession(String sessionToken, String tableID, String status) {
+
+		/* OPEN THE DATABASE AGAIN */
+        this.db = helper.getWritableDatabase();
+
+        /** ADD AND CREATE KEY VALUE PAIRS FOR CREATING A NEW SESSION RECORD**/
+        ContentValues valNewSession = new ContentValues();
+        valNewSession.put(SESSION_TOKEN, sessionToken);
+        valNewSession.put(SESSION_TABLE_ID, tableID);
+        valNewSession.put(SESSION_STATUS, status);
+
+		/* INSERT THE COLLECTED DATA TO THE SESSIONS TABLE */
+        db.insert(SESSIONS, null, valNewSession);
+    }
+
     /********************   UPDATES     ********************/
 
     // UPDATE CATEGORY
@@ -332,17 +361,18 @@ public class DBResto {
     }
 
     // UPDATE AN ORDER
-    public void updateOrderQuantity(String strOrderID, int intOrderQuantity)    {
+    public void updateOrderQuantity(String orderID, int orderQuantity, String orderTotal)    {
 
         /* OPEN THE DATABASE AGAIN */
         this.db = helper.getWritableDatabase();
 
         /* ADD AND CREATE KEY VALUE PAIRS FOR UPDATING AN EXISTING TAX */
         ContentValues valUpdateOrder = new ContentValues();
-        valUpdateOrder.put(ORDER_QUANTITY, intOrderQuantity);
+        valUpdateOrder.put(ORDER_QUANTITY, orderQuantity);
+        valUpdateOrder.put(ORDER_TOTAL, orderTotal);
 
         /* INSERT THE COLLECTED DATA TO THE ORDER CART TABLE */
-        db.update(ORDER_CART, valUpdateOrder, ORDER_CART_ID + "=" + strOrderID, null);
+        db.update(ORDER_CART, valUpdateOrder, ORDER_CART_ID + "=" + orderID, null);
     }
 
     // UPDATE AN EXISTING TAX
@@ -371,7 +401,7 @@ public class DBResto {
         ContentValues valUpdateTable = new ContentValues();
         valUpdateTable.put(TABLE_ID, tableID);
         valUpdateTable.put(TABLE_SEATS, tableSeats);
-        valUpdateTable.put(TABLE_OCCUPANCY, tableStatus);
+        valUpdateTable.put(TABLE_STATUS, tableStatus);
         db.update(TABLES, valUpdateTable, TABLE_ID + "=" + tableID, null);
     }
 
@@ -379,7 +409,7 @@ public class DBResto {
     public void updateTableStatus(String tableNo, String tableStatus) {
         this.db = helper.getWritableDatabase();
         ContentValues valUpdateTable = new ContentValues();
-        valUpdateTable.put(TABLE_OCCUPANCY, tableStatus);
+        valUpdateTable.put(TABLE_STATUS, tableStatus);
         db.update(TABLES, valUpdateTable, TABLE_ID + "=" + tableNo, null);
     }
 
@@ -428,7 +458,7 @@ public class DBResto {
 
     /***** DELETE A TABLE *****/
     public void deleteTable(String strTableID) {
-        db.delete(TABLES, TABLE_ID + "=" + strTableID, null);
+        db.delete(TABLES, TABLE_ID+ "=" + strTableID, null);
     }
 
     /** DELETE THE MENU CATEGORY **/
@@ -505,6 +535,9 @@ public class DBResto {
 
 			/** CREATE THE ORDER CART TABLE **/
             createOrderCartTable(db);
+
+            /** CREATE THE SESSIONS TABLE **/
+            createSessionsTable(db);
 		}
 
 		@Override
@@ -596,6 +629,20 @@ public class DBResto {
 
         // EXECUTE THE strCreateOrderCartTable TO CREATE THE TABLE
         db.execSQL(strCreateOrderCartTable);
+    }
+
+    private void createSessionsTable(SQLiteDatabase db) {
+
+        String strCreateSessionsTable = "create table " + SESSIONS +
+                " (" +
+                SESSION_TOKEN + " text primary key, " +
+                SESSION_TABLE_ID + " text, " +
+                SESSION_STATUS + " text, " +
+                SESSION_CREATED + " timestamp default current_timestamp, " +
+                "UNIQUE" + " (" + SESSION_TOKEN + " )" + ");";
+
+        // EXECUTE THE strCreateSessionsTable TO CREATE THE TABLE
+        db.execSQL(strCreateSessionsTable);
     }
 
     private void createRestaurantTable(SQLiteDatabase db) {
@@ -1412,7 +1459,7 @@ public class DBResto {
                 " (" +
                 TABLE_ID + " integer primary key, " +
                 TABLE_SEATS + " text, " +
-                TABLE_OCCUPANCY + " text, " +
+                TABLE_STATUS + " text, " +
                 "UNIQUE" + " (" + TABLE_ID + " )" + ");";
 
         // EXECUTE THE strCreateTablesTable TO CREATE THE TABLE

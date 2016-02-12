@@ -116,12 +116,12 @@ public class TableSelector extends AppCompatActivity {
                     }
 
                     /** GET THE TABLE OCCUPATION STATUS **/
-                    if (cursor.getString(cursor.getColumnIndex(db.TABLE_OCCUPANCY)) != null)	{
-                        String TABLE_OCCUPANCY = cursor.getString(cursor.getColumnIndex(db.TABLE_OCCUPANCY));
+                    if (cursor.getString(cursor.getColumnIndex(db.TABLE_STATUS)) != null)	{
+                        String TABLE_STATUS = cursor.getString(cursor.getColumnIndex(db.TABLE_STATUS));
 //                        Log.e("STATUS", TABLE_OCCUPANCY);
-                        table.setTableOccupationStatus(TABLE_OCCUPANCY);
+                        table.setTableStatus(TABLE_STATUS);
                     } else {
-                        table.setTableOccupationStatus(null);
+                        table.setTableStatus(null);
                     }
 
                     /** ADD THE COLLECTED DATA TO THE ARRAYLIST **/
@@ -141,7 +141,7 @@ public class TableSelector extends AppCompatActivity {
             }
 
             /** CLOSE THE DATABASE **/
-            db.close();
+//            db.close();
 
             /** SET THE ADAPTER TO THE LISTVIEW **/
             listTables.setAdapter(adapter);

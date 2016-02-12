@@ -39,7 +39,7 @@ public class SplashScreen extends AppCompatActivity {
 
         /** CONFIGURE THE ANIMATIONS **/
         animIn = new AlphaAnimation(0.0f, 1.0f);
-        animIn.setDuration(4000);
+        animIn.setDuration(2000);
 
         /** CAST THE TEXT VIEW AND ANIMATE **/
         txtAppName = (AppCompatTextView) findViewById(R.id.txtAppName);
@@ -78,7 +78,7 @@ public class SplashScreen extends AppCompatActivity {
                         finish();
                     }
                 }
-            }, 4000);
+            }, 3000);
         }
     }
 

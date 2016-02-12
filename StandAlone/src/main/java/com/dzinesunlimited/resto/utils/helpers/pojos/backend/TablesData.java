@@ -4,7 +4,7 @@ public class TablesData {
 
     private String tableNo;
     private String tableSeats;
-    private String tableOccupationStatus;
+    private String tableStatus;
 
     public String getTableNo() {
         return tableNo;
@@ -22,11 +22,11 @@ public class TablesData {
         this.tableSeats = tableSeats;
     }
 
-    public String getTableOccupationStatus() {
-        return tableOccupationStatus;
+    public String getTableStatus() {
+        return tableStatus;
     }
 
-    public void setTableOccupationStatus(String tableOccupationStatus) {
-        this.tableOccupationStatus = tableOccupationStatus;
+    public void setTableStatus(String tableStatus) {
+        this.tableStatus = tableStatus;
     }
 }

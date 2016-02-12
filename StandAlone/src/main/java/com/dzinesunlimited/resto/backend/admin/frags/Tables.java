@@ -174,11 +174,11 @@ public class Tables extends Fragment {
                     }
 
                     /** GET THE TABLE OCCUPANCY **/
-                    if (cursor.getString(cursor.getColumnIndex(db.TABLE_OCCUPANCY)) != null)	{
-                        String TABLE_OCCUPANCY = cursor.getString(cursor.getColumnIndex(db.TABLE_OCCUPANCY));
-                        table.setTableOccupationStatus(TABLE_OCCUPANCY);
+                    if (cursor.getString(cursor.getColumnIndex(db.TABLE_STATUS)) != null)	{
+                        String TABLE_STATUS = cursor.getString(cursor.getColumnIndex(db.TABLE_STATUS));
+                        table.setTableStatus(TABLE_STATUS);
                     } else {
-                        table.setTableOccupationStatus(null);
+                        table.setTableStatus(null);
                     }
 
                     /** ADD THE COLLECTED DATA TO THE ARRAYLIST **/
@@ -338,7 +338,7 @@ public class Tables extends Fragment {
             }
 
             /** SET THE OCCUPATION STATUS */
-            String strOccupationStatus = td.getTableOccupationStatus();
+            String strOccupationStatus = td.getTableStatus();
             if (strOccupationStatus != null)	{
                 /* TRUE -> OCCUPIED	||	FALSE -> VACANT */
                 if (strOccupationStatus.equals("true"))	{

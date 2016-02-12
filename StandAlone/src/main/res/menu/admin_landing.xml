@@ -33,6 +33,11 @@
             android:icon="@drawable/dash_payments"
             android:title="@string/dash_btn_lbl_payments" />
         <item
+            android:id="@+id/dashPrinters"
+            android:checked="false"
+            android:icon="@drawable/dash_print"
+            android:title="@string/dash_btn_lbl_printers" />
+        <item
             android:id="@+id/dashAccounts"
             android:checked="false"
             android:icon="@drawable/dash_accounts"

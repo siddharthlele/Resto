@@ -24,6 +24,7 @@ import com.dzinesunlimited.resto.backend.admin.frags.Accounts;
 import com.dzinesunlimited.resto.backend.admin.frags.Categories;
 import com.dzinesunlimited.resto.backend.admin.frags.Dashboard;
 import com.dzinesunlimited.resto.backend.admin.frags.PaymentsManager;
+import com.dzinesunlimited.resto.backend.admin.frags.Printers;
 import com.dzinesunlimited.resto.backend.admin.frags.Reports;
 import com.dzinesunlimited.resto.backend.admin.frags.Tables;
 import com.dzinesunlimited.resto.backend.admin.frags.Taxes;
@@ -147,6 +148,10 @@ public class AdminLanding extends AppCompatActivity {
                         return true;
                     case R.id.dashPayments:
                         mContent = new PaymentsManager();
+                        switchFragment(mContent);
+                        return true;
+                    case R.id.dashPrinters:
+                        mContent = new Printers();
                         switchFragment(mContent);
                         return true;
                     case R.id.dashAccounts:
