@@ -4,20 +4,6 @@
     android:layout_height="fill_parent"
     android:orientation="vertical">
 
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/btnSearchPrinters"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="5dp"
-        android:gravity="center"
-        android:padding="11dp"
-        android:text="SEARCH PRINTERS"
-        android:textColor="@android:color/primary_text_dark"
-        android:textSize="16sp" />
-
     <LinearLayout
         android:id="@+id/linlaHeaderProgress"
         android:layout_width="fill_parent"
@@ -45,10 +31,11 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="vertical">
 
-        <ListView
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/listPrinters"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -95,5 +82,19 @@
                 android:textSize="@dimen/empty_size" />
         </LinearLayout>
     </LinearLayout>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btnSearchPrinters"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:padding="11dp"
+        android:text="SEARCH PRINTERS"
+        android:textColor="@android:color/primary_text_dark"
+        android:textSize="16sp" />
 
 </LinearLayout>

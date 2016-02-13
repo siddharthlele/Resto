@@ -54,6 +54,7 @@ public class DBResto {
     public final String CURRENCY = "currency";
     public final String ORDER_CART = "orderCart";
     public final String SESSIONS = "sessions";
+    public final String PRINTERS = "printers";
 
     /* RESTAURANT */
     public final String RESTAURANT_ID = "restID";
@@ -144,6 +145,11 @@ public class DBResto {
     public final String CURRENCY_ISO_CODE = "currencyISOCode";
     public final String CURRENCY_SYMBOL = "currencySymbol";
 
+    /* PRINTERS */
+    public final String PRINTER_ID = "printerID";
+    public final String PRINTER_NAME = "printerName";
+    public final String PRINTER_IP = "printerIP";
+
     /** GET ALL THE DATA IN THE DATABASE BASED ON THE QUERY **/
     public Cursor selectAllData(String strQueryData) {
 
@@ -171,6 +177,20 @@ public class DBResto {
 
 		/* INSERT THE COLLECTED DATA TO THE COUNTRY TABLE */
         db.insert(COUNTRIES, null, valNewCountry);
+    }
+
+    public void addPrinter(String printerName, String printerIP)   {
+
+		/* OPEN THE DATABASE AGAIN */
+        this.db = helper.getWritableDatabase();
+
+        /** ADD AND CREATE KEY VALUE PAIRS FOR ADDING A NEW COUNTRY TO THE DATABASE **/
+        ContentValues valNewPrinter = new ContentValues();
+        valNewPrinter.put(PRINTER_NAME, printerName);
+        valNewPrinter.put(PRINTER_IP, printerIP);
+
+		/* INSERT THE COLLECTED DATA TO THE COUNTRY TABLE */
+        db.insert(PRINTERS, null, valNewPrinter);
     }
 
     /** ADD A RESTAURANT TO THE DATABASE **/
@@ -538,12 +558,28 @@ public class DBResto {
 
             /** CREATE THE SESSIONS TABLE **/
             createSessionsTable(db);
+
+            /** CREATE THE PRINTERS TABLE **/
+            createPrintersTable(db);
 		}
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		}
 	}
+
+    private void createPrintersTable(SQLiteDatabase db) {
+
+        String strCreatePrintersTable = "create table " + PRINTERS +
+                " (" +
+                PRINTER_ID + " integer primary key autoincrement, " +
+                PRINTER_NAME + " text, " +
+                PRINTER_IP + " text, " +
+                "UNIQUE" + " (" + PRINTER_IP + " )" + ");";
+
+        // EXECUTE THE strCreatePrintersTable TO CREATE THE TABLE
+        db.execSQL(strCreatePrintersTable);
+    }
 
     private void createStaffRolesTable(SQLiteDatabase db) {
 
