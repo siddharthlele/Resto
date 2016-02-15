@@ -22,6 +22,9 @@
     <string name="acc_admin_empty">You have no <b>User Accounts</b> in this <b>User Role</b>.
         \n\nChange the <b>User Role</b> using the dropdown below the Search Bar. Or, add a new <b>User Account</b> to this <b>User Role</b>.</string>
 
+    <!-- PRINT CATEGORIES -->
+    <string name="print_cat_empty_categories">You haven\'t added any <b>Categories</b> yet. Head back to the Dashboard, select \"Menu\" from the side-bar and add the <b>Categories</b> that you serve.</string>
+
     <!-- FRONTEND -->
     <string name="frontend_empty_categories">There are no Menu Categories available. Please consult the Staff.</string>
     <string name="frontend_empty_menus">There are no Dishes available in this Category :-(</string>

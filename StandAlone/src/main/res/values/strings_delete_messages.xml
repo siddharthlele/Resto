@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="account_delete_prompt">Are you sure you want to delete this Account? Pressing \"Yes\" will permanently delete the selected Account and is <b>unrecoverable</b>.</string>
+    <string name="printer_delete_prompt">Are you sure you want to delete this Printer?
+        \n\nPressing \"Yes\" will permanently delete the Printer from Resto and any dependent Categories / Dishes will not print their KOT\'s.</string>
 
 </resources>

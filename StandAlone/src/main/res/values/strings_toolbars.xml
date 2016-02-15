@@ -16,6 +16,7 @@
     <string name="reports_title">Reports</string>
     <string name="account_creator_title">Create New Account</string>
     <string name="account_modifier_title">Update Account</string>
+    <string name="printer_manager_title">Printer Manager</string>
 
     <!-- FRONT END -->
     <string name="table_selector_title">Select A Table</string>

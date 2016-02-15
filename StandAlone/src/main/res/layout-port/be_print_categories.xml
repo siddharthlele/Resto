@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical">
+
+    <include layout="@layout/foo_toolbar" />
+
+    <!--<android.support.v7.widget.AppCompatTextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="11dp"
+        android:text="Restaurants often have different kitchens / prep areas, etc for different items. For example, there may be a different Bar, Cafe and Dining which may have their own kitchens or preparation areas. Configure which Categories will be printed on the selected Printer to speed up the ordering process."
+        android:textColor="@android:color/secondary_text_dark"
+        android:textSize="14sp" />-->
 
     <LinearLayout
         android:id="@+id/linlaHeaderProgress"
@@ -13,20 +25,9 @@
         android:visibility="gone">
 
         <ProgressBar
-            android:id="@+id/pbHeaderProgress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/pb_pad" />
-
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/txtHeaderLoading"
-            fontPath="fonts/RobotoCondensed-Regular.ttf"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="left|center"
-            android:padding="@dimen/pb_pad"
-            android:text="@string/loading"
-            android:textSize="@dimen/pb_size" />
+            android:padding="2dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -34,16 +35,30 @@
         android:layout_height="fill_parent"
         android:orientation="vertical">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/listPrinters"
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/txtPrinterIP"
+            fontPath="fonts/HelveticaNeueLTW1G-MdCn.otf"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:padding="11dp"
+            android:textColor="@android:color/primary_text_dark"
+            android:textSize="16sp" />
+
+        <ListView
+            android:id="@+id/listCategories"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_gravity="center"
             android:cacheColorHint="@android:color/transparent"
             android:fadingEdge="none"
             android:persistentDrawingCache="scrolling"
-            android:scrollbarSize="@dimen/scroll_bar_size"
-            android:scrollbarThumbVertical="@color/primaryColorDark"
+            android:scrollbarSize="5dp"
+            android:scrollbarThumbVertical="@color/primaryColor"
             android:scrollbars="vertical"
             android:visibility="visible" />
 
@@ -68,18 +83,18 @@
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/txtEmpty"
-                fontPath="fonts/RobotoCondensed-Regular.ttf"
+                fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/empty_margin"
-                android:layout_marginRight="@dimen/empty_margin"
-                android:layout_marginTop="@dimen/empty_margin"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
                 android:gravity="center"
-                android:padding="@dimen/empty_pad"
-                android:text="YOU HAVEN'T ADDED ANY PRINTERS YET. CLICK THE PLUS SIGN (+) IN THE TOP BAR TO DISCOVER CONNECTED PRINTERS AND ADD THEM TO RESTO"
-                android:textColor="@android:color/tertiary_text_dark"
-                android:textSize="@dimen/empty_size" />
+                android:padding="6dp"
+                android:text="@string/print_cat_empty_categories"
+                android:textColor="@android:color/tertiary_text_light"
+                android:textSize="20sp"
+                tools:ignore="MissingPrefix" />
         </LinearLayout>
     </LinearLayout>
-
 </LinearLayout>

@@ -55,6 +55,7 @@ public class DBResto {
     public final String ORDER_CART = "orderCart";
     public final String SESSIONS = "sessions";
     public final String PRINTERS = "printers";
+    public final String PRINT_CATEGORIES = "printCategories";
 
     /* RESTAURANT */
     public final String RESTAURANT_ID = "restID";
@@ -150,6 +151,13 @@ public class DBResto {
     public final String PRINTER_NAME = "printerName";
     public final String PRINTER_IP = "printerIP";
 
+    /* PRINT CATEGORIES */
+    public final String PRINT_CATEGORY_ID = "printCategoryID";
+    public final String PRINT_PRINTER_ID = "printerID";
+    public final String PRINT_CAT_ID = "categoryID";
+    public final String PRINT_CAT_STATUS = "printCatStatus";
+
+
     /** GET ALL THE DATA IN THE DATABASE BASED ON THE QUERY **/
     public Cursor selectAllData(String strQueryData) {
 
@@ -179,7 +187,23 @@ public class DBResto {
         db.insert(COUNTRIES, null, valNewCountry);
     }
 
-    public void addPrinter(String printerName, String printerIP)   {
+    /** ADD ALL CATEGORIES TO THE PRINT CATEGORIES TABLE **/
+    public void addPrintCategories(String printerID, String categoryID, boolean status)  {
+
+		/* OPEN THE DATABASE AGAIN */
+        this.db = helper.getWritableDatabase();
+
+        /** ADD AND CREATE KEY VALUE PAIRS FOR ADDING A NEW COUNTRY TO THE DATABASE **/
+        ContentValues values = new ContentValues();
+        values.put(PRINT_PRINTER_ID, printerID);
+        values.put(PRINT_CAT_ID, categoryID);
+        values.put(PRINT_CAT_STATUS, status);
+
+		/* INSERT THE COLLECTED DATA TO THE COUNTRY TABLE */
+        db.insert(PRINT_CATEGORIES, null, values);
+    }
+
+    public long addPrinter(String printerName, String printerIP)   {
 
 		/* OPEN THE DATABASE AGAIN */
         this.db = helper.getWritableDatabase();
@@ -190,7 +214,8 @@ public class DBResto {
         valNewPrinter.put(PRINTER_IP, printerIP);
 
 		/* INSERT THE COLLECTED DATA TO THE COUNTRY TABLE */
-        db.insert(PRINTERS, null, valNewPrinter);
+        long printerID = db.insert(PRINTERS, null, valNewPrinter);
+        return printerID;
     }
 
     /** ADD A RESTAURANT TO THE DATABASE **/
@@ -471,6 +496,26 @@ public class DBResto {
         db.update(STAFF, valUpdateStaff, STAFF_ID + "=" + staffID, null);
     }
 
+    /** ADD A CATEGORY TO PRINT ON SELECTED PRINTER **/
+    public void updatePrinterCategory(String printCatID, boolean isChecked) {
+
+        /* OPEN THE DATABASE AGAIN */
+        this.db = helper.getWritableDatabase();
+
+//        public final String PRINT_CATEGORY_ID = "printCategoryID";
+//        public final String PRINT_PRINTER_ID = "printerID";
+//        public final String PRINT_CAT_ID = "categoryID";
+//        public final String PRINT_CAT_STATUS = "printCatStatus";
+
+        /* ADD AND CREATE KEY VALUE PAIRS FOR UPDATING AN EXISTING TAX */
+        ContentValues valUpdateTax = new ContentValues();
+        valUpdateTax.put(PRINT_CAT_STATUS, isChecked);
+        valUpdateTax.put(PRINT_CAT_STATUS, isChecked);
+
+        /* INSERT THE COLLECTED DATA TO THE TAXES TABLE */
+        db.update(PRINT_CATEGORIES, valUpdateTax, PRINT_CAT_ID + "=" + printCatID, null);
+    }
+
     /***** DELETE A ACCOUNT / STAFF *****/
     public void deleteStaff(String strStaffID) {
         db.delete(STAFF, STAFF_ID + "=" + strStaffID, null);
@@ -499,6 +544,11 @@ public class DBResto {
     /***** DELETE AN ORDER *****/
     public void deleteOrder(String strOrderID) {
         db.delete(ORDER_CART, ORDER_CART_ID + "=" + strOrderID, null);
+    }
+
+    /** DELETE A PRINTER **/
+    public void deletePrinter(String printerID) {
+        db.delete(PRINTERS, PRINTER_ID + "=" + printerID, null);
     }
 
 
@@ -561,12 +611,29 @@ public class DBResto {
 
             /** CREATE THE PRINTERS TABLE **/
             createPrintersTable(db);
+
+            /** CREATE PRINT CATEGORIES TABLE **/
+            createPrintCategoriesTable(db);
 		}
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		}
 	}
+
+    private void createPrintCategoriesTable(SQLiteDatabase db) {
+
+        String strCreatePrintCategoriesTable = "create table " + PRINT_CATEGORIES +
+                " (" +
+                PRINT_CATEGORY_ID + " integer primary key autoincrement, " +
+                PRINT_PRINTER_ID + " integer, " +
+                PRINT_CAT_ID + " integer, " +
+                PRINT_CAT_STATUS + " boolean, " +
+                "UNIQUE" + " (" + PRINT_CATEGORY_ID + " )" + ");";
+
+        // EXECUTE THE strCreatePrintCategoriesTable TO CREATE THE TABLE
+        db.execSQL(strCreatePrintCategoriesTable);
+    }
 
     private void createPrintersTable(SQLiteDatabase db) {
 

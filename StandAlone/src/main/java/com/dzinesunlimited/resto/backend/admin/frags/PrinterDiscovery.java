@@ -2,10 +2,12 @@ package com.dzinesunlimited.resto.backend.admin.frags;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.CardView;
@@ -47,8 +49,6 @@ public class PrinterDiscovery extends AppCompatActivity {
 
     private PrinterDiscoveryAdapter adapter;
     private ArrayList<PrinterData> arrPrinter = new ArrayList<>();
-//    private ArrayList<HashMap<String, String>> mPrinterList = null;
-//    private SimpleAdapter mPrinterListAdapter = null;
     private FilterOption mFilterOption = null;
 
     @Override
@@ -59,11 +59,6 @@ public class PrinterDiscovery extends AppCompatActivity {
 
         /** CONFIGURE THE RECYCLERVIEW **/
         configureRecyclerView();
-
-//        mPrinterList = new ArrayList<>();
-//        mPrinterListAdapter = new SimpleAdapter(this, mPrinterList, R.layout.be_printer_discovery_item,
-//                new String[] { "PrinterName", "Target" },
-//                new int[] { R.id.PrinterName, R.id.Target });
 
         mFilterOption = new FilterOption();
         mFilterOption.setDeviceType(Discovery.TYPE_PRINTER);
@@ -102,6 +97,7 @@ public class PrinterDiscovery extends AppCompatActivity {
         }
     };
 
+    /** SEARCH FOR PRINTERS AGAIN **/
     private void restartDiscovery() {
         while (true) {
             try {
@@ -190,12 +186,13 @@ public class PrinterDiscovery extends AppCompatActivity {
             DBResto resto = new DBResto(activity);
             String s = "SELECT * FROM " + resto.PRINTERS + " WHERE " + resto.PRINTER_IP + " = '" + data.getPrinterIP() + "'";
             Cursor cursor = resto.selectAllData(s);
-            resto.close();
             Log.e("PRINTERS", DatabaseUtils.dumpCursorToString(cursor));
             if (cursor.getCount() != 0) {
-                holder.vwStatus.setBackgroundResource(R.drawable.printer_added);
+                holder.txtStatus.setText("PRINTER ADDED");
+                holder.txtStatus.setTextColor(ContextCompat.getColor(activity, android.R.color.holo_red_light));
             } else {
-                holder.vwStatus.setBackgroundResource(R.drawable.printer_not_added);
+                holder.txtStatus.setText("NEW");
+                holder.txtStatus.setTextColor(ContextCompat.getColor(activity, android.R.color.holo_green_light));
             }
 
             /** ADD THE PRINTER TO THE DATABASE **/
@@ -216,7 +213,7 @@ public class PrinterDiscovery extends AppCompatActivity {
                                 Toast.LENGTH_LONG).show();
                     } else {
                         ProgressDialog dialog = new ProgressDialog(activity);
-                        dialog.setMessage("Please wait while the Printer is being registered.");
+                        dialog.setMessage("Please wait while the Printer is being registered and added to the database.");
                         dialog.setIndeterminate(false);
                         dialog.setCancelable(false);
                         dialog.show();
@@ -225,9 +222,19 @@ public class PrinterDiscovery extends AppCompatActivity {
                         String printerIP = data.getPrinterIP();
                         Log.e("PRINTER NAME", printerName);
                         Log.e("PRINTER IP", printerIP);
-                        dbResto.addPrinter(printerName, printerIP);
-                        dbResto.close();
+//                        dbResto.addPrinter(printerName, printerIP);
+                        long printerID = dbResto.addPrinter(printerName, printerIP);
+                        Log.e("NEW PRINTER ID", String.valueOf(printerID));
                         dialog.dismiss();
+
+                        /***** SET THE RESULT TO "RESULT_OK" AND FINISH THE ACTIVITY *****/
+                        Intent configPrintCategories = new Intent(activity, PrintCategorySelector.class);
+                        configPrintCategories.putExtra("PRINTER_ID", String.valueOf(printerID));
+                        configPrintCategories.putExtra("PRINTER_IP", printerIP);
+                        startActivityForResult(configPrintCategories, 101);
+
+                        /** FINISH THE ACTIVITY **/
+                        finish();
                     }
                 }
             });
@@ -247,7 +254,7 @@ public class PrinterDiscovery extends AppCompatActivity {
             CardView crdvwContainer;
             AppCompatTextView txtPrinterName;
             AppCompatTextView txtPrinterIP;
-            View vwStatus;
+            AppCompatTextView txtStatus;
 
             public PrintersVH(View v) {
                 super(v);
@@ -256,7 +263,7 @@ public class PrinterDiscovery extends AppCompatActivity {
                 crdvwContainer = (CardView) v.findViewById(R.id.crdvwContainer);
                 txtPrinterName = (AppCompatTextView) v.findViewById(R.id.txtPrinterName);
                 txtPrinterIP = (AppCompatTextView) v.findViewById(R.id.txtPrinterIP);
-                vwStatus = v.findViewById(R.id.vwStatus);
+                txtStatus = (AppCompatTextView) v.findViewById(R.id.txtStatus);
             }
         }
     }
