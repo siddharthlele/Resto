@@ -3,13 +3,12 @@ package com.dzinesunlimited.resto.frontend.menu;
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,13 +28,11 @@ import com.dzinesunlimited.resto.utils.db.DBResto;
 import com.dzinesunlimited.resto.utils.helpers.pojos.frontend.OrderData;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
-import pl.aprilapps.easyphotopicker.EasyImage;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class OrderCart extends AppCompatActivity {
@@ -51,8 +48,7 @@ public class OrderCart extends AppCompatActivity {
     @Bind(R.id.orderCart)RecyclerView orderCart;
     @Bind(R.id.linlaEmpty)LinearLayout linlaEmpty;
     @Bind(R.id.txtOrderTotal)AppCompatTextView txtOrderTotal;
-    @Bind(R.id.btnSignIn)AppCompatButton btnSignIn;
-    @OnClick(R.id.btnSignIn) protected void PrintKOT() {
+    @OnClick(R.id.btnConfirmOrder) protected void PrintKOT() {
         /** PRINT THE KOT **/
         printKOT();
     }
@@ -85,9 +81,6 @@ public class OrderCart extends AppCompatActivity {
 
         /** FETCH THE INCOMING DATA **/
         fetchIncomingData();
-
-        /** REFRESH THE CURRENT ORDER TOTAL **/
-        refreshOrderTotal();
     }
 
     /** REFRESH THE CURRENT ORDER TOTAL **/
@@ -96,7 +89,9 @@ public class OrderCart extends AppCompatActivity {
         String s =
                 "SELECT SUM(" + db.ORDER_TOTAL + ") FROM " + db.ORDER_CART +
                         " WHERE " + db.ORDER_TABLE_ID + " = " + INCOMING_TABLE_ID;
+        Log.e("CART QUERY", s);
         Cursor cursor = resto.selectAllData(s);
+        Log.e("ORDER TOTAL DUMP", DatabaseUtils.dumpCursorToString(cursor));
         if (cursor != null && cursor.getCount() != 0)	{
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 ORDER_TOTAL = cursor.getDouble(0);
@@ -105,6 +100,7 @@ public class OrderCart extends AppCompatActivity {
         }
     }
 
+    /** FETCH THE CURRENT LIST OF ORDERS **/
     private class fetchCurrentOrders extends AsyncTask<Void, Void, Void>    {
 
         /** A CURSOR INSTANCE **/
@@ -285,6 +281,9 @@ public class OrderCart extends AppCompatActivity {
 
             /** HIDE THE PROGRESS AFTER FETCHING CURRENT ORDERS **/
             linlaHeaderProgress.setVisibility(View.GONE);
+
+            /** REFRESH THE CURRENT ORDER TOTAL **/
+            refreshOrderTotal();
         }
     }
 
@@ -379,13 +378,13 @@ public class OrderCart extends AppCompatActivity {
                 holder.imgvwMenu.setImageBitmap(bmpThumb);
             }
 
-            /** SET THE DEFAULT QUANTITY **/
-            holder.txtQuantity.setText(String.valueOf(1));
+            /** SET THE DISH QUANTITY **/
+            holder.txtQuantity.setText(String.valueOf(data.getOrderQuantity()));
 
             /** SET THE DISH PRICE **/
             String strDishPrice = data.getMenuPrice();
             double dishBasePrice = Double.parseDouble(strDishPrice);
-            double dishTotal = dishBasePrice * 1;
+            double dishTotal = dishBasePrice * Integer.parseInt(holder.txtQuantity.getText().toString());
             holder.txtDishTotal.setText(String.valueOf(dishTotal));
 
             /** INCREASE THE DISH QUANTITY **/

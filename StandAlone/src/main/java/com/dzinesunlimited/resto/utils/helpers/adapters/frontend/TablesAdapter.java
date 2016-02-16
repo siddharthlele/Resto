@@ -3,7 +3,6 @@ package com.dzinesunlimited.resto.utils.helpers.adapters.frontend;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
@@ -95,7 +94,7 @@ public class TablesAdapter extends RecyclerView.Adapter<TablesAdapter.TablesVH> 
                                 " AND " + db.SESSION_STATUS + " = 'open'";
                 Log.e("OPEN SESSION QUERY", qryOpenSession);
                 curSession = db.selectAllData(qryOpenSession);
-                Log.e("CURSOR DUMP", DatabaseUtils.dumpCursorToString(curSession));
+//                Log.e("CURSOR DUMP", DatabaseUtils.dumpCursorToString(curSession));
 //                db.close();
                 if (curSession != null && curSession.getCount() != 0) {
                     /* SESSION ALREADY EXISTS. GET THE CURRENT SESSION ID */

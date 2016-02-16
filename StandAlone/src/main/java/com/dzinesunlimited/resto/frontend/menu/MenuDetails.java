@@ -13,6 +13,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -21,7 +22,11 @@ import android.widget.Toast;
 import com.dzinesunlimited.resto.R;
 import com.dzinesunlimited.resto.utils.AppPrefs;
 import com.dzinesunlimited.resto.utils.db.DBResto;
+import com.dzinesunlimited.resto.utils.helpers.OrderValueMinMax;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MenuDetails extends AppCompatActivity {
@@ -37,15 +42,15 @@ public class MenuDetails extends AppCompatActivity {
     private String STAFF_ID = null;
 
     /** DECLARE THE LAYOUT ELEMENTS **/
-    LinearLayout linlaHeaderProgress;
-    AppCompatImageView imgvwDish;
-    AppCompatImageView imgvwMealType;
-    AppCompatTextView txtRating;
-    AppCompatTextView txtDishPrice;
-    AppCompatTextView txtDishName;
-    AppCompatTextView txtDishDescription;
-    AppCompatTextView txtAddToCart;
-    AppCompatTextView txtCancel;
+    @Bind(R.id.linlaHeaderProgress)LinearLayout linlaHeaderProgress;
+    @Bind(R.id.imgvwDish)AppCompatImageView imgvwDish;
+    @Bind(R.id.imgvwMealType)AppCompatImageView imgvwMealType;
+    @Bind(R.id.txtRating)AppCompatTextView txtRating;
+    @Bind(R.id.txtDishPrice)AppCompatTextView txtDishPrice;
+    @Bind(R.id.txtDishName)AppCompatTextView txtDishName;
+    @Bind(R.id.txtDishDescription)AppCompatTextView txtDishDescription;
+    @Bind(R.id.txtQuantity)AppCompatTextView txtQuantity;
+    @Bind(R.id.txtDishTotal)AppCompatTextView txtDishTotal;
 
     /** OBJECTS FOR HOLDING THE DISH (MENU) DETAILS **/
     String MEAL_NAME;
@@ -55,6 +60,7 @@ public class MenuDetails extends AppCompatActivity {
     String MEAL_PRICE;
     String ORDER_TOTAL;
     String MEAL_TYPE;
+    private int MEAL_QUANTITY;
 
     private AppPrefs getApp()	{
         return (AppPrefs) getApplication();
@@ -64,6 +70,10 @@ public class MenuDetails extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fe_menu_details);
+        ButterKnife.bind(this);
+
+//        txtQuantity.setFilters(new InputFilter[]{new OrderValueMinMax("1", "20")});
+        MEAL_QUANTITY = Integer.parseInt(txtQuantity.getText().toString());
 
         /** GET THE STAFF ID **/
         String[] arrStaff = getApp().getLogin();
@@ -72,8 +82,9 @@ public class MenuDetails extends AppCompatActivity {
 //            Log.e("STAFF ID", STAFF_ID);
         }
 
-        /** CAST THE LAYOUT ELEMENTS **/
-        castLayoutElements();
+        /** GET THE CURRENCY CODE **/
+        String[] arrCurrency = getApp().getCurrency();
+        CURRENCY_CODE = arrCurrency[3];
 
         /** GET THE INCOMING DISH ID **/
         getIncomingDishDetails();
@@ -203,8 +214,7 @@ public class MenuDetails extends AppCompatActivity {
 
             /** CALCULATE THE ORDER TOTAL **/
             Double dblMealPrice = Double.valueOf(MEAL_PRICE);
-            Double dblQuantity = Double.valueOf(1);
-            Double dblOrderTotal = dblMealPrice * dblQuantity;
+            Double dblOrderTotal = dblMealPrice * MEAL_QUANTITY;
             ORDER_TOTAL = String.valueOf(dblOrderTotal);
 
             /** SET THE MEAL DESCRIPTION **/
@@ -239,85 +249,98 @@ public class MenuDetails extends AppCompatActivity {
         }
     }
 
-    /***** CAST THE LAYOUT ELEMENTS *****/
-    private void castLayoutElements() {
-        linlaHeaderProgress = (LinearLayout) findViewById(R.id.linlaHeaderProgress);
-        imgvwDish = (AppCompatImageView) findViewById(R.id.imgvwDish);
-        imgvwMealType = (AppCompatImageView) findViewById(R.id.imgvwMealType);
-        txtRating = (AppCompatTextView) findViewById(R.id.txtRating);
-        txtDishPrice = (AppCompatTextView) findViewById(R.id.txtDishPrice);
-        txtDishName = (AppCompatTextView) findViewById(R.id.txtDishName);
-        txtDishDescription = (AppCompatTextView) findViewById(R.id.txtDishDescription);
-        txtAddToCart = (AppCompatTextView) findViewById(R.id.txtAddToCart);
-        txtCancel = (AppCompatTextView) findViewById(R.id.txtCancel);
+    /** INCREASE THE QUANTITY **/
+    @OnClick(R.id.txtQtyPlus) protected void increaseQuantity() {
+        /** INCREMENT THE QUANTITY BY 1 **/
+        if (MEAL_QUANTITY == 20)  {
+            Toast.makeText(getApplicationContext(), "You cannot add more than 20 dishes", Toast.LENGTH_LONG).show();
+        } else {
+            MEAL_QUANTITY++;
+        }
 
-        /** GET THE CURRENCY CODE **/
-        String[] arrCurrency = getApp().getCurrency();
-        CURRENCY_CODE = arrCurrency[3];
+        /** SET THE NEW ORDER QUANTITY **/
+        txtQuantity.setText(String.valueOf(MEAL_QUANTITY));
 
-        /** ADD THE DISH TO THE ORDER CART **/
-        txtAddToCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /** INSTANTIATE THE DATABASE INSTANCE **/
-                db = new DBResto(MenuDetails.this);
+        /** UPDATE THE DISH PRICE **/
+        String strDishPrice = MEAL_PRICE;
+        double dishBasePrice = Double.parseDouble(strDishPrice);
+        double dishTotal = dishBasePrice * MEAL_QUANTITY;
+        txtDishTotal.setText(String.valueOf(dishTotal));
+    }
 
-                /** SHOW A PROGRESS DIALOG WHILE ADDING DISH TO CART **/
-                ProgressDialog dialog = new ProgressDialog(MenuDetails.this);
-                dialog.setCancelable(false);
-                dialog.setMessage("Adding Dish to the Order Cart....");
-                dialog.setIndeterminate(true);
-                dialog.show();
+    /** REDUCE THE QUANTITY **/
+    @OnClick(R.id.txtQtyMinus) protected void reduceQuantity()  {
+        /** DECREASE THE QUANTITY BY 1 **/
+        if (MEAL_QUANTITY > 1) {
+            MEAL_QUANTITY--;
 
-                /** CHECK IF THE ORDER EXISTS IN THE ORDER CART **/
-                db = new DBResto(MenuDetails.this);
-                String strQueryData =
-                        "SELECT * FROM " + db.ORDER_CART + " WHERE " + db.ORDER_MENU_ID + " = " + INCOMING_DISH_ID +
-                                " AND " + db.ORDER_STATUS + " = 0 AND " + db.ORDER_TABLE_ID + " = " + INCOMING_TABLE_NO;
+            /** SET THE NEW ORDER QUANTITY **/
+            txtQuantity.setText(String.valueOf(MEAL_QUANTITY));
+
+            /** UPDATE THE DISH PRICE **/
+            String strDishPrice = MEAL_PRICE;
+            double dishBasePrice = Double.parseDouble(strDishPrice);
+            double dishTotal = dishBasePrice * MEAL_QUANTITY;
+            txtDishTotal.setText(String.valueOf(dishTotal));
+        }
+    }
+
+    /** ADD THE DISH TO THE CART **/
+    @OnClick(R.id.txtAddToCart) protected void addDishToCart ()   {
+        /** INSTANTIATE THE DATABASE INSTANCE **/
+        db = new DBResto(MenuDetails.this);
+
+        /** SHOW A PROGRESS DIALOG WHILE ADDING DISH TO CART **/
+        ProgressDialog dialog = new ProgressDialog(MenuDetails.this);
+        dialog.setCancelable(false);
+        dialog.setMessage("Adding Dish to the Order Cart....");
+        dialog.setIndeterminate(true);
+        dialog.show();
+
+        /** CHECK IF THE ORDER EXISTS IN THE ORDER CART **/
+        db = new DBResto(MenuDetails.this);
+        String strQueryData =
+                "SELECT * FROM " + db.ORDER_CART + " WHERE " + db.ORDER_MENU_ID + " = " + INCOMING_DISH_ID +
+                        " AND " + db.ORDER_STATUS + " = 0 AND " + db.ORDER_TABLE_ID + " = " + INCOMING_TABLE_NO;
 //                Log.e("QUERY", strQueryData);
-                Cursor cursor = db.selectAllData(strQueryData);
-                if (cursor.getCount() != 0) {
-                    Toast.makeText(
-                            getApplicationContext(),
-                            "Dish already present in your Order Cart. Change the quantity from the Order Cart on the previous page",
-                            Toast.LENGTH_LONG).show();
-                } else {
-                    /** ADD THE DATA TO THE ORDER CART **/
-                    db.addOrder(
-                            Integer.valueOf(INCOMING_TABLE_NO),
-                            Integer.valueOf(INCOMING_DISH_ID),
-                            MEAL_PRICE,
-                            1,
-                            ORDER_TOTAL,
-                            false);
+        Cursor cursor = db.selectAllData(strQueryData);
+        if (cursor.getCount() != 0) {
+            Toast.makeText(
+                    getApplicationContext(),
+                    "Dish already present in your Order Cart. Change the quantity from the Order Cart on the previous page",
+                    Toast.LENGTH_LONG).show();
+        } else {
+            /** ADD THE DATA TO THE ORDER CART **/
+            db.addOrder(
+                    Integer.valueOf(INCOMING_TABLE_NO),
+                    Integer.valueOf(INCOMING_DISH_ID),
+                    MEAL_PRICE,
+                    MEAL_QUANTITY,
+                    ORDER_TOTAL,
+                    false);
 
-                    /** SHOW ORDER ADDED NOTE **/
-                    Toast.makeText(getApplicationContext(), "Dish added successfully", Toast.LENGTH_LONG).show();
+            /** SHOW ORDER ADDED NOTE **/
+            Toast.makeText(getApplicationContext(), "Dish added successfully", Toast.LENGTH_LONG).show();
 
-                    /** FINISH THE ACTIVITY WITH "RESULT OK" **/
-                    Intent orderAdded = new Intent();
-                    setResult(RESULT_OK, orderAdded);
-                    finish();
-                }
+            /** FINISH THE ACTIVITY WITH "RESULT OK" **/
+            Intent orderAdded = new Intent();
+            setResult(RESULT_OK, orderAdded);
+            finish();
+        }
 
-                /** DISMISS THE DIALOG **/
-                dialog.dismiss();
+        /** DISMISS THE DIALOG **/
+        dialog.dismiss();
 
-                /** CLOSE THE DATABASE CONNECTION **/
-                db.close();
-            }
-        });
+        /** CLOSE THE DATABASE CONNECTION **/
+        db.close();
+    }
 
-        /** CLOSE THE DISH DETAILS **/
-        txtCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                setResult(RESULT_CANCELED, intent);
-                finish();
-            }
-        });
+    /** CLOSE THE DISH WITHOUT ADDING TO CART **/
+    @OnClick(R.id.txtCancel) protected void cancelDish()    {
+        Intent intent = new Intent();
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        setResult(RESULT_CANCELED, intent);
+        finish();
     }
 
     @Override

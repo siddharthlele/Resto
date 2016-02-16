@@ -62,7 +62,7 @@
                         android:scaleType="centerCrop"
                         android:src="@drawable/beverages" />
 
-                    <LinearLayout
+                    <!--<LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="top|left"
@@ -80,7 +80,7 @@
                             android:layout_gravity="center"
                             android:adjustViewBounds="true"
                             android:src="@drawable/veg_mark" />
-                    </LinearLayout>
+                    </LinearLayout>-->
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -93,10 +93,20 @@
                         android:orientation="vertical"
                         android:padding="15dp">
 
+                        <android.support.v7.widget.AppCompatImageView
+                            android:id="@+id/imgvwMealType"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="10dp"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/veg_mark" />
+
                         <android.support.v7.widget.AppCompatTextView
                             fontPath="fonts/HelveticaNeueLTW1G-BdCn.otf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
                             android:padding="5dp"
                             android:text="RATING"
                             android:textColor="@android:color/secondary_text_light"
@@ -139,7 +149,6 @@
                             fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
                             android:layout_width="wrap_content"
                             android:layout_height="fill_parent"
-                            android:layout_marginTop="10dp"
                             android:gravity="center"
                             android:padding="6dp"
                             android:text="PRICE"
@@ -186,8 +195,64 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:gravity="center|right"
+                android:gravity="center"
                 android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/txtQtyMinus"
+                            fontPath="fonts/MaterialIcons-Regular.ttf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="11dp"
+                            android:text="@string/cart_minus"
+                            android:textColor="@android:color/secondary_text_dark"
+                            android:textSize="25sp" />
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/txtQuantity"
+                            fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="11dp"
+                            android:text="@string/order_cart_default_one"
+                            android:textColor="@android:color/primary_text_dark"
+                            android:textSize="18sp" />
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/txtQtyPlus"
+                            fontPath="fonts/MaterialIcons-Regular.ttf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="11dp"
+                            android:text="@string/cart_plus"
+                            android:textColor="@android:color/secondary_text_dark"
+                            android:textSize="25sp" />
+                    </LinearLayout>
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/txtDishTotal"
+                        fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="11dp"
+                        android:text="0"
+                        android:textColor="@android:color/primary_text_dark"
+                        android:textSize="16sp" />
+                </LinearLayout>
 
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/txtAddToCart"
