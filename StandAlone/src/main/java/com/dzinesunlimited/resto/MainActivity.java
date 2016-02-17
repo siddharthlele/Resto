@@ -13,11 +13,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.epson.epos2.Epos2Exception;
+import com.epson.epos2.Log;
 import com.epson.epos2.printer.Printer;
 import com.epson.epos2.printer.PrinterStatusInfo;
 import com.epson.epos2.printer.ReceiveListener;
-import com.epson.epos2.Epos2CallbackCode;
-import com.epson.epos2.Log;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, ReceiveListener {
 
@@ -392,6 +391,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private boolean initializeObject() {
         try {
+            android.util.Log.e("SERIES", String.valueOf(((SpnModelsItem) mSpnSeries.getSelectedItem()).getModelConstant()));
+            android.util.Log.e("LANGUAGE", String.valueOf(((SpnModelsItem) mSpnLang.getSelectedItem()).getModelConstant()));
             mPrinter = new Printer(((SpnModelsItem) mSpnSeries.getSelectedItem()).getModelConstant(),
                     ((SpnModelsItem) mSpnLang.getSelectedItem()).getModelConstant(),
                     mContext);

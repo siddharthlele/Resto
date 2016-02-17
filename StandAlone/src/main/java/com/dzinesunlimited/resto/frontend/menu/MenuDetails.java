@@ -256,16 +256,17 @@ public class MenuDetails extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "You cannot add more than 20 dishes", Toast.LENGTH_LONG).show();
         } else {
             MEAL_QUANTITY++;
+
+            /** SET THE NEW ORDER QUANTITY **/
+            txtQuantity.setText(String.valueOf(MEAL_QUANTITY));
+
+            /** UPDATE THE DISH PRICE **/
+            String strDishPrice = MEAL_PRICE;
+            double dishBasePrice = Double.parseDouble(strDishPrice);
+            double dishTotal = dishBasePrice * MEAL_QUANTITY;
+            txtDishTotal.setText(String.valueOf(dishTotal));
+            ORDER_TOTAL = txtDishTotal.getText().toString();
         }
-
-        /** SET THE NEW ORDER QUANTITY **/
-        txtQuantity.setText(String.valueOf(MEAL_QUANTITY));
-
-        /** UPDATE THE DISH PRICE **/
-        String strDishPrice = MEAL_PRICE;
-        double dishBasePrice = Double.parseDouble(strDishPrice);
-        double dishTotal = dishBasePrice * MEAL_QUANTITY;
-        txtDishTotal.setText(String.valueOf(dishTotal));
     }
 
     /** REDUCE THE QUANTITY **/
@@ -282,6 +283,7 @@ public class MenuDetails extends AppCompatActivity {
             double dishBasePrice = Double.parseDouble(strDishPrice);
             double dishTotal = dishBasePrice * MEAL_QUANTITY;
             txtDishTotal.setText(String.valueOf(dishTotal));
+            ORDER_TOTAL = txtDishTotal.getText().toString();
         }
     }
 

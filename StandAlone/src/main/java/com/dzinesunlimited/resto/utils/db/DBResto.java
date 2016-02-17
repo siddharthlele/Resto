@@ -502,14 +502,9 @@ public class DBResto {
         /* OPEN THE DATABASE AGAIN */
         this.db = helper.getWritableDatabase();
 
-//        public final String PRINT_CATEGORY_ID = "printCategoryID";
-//        public final String PRINT_PRINTER_ID = "printerID";
-//        public final String PRINT_CAT_ID = "categoryID";
-//        public final String PRINT_CAT_STATUS = "printCatStatus";
-
         /* ADD AND CREATE KEY VALUE PAIRS FOR UPDATING AN EXISTING TAX */
         ContentValues valUpdateTax = new ContentValues();
-        valUpdateTax.put(PRINT_CAT_STATUS, isChecked);
+        valUpdateTax.put(PRINT_CATEGORY_ID, printCatID);
         valUpdateTax.put(PRINT_CAT_STATUS, isChecked);
 
         /* INSERT THE COLLECTED DATA TO THE TAXES TABLE */

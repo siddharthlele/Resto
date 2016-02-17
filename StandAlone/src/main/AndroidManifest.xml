@@ -26,6 +26,10 @@
             </intent-filter>
         </activity>
 
+        <!--<activity
+            android:name=".DiscoveryActivity"
+            android:windowSoftInputMode="adjustPan" />-->
+
         <activity
             android:name=".welcome.WelcomeContainer"
             android:windowSoftInputMode="adjustPan" />

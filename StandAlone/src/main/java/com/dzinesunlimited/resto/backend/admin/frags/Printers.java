@@ -84,6 +84,17 @@ public class Printers extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        /** CLEAR THE ARRAYLIST **/
+        arrPrinters.clear();
+
+        /** FETCH THE PRINTERS FROM THE DATABASE **/
+        new fetchPrinters().execute();
+    }
+
+    @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -92,9 +103,6 @@ public class Printers extends Fragment {
 
         /***** CONFIGURE THE ACTIONBAR *****/
         configAB();
-
-        /** FETCH THE PRINTERS FROM THE DATABASE **/
-        new fetchPrinters().execute();
 
         /** INSTANTIATE THE ADAPTER **/
         adapter = new PrintersAdapter(getActivity(), arrPrinters);

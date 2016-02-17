@@ -80,6 +80,7 @@ public class PrinterDiscovery extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public synchronized void run() {
+                    linlaHeaderProgress.setVisibility(View.VISIBLE);
                     arrPrinter.clear();
                     PrinterData data = new PrinterData();
                     data.setPrinterName(deviceInfo.getDeviceName());
@@ -92,6 +93,7 @@ public class PrinterDiscovery extends AppCompatActivity {
                     arrPrinter.add(data);
                     Log.e("NO OF PRINTERS", String.valueOf(arrPrinter.size()));
                     listPrinters.setAdapter(adapter);
+                    linlaHeaderProgress.setVisibility(View.GONE);
                 }
             });
         }

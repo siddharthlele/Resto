@@ -1,6 +1,7 @@
 package com.dzinesunlimited.resto.backend.admin.frags;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,6 +10,9 @@ import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -138,7 +142,7 @@ public class PrintCategorySelector extends AppCompatActivity {
                     /** GET THE PRINT CATEGORY STATUS **/
                     if (cursor.getString(cursor.getColumnIndex(db.PRINT_CAT_STATUS)) != null)	{
                         String PRINT_CAT_STATUS = cursor.getString(cursor.getColumnIndex(db.PRINT_CAT_STATUS));
-//                        Log.e("PRINT CAT STATUS", PRINT_CAT_STATUS);
+                        Log.e("PRINT CAT STATUS", PRINT_CAT_STATUS);
                         if (PRINT_CAT_STATUS.equals("1"))   {
                             data.setStatus(true);
                         } else if (PRINT_CAT_STATUS.equals("0"))    {
@@ -212,7 +216,9 @@ public class PrintCategorySelector extends AppCompatActivity {
             INCOMING_PRINTER_ID = bundle.getString("PRINTER_ID");
             INCOMING_PRINTER_IP = bundle.getString("PRINTER_IP");
             if (INCOMING_PRINTER_ID != null && INCOMING_PRINTER_IP != null)    {
-                txtPrinterIP.setText("Select the Categories that will print on the Printer with the IP Address: " + INCOMING_PRINTER_IP + "\nPress the back button / arrow after you are done selecting the Categories");
+                String part1 = getResources().getString(R.string.print_sel_top_message_1);
+                String part2 = getResources().getString(R.string.print_sel_top_message_2);
+                txtPrinterIP.setText(part1 + INCOMING_PRINTER_IP + part2);
 
                 /** CHECK IF THE CATEGORIES EXIST IN THE PRINT CATEGORIES TABLE **/
                 db = new DBResto(getBaseContext());
@@ -275,12 +281,27 @@ public class PrintCategorySelector extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = new MenuInflater(PrintCategorySelector.this);
+        inflater.inflate(R.menu.print_selector, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
             case android.R.id.home:
                 this.finish();
                 break;
+            case R.id.save:
+
+                /***** SET THE RESULT TO "RESULT_OK" AND FINISH THE ACTIVITY *****/
+                Intent categoriesSelected = new Intent();
+                setResult(RESULT_OK, categoriesSelected);
+
+                /** FINISH THE ACTIVITY **/
+                finish();
             default:
                 break;
         }
