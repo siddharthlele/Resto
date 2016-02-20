@@ -61,4 +61,11 @@ dependencies {
     compile('com.github.afollestad.material-dialogs:core:0.8.5.3@aar') {
         transitive = true
     }
+
+    /** FACEBOOK STETHO **/
+    compile 'com.facebook.stetho:stetho:1.3.0'
+    compile 'com.facebook.stetho:stetho-okhttp3:1.3.0'
+
+    /** COMMONS LANG LIBRARY **/
+    compile 'org.apache.commons:commons-lang3:3.4'
 }

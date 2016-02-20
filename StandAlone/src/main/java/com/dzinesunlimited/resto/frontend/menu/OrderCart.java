@@ -25,7 +25,6 @@ import android.widget.LinearLayout;
 
 import com.dzinesunlimited.resto.R;
 import com.dzinesunlimited.resto.ShowMsg;
-import com.dzinesunlimited.resto.SpnModelsItem;
 import com.dzinesunlimited.resto.utils.TypefaceSpan;
 import com.dzinesunlimited.resto.utils.db.DBResto;
 import com.dzinesunlimited.resto.utils.helpers.pojos.frontend.OrderData;
@@ -34,7 +33,11 @@ import com.epson.epos2.printer.Printer;
 import com.epson.epos2.printer.PrinterStatusInfo;
 import com.epson.epos2.printer.ReceiveListener;
 
+import org.apache.commons.lang3.StringUtils;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -212,14 +215,7 @@ public class OrderCart extends AppCompatActivity implements ReceiveListener {
         mPrinter = null;
     }
 
-    private boolean createKOTData() {
-//        try {
-//            mPrinter.connect("TCP:192.168.11.200", Printer.PARAM_DEFAULT);
-//        } catch (Epos2Exception e) {
-//            e.printStackTrace();
-//            Log.e("CONNECTION ERROR", e.getMessage().toString());
-//        }
-
+    private boolean createReceiptData() {
         String method = "";
         Bitmap logoData = BitmapFactory.decodeResource(getResources(), R.drawable.store);
         StringBuilder textData = new StringBuilder();
@@ -316,11 +312,113 @@ public class OrderCart extends AppCompatActivity implements ReceiveListener {
             mPrinter.addCut(Printer.CUT_FEED);
         }
         catch (Exception e) {
-            ShowMsg.showException(e, method, this);
+            ShowMsg.showException(e, method, OrderCart.this);
             return false;
         }
 
         textData = null;
+
+        return true;
+    }
+
+    private boolean createKOTData() {
+
+        String method = null;
+        StringBuilder textData = new StringBuilder();
+
+        if (mPrinter == null) {
+            return false;
+        }
+
+        try {
+            /** GET THE TIMESTAMP FOR THE ORDER CONFIRMATION **/
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+            String currentTS = sdf.format(new Date());
+
+            /** CONSTRUCT THE TIME LINE / ROW **/
+            String strTimeLabel = "TIME:";
+            String strActualTime = currentTS;
+            String strFinalTimeLabel = StringUtils.rightPad(strTimeLabel, 32, " ") + strActualTime;
+
+            /** CONSTRUCT THE TABLE NUMBER LINE / ROW **/
+            String strTable = "TABLE:";
+            String strFinalTable = null;
+            if (INCOMING_TABLE_ID.length() == 1)    {
+                strFinalTable = StringUtils.rightPad(strTable, 39, " ");
+            } else if (INCOMING_TABLE_ID.length() > 1)  {
+                strFinalTable = StringUtils.rightPad(strTable, 38, " ");
+            } else if ((INCOMING_TABLE_ID.length() >= 2))   {
+                strFinalTable = StringUtils.rightPad(strTable, 37, " ");
+            }
+
+            method = "addTextAlign";
+            mPrinter.addTextAlign(Printer.ALIGN_CENTER);
+            method = "addFeedLine";
+            mPrinter.addFeedLine(1);
+            textData.append("KOT (Kitchen Order Token)\n\n");
+            textData.append(strFinalTimeLabel + "\n\n");
+            mPrinter.addText(textData.toString());
+            textData.delete(0, textData.length());
+
+            method = "addTextSize";
+            mPrinter.addTextSize(1, 1);
+            textData.append(strFinalTable + INCOMING_TABLE_ID + "\n\n");
+            textData.append("------------------------------\n\n");
+            method = "addText";
+            mPrinter.addText(textData.toString());
+            textData.delete(0, textData.length());
+
+            /** GET THE LIST OF ORDERS **/
+            if (arrOrders.size() != 0)  {
+                /** A STRING BUILDER FOR COLLATING KOT PRINT DATA **/
+                StringBuilder stbPrintKOT;
+
+                for (int i = 0; i < arrOrders.size(); i++) {
+                    stbPrintKOT = new StringBuilder();
+
+                    /** GET THE MEAL NAME **/
+                    String MEAL_NAME = arrOrders.get(i).getMenuName();
+                    if (MEAL_NAME.length() > 40)    {
+                        String strFinalMealName = MEAL_NAME.substring(0, 37);
+                        stbPrintKOT.append(strFinalMealName + "  ");
+                    } else {
+                        String strMealNameWithPad = StringUtils.rightPad(MEAL_NAME, 37, "*");
+                        stbPrintKOT.append(strMealNameWithPad + "  ");
+                    }
+
+                    /** GET THE QUANTITY **/
+                    String MEAL_QUANTITY = arrOrders.get(i).getOrderQuantity();
+                    if (MEAL_QUANTITY.length() < 4) {
+                        String strQuantityWithPad = StringUtils.leftPad(MEAL_QUANTITY, 4, "*");
+                        stbPrintKOT.append(strQuantityWithPad + "  \n\n");
+                    } else {
+                        stbPrintKOT.append(MEAL_QUANTITY + "  \n\n");
+                    }
+
+                    String strFinalOrderDetails = String.valueOf(stbPrintKOT);
+                    strFinalOrderDetails = strFinalOrderDetails.replaceAll("\\*", " ");
+                    textData.append(strFinalOrderDetails);
+                }
+            }
+
+            method = "addText";
+            mPrinter.addText(textData.toString());
+            textData.delete(0, textData.length());
+
+            String strDashes = "\n------------------------------\n\nEND OF ORDER\n\n";
+
+            textData.append(strDashes);
+            method = "addText";
+            mPrinter.addText(textData.toString());
+            textData.delete(0, textData.length());
+
+            method = "addCut";
+            mPrinter.addCut(Printer.CUT_FEED);
+        }
+        catch (Exception e) {
+            ShowMsg.showException(e, method, this);
+            return false;
+        }
 
         return true;
     }

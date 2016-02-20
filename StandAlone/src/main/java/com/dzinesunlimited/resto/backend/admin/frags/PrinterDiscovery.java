@@ -85,10 +85,11 @@ public class PrinterDiscovery extends AppCompatActivity {
                     PrinterData data = new PrinterData();
                     data.setPrinterName(deviceInfo.getDeviceName());
                     data.setPrinterIP(deviceInfo.getTarget());
-//                    Log.e("DEVICE NAME", deviceInfo.getDeviceName());
-//                    Log.e("TARGET", deviceInfo.getTarget());
-//                    Log.e("IP ADDRESS", deviceInfo.getIpAddress());
-//                    Log.e("MAC ADDRESS", deviceInfo.getMacAddress());
+                    Log.e("DEVICE NAME", deviceInfo.getDeviceName());
+                    Log.e("TARGET", deviceInfo.getTarget());
+                    Log.e("IP ADDRESS", deviceInfo.getIpAddress());
+                    Log.e("MAC ADDRESS", deviceInfo.getMacAddress());
+                    Log.e("PRINTER", String.valueOf(deviceInfo.getDeviceType()));
 
                     arrPrinter.add(data);
                     Log.e("NO OF PRINTERS", String.valueOf(arrPrinter.size()));
