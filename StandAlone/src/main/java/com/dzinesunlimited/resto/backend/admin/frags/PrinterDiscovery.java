@@ -20,8 +20,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
 import com.dzinesunlimited.resto.R;
-import com.dzinesunlimited.resto.ShowMsg;
 import com.dzinesunlimited.resto.utils.db.DBResto;
 import com.dzinesunlimited.resto.utils.helpers.pojos.PrinterData;
 import com.epson.epos2.Epos2Exception;
@@ -67,7 +68,16 @@ public class PrinterDiscovery extends AppCompatActivity {
             Discovery.start(this, mFilterOption, mDiscoveryListener);
         }
         catch (Exception e) {
-            ShowMsg.showException(e, "start", PrinterDiscovery.this);
+
+            MaterialDialog dialog = new MaterialDialog.Builder(PrinterDiscovery.this)
+                    .title("PROBLEM WITH PRINTER")
+                    .content(e.toString())
+                    .positiveText("OKAY")
+                    .theme(Theme.LIGHT)
+                    .icon(ContextCompat.getDrawable(PrinterDiscovery.this, R.drawable.ic_info_outline_white_24dp))
+                    .typeface("HelveticaNeueLTW1G-MdCn.otf", "HelveticaNeueLTW1G-Cn.otf")
+                    .show();
+//            ShowMsg.showException(e, "start", PrinterDiscovery.this);
         }
 
         /** INSTANTIATE THE ADAPTER **/
@@ -109,7 +119,16 @@ public class PrinterDiscovery extends AppCompatActivity {
             }
             catch (Epos2Exception e) {
                 if (e.getErrorStatus() != Epos2Exception.ERR_PROCESSING) {
-                    ShowMsg.showException(e, "stop", PrinterDiscovery.this);
+
+                    MaterialDialog dialog = new MaterialDialog.Builder(PrinterDiscovery.this)
+                            .title("PROBLEM WITH PRINTER")
+                            .content(e.toString())
+                            .positiveText("OKAY")
+                            .theme(Theme.LIGHT)
+                            .icon(ContextCompat.getDrawable(PrinterDiscovery.this, R.drawable.ic_info_outline_white_24dp))
+                            .typeface("HelveticaNeueLTW1G-MdCn.otf", "HelveticaNeueLTW1G-Cn.otf")
+                            .show();
+//                    ShowMsg.showException(e, "stop", PrinterDiscovery.this);
                     return;
                 }
             }
@@ -121,7 +140,16 @@ public class PrinterDiscovery extends AppCompatActivity {
             Discovery.start(this, mFilterOption, mDiscoveryListener);
         }
         catch (Exception e) {
-            ShowMsg.showException(e, "stop", PrinterDiscovery.this);
+
+            MaterialDialog dialog = new MaterialDialog.Builder(PrinterDiscovery.this)
+                    .title("PROBLEM WITH PRINTER")
+                    .content(e.toString())
+                    .positiveText("OKAY")
+                    .theme(Theme.LIGHT)
+                    .icon(ContextCompat.getDrawable(PrinterDiscovery.this, R.drawable.ic_info_outline_white_24dp))
+                    .typeface("HelveticaNeueLTW1G-MdCn.otf", "HelveticaNeueLTW1G-Cn.otf")
+                    .show();
+//            ShowMsg.showException(e, "stop", PrinterDiscovery.this);
         }
     }
 

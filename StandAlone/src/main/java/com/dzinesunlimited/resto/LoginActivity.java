@@ -294,7 +294,7 @@ public class LoginActivity extends AppCompatActivity {
                 .content(R.string.log_info)
                 .positiveText("OKAY")
                 .theme(Theme.LIGHT)
-                .icon(ContextCompat.getDrawable(LoginActivity.this, R.drawable.ic_info_outline_white_24dp))
+                .icon(ContextCompat.getDrawable(LoginActivity.this, R.drawable.ic_info_outline_black_24dp))
                 .typeface("HelveticaNeueLTW1G-MdCn.otf", "HelveticaNeueLTW1G-Cn.otf")
                 .show();
     }

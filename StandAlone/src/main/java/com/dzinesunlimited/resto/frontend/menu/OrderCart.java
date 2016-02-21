@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
@@ -23,8 +24,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
 import com.dzinesunlimited.resto.R;
-import com.dzinesunlimited.resto.ShowMsg;
 import com.dzinesunlimited.resto.utils.TypefaceSpan;
 import com.dzinesunlimited.resto.utils.db.DBResto;
 import com.dzinesunlimited.resto.utils.helpers.pojos.frontend.OrderData;
@@ -63,417 +65,10 @@ public class OrderCart extends AppCompatActivity implements ReceiveListener {
     @Bind(R.id.txtOrderTotal)AppCompatTextView txtOrderTotal;
     @Bind(R.id.btnConfirmOrder)AppCompatButton btnConfirmOrder;
     @OnClick(R.id.btnConfirmOrder) protected void PrintKOT() {
-        /** PRINT THE KOT **/
-        printKOT();
-    }
-
-    /** PRINT THE KOT AND CONFIRM THE ORDER (UPDATE ORDER STATUS) **/
-    private void printKOT() {
         btnConfirmOrder.setEnabled(false);
         if (!runPrintReceiptSequence()) {
             btnConfirmOrder.setEnabled(true);
         }
-    }
-
-    private boolean runPrintReceiptSequence() {
-        if (!initializeObject()) {
-            return false;
-        }
-
-        if (!createKOTData()) {
-            finalizeObject();
-            return false;
-        }
-
-        if (!printData()) {
-            finalizeObject();
-            return false;
-        }
-
-        return true;
-    }
-
-    private boolean printData() {
-        if (mPrinter == null) {
-            return false;
-        }
-
-        if (!connectPrinter()) {
-            return false;
-        }
-
-        PrinterStatusInfo status = mPrinter.getStatus();
-
-        dispPrinterWarnings(status);
-
-        if (!isPrintable(status)) {
-            ShowMsg.showMsg(makeErrorMessage(status), this);
-            try {
-                mPrinter.disconnect();
-            }
-            catch (Exception ex) {
-                // Do nothing
-            }
-            return false;
-        }
-
-        try {
-            mPrinter.sendData(Printer.PARAM_DEFAULT);
-        }
-        catch (Exception e) {
-            ShowMsg.showException(e, "sendData", this);
-            try {
-                mPrinter.disconnect();
-            }
-            catch (Exception ex) {
-                // Do nothing
-            }
-            return false;
-        }
-
-        return true;
-    }
-
-    private boolean isPrintable(PrinterStatusInfo status) {
-        if (status == null) {
-            return false;
-        }
-
-        if (status.getConnection() == Printer.FALSE) {
-            return false;
-        }
-        else if (status.getOnline() == Printer.FALSE) {
-            return false;
-        }
-        else {
-            //print available
-        }
-
-        return true;
-    }
-
-    private boolean connectPrinter() {
-        boolean isBeginTransaction = false;
-
-        if (mPrinter == null) {
-            return false;
-        }
-
-        try {
-            mPrinter.connect("TCP:192.168.11.200", Printer.PARAM_DEFAULT);
-        }
-        catch (Exception e) {
-            ShowMsg.showException(e, "connect", this);
-            return false;
-//            Log.e("CONNECTION ERROR", e.getMessage().toString());
-        }
-
-        try {
-            mPrinter.beginTransaction();
-            isBeginTransaction = true;
-        }
-        catch (Exception e) {
-            ShowMsg.showException(e, "beginTransaction", this);
-        }
-
-        if (isBeginTransaction == false) {
-            try {
-                mPrinter.disconnect();
-            }
-            catch (Epos2Exception e) {
-                // Do nothing
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    private boolean initializeObject() {
-        try {
-            mPrinter = new Printer(0, 0, this);
-        }
-        catch (Exception e) {
-            ShowMsg.showException(e, "Printer", this);
-            return false;
-        }
-
-        mPrinter.setReceiveEventListener(OrderCart.this);
-
-        return true;
-    }
-
-    private void finalizeObject() {
-        if (mPrinter == null) {
-            return;
-        }
-
-        mPrinter.clearCommandBuffer();
-
-        mPrinter.setReceiveEventListener(null);
-
-        mPrinter = null;
-    }
-
-    private boolean createReceiptData() {
-        String method = "";
-        Bitmap logoData = BitmapFactory.decodeResource(getResources(), R.drawable.store);
-        StringBuilder textData = new StringBuilder();
-        final int barcodeWidth = 2;
-        final int barcodeHeight = 100;
-
-        if (mPrinter == null) {
-            return false;
-        }
-
-        try {
-            method = "addTextAlign";
-            mPrinter.addTextAlign(Printer.ALIGN_CENTER);
-
-            method = "addImage";
-            mPrinter.addImage(logoData, 0, 0,
-                    logoData.getWidth(),
-                    logoData.getHeight(),
-                    Printer.COLOR_1,
-                    Printer.MODE_MONO,
-                    Printer.HALFTONE_DITHER,
-                    Printer.PARAM_DEFAULT,
-                    Printer.COMPRESS_AUTO);
-
-            method = "addFeedLine";
-            mPrinter.addFeedLine(1);
-            textData.append("THE STORE 123 (555) 555 – 5555\n");
-            textData.append("STORE DIRECTOR – John Smith\n");
-            textData.append("\n");
-            textData.append("7/01/07 16:58 6153 05 0191 134\n");
-            textData.append("ST# 21 OP# 001 TE# 01 TR# 747\n");
-            textData.append("------------------------------\n");
-            method = "addText";
-            mPrinter.addText(textData.toString());
-            textData.delete(0, textData.length());
-
-            textData.append("400 OHEIDA 3PK SPRINGF  9.99 R\n");
-            textData.append("410 3 CUP BLK TEAPOT    9.99 R\n");
-            textData.append("445 EMERIL GRIDDLE/PAN 17.99 R\n");
-            textData.append("438 CANDYMAKER ASSORT   4.99 R\n");
-            textData.append("474 TRIPOD              8.99 R\n");
-            textData.append("433 BLK LOGO PRNTED ZO  7.99 R\n");
-            textData.append("458 AQUA MICROTERRY SC  6.99 R\n");
-            textData.append("493 30L BLK FF DRESS   16.99 R\n");
-            textData.append("407 LEVITATING DESKTOP  7.99 R\n");
-            textData.append("441 **Blue Overprint P  2.99 R\n");
-            textData.append("476 REPOSE 4PCPM CHOC   5.49 R\n");
-            textData.append("461 WESTGATE BLACK 25  59.99 R\n");
-            textData.append("------------------------------\n");
-            method = "addText";
-            mPrinter.addText(textData.toString());
-            textData.delete(0, textData.length());
-
-            textData.append("SUBTOTAL                160.38\n");
-            textData.append("TAX                      14.43\n");
-            method = "addText";
-            mPrinter.addText(textData.toString());
-            textData.delete(0, textData.length());
-
-            method = "addTextSize";
-            mPrinter.addTextSize(2, 2);
-            method = "addText";
-            mPrinter.addText("TOTAL    174.81\n");
-            method = "addTextSize";
-            mPrinter.addTextSize(1, 1);
-            method = "addFeedLine";
-            mPrinter.addFeedLine(1);
-
-            textData.append("CASH                    200.00\n");
-            textData.append("CHANGE                   25.19\n");
-            textData.append("------------------------------\n");
-            method = "addText";
-            mPrinter.addText(textData.toString());
-            textData.delete(0, textData.length());
-
-            textData.append("Purchased item total number\n");
-            textData.append("Sign Up and Save !\n");
-            textData.append("With Preferred Saving Card\n");
-            method = "addText";
-            mPrinter.addText(textData.toString());
-            textData.delete(0, textData.length());
-            method = "addFeedLine";
-            mPrinter.addFeedLine(2);
-
-            method = "addBarcode";
-            mPrinter.addBarcode("01209457",
-                    Printer.BARCODE_CODE39,
-                    Printer.HRI_BELOW,
-                    Printer.FONT_A,
-                    barcodeWidth,
-                    barcodeHeight);
-
-            method = "addCut";
-            mPrinter.addCut(Printer.CUT_FEED);
-        }
-        catch (Exception e) {
-            ShowMsg.showException(e, method, OrderCart.this);
-            return false;
-        }
-
-        textData = null;
-
-        return true;
-    }
-
-    private boolean createKOTData() {
-
-        String method = null;
-        StringBuilder textData = new StringBuilder();
-
-        if (mPrinter == null) {
-            return false;
-        }
-
-        try {
-            /** GET THE TIMESTAMP FOR THE ORDER CONFIRMATION **/
-            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-            String currentTS = sdf.format(new Date());
-
-            /** CONSTRUCT THE TIME LINE / ROW **/
-            String strTimeLabel = "TIME:";
-            String strActualTime = currentTS;
-            String strFinalTimeLabel = StringUtils.rightPad(strTimeLabel, 32, " ") + strActualTime;
-
-            /** CONSTRUCT THE TABLE NUMBER LINE / ROW **/
-            String strTable = "TABLE:";
-            String strFinalTable = null;
-            if (INCOMING_TABLE_ID.length() == 1)    {
-                strFinalTable = StringUtils.rightPad(strTable, 39, " ");
-            } else if (INCOMING_TABLE_ID.length() > 1)  {
-                strFinalTable = StringUtils.rightPad(strTable, 38, " ");
-            } else if ((INCOMING_TABLE_ID.length() >= 2))   {
-                strFinalTable = StringUtils.rightPad(strTable, 37, " ");
-            }
-
-            method = "addTextAlign";
-            mPrinter.addTextAlign(Printer.ALIGN_CENTER);
-            method = "addFeedLine";
-            mPrinter.addFeedLine(1);
-            textData.append("KOT (Kitchen Order Token)\n\n");
-            textData.append(strFinalTimeLabel + "\n\n");
-            mPrinter.addText(textData.toString());
-            textData.delete(0, textData.length());
-
-            method = "addTextSize";
-            mPrinter.addTextSize(1, 1);
-            textData.append(strFinalTable + INCOMING_TABLE_ID + "\n\n");
-            textData.append("------------------------------\n\n");
-            method = "addText";
-            mPrinter.addText(textData.toString());
-            textData.delete(0, textData.length());
-
-            /** GET THE LIST OF ORDERS **/
-            if (arrOrders.size() != 0)  {
-                /** A STRING BUILDER FOR COLLATING KOT PRINT DATA **/
-                StringBuilder stbPrintKOT;
-
-                for (int i = 0; i < arrOrders.size(); i++) {
-                    stbPrintKOT = new StringBuilder();
-
-                    /** GET THE MEAL NAME **/
-                    String MEAL_NAME = arrOrders.get(i).getMenuName();
-                    if (MEAL_NAME.length() > 40)    {
-                        String strFinalMealName = MEAL_NAME.substring(0, 37);
-                        stbPrintKOT.append(strFinalMealName + "  ");
-                    } else {
-                        String strMealNameWithPad = StringUtils.rightPad(MEAL_NAME, 37, "*");
-                        stbPrintKOT.append(strMealNameWithPad + "  ");
-                    }
-
-                    /** GET THE QUANTITY **/
-                    String MEAL_QUANTITY = arrOrders.get(i).getOrderQuantity();
-                    if (MEAL_QUANTITY.length() < 4) {
-                        String strQuantityWithPad = StringUtils.leftPad(MEAL_QUANTITY, 4, "*");
-                        stbPrintKOT.append(strQuantityWithPad + "  \n\n");
-                    } else {
-                        stbPrintKOT.append(MEAL_QUANTITY + "  \n\n");
-                    }
-
-                    String strFinalOrderDetails = String.valueOf(stbPrintKOT);
-                    strFinalOrderDetails = strFinalOrderDetails.replaceAll("\\*", " ");
-                    textData.append(strFinalOrderDetails);
-                }
-            }
-
-            method = "addText";
-            mPrinter.addText(textData.toString());
-            textData.delete(0, textData.length());
-
-            String strDashes = "\n------------------------------\n\nEND OF ORDER\n\n";
-
-            textData.append(strDashes);
-            method = "addText";
-            mPrinter.addText(textData.toString());
-            textData.delete(0, textData.length());
-
-            method = "addCut";
-            mPrinter.addCut(Printer.CUT_FEED);
-        }
-        catch (Exception e) {
-            ShowMsg.showException(e, method, this);
-            return false;
-        }
-
-        return true;
-    }
-
-    @Override
-    public void onPtrReceive(final Printer printerObj, final int code, final PrinterStatusInfo status, final String printJobId) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public synchronized void run() {
-                ShowMsg.showResult(code, makeErrorMessage(status), OrderCart.this);
-
-                dispPrinterWarnings(status);
-
-                btnConfirmOrder.setEnabled(true);
-
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        disconnectPrinter();
-                    }
-                }).start();
-            }
-        });
-    }
-
-    private void disconnectPrinter() {
-        if (mPrinter == null) {
-            return;
-        }
-
-        try {
-            mPrinter.endTransaction();
-        }
-        catch (final Exception e) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public synchronized void run() {
-                    ShowMsg.showException(e, "endTransaction", OrderCart.this);
-                }
-            });
-        }
-
-        try {
-            mPrinter.disconnect();
-        }
-        catch (final Exception e) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public synchronized void run() {
-                    ShowMsg.showException(e, "disconnect", OrderCart.this);
-                }
-            });
-        }
-
-        finalizeObject();
     }
 
     /** THE ADAPTER AND THE ARRAYLIST **/
@@ -983,7 +578,6 @@ public class OrderCart extends AppCompatActivity implements ReceiveListener {
     }
 
     private void dispPrinterWarnings(PrinterStatusInfo status) {
-//        EditText edtWarnings = (EditText)findViewById(R.id.edtWarnings);
         String warningsMsg = "";
 
         if (status == null) {
@@ -997,7 +591,383 @@ public class OrderCart extends AppCompatActivity implements ReceiveListener {
         if (status.getBatteryLevel() == Printer.BATTERY_LEVEL_1) {
             warningsMsg += getString(R.string.handlingmsg_warn_battery_near_end);
         }
+    }
 
-//        edtWarnings.setText(warningsMsg);
+    private boolean runPrintReceiptSequence() {
+        if (!initializeObject()) {
+            return false;
+        }
+
+        if (!createKOTData()) {
+            finalizeObject();
+            return false;
+        }
+
+        if (!printData()) {
+            finalizeObject();
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean printData() {
+        if (mPrinter == null) {
+            return false;
+        }
+
+        if (!connectPrinter()) {
+            return false;
+        }
+
+        PrinterStatusInfo status = mPrinter.getStatus();
+
+        dispPrinterWarnings(status);
+
+        if (!isPrintable(status)) {
+
+            MaterialDialog dialog = new MaterialDialog.Builder(this)
+                    .title("PROBLEM WITH PRINTER")
+                    .content(makeErrorMessage(status) + "\nPlease contact the Staff.")
+                    .positiveText("OKAY")
+                    .theme(Theme.LIGHT)
+                    .icon(ContextCompat.getDrawable(OrderCart.this, R.drawable.ic_info_outline_black_24dp))
+                    .typeface("HelveticaNeueLTW1G-MdCn.otf", "HelveticaNeueLTW1G-Cn.otf")
+                    .show();
+
+//            ShowMsg.showMsg(makeErrorMessage(status), this);
+            try {
+                mPrinter.disconnect();
+            }
+            catch (Exception ex) {
+                // Do nothing
+            }
+            return false;
+        }
+
+        try {
+            mPrinter.sendData(Printer.PARAM_DEFAULT);
+        }
+        catch (Exception e) {
+
+            MaterialDialog dialog = new MaterialDialog.Builder(this)
+                    .title("PROBLEM WITH PRINTER")
+                    .content(e.toString())
+                    .positiveText("OKAY")
+                    .theme(Theme.LIGHT)
+                    .icon(ContextCompat.getDrawable(OrderCart.this, R.drawable.ic_info_outline_black_24dp))
+                    .typeface("HelveticaNeueLTW1G-MdCn.otf", "HelveticaNeueLTW1G-Cn.otf")
+                    .show();
+//            ShowMsg.showException(e, "sendData", this);
+            try {
+                mPrinter.disconnect();
+            }
+            catch (Exception ex) {
+                // Do nothing
+            }
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean isPrintable(PrinterStatusInfo status) {
+        if (status == null) {
+            return false;
+        }
+
+        if (status.getConnection() == Printer.FALSE) {
+            return false;
+        }
+        else if (status.getOnline() == Printer.FALSE) {
+            return false;
+        }
+        else {
+            //print available
+        }
+
+        return true;
+    }
+
+    private boolean connectPrinter() {
+        boolean isBeginTransaction = false;
+
+        if (mPrinter == null) {
+            return false;
+        }
+
+        try {
+            mPrinter.connect("TCP:192.168.11.200", Printer.PARAM_DEFAULT);
+        }
+        catch (Exception e) {
+
+            MaterialDialog dialog = new MaterialDialog.Builder(this)
+                    .title("PROBLEM WITH PRINTER")
+                    .content(e.toString())
+                    .positiveText("OKAY")
+                    .theme(Theme.LIGHT)
+                    .icon(ContextCompat.getDrawable(OrderCart.this, R.drawable.ic_info_outline_black_24dp))
+                    .typeface("HelveticaNeueLTW1G-MdCn.otf", "HelveticaNeueLTW1G-Cn.otf")
+                    .show();
+//            ShowMsg.showException(e, "connect", this);
+            return false;
+//            Log.e("CONNECTION ERROR", e.getMessage().toString());
+        }
+
+        try {
+            mPrinter.beginTransaction();
+            isBeginTransaction = true;
+        }
+        catch (Exception e) {
+
+            MaterialDialog dialog = new MaterialDialog.Builder(this)
+                    .title("PROBLEM WITH PRINTER")
+                    .content(e.toString())
+                    .positiveText("OKAY")
+                    .theme(Theme.LIGHT)
+                    .icon(ContextCompat.getDrawable(OrderCart.this, R.drawable.ic_info_outline_black_24dp))
+                    .typeface("HelveticaNeueLTW1G-MdCn.otf", "HelveticaNeueLTW1G-Cn.otf")
+                    .show();
+//            ShowMsg.showException(e, "beginTransaction", this);
+        }
+
+        if (isBeginTransaction == false) {
+            try {
+                mPrinter.disconnect();
+            }
+            catch (Epos2Exception e) {
+                // Do nothing
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private boolean initializeObject() {
+        try {
+            mPrinter = new Printer(0, 0, this);
+        }
+        catch (Exception e) {
+
+            MaterialDialog dialog = new MaterialDialog.Builder(this)
+                    .title("PROBLEM WITH PRINTER")
+                    .content(e.toString())
+                    .positiveText("OKAY")
+                    .theme(Theme.LIGHT)
+                    .icon(ContextCompat.getDrawable(OrderCart.this, R.drawable.ic_info_outline_black_24dp))
+                    .typeface("HelveticaNeueLTW1G-MdCn.otf", "HelveticaNeueLTW1G-Cn.otf")
+                    .show();
+//            ShowMsg.showException(e, "Printer", this);
+            return false;
+        }
+
+        mPrinter.setReceiveEventListener(OrderCart.this);
+
+        return true;
+    }
+
+    private void finalizeObject() {
+        if (mPrinter == null) {
+            return;
+        }
+
+        mPrinter.clearCommandBuffer();
+
+        mPrinter.setReceiveEventListener(null);
+
+        mPrinter = null;
+    }
+
+    /** CREATE THE KOT AND PRINT TO THE DESIGNATED PRINTER **/
+    private boolean createKOTData() {
+
+        String method = null;
+        StringBuilder textData = new StringBuilder();
+
+        if (mPrinter == null) {
+            return false;
+        }
+
+        try {
+            /** GET THE TIMESTAMP FOR THE ORDER CONFIRMATION **/
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+            String currentTS = sdf.format(new Date());
+
+            /** CONSTRUCT THE TIME LINE / ROW **/
+            String strTimeLabel = "TIME:";
+            String strActualTime = currentTS;
+            String strFinalTimeLabel = StringUtils.rightPad(strTimeLabel, 32, " ") + strActualTime;
+
+            /** CONSTRUCT THE TABLE NUMBER LINE / ROW **/
+            String strTable = "TABLE:";
+            String strFinalTable = null;
+            if (INCOMING_TABLE_ID.length() == 1)    {
+                strFinalTable = StringUtils.rightPad(strTable, 39, " ");
+            } else if (INCOMING_TABLE_ID.length() > 1)  {
+                strFinalTable = StringUtils.rightPad(strTable, 38, " ");
+            } else if ((INCOMING_TABLE_ID.length() >= 2))   {
+                strFinalTable = StringUtils.rightPad(strTable, 37, " ");
+            }
+
+            method = "addTextAlign";
+            mPrinter.addTextAlign(Printer.ALIGN_CENTER);
+            method = "addFeedLine";
+            mPrinter.addFeedLine(1);
+            textData.append("KOT (Kitchen Order Token)\n\n");
+            textData.append(strFinalTimeLabel + "\n\n");
+            mPrinter.addText(textData.toString());
+            textData.delete(0, textData.length());
+
+            method = "addTextSize";
+            mPrinter.addTextSize(1, 1);
+            textData.append(strFinalTable + INCOMING_TABLE_ID + "\n\n");
+            textData.append("------------------------------\n\n");
+            method = "addText";
+            mPrinter.addText(textData.toString());
+            textData.delete(0, textData.length());
+
+            /** GET THE LIST OF ORDERS **/
+            if (arrOrders.size() != 0)  {
+                /** A STRING BUILDER FOR COLLATING KOT PRINT DATA **/
+                StringBuilder stbPrintKOT;
+
+                for (int i = 0; i < arrOrders.size(); i++) {
+                    stbPrintKOT = new StringBuilder();
+
+                    /** GET THE MEAL NAME **/
+                    String MEAL_NAME = arrOrders.get(i).getMenuName();
+                    if (MEAL_NAME.length() > 40)    {
+                        String strFinalMealName = MEAL_NAME.substring(0, 37);
+                        stbPrintKOT.append(strFinalMealName + "  ");
+                    } else {
+                        String strMealNameWithPad = StringUtils.rightPad(MEAL_NAME, 37, "*");
+                        stbPrintKOT.append(strMealNameWithPad + "  ");
+                    }
+
+                    /** GET THE QUANTITY **/
+                    String MEAL_QUANTITY = arrOrders.get(i).getOrderQuantity();
+                    if (MEAL_QUANTITY.length() < 4) {
+                        String strQuantityWithPad = StringUtils.leftPad(MEAL_QUANTITY, 4, "*");
+                        stbPrintKOT.append(strQuantityWithPad + "  \n\n");
+                    } else {
+                        stbPrintKOT.append(MEAL_QUANTITY + "  \n\n");
+                    }
+
+                    String strFinalOrderDetails = String.valueOf(stbPrintKOT);
+                    strFinalOrderDetails = strFinalOrderDetails.replaceAll("\\*", " ");
+                    textData.append(strFinalOrderDetails);
+                }
+            }
+
+            method = "addText";
+            mPrinter.addText(textData.toString());
+            textData.delete(0, textData.length());
+
+            String strDashes = "\n------------------------------\n\nEND OF ORDER\n\n";
+
+            textData.append(strDashes);
+            method = "addText";
+            mPrinter.addText(textData.toString());
+            textData.delete(0, textData.length());
+
+            method = "addCut";
+            mPrinter.addCut(Printer.CUT_FEED);
+        }
+        catch (Exception e) {
+
+            MaterialDialog dialog = new MaterialDialog.Builder(this)
+                    .title("PROBLEM WITH PRINTER")
+                    .content(e.toString())
+                    .positiveText("OKAY")
+                    .theme(Theme.LIGHT)
+                    .icon(ContextCompat.getDrawable(OrderCart.this, R.drawable.ic_info_outline_black_24dp))
+                    .typeface("HelveticaNeueLTW1G-MdCn.otf", "HelveticaNeueLTW1G-Cn.otf")
+                    .show();
+//            ShowMsg.showException(e, method, this);
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public void onPtrReceive(final Printer printerObj, final int code, final PrinterStatusInfo status, final String printJobId) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public synchronized void run() {
+
+                MaterialDialog dialog = new MaterialDialog.Builder(OrderCart.this)
+                        .title("PROBLEM WITH PRINTER")
+                        .content(status.toString())
+                        .positiveText("OKAY")
+                        .theme(Theme.LIGHT)
+                        .icon(ContextCompat.getDrawable(OrderCart.this, R.drawable.ic_info_outline_black_24dp))
+                        .typeface("HelveticaNeueLTW1G-MdCn.otf", "HelveticaNeueLTW1G-Cn.otf")
+                        .show();
+//                ShowMsg.showResult(code, makeErrorMessage(status), OrderCart.this);
+
+                dispPrinterWarnings(status);
+
+                btnConfirmOrder.setEnabled(true);
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        disconnectPrinter();
+                    }
+                }).start();
+            }
+        });
+    }
+
+    private void disconnectPrinter() {
+        if (mPrinter == null) {
+            return;
+        }
+
+        try {
+            mPrinter.endTransaction();
+        }
+        catch (final Exception e) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public synchronized void run() {
+
+                    MaterialDialog dialog = new MaterialDialog.Builder(OrderCart.this)
+                            .title("PROBLEM WITH PRINTER")
+                            .content(e.toString())
+                            .positiveText("OKAY")
+                            .theme(Theme.LIGHT)
+                            .icon(ContextCompat.getDrawable(OrderCart.this, R.drawable.ic_info_outline_black_24dp))
+                            .typeface("HelveticaNeueLTW1G-MdCn.otf", "HelveticaNeueLTW1G-Cn.otf")
+                            .show();
+//                    ShowMsg.showException(e, "endTransaction", OrderCart.this);
+                }
+            });
+        }
+
+        try {
+            mPrinter.disconnect();
+        }
+        catch (final Exception e) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public synchronized void run() {
+
+                    MaterialDialog dialog = new MaterialDialog.Builder(OrderCart.this)
+                            .title("PROBLEM WITH PRINTER")
+                            .content(e.toString())
+                            .positiveText("OKAY")
+                            .theme(Theme.LIGHT)
+                            .icon(ContextCompat.getDrawable(OrderCart.this, R.drawable.ic_info_outline_black_24dp))
+                            .typeface("HelveticaNeueLTW1G-MdCn.otf", "HelveticaNeueLTW1G-Cn.otf")
+                            .show();
+//                    ShowMsg.showException(e, "disconnect", OrderCart.this);
+                }
+            });
+        }
+
+        finalizeObject();
     }
 }
