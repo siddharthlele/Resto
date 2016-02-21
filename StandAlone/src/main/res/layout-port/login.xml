@@ -11,8 +11,7 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="0dip"
-        android:layout_weight="50"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="@dimen/log_logo_pad">
@@ -40,7 +39,7 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="0dip"
-        android:layout_weight="50"
+        android:layout_weight="1"
         android:gravity="center|bottom"
         android:orientation="vertical"
         android:padding="@dimen/log_form_pad">
@@ -126,6 +125,20 @@
             android:text="@string/log_login_btn"
             android:textColor="@android:color/primary_text_dark"
             android:textSize="@dimen/log_form_sign_in_size" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btnTakeOrders"
+            fontPath="fonts/RobotoCondensed-Regular.ttf"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/log_form_sign_in_margin_top"
+            android:layout_marginLeft="@dimen/log_form_sign_in_margin_lft_rgt"
+            android:layout_marginRight="@dimen/log_form_sign_in_margin_lft_rgt"
+            android:background="@drawable/checkout_button_bg"
+            android:gravity="center"
+            android:text="@string/log_take_orders"
+            android:textColor="@android:color/primary_text_light"
+            android:textSize="@dimen/log_form_take_order_size" />
     </LinearLayout>
 
 </LinearLayout>

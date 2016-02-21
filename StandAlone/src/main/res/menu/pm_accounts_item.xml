@@ -6,10 +6,6 @@
         android:title="@string/generic_mb_edit"
         app:showAsAction="always" />
     <item
-        android:id="@+id/menuDetails"
-        android:title="@string/generic_mb_details"
-        app:showAsAction="always" />
-    <item
         android:id="@+id/menuDelete"
         android:title="@string/generic_mb_delete"
         app:showAsAction="always" />

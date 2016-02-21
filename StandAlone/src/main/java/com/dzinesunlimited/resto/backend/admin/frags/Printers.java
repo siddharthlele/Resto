@@ -24,14 +24,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.dzinesunlimited.resto.R;
-import com.dzinesunlimited.resto.backend.details.AccountDetails;
-import com.dzinesunlimited.resto.backend.modifiers.AccountModifier;
 import com.dzinesunlimited.resto.utils.TypefaceSpan;
 import com.dzinesunlimited.resto.utils.db.DBResto;
 import com.dzinesunlimited.resto.utils.helpers.pojos.PrinterData;
@@ -354,7 +351,7 @@ public class Printers extends Fragment {
 
                                 case R.id.menuDelete:
 
-                                    /** DELETE THE ACCOUNT **/
+                                    /** DELETE THE PRINTER **/
                                     final String PRINTER_ID = data.getPrinterID();
                                     String PRINTER_NAME = data.getPrinterName();
 

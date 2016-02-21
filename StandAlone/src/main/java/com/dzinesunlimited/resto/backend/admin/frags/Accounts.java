@@ -40,7 +40,6 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.dzinesunlimited.resto.R;
 import com.dzinesunlimited.resto.backend.creators.AccountCreator;
-import com.dzinesunlimited.resto.backend.details.AccountDetails;
 import com.dzinesunlimited.resto.backend.modifiers.AccountModifier;
 import com.dzinesunlimited.resto.utils.TypefaceSpan;
 import com.dzinesunlimited.resto.utils.db.DBResto;
@@ -552,15 +551,6 @@ public class Accounts extends Fragment {
                                     Intent editStaff = new Intent(getActivity(), AccountModifier.class);
                                     editStaff.putExtra("STAFF_ID", account.getStaffID());
                                     startActivityForResult(editStaff, ACTION_REQUEST_EDIT_ACCOUNT);
-
-                                    break;
-
-                                case R.id.menuDetails:
-
-                                    /** SHOW THE ACCOUNT DETAILS **/
-                                    Intent showStaff = new Intent(getActivity(), AccountDetails.class);
-                                    showStaff.putExtra("STAFF_ID", account.getStaffID());
-                                    startActivityForResult(showStaff, ACTION_REQUEST_EDIT_ACCOUNT);
 
                                     break;
 

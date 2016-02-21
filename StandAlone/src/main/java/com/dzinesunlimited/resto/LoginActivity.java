@@ -62,6 +62,7 @@ public class LoginActivity extends AppCompatActivity {
         edtUserName = (AppCompatEditText) findViewById(R.id.edtUserName);
         edtPassword = (AppCompatEditText) findViewById(R.id.edtPassword);
         AppCompatButton btnSignIn = (AppCompatButton) findViewById(R.id.btnSignIn);
+        AppCompatButton btnTakeOrders = (AppCompatButton) findViewById(R.id.btnTakeOrders);
 
         /** FOR TESTING ONLY!!!! **/
         edtUserName.setText("admin");
@@ -69,6 +70,19 @@ public class LoginActivity extends AppCompatActivity {
 
         /***** PERFORM LOGIN *****/
         btnSignIn.setOnClickListener(doLogin);
+
+        /** START TAKING ORDERS **/
+        btnTakeOrders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent takeOrders = new Intent(LoginActivity.this, TableSelector.class);
+                takeOrders.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(takeOrders);
+
+                /* FINISH THE LOGIN ACTIVITY */
+                finish();
+            }
+        });
     }
 
     /***** ONCLICK TO INITIATE THE LOGIN FUNCTION *****/

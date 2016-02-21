@@ -16,6 +16,7 @@
     <string name="log_username">Username</string>
     <string name="log_password">Password</string>
     <string name="log_login_btn">SIGN IN</string>
+    <string name="log_take_orders">TAKE ORDERS</string>
     <string name="empty_creds">Please enter your <b>User Name</b> and <b>Password</b> to authenticate and access your Account.
         \n\nThe <b>User Name</b> and <b>Password</b> fields cannot be empty</string>
     <string name="wrong_creds">You seem to have entered the wrong Credentials.

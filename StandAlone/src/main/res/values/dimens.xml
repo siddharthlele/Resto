@@ -40,6 +40,7 @@
     <dimen name="log_form_pad_lft_rgt">20dp</dimen>
     <dimen name="log_form_btm_size">12sp</dimen>
     <dimen name="log_form_sign_in_size">18sp</dimen>
+    <dimen name="log_form_take_order_size">14sp</dimen>
     <dimen name="log_form_sign_in_pad">11dp</dimen>
     <dimen name="log_form_sign_in_margin_lft_rgt">50dp</dimen>
     <dimen name="log_form_sign_in_margin_top">20dp</dimen>

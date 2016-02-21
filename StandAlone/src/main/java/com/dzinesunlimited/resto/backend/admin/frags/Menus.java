@@ -41,7 +41,6 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.dzinesunlimited.resto.R;
 import com.dzinesunlimited.resto.backend.creators.MenuCreator;
-import com.dzinesunlimited.resto.backend.details.MenuDetails;
 import com.dzinesunlimited.resto.backend.modifiers.MenuModifier;
 import com.dzinesunlimited.resto.utils.TypefaceSpan;
 import com.dzinesunlimited.resto.utils.db.DBResto;
@@ -531,12 +530,6 @@ public class Menus extends AppCompatActivity {
                                     editDish.putExtra("MENU_ID", strMenuNo);
                                     editDish.putExtra("MENU_NAME", md.getMealName());
                                     startActivityForResult(editDish, 110);
-                                    break;
-
-                                case R.id.menuView:
-                                    Intent showDetails = new Intent(Menus.this, MenuDetails.class);
-                                    showDetails.putExtra("MENU_ID", md.getMealNo());
-                                    startActivity(showDetails);
                                     break;
 
                                 case R.id.menuDelete:

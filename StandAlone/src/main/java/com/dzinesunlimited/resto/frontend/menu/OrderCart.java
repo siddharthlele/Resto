@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
@@ -24,9 +23,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.afollestad.materialdialogs.MaterialDialog;
-import com.afollestad.materialdialogs.Theme;
 import com.dzinesunlimited.resto.R;
+import com.dzinesunlimited.resto.utils.helpers.ShowMsg;
 import com.dzinesunlimited.resto.utils.TypefaceSpan;
 import com.dzinesunlimited.resto.utils.db.DBResto;
 import com.dzinesunlimited.resto.utils.helpers.pojos.frontend.OrderData;
@@ -625,17 +623,7 @@ public class OrderCart extends AppCompatActivity implements ReceiveListener {
         dispPrinterWarnings(status);
 
         if (!isPrintable(status)) {
-
-            MaterialDialog dialog = new MaterialDialog.Builder(this)
-                    .title("PROBLEM WITH PRINTER")
-                    .content(makeErrorMessage(status) + "\nPlease contact the Staff.")
-                    .positiveText("OKAY")
-                    .theme(Theme.LIGHT)
-                    .icon(ContextCompat.getDrawable(OrderCart.this, R.drawable.ic_info_outline_black_24dp))
-                    .typeface("HelveticaNeueLTW1G-MdCn.otf", "HelveticaNeueLTW1G-Cn.otf")
-                    .show();
-
-//            ShowMsg.showMsg(makeErrorMessage(status), this);
+            ShowMsg.showMsg(makeErrorMessage(status), this);
             try {
                 mPrinter.disconnect();
             }
@@ -649,16 +637,7 @@ public class OrderCart extends AppCompatActivity implements ReceiveListener {
             mPrinter.sendData(Printer.PARAM_DEFAULT);
         }
         catch (Exception e) {
-
-            MaterialDialog dialog = new MaterialDialog.Builder(this)
-                    .title("PROBLEM WITH PRINTER")
-                    .content(e.toString())
-                    .positiveText("OKAY")
-                    .theme(Theme.LIGHT)
-                    .icon(ContextCompat.getDrawable(OrderCart.this, R.drawable.ic_info_outline_black_24dp))
-                    .typeface("HelveticaNeueLTW1G-MdCn.otf", "HelveticaNeueLTW1G-Cn.otf")
-                    .show();
-//            ShowMsg.showException(e, "sendData", this);
+            ShowMsg.showException(e, "sendData", this);
             try {
                 mPrinter.disconnect();
             }
@@ -700,16 +679,7 @@ public class OrderCart extends AppCompatActivity implements ReceiveListener {
             mPrinter.connect("TCP:192.168.11.200", Printer.PARAM_DEFAULT);
         }
         catch (Exception e) {
-
-            MaterialDialog dialog = new MaterialDialog.Builder(this)
-                    .title("PROBLEM WITH PRINTER")
-                    .content(e.toString())
-                    .positiveText("OKAY")
-                    .theme(Theme.LIGHT)
-                    .icon(ContextCompat.getDrawable(OrderCart.this, R.drawable.ic_info_outline_black_24dp))
-                    .typeface("HelveticaNeueLTW1G-MdCn.otf", "HelveticaNeueLTW1G-Cn.otf")
-                    .show();
-//            ShowMsg.showException(e, "connect", this);
+            ShowMsg.showException(e, "connect", this);
             return false;
 //            Log.e("CONNECTION ERROR", e.getMessage().toString());
         }
@@ -719,16 +689,7 @@ public class OrderCart extends AppCompatActivity implements ReceiveListener {
             isBeginTransaction = true;
         }
         catch (Exception e) {
-
-            MaterialDialog dialog = new MaterialDialog.Builder(this)
-                    .title("PROBLEM WITH PRINTER")
-                    .content(e.toString())
-                    .positiveText("OKAY")
-                    .theme(Theme.LIGHT)
-                    .icon(ContextCompat.getDrawable(OrderCart.this, R.drawable.ic_info_outline_black_24dp))
-                    .typeface("HelveticaNeueLTW1G-MdCn.otf", "HelveticaNeueLTW1G-Cn.otf")
-                    .show();
-//            ShowMsg.showException(e, "beginTransaction", this);
+            ShowMsg.showException(e, "beginTransaction", this);
         }
 
         if (isBeginTransaction == false) {
@@ -749,16 +710,7 @@ public class OrderCart extends AppCompatActivity implements ReceiveListener {
             mPrinter = new Printer(0, 0, this);
         }
         catch (Exception e) {
-
-            MaterialDialog dialog = new MaterialDialog.Builder(this)
-                    .title("PROBLEM WITH PRINTER")
-                    .content(e.toString())
-                    .positiveText("OKAY")
-                    .theme(Theme.LIGHT)
-                    .icon(ContextCompat.getDrawable(OrderCart.this, R.drawable.ic_info_outline_black_24dp))
-                    .typeface("HelveticaNeueLTW1G-MdCn.otf", "HelveticaNeueLTW1G-Cn.otf")
-                    .show();
-//            ShowMsg.showException(e, "Printer", this);
+            ShowMsg.showException(e, "Printer", this);
             return false;
         }
 
@@ -875,16 +827,7 @@ public class OrderCart extends AppCompatActivity implements ReceiveListener {
             mPrinter.addCut(Printer.CUT_FEED);
         }
         catch (Exception e) {
-
-            MaterialDialog dialog = new MaterialDialog.Builder(this)
-                    .title("PROBLEM WITH PRINTER")
-                    .content(e.toString())
-                    .positiveText("OKAY")
-                    .theme(Theme.LIGHT)
-                    .icon(ContextCompat.getDrawable(OrderCart.this, R.drawable.ic_info_outline_black_24dp))
-                    .typeface("HelveticaNeueLTW1G-MdCn.otf", "HelveticaNeueLTW1G-Cn.otf")
-                    .show();
-//            ShowMsg.showException(e, method, this);
+            ShowMsg.showException(e, method, this);
             return false;
         }
 
@@ -896,16 +839,7 @@ public class OrderCart extends AppCompatActivity implements ReceiveListener {
         runOnUiThread(new Runnable() {
             @Override
             public synchronized void run() {
-
-                MaterialDialog dialog = new MaterialDialog.Builder(OrderCart.this)
-                        .title("PROBLEM WITH PRINTER")
-                        .content(status.toString())
-                        .positiveText("OKAY")
-                        .theme(Theme.LIGHT)
-                        .icon(ContextCompat.getDrawable(OrderCart.this, R.drawable.ic_info_outline_black_24dp))
-                        .typeface("HelveticaNeueLTW1G-MdCn.otf", "HelveticaNeueLTW1G-Cn.otf")
-                        .show();
-//                ShowMsg.showResult(code, makeErrorMessage(status), OrderCart.this);
+                ShowMsg.showResult(code, makeErrorMessage(status), OrderCart.this);
 
                 dispPrinterWarnings(status);
 
@@ -933,16 +867,7 @@ public class OrderCart extends AppCompatActivity implements ReceiveListener {
             runOnUiThread(new Runnable() {
                 @Override
                 public synchronized void run() {
-
-                    MaterialDialog dialog = new MaterialDialog.Builder(OrderCart.this)
-                            .title("PROBLEM WITH PRINTER")
-                            .content(e.toString())
-                            .positiveText("OKAY")
-                            .theme(Theme.LIGHT)
-                            .icon(ContextCompat.getDrawable(OrderCart.this, R.drawable.ic_info_outline_black_24dp))
-                            .typeface("HelveticaNeueLTW1G-MdCn.otf", "HelveticaNeueLTW1G-Cn.otf")
-                            .show();
-//                    ShowMsg.showException(e, "endTransaction", OrderCart.this);
+                    ShowMsg.showException(e, "endTransaction", OrderCart.this);
                 }
             });
         }
@@ -954,16 +879,7 @@ public class OrderCart extends AppCompatActivity implements ReceiveListener {
             runOnUiThread(new Runnable() {
                 @Override
                 public synchronized void run() {
-
-                    MaterialDialog dialog = new MaterialDialog.Builder(OrderCart.this)
-                            .title("PROBLEM WITH PRINTER")
-                            .content(e.toString())
-                            .positiveText("OKAY")
-                            .theme(Theme.LIGHT)
-                            .icon(ContextCompat.getDrawable(OrderCart.this, R.drawable.ic_info_outline_black_24dp))
-                            .typeface("HelveticaNeueLTW1G-MdCn.otf", "HelveticaNeueLTW1G-Cn.otf")
-                            .show();
-//                    ShowMsg.showException(e, "disconnect", OrderCart.this);
+                    ShowMsg.showException(e, "disconnect", OrderCart.this);
                 }
             });
         }
