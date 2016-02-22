@@ -8,9 +8,13 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.AppCompatSpinner;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -22,14 +26,21 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
 import com.dzinesunlimited.resto.R;
 import com.dzinesunlimited.resto.utils.TypefaceSpan;
 import com.dzinesunlimited.resto.utils.db.DBResto;
+import com.dzinesunlimited.resto.utils.helpers.adapters.backend.MenuCategoriesAdapter;
+import com.dzinesunlimited.resto.utils.helpers.adapters.backend.PrintersAdapter;
+import com.dzinesunlimited.resto.utils.helpers.pojos.PrinterData;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.util.ArrayList;
 
 import pl.aprilapps.easyphotopicker.DefaultCallback;
 import pl.aprilapps.easyphotopicker.EasyImage;
@@ -46,6 +57,8 @@ public class CategoryCreator extends AppCompatActivity {
 
     /***** DECLARE THE LAYOUT ELEMENTS *****/
     private AppCompatEditText edtCategoryName;
+    private AppCompatSpinner spnPrinters;
+    private AppCompatTextView txtAddPrinter;
     private AppCompatImageView imgvwCategoryThumb;
 
     /***** A PROGRESS DIALOG INSTANCE *****/
@@ -53,6 +66,9 @@ public class CategoryCreator extends AppCompatActivity {
 
     /** BOOLEAN INSTANCE TO CHECK IF THE TAX EXISTS **/
     boolean blnCategoryExists = false;
+
+    /** THE ARRAYLIST FOR THE PRINTERS **/
+    ArrayList<PrinterData> arrPrinters = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,12 +80,116 @@ public class CategoryCreator extends AppCompatActivity {
 
         /***** CAST THE LAYOUT ELEMENTS *****/
         castLayoutElements();
+
+        /** CHECK IF PRINTERS ARE AVAILABLE **/
+        db = new DBResto(CategoryCreator.this);
+        Cursor cursor = db.selectAllData("SELECT * FROM " + db.PRINTERS);
+//        cursor.close();
+        int printerCount = cursor.getCount();
+        if (printerCount != 0) {
+            /** FETCH THE LIST OF PRINTERS **/
+            new fetchPrintersList().execute();
+        } else {
+            new MaterialDialog.Builder(CategoryCreator.this)
+                    .icon(ContextCompat.getDrawable(CategoryCreator.this, R.drawable.ic_info_outline_black_24dp))
+                    .title("No Printers Found")
+                    .content("Please add the Printer/s to Resto. This is essential to enable the printing of KOT\'s (and the Bills too).\n\nAdd the Printer/s from the \"Printers\" section of the Dashboard before adding Categories.)")
+                    .neutralText("Go Back")
+                    .theme(Theme.LIGHT)
+                    .typeface("HelveticaNeueLTW1G-MdCn.otf", "HelveticaNeueLTW1G-Cn.otf")
+                    .onNeutral(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            dialog.dismiss();
+                            finish();
+                        }
+                    }).show();
+        }
+    }
+
+    private class fetchPrintersList extends AsyncTask<Void, Void, Void> {
+
+        /** A CURSOR INSTANCE **/
+        Cursor cursor;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            /** INSTANTIATE THE DATABASE HELPER CLASS **/
+            db = new DBResto(CategoryCreator.this);
+
+            /** CONSTRUCT THE QUERY TO FETCH ALL TWEETS FROM THE DATABASE **/
+            String strQueryData = "SELECT * FROM " + db.PRINTERS;
+
+            /** CAST THE QUERY IN THE CURSOR TO FETCH THE RESULTS **/
+            cursor = db.selectAllData(strQueryData);
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            /** CHECK THAT THE DATABASE QUERY RETURNED SOME RESULTS **/
+            if (cursor != null && cursor.getCount() != 0)	{
+
+            /* AN INSTANCE OF THE PrinterData POJO CLASS */
+                PrinterData printerData;
+
+                /** LOOP THROUGH THE RESULT SET AND PARSE NECESSARY INFORMATION **/
+                for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+
+                    /***** INSTANTIATE THE PrinterData INSTANCE "printerData" *****/
+                    printerData = new PrinterData();
+
+                    /** GET THE PRINTER ID **/
+                    if (cursor.getString(cursor.getColumnIndex(db.PRINTER_ID)) != null)	{
+                        String PRINTER_ID = cursor.getString(cursor.getColumnIndex(db.PRINTER_ID));
+                        printerData.setPrinterID(PRINTER_ID);
+                    } else {
+                        printerData.setPrinterID(null);
+                    }
+
+                    /** GET THE PRINTER NAME **/
+                    if (cursor.getString(cursor.getColumnIndex(db.PRINTER_NAME)) != null)	{
+                        String PRINTER_NAME = cursor.getString(cursor.getColumnIndex(db.PRINTER_NAME));
+                        printerData.setPrinterName(PRINTER_NAME);
+                    } else {
+                        printerData.setPrinterName(null);
+                    }
+
+                    /** ADD THE COLLECTED DATA TO THE ARRAYLIST **/
+                    arrPrinters.add(printerData);
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            /** CLOSE THE CURSOR **/
+            if (cursor != null && !cursor.isClosed())	{
+                cursor.close();
+            }
+
+            /** CLOSE THE DATABASE **/
+            db.close();
+
+            /** SET THE ADAPTER TO THE SPINNER **/
+            spnPrinters.setAdapter(new PrintersAdapter(
+                    CategoryCreator.this,
+                    R.layout.custom_spinner_row,
+                    arrPrinters));
+        }
     }
 
     /***** CAST THE LAYOUT ELEMENTS *****/
     private void castLayoutElements() {
 
         edtCategoryName = (AppCompatEditText) findViewById(R.id.edtCategoryName);
+        spnPrinters = (AppCompatSpinner) findViewById(R.id.spnPrinters);
+        txtAddPrinter = (AppCompatTextView) findViewById(R.id.txtAddPrinter);
         imgvwCategoryThumb = (AppCompatImageView) findViewById(R.id.imgvwCategoryThumb);
 
         /***** GET THE CATEGORY IMAGE *****/

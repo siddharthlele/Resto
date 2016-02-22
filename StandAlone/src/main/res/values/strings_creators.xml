@@ -73,6 +73,7 @@
     <string name="cat_creator_ID_label">MENU CATEGORY ID (<b>THIS IS AN AUTO-GENERATED NUMBER</b>)</string>
     <string name="cat_creator_name_label">NAME THE MENU CATEGORY</string>
     <string name="cat_creator_name">(*) Enter The Menu Category Name</string>
+    <string name="cat_creator_printer_label">Select the <b>Printer</b> this Category Prints to.</string>
     <string name="cat_creator_tax_label">CHOOSE THE TAXES THAT APPLY TO THIS CATEGORY</string>
     <string name="cat_creator_tax_sel_1">You have selected </string>
     <string name="cat_creator_tax_sel_2">tax(es)</string>
