@@ -59,7 +59,7 @@
     <dimen name="wel_rest_top_container_pad">2dp</dimen>
     <dimen name="wel_rest_message_margin">5dp</dimen>
     <dimen name="wel_rest_message_pad">6dp</dimen>
-    <dimen name="wel_rest_message_size">15dp</dimen>
+    <dimen name="wel_rest_message_size">15sp</dimen>
     <dimen name="wel_rest_element_top_btm_margins">5dp</dimen>
     <dimen name="wel_rest_element_lft_rgt_margins">10dp</dimen>
     <dimen name="wel_rest_name_size">20sp</dimen>

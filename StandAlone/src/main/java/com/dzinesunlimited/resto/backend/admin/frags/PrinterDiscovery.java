@@ -259,10 +259,9 @@ public class PrinterDiscovery extends AppCompatActivity {
                         dialog.dismiss();
 
                         /***** SET THE RESULT TO "RESULT_OK" AND FINISH THE ACTIVITY *****/
-                        Intent configPrintCategories = new Intent(activity, PrintCategorySelector.class);
-                        configPrintCategories.putExtra("PRINTER_ID", String.valueOf(printerID));
-                        configPrintCategories.putExtra("PRINTER_IP", printerIP);
-                        startActivityForResult(configPrintCategories, 101);
+                        Intent printerAdded = new Intent();
+                        printerAdded.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        setResult(RESULT_OK, printerAdded);
 
                         /** FINISH THE ACTIVITY **/
                         finish();

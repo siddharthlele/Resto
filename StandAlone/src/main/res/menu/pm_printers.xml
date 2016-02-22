@@ -2,10 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/menuEdit"
-        android:title="@string/printer_categories"
-        app:showAsAction="always" />
-    <item
         android:id="@+id/menuDelete"
         android:title="@string/generic_mb_delete"
         app:showAsAction="always" />

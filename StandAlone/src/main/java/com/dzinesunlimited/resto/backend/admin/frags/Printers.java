@@ -340,15 +340,6 @@ public class Printers extends Fragment {
 //                            Toast.makeText(getActivity(), String.valueOf(item.getTitle()), Toast.LENGTH_SHORT).show();
 
                             switch (item.getItemId())   {
-
-                                case R.id.menuEdit:
-                                    /** EDIT THE PRINTER CATEGORIES **/
-                                    Intent modifyPrintCategories = new Intent(getActivity(), PrintCategorySelector.class);
-                                    modifyPrintCategories.putExtra("PRINTER_ID", data.getPrinterID());
-                                    modifyPrintCategories.putExtra("PRINTER_IP", data.getPrinterIP());
-                                    startActivityForResult(modifyPrintCategories, ACTION_REQUEST_MODIFY_PRINT_CATEGORIES);
-                                    break;
-
                                 case R.id.menuDelete:
 
                                     /** DELETE THE PRINTER **/

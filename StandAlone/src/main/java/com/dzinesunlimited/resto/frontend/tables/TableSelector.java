@@ -1,6 +1,7 @@
 package com.dzinesunlimited.resto.frontend.tables;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.dzinesunlimited.resto.LoginActivity;
 import com.dzinesunlimited.resto.R;
 import com.dzinesunlimited.resto.utils.TypefaceSpan;
 import com.dzinesunlimited.resto.utils.db.DBResto;
@@ -185,8 +187,10 @@ public class TableSelector extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case android.R.id.home:
-
-                this.finish();
+                Intent doLogin = new Intent(TableSelector.this, LoginActivity.class);
+                doLogin.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(doLogin);
+                finish();
 
                 break;
 

@@ -79,19 +79,11 @@
             android:windowSoftInputMode="adjustPan" />
 
         <activity
-            android:name=".backend.details.MenuDetails"
-            android:windowSoftInputMode="adjustPan" />
-
-        <activity
             android:name=".backend.creators.AccountCreator"
             android:windowSoftInputMode="adjustPan" />
 
         <activity
             android:name=".backend.modifiers.AccountModifier"
-            android:windowSoftInputMode="adjustPan" />
-
-        <activity
-            android:name=".backend.details.AccountDetails"
             android:windowSoftInputMode="adjustPan" />
 
         <activity
