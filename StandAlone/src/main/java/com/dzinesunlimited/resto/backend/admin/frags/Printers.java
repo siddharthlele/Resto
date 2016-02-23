@@ -81,17 +81,6 @@ public class Printers extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-
-        /** CLEAR THE ARRAYLIST **/
-        arrPrinters.clear();
-
-        /** FETCH THE PRINTERS FROM THE DATABASE **/
-        new fetchPrinters().execute();
-    }
-
-    @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -103,6 +92,9 @@ public class Printers extends Fragment {
 
         /** INSTANTIATE THE ADAPTER **/
         adapter = new PrintersAdapter(getActivity(), arrPrinters);
+
+        /** FETCH THE PRINTERS FROM THE DATABASE **/
+        new fetchPrinters().execute();
     }
 
     /** TASK TO FETCH THE LIST OF PRINTERS FROM THE DATABASE **/
@@ -117,6 +109,9 @@ public class Printers extends Fragment {
 
             /** SHOW THE PROGRESS WHILE LOADING THE LIST OF PRINTERS **/
             linlaHeaderProgress.setVisibility(View.VISIBLE);
+
+            /** CLEAR THE ARRAYLIST **/
+            arrPrinters.clear();
 
             /** INSTANTIATE THE DATABASE INSTANCE **/
             db = new DBResto(getActivity());
@@ -165,6 +160,14 @@ public class Printers extends Fragment {
                         data.setPrinterIP(PRINTER_IP);
                     } else {
                         data.setPrinterIP(null);
+                    }
+
+                    /** GET THE PRINTER_SELECTED_NAME **/
+                    if (cursor.getString(cursor.getColumnIndex(db.PRINTER_SELECTED_NAME)) != null)	{
+                        String PRINTER_SELECTED_NAME = cursor.getString(cursor.getColumnIndex(db.PRINTER_SELECTED_NAME));
+                        data.setPrinterSelectedName(PRINTER_SELECTED_NAME);
+                    } else {
+                        data.setPrinterSelectedName(null);
                     }
 
                     /** ADD THE COLLECTED DATA TO THE ARRAYLIST **/
@@ -322,7 +325,7 @@ public class Printers extends Fragment {
             final PrinterData data = arrAdapPrinters.get(position);
 
             /** SET THE PRINTER NAME **/
-            holder.txtPrinterName.setText(data.getPrinterName());
+            holder.txtPrinterName.setText(data.getPrinterSelectedName());
 
             /** SET THE PRINTER IP ADDRESS **/
             holder.txtPrinterIP.setText(data.getPrinterIP());

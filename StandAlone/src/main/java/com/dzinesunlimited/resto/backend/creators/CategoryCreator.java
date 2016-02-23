@@ -93,7 +93,7 @@ public class CategoryCreator extends AppCompatActivity {
             new MaterialDialog.Builder(CategoryCreator.this)
                     .icon(ContextCompat.getDrawable(CategoryCreator.this, R.drawable.ic_info_outline_black_24dp))
                     .title("No Printers Found")
-                    .content("Please add the Printer/s to Resto. This is essential to enable the printing of KOT\'s (and the Bills too).\n\nAdd the Printer/s from the \"Printers\" section of the Dashboard before adding Categories.)")
+                    .content("Please add Printer/s to Resto. This is essential to enable the printing of KOT\'s (and the Bills / Receipts too).\n\nAdd Printer/s from the \"Printers\" section of the Dashboard before adding Categories.\n\nPlease Note: Printing KOT\'s and Bills / Receipts is an essential feature of Resto and requires at least one of the compatible Printers installed and configured for in-app use. See the \"Printers\" section of the Dashboard to know more.")
                     .neutralText("Go Back")
                     .theme(Theme.LIGHT)
                     .typeface("HelveticaNeueLTW1G-MdCn.otf", "HelveticaNeueLTW1G-Cn.otf")
@@ -155,6 +155,14 @@ public class CategoryCreator extends AppCompatActivity {
                         printerData.setPrinterName(PRINTER_NAME);
                     } else {
                         printerData.setPrinterName(null);
+                    }
+
+                    /** GET THE PRINTER_SELECTED_NAME **/
+                    if (cursor.getString(cursor.getColumnIndex(db.PRINTER_SELECTED_NAME)) != null)	{
+                        String PRINTER_SELECTED_NAME = cursor.getString(cursor.getColumnIndex(db.PRINTER_SELECTED_NAME));
+                        printerData.setPrinterSelectedName(PRINTER_SELECTED_NAME);
+                    } else {
+                        printerData.setPrinterSelectedName(null);
                     }
 
                     /** ADD THE COLLECTED DATA TO THE ARRAYLIST **/

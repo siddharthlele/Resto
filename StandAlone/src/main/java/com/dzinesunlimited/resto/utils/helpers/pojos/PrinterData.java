@@ -5,6 +5,7 @@ public class PrinterData {
     private String printerID;
     private String printerName;
     private String printerIP;
+    private String printerSelectedName;
 
     public String getPrinterID() {
         return printerID;
@@ -28,5 +29,13 @@ public class PrinterData {
 
     public void setPrinterIP(String printerIP) {
         this.printerIP = printerIP;
+    }
+
+    public String getPrinterSelectedName() {
+        return printerSelectedName;
+    }
+
+    public void setPrinterSelectedName(String printerSelectedName) {
+        this.printerSelectedName = printerSelectedName;
     }
 }

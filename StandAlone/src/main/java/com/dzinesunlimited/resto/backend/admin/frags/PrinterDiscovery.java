@@ -2,10 +2,12 @@ package com.dzinesunlimited.resto.backend.admin.frags;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +15,7 @@ import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -231,41 +234,64 @@ public class PrinterDiscovery extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
-                    /** CHECK IF THE PRINTER EXISTS IN THE DATABASE **/
-                    DBResto resto = new DBResto(activity);
-                    String s =
-                            "SELECT * FROM " + resto.PRINTERS +
-                                    " WHERE " + resto.PRINTER_IP + " = '" + data.getPrinterIP() + "'";
-                    Cursor cursor = resto.selectAllData(s);
-                    if (cursor.getCount() != 0) {
-                        Toast.makeText(
-                                activity,
-                                "The selected Printer has already been added. Please choose a different printer",
-                                Toast.LENGTH_LONG).show();
-                    } else {
-                        ProgressDialog dialog = new ProgressDialog(activity);
-                        dialog.setMessage("Please wait while the Printer is being registered and added to the database.");
-                        dialog.setIndeterminate(false);
-                        dialog.setCancelable(false);
-                        dialog.show();
-                        DBResto dbResto = new DBResto(activity);
-                        String printerName = data.getPrinterName();
-                        String printerIP = data.getPrinterIP();
-                        Log.e("PRINTER NAME", printerName);
-                        Log.e("PRINTER IP", printerIP);
-//                        dbResto.addPrinter(printerName, printerIP);
-                        long printerID = dbResto.addPrinter(printerName, printerIP);
-                        Log.e("NEW PRINTER ID", String.valueOf(printerID));
-                        dialog.dismiss();
+                    /** TAKE THE PRINTER NAME VIA INPUT DIALOG **/
+                    new MaterialDialog.Builder(activity)
+                            .title("Name The Printer")
+                            .theme(Theme.LIGHT)
+                            .typeface("HelveticaNeueLTW1G-MdCn.otf", "HelveticaNeueLTW1G-Cn.otf")
+                            .content(
+                                    "Please provide a name to this Printer. " +
+                                            "This will help identifying and managing the Printers installed at this location. " +
+                                            "\n\nThis will also help while configuring Printers that will print the KOT\'s and the " +
+                                            "Printers that will print the Bills / Receipts")
+                            .inputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS)
+                            .input("Name the printer", null, new MaterialDialog.InputCallback() {
+                                @Override
+                                public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
+                                    Toast.makeText(activity, input, Toast.LENGTH_SHORT).show();
 
-                        /***** SET THE RESULT TO "RESULT_OK" AND FINISH THE ACTIVITY *****/
-                        Intent printerAdded = new Intent();
-                        printerAdded.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        setResult(RESULT_OK, printerAdded);
+                                    /** CHECK IF THE PRINTER EXISTS IN THE DATABASE **/
+                                    DBResto resto = new DBResto(activity);
+                                    String s =
+                                            "SELECT * FROM " + resto.PRINTERS +
+                                                    " WHERE " + resto.PRINTER_IP + " = '" + data.getPrinterIP() + "'";
+                                    Cursor cursor = resto.selectAllData(s);
+                                    if (cursor.getCount() != 0) {
+                                        Toast.makeText(
+                                                activity,
+                                                "The selected Printer has already been added. Please choose a different printer",
+                                                Toast.LENGTH_LONG).show();
+                                    } else {
+                                        ProgressDialog progressDialog = new ProgressDialog(activity);
+                                        progressDialog.setMessage("Please wait while the Printer is being registered and added to the database.");
+                                        progressDialog.setIndeterminate(false);
+                                        progressDialog.setCancelable(false);
+                                        progressDialog.show();
+                                        DBResto dbResto = new DBResto(activity);
+                                        String printerName = data.getPrinterName();
+                                        String printerIP = data.getPrinterIP();
+                                        Log.e("PRINTER NAME", printerName);
+                                        Log.e("PRINTER IP", printerIP);
+                                        long printerID = dbResto.addPrinter(printerName, printerIP, String.valueOf(input));
+                                        Log.e("NEW PRINTER ID", String.valueOf(printerID));
+                                        progressDialog.dismiss();
 
-                        /** FINISH THE ACTIVITY **/
-                        finish();
-                    }
+                                        /***** SET THE RESULT TO "RESULT_OK" AND FINISH THE ACTIVITY *****/
+                                        Intent printerAdded = new Intent();
+                                        printerAdded.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        setResult(RESULT_OK, printerAdded);
+
+                                        /** FINISH THE ACTIVITY **/
+                                        finish();
+                                    }
+                                }
+                            })
+                            .cancelListener(new DialogInterface.OnCancelListener() {
+                                @Override
+                                public void onCancel(DialogInterface dialog) {
+                                    Toast.makeText(activity, "CANCELLED", Toast.LENGTH_SHORT).show();
+                                }
+                            }).show();
                 }
             });
         }

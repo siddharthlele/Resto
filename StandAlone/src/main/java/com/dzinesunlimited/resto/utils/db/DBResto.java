@@ -55,7 +55,7 @@ public class DBResto {
     public final String ORDER_CART = "orderCart";
     public final String SESSIONS = "sessions";
     public final String PRINTERS = "printers";
-    public final String PRINT_CATEGORIES = "printCategories";
+//    public final String PRINT_CATEGORIES = "printCategories";
 
     /* RESTAURANT */
     public final String RESTAURANT_ID = "restID";
@@ -90,6 +90,7 @@ public class DBResto {
     public final String CATEGORY_ID = "categoryID";
     public final String CATEGORY_NAME = "categoryName";
     public final String CATEGORY_IMAGE = "categoryImage";
+    public final String CATEGORY_PRINTER_ID = "categoryPrinterID";
 
     /* MENU */
     public final String MENU_ID = "menuID";
@@ -122,12 +123,6 @@ public class DBResto {
     public final String SESSION_STATUS = "sessionStatus";
     public final String SESSION_CREATED = "sessionCreated";
 
-    /* TABLE TRANSACTIONS */
-    /*public final String TRANS_TABLE_PRIMARY = "transID";
-    public final String TRANS_TABLE_ID = "tableID";
-    public final String TRANS_SESSION_TOKEN = "sessionToken";
-    public final String TRANS_SESSION_STATUS = "transSessionStatus";*/
-
     /* TAXES */
     public final String TAX_ID = "taxID";
     public final String TAX_NAME = "taxName";
@@ -150,12 +145,13 @@ public class DBResto {
     public final String PRINTER_ID = "printerID";
     public final String PRINTER_NAME = "printerName";
     public final String PRINTER_IP = "printerIP";
+    public final String PRINTER_SELECTED_NAME = "printerSelectedName";
 
-    /* PRINT CATEGORIES */
-    public final String PRINT_CATEGORY_ID = "printCategoryID";
-    public final String PRINT_PRINTER_ID = "printerID";
-    public final String PRINT_CAT_ID = "categoryID";
-    public final String PRINT_CAT_STATUS = "printCatStatus";
+//    /* PRINT CATEGORIES */
+//    public final String PRINT_CATEGORY_ID = "printCategoryID";
+//    public final String PRINT_PRINTER_ID = "printerID";
+//    public final String PRINT_CAT_ID = "categoryID";
+//    public final String PRINT_CAT_STATUS = "printCatStatus";
 
 
     /** GET ALL THE DATA IN THE DATABASE BASED ON THE QUERY **/
@@ -188,22 +184,22 @@ public class DBResto {
     }
 
     /** ADD ALL CATEGORIES TO THE PRINT CATEGORIES TABLE **/
-    public void addPrintCategories(String printerID, String categoryID, boolean status)  {
+//    public void addPrintCategories(String printerID, String categoryID, boolean status)  {
+//
+//		/* OPEN THE DATABASE AGAIN */
+//        this.db = helper.getWritableDatabase();
+//
+//        /** ADD AND CREATE KEY VALUE PAIRS FOR ADDING A NEW COUNTRY TO THE DATABASE **/
+//        ContentValues values = new ContentValues();
+//        values.put(PRINT_PRINTER_ID, printerID);
+//        values.put(PRINT_CAT_ID, categoryID);
+//        values.put(PRINT_CAT_STATUS, status);
+//
+//		/* INSERT THE COLLECTED DATA TO THE COUNTRY TABLE */
+//        db.insert(PRINT_CATEGORIES, null, values);
+//    }
 
-		/* OPEN THE DATABASE AGAIN */
-        this.db = helper.getWritableDatabase();
-
-        /** ADD AND CREATE KEY VALUE PAIRS FOR ADDING A NEW COUNTRY TO THE DATABASE **/
-        ContentValues values = new ContentValues();
-        values.put(PRINT_PRINTER_ID, printerID);
-        values.put(PRINT_CAT_ID, categoryID);
-        values.put(PRINT_CAT_STATUS, status);
-
-		/* INSERT THE COLLECTED DATA TO THE COUNTRY TABLE */
-        db.insert(PRINT_CATEGORIES, null, values);
-    }
-
-    public long addPrinter(String printerName, String printerIP)   {
+    public long addPrinter(String printerName, String printerIP, String selectedName)   {
 
 		/* OPEN THE DATABASE AGAIN */
         this.db = helper.getWritableDatabase();
@@ -212,6 +208,7 @@ public class DBResto {
         ContentValues valNewPrinter = new ContentValues();
         valNewPrinter.put(PRINTER_NAME, printerName);
         valNewPrinter.put(PRINTER_IP, printerIP);
+        valNewPrinter.put(PRINTER_SELECTED_NAME, selectedName);
 
 		/* INSERT THE COLLECTED DATA TO THE COUNTRY TABLE */
         long printerID = db.insert(PRINTERS, null, valNewPrinter);
@@ -497,19 +494,19 @@ public class DBResto {
     }
 
     /** ADD A CATEGORY TO PRINT ON SELECTED PRINTER **/
-    public void updatePrinterCategory(String printCatID, boolean isChecked) {
-
-        /* OPEN THE DATABASE AGAIN */
-        this.db = helper.getWritableDatabase();
-
-        /* ADD AND CREATE KEY VALUE PAIRS FOR UPDATING AN EXISTING TAX */
-        ContentValues valUpdateTax = new ContentValues();
-        valUpdateTax.put(PRINT_CATEGORY_ID, printCatID);
-        valUpdateTax.put(PRINT_CAT_STATUS, isChecked);
-
-        /* INSERT THE COLLECTED DATA TO THE TAXES TABLE */
-        db.update(PRINT_CATEGORIES, valUpdateTax, PRINT_CAT_ID + "=" + printCatID, null);
-    }
+//    public void updatePrinterCategory(String printCatID, boolean isChecked) {
+//
+//        /* OPEN THE DATABASE AGAIN */
+//        this.db = helper.getWritableDatabase();
+//
+//        /* ADD AND CREATE KEY VALUE PAIRS FOR UPDATING AN EXISTING TAX */
+//        ContentValues valUpdateTax = new ContentValues();
+//        valUpdateTax.put(PRINT_CATEGORY_ID, printCatID);
+//        valUpdateTax.put(PRINT_CAT_STATUS, isChecked);
+//
+//        /* INSERT THE COLLECTED DATA TO THE TAXES TABLE */
+//        db.update(PRINT_CATEGORIES, valUpdateTax, PRINT_CAT_ID + "=" + printCatID, null);
+//    }
 
     /***** DELETE A ACCOUNT / STAFF *****/
     public void deleteStaff(String strStaffID) {
@@ -607,8 +604,8 @@ public class DBResto {
             /** CREATE THE PRINTERS TABLE **/
             createPrintersTable(db);
 
-            /** CREATE PRINT CATEGORIES TABLE **/
-            createPrintCategoriesTable(db);
+//            /** CREATE PRINT CATEGORIES TABLE **/
+//            createPrintCategoriesTable(db);
 		}
 
 		@Override
@@ -616,19 +613,19 @@ public class DBResto {
 		}
 	}
 
-    private void createPrintCategoriesTable(SQLiteDatabase db) {
-
-        String strCreatePrintCategoriesTable = "create table " + PRINT_CATEGORIES +
-                " (" +
-                PRINT_CATEGORY_ID + " integer primary key autoincrement, " +
-                PRINT_PRINTER_ID + " integer, " +
-                PRINT_CAT_ID + " integer, " +
-                PRINT_CAT_STATUS + " boolean, " +
-                "UNIQUE" + " (" + PRINT_CATEGORY_ID + " )" + ");";
-
-        // EXECUTE THE strCreatePrintCategoriesTable TO CREATE THE TABLE
-        db.execSQL(strCreatePrintCategoriesTable);
-    }
+//    private void createPrintCategoriesTable(SQLiteDatabase db) {
+//
+//        String strCreatePrintCategoriesTable = "create table " + PRINT_CATEGORIES +
+//                " (" +
+//                PRINT_CATEGORY_ID + " integer primary key autoincrement, " +
+//                PRINT_PRINTER_ID + " integer, " +
+//                PRINT_CAT_ID + " integer, " +
+//                PRINT_CAT_STATUS + " boolean, " +
+//                "UNIQUE" + " (" + PRINT_CATEGORY_ID + " )" + ");";
+//
+//        // EXECUTE THE strCreatePrintCategoriesTable TO CREATE THE TABLE
+//        db.execSQL(strCreatePrintCategoriesTable);
+//    }
 
     private void createPrintersTable(SQLiteDatabase db) {
 
@@ -637,6 +634,7 @@ public class DBResto {
                 PRINTER_ID + " integer primary key autoincrement, " +
                 PRINTER_NAME + " text, " +
                 PRINTER_IP + " text, " +
+                PRINTER_SELECTED_NAME + " text, " +
                 "UNIQUE" + " (" + PRINTER_IP + " )" + ");";
 
         // EXECUTE THE strCreatePrintersTable TO CREATE THE TABLE
@@ -772,6 +770,7 @@ public class DBResto {
                 CATEGORY_ID + " integer primary key autoincrement, " +
                 CATEGORY_NAME + " text, " +
                 CATEGORY_IMAGE + " BLOB, " +
+                CATEGORY_PRINTER_ID + " integer, " +
                 "UNIQUE" + " (" + CATEGORY_NAME + " )" + ");";
 
         // EXECUTE THE strCreateMealTypesTable TO CREATE THE TABLE
