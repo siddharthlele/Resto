@@ -3,7 +3,6 @@ package com.dzinesunlimited.resto.frontend.menu;
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -24,9 +23,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.dzinesunlimited.resto.R;
-import com.dzinesunlimited.resto.utils.helpers.ShowMsg;
 import com.dzinesunlimited.resto.utils.TypefaceSpan;
 import com.dzinesunlimited.resto.utils.db.DBResto;
+import com.dzinesunlimited.resto.utils.helpers.ShowMsg;
 import com.dzinesunlimited.resto.utils.helpers.pojos.frontend.OrderData;
 import com.epson.epos2.Epos2Exception;
 import com.epson.epos2.printer.Printer;
