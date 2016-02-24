@@ -648,7 +648,7 @@ public class MenuModifier extends AppCompatActivity {
 
 			/** CAST THE QUERY IN THE CURSOR TO FETCH THE RESULTS **/
             cursor = db.selectAllData(strQueryData);
-            Log.e("MENUS", DatabaseUtils.dumpCursorToString(cursor));
+//            Log.e("MENUS", DatabaseUtils.dumpCursorToString(cursor));
         }
 
         @Override

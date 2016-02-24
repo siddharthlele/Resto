@@ -103,7 +103,7 @@ public class OrderCart extends AppCompatActivity implements ReceiveListener {
                         " WHERE " + db.ORDER_TABLE_ID + " = " + INCOMING_TABLE_ID;
         Log.e("CART QUERY", s);
         Cursor cursor = resto.selectAllData(s);
-        Log.e("ORDER TOTAL DUMP", DatabaseUtils.dumpCursorToString(cursor));
+//        Log.e("ORDER TOTAL DUMP", DatabaseUtils.dumpCursorToString(cursor));
         if (cursor != null && cursor.getCount() != 0)	{
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 ORDER_TOTAL = cursor.getDouble(0);
@@ -137,7 +137,7 @@ public class OrderCart extends AppCompatActivity implements ReceiveListener {
 
             /** FETCH THE RESULT FROM THE DATABASE **/
             cursor = db.selectAllData(s);
-            Log.e("DUMP", DatabaseUtils.dumpCursorToString(cursor));
+//            Log.e("DUMP", DatabaseUtils.dumpCursorToString(cursor));
         }
 
         @Override

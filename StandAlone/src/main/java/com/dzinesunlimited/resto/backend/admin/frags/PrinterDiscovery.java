@@ -2,10 +2,8 @@ package com.dzinesunlimited.resto.backend.admin.frags;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -223,7 +221,7 @@ public class PrinterDiscovery extends AppCompatActivity {
             DBResto resto = new DBResto(activity);
             String s = "SELECT * FROM " + resto.PRINTERS + " WHERE " + resto.PRINTER_IP + " = '" + data.getPrinterIP() + "'";
             Cursor cursor = resto.selectAllData(s);
-            Log.e("PRINTERS", DatabaseUtils.dumpCursorToString(cursor));
+//            Log.e("PRINTERS", DatabaseUtils.dumpCursorToString(cursor));
             if (cursor.getCount() != 0) {
                 blnPrinter = true;
                 holder.txtStatus.setText("PRINTER ADDED");
@@ -234,12 +232,10 @@ public class PrinterDiscovery extends AppCompatActivity {
                 holder.txtStatus.setTextColor(ContextCompat.getColor(activity, android.R.color.holo_green_light));
             }
 
-            /** ADD THE PRINTER TO THE DATABASE **     /
+            /** ADD THE PRINTER TO THE DATABASE **/
             holder.crdvwContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                    Toast.makeText(activity, String.valueOf(blnPrinter), Toast.LENGTH_SHORT).show();
 
                     if (!blnPrinter)    {
 
@@ -293,12 +289,6 @@ public class PrinterDiscovery extends AppCompatActivity {
                                             /** FINISH THE ACTIVITY **/
                                             finish();
                                         }
-                                    }
-                                })
-                                .cancelListener(new DialogInterface.OnCancelListener() {
-                                    @Override
-                                    public void onCancel(DialogInterface dialog) {
-                                        Toast.makeText(activity, "CANCELLED", Toast.LENGTH_SHORT).show();
                                     }
                                 }).show();
                     } else {
