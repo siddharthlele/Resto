@@ -60,15 +60,15 @@ public class DBResto {
     /* RESTAURANT */
     public final String RESTAURANT_ID = "restID";
     public final String RESTAURANT_NAME = "restName";
-    public final String RESTAURANT_ADDRESS_1 = "restAddress1";
-    public final String RESTAURANT_ADDRESS_2 = "restAddress2";
-    public final String RESTAURANT_CITY = "restCity";
-    public final String RESTAURANT_STATE = "restState";
-    public final String RESTAURANT_COUNTRY = "restCountry";
-    public final String RESTAURANT_ZIP = "restZip";
-    public final String RESTAURANT_PHONE = "restPhone";
-    public final String RESTAURANT_EMAIL = "restEmail";
-    public final String RESTAURANT_WEBSITE = "restWebsite";
+//    public final String RESTAURANT_ADDRESS_1 = "restAddress1";
+//    public final String RESTAURANT_ADDRESS_2 = "restAddress2";
+//    public final String RESTAURANT_CITY = "restCity";
+//    public final String RESTAURANT_STATE = "restState";
+//    public final String RESTAURANT_COUNTRY = "restCountry";
+//    public final String RESTAURANT_ZIP = "restZip";
+//    public final String RESTAURANT_PHONE = "restPhone";
+//    public final String RESTAURANT_EMAIL = "restEmail";
+//    public final String RESTAURANT_WEBSITE = "restWebsite";
     public final String RESTAURANT_LOGO = "restLogo";
 
     /* STAFF ROLES TABLE */
@@ -217,9 +217,9 @@ public class DBResto {
 
     /** ADD A RESTAURANT TO THE DATABASE **/
     public void addRestaurantDetails(
-            int intID, String strName, byte[] bytLogo, String strAdd1, String strAdd2,
+            int intID, String strName, byte[] bytLogo/*, String strAdd1, String strAdd2,
             String strCity, String strState, String strCountry, String strZIP,
-            String strPhone, String strEmail, String strWebsite)	{
+            String strPhone, String strEmail, String strWebsite*/)	{
 
 		/* OPEN THE DATABASE AGAIN */
         this.db = helper.getWritableDatabase();
@@ -229,15 +229,15 @@ public class DBResto {
         valRestaurantDetails.put(RESTAURANT_ID, intID);
         valRestaurantDetails.put(RESTAURANT_NAME, strName);
         valRestaurantDetails.put(RESTAURANT_LOGO, bytLogo);
-        valRestaurantDetails.put(RESTAURANT_ADDRESS_1, strAdd1);
-        valRestaurantDetails.put(RESTAURANT_ADDRESS_2, strAdd2);
-        valRestaurantDetails.put(RESTAURANT_CITY, strCity);
-        valRestaurantDetails.put(RESTAURANT_STATE, strState);
-        valRestaurantDetails.put(RESTAURANT_COUNTRY, strCountry);
-        valRestaurantDetails.put(RESTAURANT_ZIP, strZIP);
-        valRestaurantDetails.put(RESTAURANT_PHONE, strPhone);
-        valRestaurantDetails.put(RESTAURANT_EMAIL, strEmail);
-        valRestaurantDetails.put(RESTAURANT_WEBSITE, strWebsite);
+//        valRestaurantDetails.put(RESTAURANT_ADDRESS_1, strAdd1);
+//        valRestaurantDetails.put(RESTAURANT_ADDRESS_2, strAdd2);
+//        valRestaurantDetails.put(RESTAURANT_CITY, strCity);
+//        valRestaurantDetails.put(RESTAURANT_STATE, strState);
+//        valRestaurantDetails.put(RESTAURANT_COUNTRY, strCountry);
+//        valRestaurantDetails.put(RESTAURANT_ZIP, strZIP);
+//        valRestaurantDetails.put(RESTAURANT_PHONE, strPhone);
+//        valRestaurantDetails.put(RESTAURANT_EMAIL, strEmail);
+//        valRestaurantDetails.put(RESTAURANT_WEBSITE, strWebsite);
 
 		/* INSERT THE COLLECTED DATA TO THE TABLES TABLE */
         db.insert(RESTAURANT, null, valRestaurantDetails);
@@ -355,7 +355,7 @@ public class DBResto {
     }
 
     /***** CREATE / ADD A NEW MENU CATEGORY *****/
-    public void newMenuCategory(String strMealName, byte[] bytMealThumb) {
+    public void newMenuCategory(String strMealName, byte[] bytMealThumb, Integer printerID) {
 
 		/* OPEN THE DATABASE AGAIN */
         this.db = helper.getWritableDatabase();
@@ -364,6 +364,7 @@ public class DBResto {
         ContentValues valNewCategory = new ContentValues();
         valNewCategory.put(CATEGORY_NAME, strMealName);
         valNewCategory.put(CATEGORY_IMAGE, bytMealThumb);
+        valNewCategory.put(CATEGORY_PRINTER_ID, printerID);
 
 		/* INSERT THE COLLECTED DATA TO THE CATEGORIES TABLE */
         db.insert(CATEGORY, null, valNewCategory);
@@ -748,15 +749,15 @@ public class DBResto {
                 RESTAURANT_ID + " integer primary key, " +
                 RESTAURANT_NAME + " text, " +
                 RESTAURANT_LOGO + " blob, " +
-                RESTAURANT_ADDRESS_1 + " text, " +
-                RESTAURANT_ADDRESS_2 + " text, " +
-                RESTAURANT_CITY + " text, " +
-                RESTAURANT_STATE + " text, " +
-                RESTAURANT_COUNTRY + " text, " +
-                RESTAURANT_ZIP + " text, " +
-                RESTAURANT_PHONE + " text, " +
-                RESTAURANT_EMAIL + " text, " +
-                RESTAURANT_WEBSITE + " text, " +
+//                RESTAURANT_ADDRESS_1 + " text, " +
+//                RESTAURANT_ADDRESS_2 + " text, " +
+//                RESTAURANT_CITY + " text, " +
+//                RESTAURANT_STATE + " text, " +
+//                RESTAURANT_COUNTRY + " text, " +
+//                RESTAURANT_ZIP + " text, " +
+//                RESTAURANT_PHONE + " text, " +
+//                RESTAURANT_EMAIL + " text, " +
+//                RESTAURANT_WEBSITE + " text, " +
                 "UNIQUE" + " (" + RESTAURANT_ID + " )" + ");";
 
         // EXECUTE THE strCreateRestaurantTable TO CREATE THE TABLE

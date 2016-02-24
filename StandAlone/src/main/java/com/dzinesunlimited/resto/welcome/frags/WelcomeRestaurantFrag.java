@@ -49,29 +49,29 @@ public class WelcomeRestaurantFrag extends Fragment {
     private AppCompatEditText edtRestaurantName;
 
     /* FORM FIELDS */
-    private AppCompatEditText edtAddress1;
-    private AppCompatEditText edtAddress2;
-    private AppCompatEditText edtCity;
-    private AppCompatEditText edtState;
-    private AppCompatEditText edtCountry;
-    private AppCompatEditText edtZIP;
-    private AppCompatEditText edtPhone;
-    private AppCompatEditText edtEmail;
-    private AppCompatEditText edtWebsite;
+//    private AppCompatEditText edtAddress1;
+//    private AppCompatEditText edtAddress2;
+//    private AppCompatEditText edtCity;
+//    private AppCompatEditText edtState;
+//    private AppCompatEditText edtCountry;
+//    private AppCompatEditText edtZIP;
+//    private AppCompatEditText edtPhone;
+//    private AppCompatEditText edtEmail;
+//    private AppCompatEditText edtWebsite;
 
     /* RESTAURANT LOGO */
     private ImageView imgvwRestaurantLogo;
 
     private String NAME;
-    private String ADDRESS_1;
-    private String ADDRESS_2;
-    private String CITY;
-    private String STATE;
-    private String COUNTRY;
-    private String ZIP;
-    private String CONTACT_NO;
-    private String EMAIL_ADDRESS;
-    private String WEBSITE;
+//    private String ADDRESS_1;
+//    private String ADDRESS_2;
+//    private String CITY;
+//    private String STATE;
+//    private String COUNTRY;
+//    private String ZIP;
+//    private String CONTACT_NO;
+//    private String EMAIL_ADDRESS;
+//    private String WEBSITE;
     private byte[] LOGO;
 
     private AppPrefs getApp()	{
@@ -166,68 +166,68 @@ public class WelcomeRestaurantFrag extends Fragment {
                         LOGO = null;
                     }
 
-                    /** GET THE RESTAURANT ADDRESS 1 **/
-                    if (cursor.getString(cursor.getColumnIndex(db.RESTAURANT_ADDRESS_1)) != null)	{
-                        ADDRESS_1 = cursor.getString(cursor.getColumnIndex(db.RESTAURANT_ADDRESS_1));
-                    } else {
-                        ADDRESS_1 = null;
-                    }
-
-                    /** GET THE RESTAURANT ADDRESS 2 **/
-                    if (cursor.getString(cursor.getColumnIndex(db.RESTAURANT_ADDRESS_2)) != null)	{
-                        ADDRESS_2 = cursor.getString(cursor.getColumnIndex(db.RESTAURANT_ADDRESS_2));
-                    } else {
-                        ADDRESS_2 = null;
-                    }
-
-                    /** GET THE RESTAURANT CITY **/
-                    if (cursor.getString(cursor.getColumnIndex(db.RESTAURANT_CITY)) != null)	{
-                        CITY = cursor.getString(cursor.getColumnIndex(db.RESTAURANT_CITY));
-                    } else {
-                        CITY = null;
-                    }
-
-                    /** GET THE RESTAURANT STATE **/
-                    if (cursor.getString(cursor.getColumnIndex(db.RESTAURANT_STATE)) != null)	{
-                        STATE = cursor.getString(cursor.getColumnIndex(db.RESTAURANT_STATE));
-                    } else {
-                        STATE = null;
-                    }
-
-                    /** GET THE RESTAURANT COUNTRY **/
-                    if (cursor.getString(cursor.getColumnIndex(db.RESTAURANT_COUNTRY)) != null)	{
-                        COUNTRY = cursor.getString(cursor.getColumnIndex(db.RESTAURANT_COUNTRY));
-                    } else {
-                        COUNTRY = null;
-                    }
-
-                    /** GET THE RESTAURANT ZIP **/
-                    if (cursor.getString(cursor.getColumnIndex(db.RESTAURANT_ZIP)) != null)	{
-                        ZIP = cursor.getString(cursor.getColumnIndex(db.RESTAURANT_ZIP));
-                    } else {
-                        ZIP = null;
-                    }
-
-                    /** GET THE RESTAURANT PHONE **/
-                    if (cursor.getString(cursor.getColumnIndex(db.RESTAURANT_PHONE)) != null)	{
-                        CONTACT_NO = cursor.getString(cursor.getColumnIndex(db.RESTAURANT_PHONE));
-                    } else {
-                        CONTACT_NO = null;
-                    }
-
-                    /** GET THE RESTAURANT EMAIL **/
-                    if (cursor.getString(cursor.getColumnIndex(db.RESTAURANT_EMAIL)) != null)	{
-                        EMAIL_ADDRESS = cursor.getString(cursor.getColumnIndex(db.RESTAURANT_EMAIL));
-                    } else {
-                        EMAIL_ADDRESS = null;
-                    }
-
-                    /** GET THE RESTAURANT WEBSITE **/
-                    if (cursor.getString(cursor.getColumnIndex(db.RESTAURANT_WEBSITE)) != null)	{
-                        WEBSITE = cursor.getString(cursor.getColumnIndex(db.RESTAURANT_WEBSITE));
-                    } else {
-                        WEBSITE = null;
-                    }
+//                    /** GET THE RESTAURANT ADDRESS 1 **/
+//                    if (cursor.getString(cursor.getColumnIndex(db.RESTAURANT_ADDRESS_1)) != null)	{
+//                        ADDRESS_1 = cursor.getString(cursor.getColumnIndex(db.RESTAURANT_ADDRESS_1));
+//                    } else {
+//                        ADDRESS_1 = null;
+//                    }
+//
+//                    /** GET THE RESTAURANT ADDRESS 2 **/
+//                    if (cursor.getString(cursor.getColumnIndex(db.RESTAURANT_ADDRESS_2)) != null)	{
+//                        ADDRESS_2 = cursor.getString(cursor.getColumnIndex(db.RESTAURANT_ADDRESS_2));
+//                    } else {
+//                        ADDRESS_2 = null;
+//                    }
+//
+//                    /** GET THE RESTAURANT CITY **/
+//                    if (cursor.getString(cursor.getColumnIndex(db.RESTAURANT_CITY)) != null)	{
+//                        CITY = cursor.getString(cursor.getColumnIndex(db.RESTAURANT_CITY));
+//                    } else {
+//                        CITY = null;
+//                    }
+//
+//                    /** GET THE RESTAURANT STATE **/
+//                    if (cursor.getString(cursor.getColumnIndex(db.RESTAURANT_STATE)) != null)	{
+//                        STATE = cursor.getString(cursor.getColumnIndex(db.RESTAURANT_STATE));
+//                    } else {
+//                        STATE = null;
+//                    }
+//
+//                    /** GET THE RESTAURANT COUNTRY **/
+//                    if (cursor.getString(cursor.getColumnIndex(db.RESTAURANT_COUNTRY)) != null)	{
+//                        COUNTRY = cursor.getString(cursor.getColumnIndex(db.RESTAURANT_COUNTRY));
+//                    } else {
+//                        COUNTRY = null;
+//                    }
+//
+//                    /** GET THE RESTAURANT ZIP **/
+//                    if (cursor.getString(cursor.getColumnIndex(db.RESTAURANT_ZIP)) != null)	{
+//                        ZIP = cursor.getString(cursor.getColumnIndex(db.RESTAURANT_ZIP));
+//                    } else {
+//                        ZIP = null;
+//                    }
+//
+//                    /** GET THE RESTAURANT PHONE **/
+//                    if (cursor.getString(cursor.getColumnIndex(db.RESTAURANT_PHONE)) != null)	{
+//                        CONTACT_NO = cursor.getString(cursor.getColumnIndex(db.RESTAURANT_PHONE));
+//                    } else {
+//                        CONTACT_NO = null;
+//                    }
+//
+//                    /** GET THE RESTAURANT EMAIL **/
+//                    if (cursor.getString(cursor.getColumnIndex(db.RESTAURANT_EMAIL)) != null)	{
+//                        EMAIL_ADDRESS = cursor.getString(cursor.getColumnIndex(db.RESTAURANT_EMAIL));
+//                    } else {
+//                        EMAIL_ADDRESS = null;
+//                    }
+//
+//                    /** GET THE RESTAURANT WEBSITE **/
+//                    if (cursor.getString(cursor.getColumnIndex(db.RESTAURANT_WEBSITE)) != null)	{
+//                        WEBSITE = cursor.getString(cursor.getColumnIndex(db.RESTAURANT_WEBSITE));
+//                    } else {
+//                        WEBSITE = null;
+//                    }
                 }
             }
             return null;
@@ -243,50 +243,50 @@ public class WelcomeRestaurantFrag extends Fragment {
                 edtRestaurantName.setText(NAME);
             }
 
-			/* ADDRESS 1 */
-            if (ADDRESS_1 != null)	{
-                edtAddress1.setText(ADDRESS_1);
-            }
-
-			/* ADDRESS 2 */
-            if (ADDRESS_2 != null)	{
-                edtAddress2.setText(ADDRESS_2);
-            }
-
-			/* CITY */
-            if (CITY != null)	{
-                edtCity.setText(CITY);
-            }
-
-			/* STATE */
-            if (STATE != null)	{
-                edtState.setText(STATE);
-            }
-
-			/* COUNTRY */
-            if (COUNTRY != null)	{
-                edtCountry.setText(COUNTRY);
-            }
-
-			/* ZIP */
-            if (ZIP != null)	{
-                edtZIP.setText(ZIP);
-            }
-
-			/* PHONE */
-            if (CONTACT_NO != null)	{
-                edtPhone.setText(CONTACT_NO);
-            }
-
-			/* EMAIL */
-            if (EMAIL_ADDRESS != null)	{
-                edtEmail.setText(EMAIL_ADDRESS);
-            }
-
-			/* WEBSITE */
-            if (WEBSITE != null)	{
-                edtWebsite.setText(WEBSITE);
-            }
+//			/* ADDRESS 1 */
+//            if (ADDRESS_1 != null)	{
+//                edtAddress1.setText(ADDRESS_1);
+//            }
+//
+//			/* ADDRESS 2 */
+//            if (ADDRESS_2 != null)	{
+//                edtAddress2.setText(ADDRESS_2);
+//            }
+//
+//			/* CITY */
+//            if (CITY != null)	{
+//                edtCity.setText(CITY);
+//            }
+//
+//			/* STATE */
+//            if (STATE != null)	{
+//                edtState.setText(STATE);
+//            }
+//
+//			/* COUNTRY */
+//            if (COUNTRY != null)	{
+//                edtCountry.setText(COUNTRY);
+//            }
+//
+//			/* ZIP */
+//            if (ZIP != null)	{
+//                edtZIP.setText(ZIP);
+//            }
+//
+//			/* PHONE */
+//            if (CONTACT_NO != null)	{
+//                edtPhone.setText(CONTACT_NO);
+//            }
+//
+//			/* EMAIL */
+//            if (EMAIL_ADDRESS != null)	{
+//                edtEmail.setText(EMAIL_ADDRESS);
+//            }
+//
+//			/* WEBSITE */
+//            if (WEBSITE != null)	{
+//                edtWebsite.setText(WEBSITE);
+//            }
 
 			/* LOGO */
             if (LOGO != null)	{
@@ -314,16 +314,15 @@ public class WelcomeRestaurantFrag extends Fragment {
         edtRestaurantName = (AppCompatEditText) view.findViewById(R.id.edtRestaurantName);
 
 		/* FORM FIELDS */
-        edtAddress1 = (AppCompatEditText) view.findViewById(R.id.edtAddress1);
-        edtAddress2 = (AppCompatEditText) view.findViewById(R.id.edtAddress2);
-        edtCity = (AppCompatEditText) view.findViewById(R.id.edtCity);
-        edtState = (AppCompatEditText) view.findViewById(R.id.edtState);
-        edtCountry = (AppCompatEditText) view.findViewById(R.id.edtCountry);
-//        edtCurrency = (AppCompatAutoCompleteTextView) view.findViewById(R.id.edtCurrency);
-        edtZIP = (AppCompatEditText) view.findViewById(R.id.edtZIP);
-        edtPhone = (AppCompatEditText) view.findViewById(R.id.edtPhone);
-        edtEmail = (AppCompatEditText) view.findViewById(R.id.edtEmail);
-        edtWebsite = (AppCompatEditText) view.findViewById(R.id.edtWebsite);
+//        edtAddress1 = (AppCompatEditText) view.findViewById(R.id.edtAddress1);
+//        edtAddress2 = (AppCompatEditText) view.findViewById(R.id.edtAddress2);
+//        edtCity = (AppCompatEditText) view.findViewById(R.id.edtCity);
+//        edtState = (AppCompatEditText) view.findViewById(R.id.edtState);
+//        edtCountry = (AppCompatEditText) view.findViewById(R.id.edtCountry);
+//        edtZIP = (AppCompatEditText) view.findViewById(R.id.edtZIP);
+//        edtPhone = (AppCompatEditText) view.findViewById(R.id.edtPhone);
+//        edtEmail = (AppCompatEditText) view.findViewById(R.id.edtEmail);
+//        edtWebsite = (AppCompatEditText) view.findViewById(R.id.edtWebsite);
 
 		/* RESTAURANT LOGO */
         imgvwRestaurantLogo = (ImageView) view.findViewById(R.id.imgvwRestaurantLogo);
@@ -461,68 +460,68 @@ public class WelcomeRestaurantFrag extends Fragment {
                 NAME = null;
             }
 
-			/* ADDRESS 1 */
-            if (edtAddress1.getText().toString().length() != 0)	{
-                ADDRESS_1 = edtAddress1.getText().toString();
-            } else {
-                ADDRESS_1 = null;
-            }
-
-			/* ADDRESS 2 */
-            if (edtAddress2.getText().toString().length() != 0)	{
-                ADDRESS_2 = edtAddress2.getText().toString();
-            } else {
-                ADDRESS_2 = null;
-            }
-
-			/* CITY */
-            if (edtCity.getText().toString().length() != 0)	{
-                CITY = edtCity.getText().toString();
-            } else {
-                CITY = null;
-            }
-
-			/* STATE */
-            if (edtState.getText().toString().length() != 0)	{
-                STATE = edtState.getText().toString();
-            } else {
-                STATE = null;
-            }
-
-			/* COUNTRY */
-            if (edtCountry.getText().toString().length() != 0)	{
-                COUNTRY = edtCountry.getText().toString();
-            } else {
-                COUNTRY = null;
-            }
-
-			/* ZIP CODE */
-            if (edtZIP.getText().toString().length() != 0)	{
-                ZIP = edtZIP.getText().toString();
-            } else {
-                ZIP = null;
-            }
-
-			/* CONTACT NUMBER */
-            if (edtPhone.getText().toString().length() != 0)	{
-                CONTACT_NO = edtPhone.getText().toString();
-            } else {
-                CONTACT_NO = null;
-            }
-
-			/* EMAIL */
-            if (edtEmail.getText().toString().length() != 0)	{
-                EMAIL_ADDRESS = edtEmail.getText().toString();
-            } else {
-                EMAIL_ADDRESS = null;
-            }
-
-			/* WEBSITE */
-            if (edtWebsite.getText().toString().length() != 0)	{
-                WEBSITE = edtWebsite.getText().toString();
-            } else {
-                WEBSITE = null;
-            }
+//			/* ADDRESS 1 */
+//            if (edtAddress1.getText().toString().length() != 0)	{
+//                ADDRESS_1 = edtAddress1.getText().toString();
+//            } else {
+//                ADDRESS_1 = null;
+//            }
+//
+//			/* ADDRESS 2 */
+//            if (edtAddress2.getText().toString().length() != 0)	{
+//                ADDRESS_2 = edtAddress2.getText().toString();
+//            } else {
+//                ADDRESS_2 = null;
+//            }
+//
+//			/* CITY */
+//            if (edtCity.getText().toString().length() != 0)	{
+//                CITY = edtCity.getText().toString();
+//            } else {
+//                CITY = null;
+//            }
+//
+//			/* STATE */
+//            if (edtState.getText().toString().length() != 0)	{
+//                STATE = edtState.getText().toString();
+//            } else {
+//                STATE = null;
+//            }
+//
+//			/* COUNTRY */
+//            if (edtCountry.getText().toString().length() != 0)	{
+//                COUNTRY = edtCountry.getText().toString();
+//            } else {
+//                COUNTRY = null;
+//            }
+//
+//			/* ZIP CODE */
+//            if (edtZIP.getText().toString().length() != 0)	{
+//                ZIP = edtZIP.getText().toString();
+//            } else {
+//                ZIP = null;
+//            }
+//
+//			/* CONTACT NUMBER */
+//            if (edtPhone.getText().toString().length() != 0)	{
+//                CONTACT_NO = edtPhone.getText().toString();
+//            } else {
+//                CONTACT_NO = null;
+//            }
+//
+//			/* EMAIL */
+//            if (edtEmail.getText().toString().length() != 0)	{
+//                EMAIL_ADDRESS = edtEmail.getText().toString();
+//            } else {
+//                EMAIL_ADDRESS = null;
+//            }
+//
+//			/* WEBSITE */
+//            if (edtWebsite.getText().toString().length() != 0)	{
+//                WEBSITE = edtWebsite.getText().toString();
+//            } else {
+//                WEBSITE = null;
+//            }
         }
 
         @Override
@@ -540,45 +539,45 @@ public class WelcomeRestaurantFrag extends Fragment {
                 edtRestaurantName.setError("The Restaurant Name cannot be empty!");
             }
 
-			/* ADDRESS 1 */
-            if (ADDRESS_1 == null)	{
-                edtAddress1.setError("The field \"Address 1\" cannot be empty!");
-            }
-
-			/* CITY */
-            if (CITY == null)	{
-                edtCity.setError("The City cannot be empty!");
-            }
-
-			/* STATE */
-            if (STATE == null)	{
-                edtState.setError("The State cannot be empty!");
-            }
-
-			/* COUNTRY */
-            if (COUNTRY == null)	{
-                edtCountry.setError("The Country cannot be empty!");
-            }
-
-			/* ZIP */
-            if (ZIP == null)	{
-                edtZIP.setError("Please enter a valid ZIP Code!");
-            }
-
-			/* EMAIL ADDRESS */
-            if (EMAIL_ADDRESS == null)	{
-                edtEmail.setError("Please enter a valid Email Address!");
-            }
+//			/* ADDRESS 1 */
+//            if (ADDRESS_1 == null)	{
+//                edtAddress1.setError("The field \"Address 1\" cannot be empty!");
+//            }
+//
+//			/* CITY */
+//            if (CITY == null)	{
+//                edtCity.setError("The City cannot be empty!");
+//            }
+//
+//			/* STATE */
+//            if (STATE == null)	{
+//                edtState.setError("The State cannot be empty!");
+//            }
+//
+//			/* COUNTRY */
+//            if (COUNTRY == null)	{
+//                edtCountry.setError("The Country cannot be empty!");
+//            }
+//
+//			/* ZIP */
+//            if (ZIP == null)	{
+//                edtZIP.setError("Please enter a valid ZIP Code!");
+//            }
+//
+//			/* EMAIL ADDRESS */
+//            if (EMAIL_ADDRESS == null)	{
+//                edtEmail.setError("Please enter a valid Email Address!");
+//            }
 
             /** ADD THE COLLECTED DETAILS TO THE RESTAURANT TABLE **/
-            if (NAME != null &&
+            if (NAME != null /*&&
                     ADDRESS_1 != null && CITY != null && STATE != null && COUNTRY != null && ZIP != null &&
-                    CONTACT_NO != null && EMAIL_ADDRESS != null && LOGO != null)	{
+                    CONTACT_NO != null && EMAIL_ADDRESS != null*/ && LOGO != null)	{
 
                 db.addRestaurantDetails(
-                        1, NAME, LOGO,
+                        1, NAME, LOGO/*,
                         ADDRESS_1, ADDRESS_2, CITY, STATE, COUNTRY, ZIP,
-                        CONTACT_NO, EMAIL_ADDRESS, WEBSITE);
+                        CONTACT_NO, EMAIL_ADDRESS, WEBSITE*/);
 
                 /** SET RESTAURANT NAME **/
 //                getApp().setRestaurantDetails(NAME, ADDRESS_1, ADDRESS_2, CITY, STATE, COUNTRY, ZIP,
@@ -616,32 +615,32 @@ public class WelcomeRestaurantFrag extends Fragment {
         edtRestaurantName.setText("");
         edtRestaurantName.setHint(getActivity().getResources().getString(R.string.welcome_rest_name_hint));
 
-        edtAddress1.setText("");
-        edtAddress1.setHint(getActivity().getResources().getString(R.string.nw_acc_add1));
-
-        edtAddress2.setText("");
-        edtAddress2.setHint(getActivity().getResources().getString(R.string.nw_acc_add2));
-
-        edtCity.setText("");
-        edtCity.setHint(getActivity().getResources().getString(R.string.nw_acc_city));
-
-        edtState.setText("");
-        edtState.setHint(getActivity().getResources().getString(R.string.nw_acc_state));
-
-        edtCountry.setText("");
-        edtCountry.setHint(getActivity().getResources().getString(R.string.nw_acc_country));
-
-        edtZIP.setText("");
-        edtZIP.setHint(getActivity().getResources().getString(R.string.nw_acc_zip));
-
-        edtPhone.setText("");
-        edtPhone.setHint(getActivity().getResources().getString(R.string.nw_acc_phone));
-
-        edtEmail.setText("");
-        edtEmail.setHint(getActivity().getResources().getString(R.string.nw_acc_email));
-
-        edtWebsite.setText("");
-        edtWebsite.setHint(getActivity().getResources().getString(R.string.nw_acc_website));
+//        edtAddress1.setText("");
+//        edtAddress1.setHint(getActivity().getResources().getString(R.string.nw_acc_add1));
+//
+//        edtAddress2.setText("");
+//        edtAddress2.setHint(getActivity().getResources().getString(R.string.nw_acc_add2));
+//
+//        edtCity.setText("");
+//        edtCity.setHint(getActivity().getResources().getString(R.string.nw_acc_city));
+//
+//        edtState.setText("");
+//        edtState.setHint(getActivity().getResources().getString(R.string.nw_acc_state));
+//
+//        edtCountry.setText("");
+//        edtCountry.setHint(getActivity().getResources().getString(R.string.nw_acc_country));
+//
+//        edtZIP.setText("");
+//        edtZIP.setHint(getActivity().getResources().getString(R.string.nw_acc_zip));
+//
+//        edtPhone.setText("");
+//        edtPhone.setHint(getActivity().getResources().getString(R.string.nw_acc_phone));
+//
+//        edtEmail.setText("");
+//        edtEmail.setHint(getActivity().getResources().getString(R.string.nw_acc_email));
+//
+//        edtWebsite.setText("");
+//        edtWebsite.setHint(getActivity().getResources().getString(R.string.nw_acc_website));
     }
 
     @Override

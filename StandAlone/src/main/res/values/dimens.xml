@@ -65,6 +65,7 @@
     <dimen name="wel_rest_name_size">20sp</dimen>
     <dimen name="wel_rest_element_size">16sp</dimen>
     <dimen name="wel_rest_element_pad">11dp</dimen>
+    <dimen name="wel_rest_photo_top_margin">20dp</dimen>
     <dimen name="wel_rest_photo_btm_margin">2dp</dimen>
 
     <!-- WELCOME TABLES PAGE -->

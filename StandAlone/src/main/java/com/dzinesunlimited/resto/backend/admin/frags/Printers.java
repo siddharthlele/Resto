@@ -54,7 +54,6 @@ public class Printers extends Fragment {
     
     /** STATIC DECLARATION FOR ADDING A NEW PRINTER **/
     private static final int ACTION_REQUEST_NEW_PRINTER = 101;
-    private static final int ACTION_REQUEST_MODIFY_PRINT_CATEGORIES = 102;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

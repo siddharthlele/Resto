@@ -24,15 +24,16 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.dzinesunlimited.resto.R;
+import com.dzinesunlimited.resto.backend.admin.frags.PrinterDiscovery;
 import com.dzinesunlimited.resto.utils.TypefaceSpan;
 import com.dzinesunlimited.resto.utils.db.DBResto;
-import com.dzinesunlimited.resto.utils.helpers.adapters.backend.MenuCategoriesAdapter;
 import com.dzinesunlimited.resto.utils.helpers.adapters.backend.PrintersAdapter;
 import com.dzinesunlimited.resto.utils.helpers.pojos.PrinterData;
 import com.squareup.picasso.Picasso;
@@ -52,8 +53,9 @@ public class CategoryCreator extends AppCompatActivity {
     private DBResto db;
 
     /****** DATATYPES FOR CATEGORY DETAILS *****/
-    private String CATEGORY_NAME;
-    private byte[] CATEGORY_THUMB;
+    private String CATEGORY_NAME = null;
+    private byte[] CATEGORY_THUMB = null;
+    private String CATEGORY_PRINTER = null;
 
     /***** DECLARE THE LAYOUT ELEMENTS *****/
     private AppCompatEditText edtCategoryName;
@@ -69,6 +71,9 @@ public class CategoryCreator extends AppCompatActivity {
 
     /** THE ARRAYLIST FOR THE PRINTERS **/
     ArrayList<PrinterData> arrPrinters = new ArrayList<>();
+
+    /** THE REQUEST FOR A NEW PRINTER **/
+    private static final int ACTION_REQUEST_NEW_PRINTER = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +110,19 @@ public class CategoryCreator extends AppCompatActivity {
                         }
                     }).show();
         }
+
+        /** SELECT THE PRINTER THE NEW CATEGORY PRINTS TO **/
+        spnPrinters.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                CATEGORY_PRINTER = arrPrinters.get(position).getPrinterID();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     private class fetchPrintersList extends AsyncTask<Void, Void, Void> {
@@ -200,6 +218,15 @@ public class CategoryCreator extends AppCompatActivity {
         txtAddPrinter = (AppCompatTextView) findViewById(R.id.txtAddPrinter);
         imgvwCategoryThumb = (AppCompatImageView) findViewById(R.id.imgvwCategoryThumb);
 
+        /** ADD A PRINTER TO THE DATABASE **/
+        txtAddPrinter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent newPrinter = new Intent(CategoryCreator.this, PrinterDiscovery.class);
+                startActivityForResult(newPrinter, ACTION_REQUEST_NEW_PRINTER);
+            }
+        });
+
         /***** GET THE CATEGORY IMAGE *****/
         imgvwCategoryThumb.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -213,24 +240,32 @@ public class CategoryCreator extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 //        super.onActivityResult(requestCode, resultCode, data);
 
-        EasyImage.handleActivityResult(requestCode, resultCode, data, CategoryCreator.this, new DefaultCallback() {
+        if (resultCode == RESULT_OK && requestCode == ACTION_REQUEST_NEW_PRINTER)    {
 
-            @Override
-            public void onImagePicked(File imageFile, EasyImage.ImageSource source) {
-                super.onImagePicked(imageFile, source);
-                onPhotoReturned(imageFile);
-            }
+            /** CLEAR THE ARRAYLIST AND REFRESH THE LIST OF PRINTERS **/
+            arrPrinters.clear();
+            new fetchPrintersList().execute();
 
-            @Override
-            public void onImagePickerError(Exception e, EasyImage.ImageSource source) {
-                super.onImagePickerError(e, source);
-            }
+        } else if (resultCode == RESULT_OK) {
+            EasyImage.handleActivityResult(requestCode, resultCode, data, CategoryCreator.this, new DefaultCallback() {
 
-            @Override
-            public void onCanceled(EasyImage.ImageSource source) {
-                super.onCanceled(source);
-            }
-        });
+                @Override
+                public void onImagePicked(File imageFile, EasyImage.ImageSource source) {
+                    super.onImagePicked(imageFile, source);
+                    onPhotoReturned(imageFile);
+                }
+
+                @Override
+                public void onImagePickerError(Exception e, EasyImage.ImageSource source) {
+                    super.onImagePickerError(e, source);
+                }
+
+                @Override
+                public void onCanceled(EasyImage.ImageSource source) {
+                    super.onCanceled(source);
+                }
+            });
+        }
     }
 
     private Target target = new Target() {
@@ -367,7 +402,7 @@ public class CategoryCreator extends AppCompatActivity {
             String strCategoryName = edtCategoryName.getText().toString().trim();
 
             /** CONSTRUCT A QUERY TO FETCH TABLES ON RECORD **/
-            String strQueryData = "SELECT * FROM " + db.CATEGORY + " WHERE " + db.CATEGORY_NAME + " = '" + strCategoryName + "'";
+            String strQueryData = "SELECT * FROM " + db.CATEGORY + " WHERE " + db.CATEGORY_NAME.trim() + " = '" + strCategoryName + "'";
 //            Log.e("MEAL TYPE", strQueryData);
 
             /** CAST THE QUERY IN THE CURSOR TO FETCH THE RESULTS **/
@@ -413,7 +448,7 @@ public class CategoryCreator extends AppCompatActivity {
                 CATEGORY_NAME = edtCategoryName.getText().toString().trim();
 
                 /***** SAVE THE CATEGORY IN THE DATABASE *****/
-                db.newMenuCategory(CATEGORY_NAME, CATEGORY_THUMB);
+                db.newMenuCategory(CATEGORY_NAME.trim(), CATEGORY_THUMB, Integer.valueOf(CATEGORY_PRINTER));
 
                 /** CLOSE THE CURSOR **/
                 if (cursor != null && !cursor.isClosed())	{

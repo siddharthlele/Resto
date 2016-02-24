@@ -93,9 +93,9 @@ public class PrintersAdapter extends ArrayAdapter<PrinterData> {
         holder.txtValue.setTypeface(typeface);
 
         /** GET AND SET THE CATEGORY NAME **/
-        String strCurrencyName = arrPrinters.get(position).getPrinterName();
-        if (strCurrencyName != null)	{
-            holder.txtValue.setText(strCurrencyName);
+        String strPrinterName = arrPrinters.get(position).getPrinterSelectedName();
+        if (strPrinterName != null)	{
+            holder.txtValue.setText(strPrinterName);
         }
 
         return vi;
@@ -133,7 +133,7 @@ public class PrintersAdapter extends ArrayAdapter<PrinterData> {
         holder.txtValue.setTypeface(typeface);
 
         /** GET AND SET THE PRINTER NAME **/
-            holder.txtValue.setText(arrPrinters.get(position).getPrinterName());
+            holder.txtValue.setText(arrPrinters.get(position).getPrinterSelectedName());
 
         return vi;
     }

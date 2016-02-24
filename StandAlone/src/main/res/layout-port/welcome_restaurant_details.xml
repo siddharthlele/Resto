@@ -45,6 +45,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/wel_rest_element_lft_rgt_margins"
                     android:layout_marginRight="@dimen/wel_rest_element_lft_rgt_margins"
+                    android:layout_marginTop="@dimen/wel_rest_element_top_btm_margins"
                     android:hint="@string/welcome_rest_name_hint"
                     android:inputType="textCapWords"
                     android:padding="@dimen/wel_rest_element_pad"
@@ -55,7 +56,7 @@
                     android:textSize="@dimen/wel_rest_name_size" />
             </LinearLayout>
 
-            <RelativeLayout
+            <!--<RelativeLayout
                 android:id="@+id/rellaPrimaryContainer"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent">
@@ -299,13 +300,13 @@
                         android:textColor="@android:color/primary_text_dark"
                         android:textSize="@dimen/wel_rest_element_size" />
                 </android.support.design.widget.TextInputLayout>
-            </RelativeLayout>
+            </RelativeLayout>-->
 
             <LinearLayout
                 android:id="@+id/rellaSecondaryContainer"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/wel_rest_element_lft_rgt_margins"
+                android:layout_marginTop="@dimen/wel_rest_photo_top_margin"
                 android:orientation="vertical">
 
                 <android.support.v7.widget.AppCompatTextView
