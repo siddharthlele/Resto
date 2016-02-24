@@ -15,28 +15,34 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.AppCompatSpinner;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.dzinesunlimited.resto.R;
+import com.dzinesunlimited.resto.backend.admin.frags.PrinterDiscovery;
 import com.dzinesunlimited.resto.utils.TypefaceSpan;
 import com.dzinesunlimited.resto.utils.db.DBResto;
+import com.dzinesunlimited.resto.utils.helpers.adapters.backend.PrintersAdapter;
+import com.dzinesunlimited.resto.utils.helpers.pojos.PrinterData;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.util.ArrayList;
 
 import pl.aprilapps.easyphotopicker.DefaultCallback;
 import pl.aprilapps.easyphotopicker.EasyImage;
@@ -52,12 +58,21 @@ public class CategoryModifier extends AppCompatActivity {
     private DBResto db;
 
     /****** DATATYPES FOR CATEGORY DETAILS *****/
-    private String CATEGORY_NAME;
-    private byte[] CATEGORY_THUMB;
+    private String CATEGORY_NAME = null;
+    private byte[] CATEGORY_THUMB = null;
+    private String CATEGORY_PRINTER = null;
 
     /***** DECLARE THE LAYOUT ELEMENTS *****/
     private AppCompatEditText edtCategoryName;
+    private AppCompatSpinner spnPrinters;
+    private AppCompatTextView txtAddPrinter;
     private AppCompatImageView imgvwCategoryThumb;
+
+    /** THE ARRAYLIST FOR THE PRINTERS **/
+    ArrayList<PrinterData> arrPrinters = new ArrayList<>();
+
+    /** THE REQUEST FOR A NEW PRINTER **/
+    private static final int ACTION_REQUEST_NEW_PRINTER = 101;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,8 +85,110 @@ public class CategoryModifier extends AppCompatActivity {
         /***** CONFIGURE THE ACTIONBAR *****/
         configAB();
 
+        /** FETCH THE LIST OF PRINTERS **/
+        new fetchPrintersList().execute();
+
         /** FETCH THE INCOMING DATA **/
         fetchIncomingData();
+
+        /** SELECT THE PRINTER THE NEW CATEGORY PRINTS TO **/
+        spnPrinters.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                CATEGORY_PRINTER = arrPrinters.get(position).getPrinterID();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    /** TASK TO FETCH A LIST OF ALL PRINTERS **/
+    private class fetchPrintersList extends AsyncTask<Void, Void, Void> {
+
+        /** A CURSOR INSTANCE **/
+        Cursor cursor;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            /** INSTANTIATE THE DATABASE HELPER CLASS **/
+            db = new DBResto(CategoryModifier.this);
+
+            /** CONSTRUCT THE QUERY TO FETCH ALL TWEETS FROM THE DATABASE **/
+            String strQueryData = "SELECT * FROM " + db.PRINTERS;
+
+            /** CAST THE QUERY IN THE CURSOR TO FETCH THE RESULTS **/
+            cursor = db.selectAllData(strQueryData);
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            /** CHECK THAT THE DATABASE QUERY RETURNED SOME RESULTS **/
+            if (cursor != null && cursor.getCount() != 0)	{
+
+            /* AN INSTANCE OF THE PrinterData POJO CLASS */
+                PrinterData printerData;
+
+                /** LOOP THROUGH THE RESULT SET AND PARSE NECESSARY INFORMATION **/
+                for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+
+                    /***** INSTANTIATE THE PrinterData INSTANCE "printerData" *****/
+                    printerData = new PrinterData();
+
+                    /** GET THE PRINTER ID **/
+                    if (cursor.getString(cursor.getColumnIndex(db.PRINTER_ID)) != null)	{
+                        String PRINTER_ID = cursor.getString(cursor.getColumnIndex(db.PRINTER_ID));
+                        printerData.setPrinterID(PRINTER_ID);
+                    } else {
+                        printerData.setPrinterID(null);
+                    }
+
+                    /** GET THE PRINTER NAME **/
+                    if (cursor.getString(cursor.getColumnIndex(db.PRINTER_NAME)) != null)	{
+                        String PRINTER_NAME = cursor.getString(cursor.getColumnIndex(db.PRINTER_NAME));
+                        printerData.setPrinterName(PRINTER_NAME);
+                    } else {
+                        printerData.setPrinterName(null);
+                    }
+
+                    /** GET THE PRINTER_SELECTED_NAME **/
+                    if (cursor.getString(cursor.getColumnIndex(db.PRINTER_SELECTED_NAME)) != null)	{
+                        String PRINTER_SELECTED_NAME = cursor.getString(cursor.getColumnIndex(db.PRINTER_SELECTED_NAME));
+                        printerData.setPrinterSelectedName(PRINTER_SELECTED_NAME);
+                    } else {
+                        printerData.setPrinterSelectedName(null);
+                    }
+
+                    /** ADD THE COLLECTED DATA TO THE ARRAYLIST **/
+                    arrPrinters.add(printerData);
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            /** CLOSE THE CURSOR **/
+            if (cursor != null && !cursor.isClosed())	{
+                cursor.close();
+            }
+
+            /** CLOSE THE DATABASE **/
+            db.close();
+
+            /** SET THE ADAPTER TO THE SPINNER **/
+            spnPrinters.setAdapter(new PrintersAdapter(
+                    CategoryModifier.this,
+                    R.layout.custom_spinner_row,
+                    arrPrinters));
+        }
     }
 
     /** FETCH THE CATEGORY DETAILS **/
@@ -110,6 +227,13 @@ public class CategoryModifier extends AppCompatActivity {
                         CATEGORY_THUMB = cursor.getBlob(cursor.getColumnIndex(db.CATEGORY_IMAGE));
                     } else {
                         CATEGORY_THUMB = null;
+                    }
+
+                    /** GET THE CATEGORY PRINTER **/
+                    if (cursor.getString(cursor.getColumnIndex(db.CATEGORY_PRINTER_ID)) != null)	{
+                        CATEGORY_PRINTER = cursor.getString(cursor.getColumnIndex(db.CATEGORY_PRINTER_ID));
+                    } else {
+                        CATEGORY_PRINTER = null;
                     }
                 }
             }
@@ -161,7 +285,18 @@ public class CategoryModifier extends AppCompatActivity {
     private void castLayoutElements() {
 
         edtCategoryName = (AppCompatEditText) findViewById(R.id.edtCategoryName);
+        spnPrinters = (AppCompatSpinner) findViewById(R.id.spnPrinters);
+        txtAddPrinter = (AppCompatTextView) findViewById(R.id.txtAddPrinter);
         imgvwCategoryThumb = (AppCompatImageView) findViewById(R.id.imgvwCategoryThumb);
+
+        /** ADD A PRINTER TO THE DATABASE **/
+        txtAddPrinter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent newPrinter = new Intent(CategoryModifier.this, PrinterDiscovery.class);
+                startActivityForResult(newPrinter, ACTION_REQUEST_NEW_PRINTER);
+            }
+        });
 
         /***** GET THE CATEGORY IMAGE *****/
         imgvwCategoryThumb.setOnClickListener(new View.OnClickListener() {
@@ -174,26 +309,33 @@ public class CategoryModifier extends AppCompatActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
 
-        EasyImage.handleActivityResult(requestCode, resultCode, data, CategoryModifier.this, new DefaultCallback() {
+        if (resultCode == RESULT_OK && requestCode == ACTION_REQUEST_NEW_PRINTER)    {
 
-            @Override
-            public void onImagePicked(File imageFile, EasyImage.ImageSource source) {
-                super.onImagePicked(imageFile, source);
-                onPhotoReturned(imageFile);
-            }
+            /** CLEAR THE ARRAYLIST AND REFRESH THE LIST OF PRINTERS **/
+            arrPrinters.clear();
+            new fetchPrintersList().execute();
 
-            @Override
-            public void onImagePickerError(Exception e, EasyImage.ImageSource source) {
-                super.onImagePickerError(e, source);
-            }
+        } else if (resultCode == RESULT_OK) {
+            EasyImage.handleActivityResult(requestCode, resultCode, data, CategoryModifier.this, new DefaultCallback() {
 
-            @Override
-            public void onCanceled(EasyImage.ImageSource source) {
-                super.onCanceled(source);
-            }
-        });
+                @Override
+                public void onImagePicked(File imageFile, EasyImage.ImageSource source) {
+                    super.onImagePicked(imageFile, source);
+                    onPhotoReturned(imageFile);
+                }
+
+                @Override
+                public void onImagePickerError(Exception e, EasyImage.ImageSource source) {
+                    super.onImagePickerError(e, source);
+                }
+
+                @Override
+                public void onCanceled(EasyImage.ImageSource source) {
+                    super.onCanceled(source);
+                }
+            });
+        }
     }
 
     private Target target = new Target() {
@@ -375,7 +517,8 @@ public class CategoryModifier extends AppCompatActivity {
             if (!blnCatExists)  {
 
                 /** UPDATE THE CATEGORY **/
-                db.updateCategory(INCOMING_CATEGORY_ID, edtCategoryName.getText().toString().trim(), CATEGORY_THUMB);
+                db.updateCategory(
+                        INCOMING_CATEGORY_ID, edtCategoryName.getText().toString().trim(), CATEGORY_THUMB, Integer.valueOf(CATEGORY_PRINTER));
 
                 /** CLOSE THE DATABASE **/
                 db.close();

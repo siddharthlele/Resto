@@ -53,6 +53,47 @@
                     android:textColor="@android:color/primary_text_dark"
                     android:textSize="@dimen/mnu_cat_cre_text_size" />
 
+                <android.support.v7.widget.AppCompatTextView
+                    fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/mnu_cat_cre_element_pad"
+                    android:text="@string/cat_creator_printer_label"
+                    android:textColor="@android:color/secondary_text_dark"
+                    android:textSize="15sp" />
+
+                <LinearLayout
+                    android:id="@+id/linlaSpinnerCategoryContainer"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/mnu_cre_spin_cont_mar_lft_rgt"
+                    android:layout_marginRight="@dimen/mnu_cre_spin_cont_mar_lft_rgt"
+                    android:layout_marginTop="@dimen/mnu_cre_spin_cont_mar_btm_top"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.AppCompatSpinner
+                        android:id="@+id/spnPrinters"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/mnu_cat_cre_card_image_pad_margin"
+                        android:layout_marginTop="@dimen/mnu_cat_cre_card_image_pad_margin"
+                        android:layout_weight="1"
+                        android:prompt="@string/creator_menu_spinner_prompt" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/txtAddPrinter"
+                        fontPath="fonts/MaterialIcons-Regular.ttf"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:padding="11dp"
+                        android:text="@string/cre_menu_new_category"
+                        android:textColor="@android:color/primary_text_dark"
+                        android:textSize="29sp" />
+                </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/linlaImageContainer"
                     android:layout_width="fill_parent"

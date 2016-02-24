@@ -389,7 +389,7 @@ public class DBResto {
     /********************   UPDATES     ********************/
 
     // UPDATE CATEGORY
-    public void updateCategory(String catID, String catName, byte[] catImage)  {
+    public void updateCategory(String catID, String catName, byte[] catImage, Integer printer)  {
 
         /* OPEN THE DATABASE AGAIN */
         this.db = helper.getWritableDatabase();
@@ -398,6 +398,7 @@ public class DBResto {
         ContentValues valUpdateCategory = new ContentValues();
         valUpdateCategory.put(CATEGORY_NAME, catName);
         valUpdateCategory.put(CATEGORY_IMAGE, catImage);
+        valUpdateCategory.put(CATEGORY_PRINTER_ID, printer);
 
         /* UPDATE THE COLLECTED DATA TO THE CATEGORY TABLE */
         db.update(CATEGORY, valUpdateCategory, CATEGORY_ID + "=" + catID, null);

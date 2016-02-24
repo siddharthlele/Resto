@@ -125,6 +125,7 @@ public class CategoryCreator extends AppCompatActivity {
         });
     }
 
+    /** TASK TO FETCH A LIST OF ALL PRINTERS **/
     private class fetchPrintersList extends AsyncTask<Void, Void, Void> {
 
         /** A CURSOR INSTANCE **/
@@ -238,7 +239,6 @@ public class CategoryCreator extends AppCompatActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK && requestCode == ACTION_REQUEST_NEW_PRINTER)    {
 
