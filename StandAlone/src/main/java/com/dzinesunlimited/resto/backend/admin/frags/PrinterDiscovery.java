@@ -234,7 +234,7 @@ public class PrinterDiscovery extends AppCompatActivity {
                 holder.txtStatus.setTextColor(ContextCompat.getColor(activity, android.R.color.holo_green_light));
             }
 
-            /** ADD THE PRINTER TO THE DATABASE **/
+            /** ADD THE PRINTER TO THE DATABASE **     /
             holder.crdvwContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
