@@ -98,7 +98,7 @@ public class OrderCart extends AppCompatActivity implements ReceiveListener {
         /** FETCH THE INCOMING DATA **/
         fetchIncomingData();
 
-        ArrayList<KOTPrint> arrKOT = new ArrayList<>();
+        ArrayList<OrderData> arrKOT = new ArrayList<>();
 
         /** GET THE PRINTERS REQUIRED TO PRINT THE COMPLETE ORDER **/
         db = new DBResto(OrderCart.this);
@@ -109,31 +109,22 @@ public class OrderCart extends AppCompatActivity implements ReceiveListener {
         Cursor cursor = db.selectAllData(qryOrderCategories);
 //        Log.e("INNER JOIN DUMP", DatabaseUtils.dumpCursorToString(cursor));
         if (cursor != null && cursor.getCount() != 0)	{
-            /** AN INSTANCE OF THE KOTPrint HELPER CLASS **/
-            KOTPrint print;
+            /** AN INSTANCE OF THE OrderData HELPER CLASS **/
+            OrderData data;
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
 
                 /***** INSTANTIATE THE KOTPrint INSTANCE "print" *****/
-                print = new KOTPrint();
-
-                /** GET THE PRINTER ID **/
-                if (cursor.getString(cursor.getColumnIndex(db.PRINTER_ID)) != null)	{
-                    String PRINTER_ID = cursor.getString(cursor.getColumnIndex(db.PRINTER_ID));
-                    print.setPrinterID(PRINTER_ID);
-                } else {
-                    print.setPrinterID(null);
-                }
+                data = new OrderData();
 
                 /** GET THE PRINTER IP **/
                 if (cursor.getString(cursor.getColumnIndex(db.PRINTER_IP)) != null)	{
                     String PRINTER_IP = cursor.getString(cursor.getColumnIndex(db.PRINTER_IP));
-                    print.setPrinterIP(PRINTER_IP);
-                    Log.e("ORIGINAL IP", PRINTER_IP);
+                    data.setPrinterIP(PRINTER_IP);
                 } else {
-                    print.setPrinterIP(null);
+                    data.setPrinterIP(null);
                 }
 
-                arrKOT.add(print);
+                arrKOT.add(data);
             }
 
             /** SHOW THE SIZE OF THE KOT ARRAY **/
@@ -145,32 +136,11 @@ public class OrderCart extends AppCompatActivity implements ReceiveListener {
         }
     }
 
-    private class comparePrinterIP implements Comparator<KOTPrint>  {
+    private class comparePrinterIP implements Comparator<OrderData>  {
 
         @Override
-        public int compare(KOTPrint lhs, KOTPrint rhs) {
+        public int compare(OrderData lhs, OrderData rhs) {
             return lhs.getPrinterIP().compareTo(rhs.getPrinterIP());
-        }
-    }
-
-    private class KOTPrint {
-        private String printerID;
-        private String printerIP;
-
-        public String getPrinterID() {
-            return printerID;
-        }
-
-        public void setPrinterID(String printerID) {
-            this.printerID = printerID;
-        }
-
-        public String getPrinterIP() {
-            return printerIP;
-        }
-
-        public void setPrinterIP(String printerIP) {
-            this.printerIP = printerIP;
         }
     }
 
@@ -378,228 +348,6 @@ public class OrderCart extends AppCompatActivity implements ReceiveListener {
         }
     }
 
-    private void fetchIncomingData() {
-        Bundle bundle = getIntent().getExtras();
-        if (bundle.containsKey("TABLE_NO")) {
-            INCOMING_TABLE_ID = bundle.getString("TABLE_NO");
-            if (INCOMING_TABLE_ID != null)  {
-                new fetchCurrentOrders().execute();
-            } else {
-                //TODO: SHOW AN ERROR
-            }
-        } else {
-            //TODO: SHOW AN ERROR
-        }
-    }
-
-    /***** CONFIGURE THE ACTIONBAR *****/
-    private void configAB() {
-
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.myToolbar);
-        setSupportActionBar(myToolbar);
-
-        String strTitle = getResources().getString(R.string.order_cart_title);
-        SpannableString s = new SpannableString(strTitle);
-        s.setSpan(new TypefaceSpan(
-                OrderCart.this, "RobotoCondensed-Regular.ttf"), 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setTitle(s);
-        getSupportActionBar().setSubtitle(null);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                break;
-            default:
-                break;
-        }
-        return false;
-    }
-
-    /** CONFIGURE THE RECYCLER VIEW **/
-    private void configRecyclerView() {
-        orderCart.setHasFixedSize(true);
-        LinearLayoutManager llm = new LinearLayoutManager(OrderCart.this);
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        orderCart.setLayoutManager(llm);
-    }
-
-    /** THE CATEGORIES CUSTOM ADAPTER **/
-    private class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrdersVH> {
-
-        /** AN ACTIVITY INSTANCE **/
-        Activity activity;
-
-        /** ARRAYLIST TO GET DATA FROM THE ACTIVITY **/
-        ArrayList<OrderData> arrAdapOrders;
-
-        public OrderAdapter(Activity activity, ArrayList<OrderData> arrAdapOrders) {
-
-            /** CAST THE ACTIVITY IN THE GLOBAL ACTIVITY INSTANCE **/
-            this.activity = activity;
-
-            /** CAST THE CONTENTS OF THE ARRAYLIST IN THE METHOD TO THE LOCAL INSTANCE **/
-            this.arrAdapOrders = arrAdapOrders;
-        }
-
-        @Override
-        public int getItemCount() {
-            return arrAdapOrders.size();
-        }
-
-        @Override
-        public void onBindViewHolder(final OrdersVH holder, final int position) {
-            final OrderData data = arrAdapOrders.get(position);
-
-            /** GET THE MENU NAME **/
-            final String SUB_MENU_NAME = data.getMenuName();
-            holder.txtMenuName.setText(SUB_MENU_NAME);
-
-            /** GET THE SUB MENU THUMBNAIL **/
-            byte[] CATEGORY_THUMB = data.getMenuImage();
-            if (CATEGORY_THUMB != null)	{
-                Bitmap bmpThumb = BitmapFactory.decodeByteArray(CATEGORY_THUMB, 0, CATEGORY_THUMB.length);
-                holder.imgvwMenu.setImageBitmap(bmpThumb);
-            }
-
-            /** SET THE DISH QUANTITY **/
-            holder.txtQuantity.setText(String.valueOf(data.getOrderQuantity()));
-
-            /** SET THE DISH PRICE **/
-            String strDishPrice = data.getMenuPrice();
-            double dishBasePrice = Double.parseDouble(strDishPrice);
-            double dishTotal = dishBasePrice * Integer.parseInt(holder.txtQuantity.getText().toString());
-            holder.txtDishTotal.setText(String.valueOf(dishTotal));
-
-            /** INCREASE THE DISH QUANTITY **/
-            holder.txtQtyPlus.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int qty = Integer.parseInt(holder.txtQuantity.getText().toString());
-
-                    /** INCREMENT THE QUANTITY BY 1 **/
-                    qty++;
-
-                    /** SET THE NEW ORDER QUANTITY **/
-                    holder.txtQuantity.setText(String.valueOf(qty));
-
-                    /** UPDATE THE DISH PRICE **/
-                    String strDishPrice = data.getMenuPrice();
-                    double dishBasePrice = Double.parseDouble(strDishPrice);
-                    double dishTotal = dishBasePrice * qty;
-                    holder.txtDishTotal.setText(String.valueOf(dishTotal));
-
-                    /** UPDATE THE ORDER IN THE ORDER CART TABLE **/
-                    db = new DBResto(activity);
-                    db.updateOrderQuantity(data.getOrderID(), qty, String.valueOf(dishTotal));
-                    db.close();
-
-                    /** REFRESH THE ORDER TOTAL **/
-                    refreshOrderTotal();
-                }
-            });
-
-            /** REDUCE THE DISH QUANTITY **/
-            holder.txtQtyMinus.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int qty = Integer.parseInt(holder.txtQuantity.getText().toString());
-
-                    /** DECREASE THE QUANTITY BY 1 **/
-                    if (qty > 1) {
-                        qty--;
-
-                        /** SET THE NEW ORDER QUANTITY **/
-                        holder.txtQuantity.setText(String.valueOf(qty));
-
-                        /** UPDATE THE DISH PRICE **/
-                        String strDishPrice = data.getMenuPrice();
-                        double dishBasePrice = Double.parseDouble(strDishPrice);
-                        double dishTotal = dishBasePrice * qty;
-                        holder.txtDishTotal.setText(String.valueOf(dishTotal));
-
-                        /** UPDATE THE ORDER IN THE ORDER CART TABLE **/
-                        db = new DBResto(activity);
-                        db.updateOrderQuantity(data.getOrderID(), qty, String.valueOf(dishTotal));
-                        db.close();
-
-                        /** REFRESH THE ORDER TOTAL **/
-                        refreshOrderTotal();
-                    }
-                }
-            });
-
-            /** REMOVE THE DISH FROM THE ORDER CART **/
-            holder.txtRemoveDish.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-//                    Log.e("STATUS", String.valueOf(data.isOrderStatus()));
-                    removeAt(position);
-
-                    /** DELETE THE ORDER FROM THE DATABASE **/
-                    if (!data.isOrderStatus())   {
-                        /* OPEN THE DATABASE CONNECTION */
-                        db = new DBResto(activity);
-
-                        /* DELETE THE ORDER CART RECORD */
-                        db.deleteOrder(data.getOrderID());
-
-                        /* CLOSE THE DATABASE CONNECTION */
-                        db.close();
-
-                        /** REFRESH THE ORDER TOTAL **/
-                        refreshOrderTotal();
-                    }
-                }
-            });
-        }
-
-        private void removeAt(int position) {
-            arrAdapOrders.remove(position);
-            notifyItemRemoved(position);
-            notifyItemRangeChanged(position, arrAdapOrders.size());
-        }
-
-        @Override
-        public OrdersVH onCreateViewHolder(ViewGroup parent, int i) {
-
-            View itemView = LayoutInflater.
-                    from(parent.getContext()).
-                    inflate(R.layout.fe_order_cart_item, parent, false);
-
-            return new OrdersVH(itemView);
-        }
-
-        public class OrdersVH extends RecyclerView.ViewHolder	{
-
-            AppCompatTextView txtRemoveDish;
-            CircleImageView imgvwMenu;
-            AppCompatTextView txtMenuName;
-            AppCompatTextView txtQtyMinus;
-            AppCompatTextView txtQuantity;
-            AppCompatTextView txtQtyPlus;
-            AppCompatTextView txtDishTotal;
-
-            public OrdersVH(View v) {
-                super(v);
-                txtRemoveDish = (AppCompatTextView) v.findViewById(R.id.txtRemoveDish);
-                imgvwMenu = (CircleImageView) v.findViewById(R.id.imgvwMenu);
-                txtMenuName = (AppCompatTextView) v.findViewById(R.id.txtMenuName);
-                txtQtyMinus = (AppCompatTextView) v.findViewById(R.id.txtQtyMinus);
-                txtQuantity = (AppCompatTextView) v.findViewById(R.id.txtQuantity);
-                txtQtyPlus = (AppCompatTextView) v.findViewById(R.id.txtQtyPlus);
-                txtDishTotal = (AppCompatTextView) v.findViewById(R.id.txtDishTotal);
-            }
-        }
-    }
-
     private boolean runPrintReceiptSequence() {
         if (!initializeObject()) {
             return false;
@@ -797,7 +545,7 @@ public class OrderCart extends AppCompatActivity implements ReceiveListener {
         }
 
         try {
-            mPrinter.connect("TCP:192.168.11.200", Printer.PARAM_DEFAULT);
+            mPrinter.connect("TCP:192.168.11.202", Printer.PARAM_DEFAULT);
         }
         catch (Exception e) {
             ShowMsg.showException(e, "connect", this);
@@ -905,6 +653,220 @@ public class OrderCart extends AppCompatActivity implements ReceiveListener {
         finalizeObject();
     }
 
+    private void fetchIncomingData() {
+        Bundle bundle = getIntent().getExtras();
+        if (bundle.containsKey("TABLE_NO")) {
+            INCOMING_TABLE_ID = bundle.getString("TABLE_NO");
+            if (INCOMING_TABLE_ID != null)  {
+                new fetchCurrentOrders().execute();
+            } else {
+                //TODO: SHOW AN ERROR
+            }
+        } else {
+            //TODO: SHOW AN ERROR
+        }
+    }
+
+    /***** CONFIGURE THE ACTIONBAR *****/
+    private void configAB() {
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.myToolbar);
+        setSupportActionBar(myToolbar);
+
+        String strTitle = getResources().getString(R.string.order_cart_title);
+        SpannableString s = new SpannableString(strTitle);
+        s.setSpan(new TypefaceSpan(
+                OrderCart.this, "RobotoCondensed-Regular.ttf"), 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setTitle(s);
+        getSupportActionBar().setSubtitle(null);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+            default:
+                break;
+        }
+        return false;
+    }
+
+    /** THE CATEGORIES CUSTOM ADAPTER **/
+    private class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrdersVH> {
+
+        /** AN ACTIVITY INSTANCE **/
+        Activity activity;
+
+        /** ARRAYLIST TO GET DATA FROM THE ACTIVITY **/
+        ArrayList<OrderData> arrAdapOrders;
+
+        public OrderAdapter(Activity activity, ArrayList<OrderData> arrAdapOrders) {
+
+            /** CAST THE ACTIVITY IN THE GLOBAL ACTIVITY INSTANCE **/
+            this.activity = activity;
+
+            /** CAST THE CONTENTS OF THE ARRAYLIST IN THE METHOD TO THE LOCAL INSTANCE **/
+            this.arrAdapOrders = arrAdapOrders;
+        }
+
+        @Override
+        public int getItemCount() {
+            return arrAdapOrders.size();
+        }
+
+        @Override
+        public void onBindViewHolder(final OrdersVH holder, final int position) {
+            final OrderData data = arrAdapOrders.get(position);
+
+            /** GET THE MENU NAME **/
+            final String SUB_MENU_NAME = data.getMenuName();
+            holder.txtMenuName.setText(SUB_MENU_NAME);
+
+            /** GET THE SUB MENU THUMBNAIL **/
+            byte[] CATEGORY_THUMB = data.getMenuImage();
+            if (CATEGORY_THUMB != null)	{
+                Bitmap bmpThumb = BitmapFactory.decodeByteArray(CATEGORY_THUMB, 0, CATEGORY_THUMB.length);
+                holder.imgvwMenu.setImageBitmap(bmpThumb);
+            }
+
+            /** SET THE DISH QUANTITY **/
+            holder.txtQuantity.setText(String.valueOf(data.getOrderQuantity()));
+
+            /** SET THE DISH PRICE **/
+            String strDishPrice = data.getMenuPrice();
+            double dishBasePrice = Double.parseDouble(strDishPrice);
+            double dishTotal = dishBasePrice * Integer.parseInt(holder.txtQuantity.getText().toString());
+            holder.txtDishTotal.setText(String.valueOf(dishTotal));
+
+            /** INCREASE THE DISH QUANTITY **/
+            holder.txtQtyPlus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int qty = Integer.parseInt(holder.txtQuantity.getText().toString());
+
+                    /** INCREMENT THE QUANTITY BY 1 **/
+                    qty++;
+
+                    /** SET THE NEW ORDER QUANTITY **/
+                    holder.txtQuantity.setText(String.valueOf(qty));
+
+                    /** UPDATE THE DISH PRICE **/
+                    String strDishPrice = data.getMenuPrice();
+                    double dishBasePrice = Double.parseDouble(strDishPrice);
+                    double dishTotal = dishBasePrice * qty;
+                    holder.txtDishTotal.setText(String.valueOf(dishTotal));
+
+                    /** UPDATE THE ORDER IN THE ORDER CART TABLE **/
+                    db = new DBResto(activity);
+                    db.updateOrderQuantity(data.getOrderID(), qty, String.valueOf(dishTotal));
+                    db.close();
+
+                    /** REFRESH THE ORDER TOTAL **/
+                    refreshOrderTotal();
+                }
+            });
+
+            /** REDUCE THE DISH QUANTITY **/
+            holder.txtQtyMinus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int qty = Integer.parseInt(holder.txtQuantity.getText().toString());
+
+                    /** DECREASE THE QUANTITY BY 1 **/
+                    if (qty > 1) {
+                        qty--;
+
+                        /** SET THE NEW ORDER QUANTITY **/
+                        holder.txtQuantity.setText(String.valueOf(qty));
+
+                        /** UPDATE THE DISH PRICE **/
+                        String strDishPrice = data.getMenuPrice();
+                        double dishBasePrice = Double.parseDouble(strDishPrice);
+                        double dishTotal = dishBasePrice * qty;
+                        holder.txtDishTotal.setText(String.valueOf(dishTotal));
+
+                        /** UPDATE THE ORDER IN THE ORDER CART TABLE **/
+                        db = new DBResto(activity);
+                        db.updateOrderQuantity(data.getOrderID(), qty, String.valueOf(dishTotal));
+                        db.close();
+
+                        /** REFRESH THE ORDER TOTAL **/
+                        refreshOrderTotal();
+                    }
+                }
+            });
+
+            /** REMOVE THE DISH FROM THE ORDER CART **/
+            holder.txtRemoveDish.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    Log.e("STATUS", String.valueOf(data.isOrderStatus()));
+                    removeAt(position);
+
+                    /** DELETE THE ORDER FROM THE DATABASE **/
+                    if (!data.isOrderStatus())   {
+                        /* OPEN THE DATABASE CONNECTION */
+                        db = new DBResto(activity);
+
+                        /* DELETE THE ORDER CART RECORD */
+                        db.deleteOrder(data.getOrderID());
+
+                        /* CLOSE THE DATABASE CONNECTION */
+                        db.close();
+
+                        /** REFRESH THE ORDER TOTAL **/
+                        refreshOrderTotal();
+                    }
+                }
+            });
+        }
+
+        private void removeAt(int position) {
+            arrAdapOrders.remove(position);
+            notifyItemRemoved(position);
+            notifyItemRangeChanged(position, arrAdapOrders.size());
+        }
+
+        @Override
+        public OrdersVH onCreateViewHolder(ViewGroup parent, int i) {
+
+            View itemView = LayoutInflater.
+                    from(parent.getContext()).
+                    inflate(R.layout.fe_order_cart_item, parent, false);
+
+            return new OrdersVH(itemView);
+        }
+
+        public class OrdersVH extends RecyclerView.ViewHolder	{
+
+            AppCompatTextView txtRemoveDish;
+            CircleImageView imgvwMenu;
+            AppCompatTextView txtMenuName;
+            AppCompatTextView txtQtyMinus;
+            AppCompatTextView txtQuantity;
+            AppCompatTextView txtQtyPlus;
+            AppCompatTextView txtDishTotal;
+
+            public OrdersVH(View v) {
+                super(v);
+                txtRemoveDish = (AppCompatTextView) v.findViewById(R.id.txtRemoveDish);
+                imgvwMenu = (CircleImageView) v.findViewById(R.id.imgvwMenu);
+                txtMenuName = (AppCompatTextView) v.findViewById(R.id.txtMenuName);
+                txtQtyMinus = (AppCompatTextView) v.findViewById(R.id.txtQtyMinus);
+                txtQuantity = (AppCompatTextView) v.findViewById(R.id.txtQuantity);
+                txtQtyPlus = (AppCompatTextView) v.findViewById(R.id.txtQtyPlus);
+                txtDishTotal = (AppCompatTextView) v.findViewById(R.id.txtDishTotal);
+            }
+        }
+    }
+
     private String makeErrorMessage(PrinterStatusInfo status) {
         String msg = "";
 
@@ -968,6 +930,14 @@ public class OrderCart extends AppCompatActivity implements ReceiveListener {
         if (status.getBatteryLevel() == Printer.BATTERY_LEVEL_1) {
             warningsMsg += getString(R.string.handlingmsg_warn_battery_near_end);
         }
+    }
+
+    /** CONFIGURE THE RECYCLER VIEW **/
+    private void configRecyclerView() {
+        orderCart.setHasFixedSize(true);
+        LinearLayoutManager llm = new LinearLayoutManager(OrderCart.this);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        orderCart.setLayoutManager(llm);
     }
 
     @Override

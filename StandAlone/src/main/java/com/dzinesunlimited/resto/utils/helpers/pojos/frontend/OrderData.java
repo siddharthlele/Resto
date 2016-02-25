@@ -11,6 +11,7 @@ public class OrderData {
     private String orderQuantity;
     private boolean orderStatus;
     private String orderTimestamp;
+    private String printerIP;
 
     public String getOrderID() {
         return orderID;
@@ -82,5 +83,13 @@ public class OrderData {
 
     public void setOrderTimestamp(String orderTimestamp) {
         this.orderTimestamp = orderTimestamp;
+    }
+
+    public String getPrinterIP() {
+        return printerIP;
+    }
+
+    public void setPrinterIP(String printerIP) {
+        this.printerIP = printerIP;
     }
 }
