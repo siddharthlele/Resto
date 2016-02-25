@@ -3,6 +3,7 @@ package com.dzinesunlimited.resto.frontend.menu;
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -21,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.dzinesunlimited.resto.R;
 import com.dzinesunlimited.resto.utils.TypefaceSpan;
@@ -36,6 +38,9 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 
 import butterknife.Bind;
@@ -92,6 +97,81 @@ public class OrderCart extends AppCompatActivity implements ReceiveListener {
 
         /** FETCH THE INCOMING DATA **/
         fetchIncomingData();
+
+        ArrayList<KOTPrint> arrKOT = new ArrayList<>();
+
+        /** GET THE PRINTERS REQUIRED TO PRINT THE COMPLETE ORDER **/
+        db = new DBResto(OrderCart.this);
+        String qryOrderCategories =
+                "SELECT * FROM orderCart INNER JOIN menu ON orderCart.menuID = menu.menuID " +
+                        "INNER JOIN category ON menu.categoryID = category.categoryID " +
+                        "INNER JOIN printers ON category.categoryPrinterID = printers.printerID";
+        Cursor cursor = db.selectAllData(qryOrderCategories);
+//        Log.e("INNER JOIN DUMP", DatabaseUtils.dumpCursorToString(cursor));
+        if (cursor != null && cursor.getCount() != 0)	{
+            /** AN INSTANCE OF THE KOTPrint HELPER CLASS **/
+            KOTPrint print;
+            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+
+                /***** INSTANTIATE THE KOTPrint INSTANCE "print" *****/
+                print = new KOTPrint();
+
+                /** GET THE PRINTER ID **/
+                if (cursor.getString(cursor.getColumnIndex(db.PRINTER_ID)) != null)	{
+                    String PRINTER_ID = cursor.getString(cursor.getColumnIndex(db.PRINTER_ID));
+                    print.setPrinterID(PRINTER_ID);
+                } else {
+                    print.setPrinterID(null);
+                }
+
+                /** GET THE PRINTER IP **/
+                if (cursor.getString(cursor.getColumnIndex(db.PRINTER_IP)) != null)	{
+                    String PRINTER_IP = cursor.getString(cursor.getColumnIndex(db.PRINTER_IP));
+                    print.setPrinterIP(PRINTER_IP);
+                    Log.e("ORIGINAL IP", PRINTER_IP);
+                } else {
+                    print.setPrinterIP(null);
+                }
+
+                arrKOT.add(print);
+            }
+
+            /** SHOW THE SIZE OF THE KOT ARRAY **/
+            Toast.makeText(getApplicationContext(), "ARRAY SIZE: " + String.valueOf(arrKOT.size()), Toast.LENGTH_SHORT).show();
+            Collections.sort(arrKOT, new comparePrinterIP());
+            for (int i = 0; i < arrKOT.size(); i++) {
+                Log.e("PRINTER IP", arrKOT.get(i).getPrinterIP());
+            }
+        }
+    }
+
+    private class comparePrinterIP implements Comparator<KOTPrint>  {
+
+        @Override
+        public int compare(KOTPrint lhs, KOTPrint rhs) {
+            return lhs.getPrinterIP().compareTo(rhs.getPrinterIP());
+        }
+    }
+
+    private class KOTPrint {
+        private String printerID;
+        private String printerIP;
+
+        public String getPrinterID() {
+            return printerID;
+        }
+
+        public void setPrinterID(String printerID) {
+            this.printerID = printerID;
+        }
+
+        public String getPrinterIP() {
+            return printerIP;
+        }
+
+        public void setPrinterIP(String printerIP) {
+            this.printerIP = printerIP;
+        }
     }
 
     /** REFRESH THE CURRENT ORDER TOTAL **/
@@ -520,76 +600,6 @@ public class OrderCart extends AppCompatActivity implements ReceiveListener {
         }
     }
 
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
-
-    private String makeErrorMessage(PrinterStatusInfo status) {
-        String msg = "";
-
-        if (status.getOnline() == Printer.FALSE) {
-            msg += getString(R.string.handlingmsg_err_offline);
-        }
-        if (status.getConnection() == Printer.FALSE) {
-            msg += getString(R.string.handlingmsg_err_no_response);
-        }
-        if (status.getCoverOpen() == Printer.TRUE) {
-            msg += getString(R.string.handlingmsg_err_cover_open);
-        }
-        if (status.getPaper() == Printer.PAPER_EMPTY) {
-            msg += getString(R.string.handlingmsg_err_receipt_end);
-        }
-        if (status.getPaperFeed() == Printer.TRUE || status.getPanelSwitch() == Printer.SWITCH_ON) {
-            msg += getString(R.string.handlingmsg_err_paper_feed);
-        }
-        if (status.getErrorStatus() == Printer.MECHANICAL_ERR || status.getErrorStatus() == Printer.AUTOCUTTER_ERR) {
-            msg += getString(R.string.handlingmsg_err_autocutter);
-            msg += getString(R.string.handlingmsg_err_need_recover);
-        }
-        if (status.getErrorStatus() == Printer.UNRECOVER_ERR) {
-            msg += getString(R.string.handlingmsg_err_unrecover);
-        }
-        if (status.getErrorStatus() == Printer.AUTORECOVER_ERR) {
-            if (status.getAutoRecoverError() == Printer.HEAD_OVERHEAT) {
-                msg += getString(R.string.handlingmsg_err_overheat);
-                msg += getString(R.string.handlingmsg_err_head);
-            }
-            if (status.getAutoRecoverError() == Printer.MOTOR_OVERHEAT) {
-                msg += getString(R.string.handlingmsg_err_overheat);
-                msg += getString(R.string.handlingmsg_err_motor);
-            }
-            if (status.getAutoRecoverError() == Printer.BATTERY_OVERHEAT) {
-                msg += getString(R.string.handlingmsg_err_overheat);
-                msg += getString(R.string.handlingmsg_err_battery);
-            }
-            if (status.getAutoRecoverError() == Printer.WRONG_PAPER) {
-                msg += getString(R.string.handlingmsg_err_wrong_paper);
-            }
-        }
-        if (status.getBatteryLevel() == Printer.BATTERY_LEVEL_0) {
-            msg += getString(R.string.handlingmsg_err_battery_real_end);
-        }
-
-        return msg;
-    }
-
-    private void dispPrinterWarnings(PrinterStatusInfo status) {
-        String warningsMsg = "";
-
-        if (status == null) {
-            return;
-        }
-
-        if (status.getPaper() == Printer.PAPER_NEAR_END) {
-            warningsMsg += getString(R.string.handlingmsg_warn_receipt_near_end);
-        }
-
-        if (status.getBatteryLevel() == Printer.BATTERY_LEVEL_1) {
-            warningsMsg += getString(R.string.handlingmsg_warn_battery_near_end);
-        }
-    }
-
     private boolean runPrintReceiptSequence() {
         if (!initializeObject()) {
             return false;
@@ -602,6 +612,118 @@ public class OrderCart extends AppCompatActivity implements ReceiveListener {
 
         if (!printData()) {
             finalizeObject();
+            return false;
+        }
+
+        return true;
+    }
+
+    /** CREATE THE KOT AND PRINT TO THE DESIGNATED PRINTER **/
+    private boolean createKOTData() {
+
+//        /** GET THE PRINTERS REQUIRED TO PRINT THE COMPLETE ORDER **/
+//        db = new DBResto(OrderCart.this);
+//        String qryOrderCategories =
+//                "SELECT * FROM orderCart INNER JOIN menu ON orderCart.menuID = menu.menuID " +
+//                        "INNER JOIN category ON menu.categoryID = category.categoryID " +
+//                        "INNER JOIN printers ON category.categoryPrinterID = printers.printerID";
+//        Cursor cursor = db.selectAllData(qryOrderCategories);
+//        Log.e("INNER JOIN DUMP", DatabaseUtils.dumpCursorToString(cursor));
+
+        String method = null;
+        StringBuilder textData = new StringBuilder();
+
+        if (mPrinter == null) {
+            return false;
+        }
+
+        try {
+            /** GET THE TIMESTAMP FOR THE ORDER CONFIRMATION **/
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+            String currentTS = sdf.format(new Date());
+
+            /** CONSTRUCT THE TIME LINE / ROW **/
+            String strTimeLabel = "TIME:";
+            String strActualTime = currentTS;
+            String strFinalTimeLabel = StringUtils.rightPad(strTimeLabel, 32, " ") + strActualTime;
+
+            /** CONSTRUCT THE TABLE NUMBER LINE / ROW **/
+            String strTable = "TABLE:";
+            String strFinalTable = null;
+            if (INCOMING_TABLE_ID.length() == 1)    {
+                strFinalTable = StringUtils.rightPad(strTable, 39, " ");
+            } else if (INCOMING_TABLE_ID.length() > 1)  {
+                strFinalTable = StringUtils.rightPad(strTable, 38, " ");
+            } else if ((INCOMING_TABLE_ID.length() >= 2))   {
+                strFinalTable = StringUtils.rightPad(strTable, 37, " ");
+            }
+
+            method = "addTextAlign";
+            mPrinter.addTextAlign(Printer.ALIGN_CENTER);
+            method = "addFeedLine";
+            mPrinter.addFeedLine(1);
+            textData.append("KOT (Kitchen Order Token)\n\n");
+            textData.append(strFinalTimeLabel + "\n\n");
+            mPrinter.addText(textData.toString());
+            textData.delete(0, textData.length());
+
+            method = "addTextSize";
+            mPrinter.addTextSize(1, 1);
+            textData.append(strFinalTable + INCOMING_TABLE_ID + "\n\n");
+            textData.append("------------------------------\n\n");
+            method = "addText";
+            mPrinter.addText(textData.toString());
+            textData.delete(0, textData.length());
+
+            /** GET THE LIST OF ORDERS **/
+            if (arrOrders.size() != 0)  {
+                /** A STRING BUILDER FOR COLLATING KOT PRINT DATA **/
+                StringBuilder stbPrintKOT;
+
+                for (int i = 0; i < arrOrders.size(); i++) {
+                    stbPrintKOT = new StringBuilder();
+
+                    /** GET THE MEAL NAME **/
+                    String MEAL_NAME = arrOrders.get(i).getMenuName();
+                    if (MEAL_NAME.length() > 40)    {
+                        String strFinalMealName = MEAL_NAME.substring(0, 37);
+                        stbPrintKOT.append(strFinalMealName + "  ");
+                    } else {
+                        String strMealNameWithPad = StringUtils.rightPad(MEAL_NAME, 37, "*");
+                        stbPrintKOT.append(strMealNameWithPad + "  ");
+                    }
+
+                    /** GET THE QUANTITY **/
+                    String MEAL_QUANTITY = arrOrders.get(i).getOrderQuantity();
+                    if (MEAL_QUANTITY.length() < 4) {
+                        String strQuantityWithPad = StringUtils.leftPad(MEAL_QUANTITY, 4, "*");
+                        stbPrintKOT.append(strQuantityWithPad + "  \n\n");
+                    } else {
+                        stbPrintKOT.append(MEAL_QUANTITY + "  \n\n");
+                    }
+
+                    String strFinalOrderDetails = String.valueOf(stbPrintKOT);
+                    strFinalOrderDetails = strFinalOrderDetails.replaceAll("\\*", " ");
+                    textData.append(strFinalOrderDetails);
+                }
+            }
+
+            method = "addText";
+            mPrinter.addText(textData.toString());
+            textData.delete(0, textData.length());
+
+            String strDashes = "\n------------------------------\n\nEND OF ORDER\n\n";
+
+            textData.append(strDashes);
+            method = "addText";
+            mPrinter.addText(textData.toString());
+            textData.delete(0, textData.length());
+
+            method = "addCut";
+            mPrinter.addCut(Printer.CUT_FEED);
+        }
+        catch (Exception e) {
+            ShowMsg.showException(e, method, this);
             return false;
         }
 
@@ -730,109 +852,6 @@ public class OrderCart extends AppCompatActivity implements ReceiveListener {
         mPrinter = null;
     }
 
-    /** CREATE THE KOT AND PRINT TO THE DESIGNATED PRINTER **/
-    private boolean createKOTData() {
-
-        String method = null;
-        StringBuilder textData = new StringBuilder();
-
-        if (mPrinter == null) {
-            return false;
-        }
-
-        try {
-            /** GET THE TIMESTAMP FOR THE ORDER CONFIRMATION **/
-            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-            String currentTS = sdf.format(new Date());
-
-            /** CONSTRUCT THE TIME LINE / ROW **/
-            String strTimeLabel = "TIME:";
-            String strActualTime = currentTS;
-            String strFinalTimeLabel = StringUtils.rightPad(strTimeLabel, 32, " ") + strActualTime;
-
-            /** CONSTRUCT THE TABLE NUMBER LINE / ROW **/
-            String strTable = "TABLE:";
-            String strFinalTable = null;
-            if (INCOMING_TABLE_ID.length() == 1)    {
-                strFinalTable = StringUtils.rightPad(strTable, 39, " ");
-            } else if (INCOMING_TABLE_ID.length() > 1)  {
-                strFinalTable = StringUtils.rightPad(strTable, 38, " ");
-            } else if ((INCOMING_TABLE_ID.length() >= 2))   {
-                strFinalTable = StringUtils.rightPad(strTable, 37, " ");
-            }
-
-            method = "addTextAlign";
-            mPrinter.addTextAlign(Printer.ALIGN_CENTER);
-            method = "addFeedLine";
-            mPrinter.addFeedLine(1);
-            textData.append("KOT (Kitchen Order Token)\n\n");
-            textData.append(strFinalTimeLabel + "\n\n");
-            mPrinter.addText(textData.toString());
-            textData.delete(0, textData.length());
-
-            method = "addTextSize";
-            mPrinter.addTextSize(1, 1);
-            textData.append(strFinalTable + INCOMING_TABLE_ID + "\n\n");
-            textData.append("------------------------------\n\n");
-            method = "addText";
-            mPrinter.addText(textData.toString());
-            textData.delete(0, textData.length());
-
-            /** GET THE LIST OF ORDERS **/
-            if (arrOrders.size() != 0)  {
-                /** A STRING BUILDER FOR COLLATING KOT PRINT DATA **/
-                StringBuilder stbPrintKOT;
-
-                for (int i = 0; i < arrOrders.size(); i++) {
-                    stbPrintKOT = new StringBuilder();
-
-                    /** GET THE MEAL NAME **/
-                    String MEAL_NAME = arrOrders.get(i).getMenuName();
-                    if (MEAL_NAME.length() > 40)    {
-                        String strFinalMealName = MEAL_NAME.substring(0, 37);
-                        stbPrintKOT.append(strFinalMealName + "  ");
-                    } else {
-                        String strMealNameWithPad = StringUtils.rightPad(MEAL_NAME, 37, "*");
-                        stbPrintKOT.append(strMealNameWithPad + "  ");
-                    }
-
-                    /** GET THE QUANTITY **/
-                    String MEAL_QUANTITY = arrOrders.get(i).getOrderQuantity();
-                    if (MEAL_QUANTITY.length() < 4) {
-                        String strQuantityWithPad = StringUtils.leftPad(MEAL_QUANTITY, 4, "*");
-                        stbPrintKOT.append(strQuantityWithPad + "  \n\n");
-                    } else {
-                        stbPrintKOT.append(MEAL_QUANTITY + "  \n\n");
-                    }
-
-                    String strFinalOrderDetails = String.valueOf(stbPrintKOT);
-                    strFinalOrderDetails = strFinalOrderDetails.replaceAll("\\*", " ");
-                    textData.append(strFinalOrderDetails);
-                }
-            }
-
-            method = "addText";
-            mPrinter.addText(textData.toString());
-            textData.delete(0, textData.length());
-
-            String strDashes = "\n------------------------------\n\nEND OF ORDER\n\n";
-
-            textData.append(strDashes);
-            method = "addText";
-            mPrinter.addText(textData.toString());
-            textData.delete(0, textData.length());
-
-            method = "addCut";
-            mPrinter.addCut(Printer.CUT_FEED);
-        }
-        catch (Exception e) {
-            ShowMsg.showException(e, method, this);
-            return false;
-        }
-
-        return true;
-    }
-
     @Override
     public void onPtrReceive(final Printer printerObj, final int code, final PrinterStatusInfo status, final String printJobId) {
         runOnUiThread(new Runnable() {
@@ -884,5 +903,75 @@ public class OrderCart extends AppCompatActivity implements ReceiveListener {
         }
 
         finalizeObject();
+    }
+
+    private String makeErrorMessage(PrinterStatusInfo status) {
+        String msg = "";
+
+        if (status.getOnline() == Printer.FALSE) {
+            msg += getString(R.string.handlingmsg_err_offline);
+        }
+        if (status.getConnection() == Printer.FALSE) {
+            msg += getString(R.string.handlingmsg_err_no_response);
+        }
+        if (status.getCoverOpen() == Printer.TRUE) {
+            msg += getString(R.string.handlingmsg_err_cover_open);
+        }
+        if (status.getPaper() == Printer.PAPER_EMPTY) {
+            msg += getString(R.string.handlingmsg_err_receipt_end);
+        }
+        if (status.getPaperFeed() == Printer.TRUE || status.getPanelSwitch() == Printer.SWITCH_ON) {
+            msg += getString(R.string.handlingmsg_err_paper_feed);
+        }
+        if (status.getErrorStatus() == Printer.MECHANICAL_ERR || status.getErrorStatus() == Printer.AUTOCUTTER_ERR) {
+            msg += getString(R.string.handlingmsg_err_autocutter);
+            msg += getString(R.string.handlingmsg_err_need_recover);
+        }
+        if (status.getErrorStatus() == Printer.UNRECOVER_ERR) {
+            msg += getString(R.string.handlingmsg_err_unrecover);
+        }
+        if (status.getErrorStatus() == Printer.AUTORECOVER_ERR) {
+            if (status.getAutoRecoverError() == Printer.HEAD_OVERHEAT) {
+                msg += getString(R.string.handlingmsg_err_overheat);
+                msg += getString(R.string.handlingmsg_err_head);
+            }
+            if (status.getAutoRecoverError() == Printer.MOTOR_OVERHEAT) {
+                msg += getString(R.string.handlingmsg_err_overheat);
+                msg += getString(R.string.handlingmsg_err_motor);
+            }
+            if (status.getAutoRecoverError() == Printer.BATTERY_OVERHEAT) {
+                msg += getString(R.string.handlingmsg_err_overheat);
+                msg += getString(R.string.handlingmsg_err_battery);
+            }
+            if (status.getAutoRecoverError() == Printer.WRONG_PAPER) {
+                msg += getString(R.string.handlingmsg_err_wrong_paper);
+            }
+        }
+        if (status.getBatteryLevel() == Printer.BATTERY_LEVEL_0) {
+            msg += getString(R.string.handlingmsg_err_battery_real_end);
+        }
+
+        return msg;
+    }
+
+    private void dispPrinterWarnings(PrinterStatusInfo status) {
+        String warningsMsg = "";
+
+        if (status == null) {
+            return;
+        }
+
+        if (status.getPaper() == Printer.PAPER_NEAR_END) {
+            warningsMsg += getString(R.string.handlingmsg_warn_receipt_near_end);
+        }
+
+        if (status.getBatteryLevel() == Printer.BATTERY_LEVEL_1) {
+            warningsMsg += getString(R.string.handlingmsg_warn_battery_near_end);
+        }
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }
