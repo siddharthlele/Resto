@@ -267,9 +267,44 @@ public class Printers extends Fragment {
         switch (item.getItemId()) {
             case R.id.newPrinter:
 
-                /***** ADD A NEW PRINTER *****/
-                Intent newPrinter = new Intent(getActivity(), PrinterDiscovery.class);
-                startActivityForResult(newPrinter, ACTION_REQUEST_NEW_PRINTER);
+                /** GET THE PRINTER COUNT **/
+                db = new DBResto(getActivity());
+                String s = "SELECT * FROM " + db.PRINTERS;
+                Cursor cursor = db.selectAllData(s);
+                int count = cursor.getCount();
+                if (count == 2) {
+
+                    String strTitle = "Upgrade Required";
+                    String strMessage = "The Standalone version of Resto supports two Printers. One of the printer\'s can be configured to print KOT\'s. The second Printer can be configured to print the Receipts / Bills. This configuration is at your discretion. \n\nTo add more than two Printers, consider upgrading to the Enterprise Edition of Resto. \nTo know more about the Enterprise Edition, click the \"Show Me\" button. Or, click the \"Nevermind\" button to continue using the Standalone version.";
+                    String strYes = getResources().getString(R.string.generic_mb_yes);
+                    String strNo = getResources().getString(R.string.generic_mb_no);
+
+                    /** CONFIGURE THE ALERTDIALOG **/
+                    new MaterialDialog.Builder(getActivity())
+                            .icon(ContextCompat.getDrawable(getActivity(), R.drawable.ic_info_outline_black_24dp))
+                            .title(strTitle)
+                            .content(strMessage)
+                            .positiveText(strYes)
+                            .negativeText(strNo)
+                            .theme(Theme.LIGHT)
+                            .typeface("HelveticaNeueLTW1G-MdCn.otf", "HelveticaNeueLTW1G-Cn.otf")
+                            .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                }
+                            })
+                            .onNegative(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                    dialog.dismiss();
+                                }
+                            }).show();
+                } else {
+                    /***** ADD A NEW PRINTER *****/
+                    Intent newPrinter = new Intent(getActivity(), PrinterDiscovery.class);
+                    startActivityForResult(newPrinter, ACTION_REQUEST_NEW_PRINTER);
+                }
 
                 break;
 
@@ -348,39 +383,39 @@ public class Printers extends Fragment {
                                     final String PRINTER_ID = data.getPrinterID();
                                     String PRINTER_NAME = data.getPrinterName();
 
-                                        String strTitle = "DELETE \"" + PRINTER_NAME.toUpperCase() + "\"?";
-                                        String strMessage = getResources().getString(R.string.printer_delete_prompt);
-                                        String strYes = getResources().getString(R.string.generic_mb_yes);
-                                        String strNo = getResources().getString(R.string.generic_mb_no);
+                                    String strTitle = "DELETE \"" + PRINTER_NAME.toUpperCase() + "\"?";
+                                    String strMessage = getResources().getString(R.string.printer_delete_prompt);
+                                    String strYes = getResources().getString(R.string.generic_mb_yes);
+                                    String strNo = getResources().getString(R.string.generic_mb_no);
 
-                                        /** CONFIGURE THE ALERTDIALOG **/
-                                        new MaterialDialog.Builder(activity)
-                                                .icon(ContextCompat.getDrawable(activity, R.drawable.ic_info_outline_black_24dp))
-                                                .title(strTitle)
-                                                .content(strMessage)
-                                                .positiveText(strYes)
-                                                .negativeText(strNo)
-                                                .theme(Theme.LIGHT)
-                                                .typeface("HelveticaNeueLTW1G-MdCn.otf", "HelveticaNeueLTW1G-Cn.otf")
-                                                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                                                    @Override
-                                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                                        db = new DBResto(activity);
-                                                        db.deletePrinter(PRINTER_ID);
+                                    /** CONFIGURE THE ALERTDIALOG **/
+                                    new MaterialDialog.Builder(activity)
+                                            .icon(ContextCompat.getDrawable(activity, R.drawable.ic_info_outline_black_24dp))
+                                            .title(strTitle)
+                                            .content(strMessage)
+                                            .positiveText(strYes)
+                                            .negativeText(strNo)
+                                            .theme(Theme.LIGHT)
+                                            .typeface("HelveticaNeueLTW1G-MdCn.otf", "HelveticaNeueLTW1G-Cn.otf")
+                                            .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                                @Override
+                                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                                    db = new DBResto(activity);
+                                                    db.deletePrinter(PRINTER_ID);
 
-                                                        /* CLEAR THE ARRAYLIST */
-                                                        arrPrinters.clear();
+                                                    /* CLEAR THE ARRAYLIST */
+                                                    arrPrinters.clear();
 
-                                                        /** REFRESH THE PRINTERS LIST  **/
-                                                        new fetchPrinters().execute();
-                                                    }
-                                                })
-                                                .onNegative(new MaterialDialog.SingleButtonCallback() {
-                                                    @Override
-                                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                                        dialog.dismiss();
-                                                    }
-                                                }).show();
+                                                    /** REFRESH THE PRINTERS LIST  **/
+                                                    new fetchPrinters().execute();
+                                                }
+                                            })
+                                            .onNegative(new MaterialDialog.SingleButtonCallback() {
+                                                @Override
+                                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                                    dialog.dismiss();
+                                                }
+                                            }).show();
 
                                     break;
 

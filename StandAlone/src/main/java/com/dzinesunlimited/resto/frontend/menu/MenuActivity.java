@@ -336,7 +336,7 @@ public class MenuActivity extends AppCompatActivity {
         imgvwOrderCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent showOrders = new Intent(MenuActivity.this, OrderCart.class);
+                Intent showOrders = new Intent(MenuActivity.this, TestOrderCart.class);
                 showOrders.putExtra("TABLE_NO", INCOMING_TABLE_NO);
                 startActivityForResult(showOrders, ACTION_EDIT_ORDERS);
             }

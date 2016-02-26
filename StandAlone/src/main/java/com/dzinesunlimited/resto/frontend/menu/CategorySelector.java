@@ -234,7 +234,7 @@ public class CategorySelector extends AppCompatActivity {
         imgvwOrderCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent showOrders = new Intent(CategorySelector.this, OrderCart.class);
+                Intent showOrders = new Intent(CategorySelector.this, TestOrderCart.class);
                 showOrders.putExtra("TABLE_NO", INCOMING_TABLE_NO);
                 startActivityForResult(showOrders, ACTION_EDIT_ORDERS);
             }

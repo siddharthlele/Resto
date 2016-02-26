@@ -7,7 +7,6 @@ import android.preference.PreferenceManager;
 
 import com.dzinesunlimited.resto.BuildConfig;
 import com.dzinesunlimited.resto.R;
-import com.facebook.stetho.Stetho;
 
 import butterknife.ButterKnife;
 import pl.aprilapps.easyphotopicker.EasyImage;
@@ -43,7 +42,7 @@ public class AppPrefs extends Application {
         ButterKnife.setDebug(BuildConfig.DEBUG);
 
         /** INITIALIZE THE FACEBOOK STETHO SDK **/
-        Stetho.initializeWithDefaults(this);
+//        Stetho.initializeWithDefaults(this);
 //        OkHttpClient client = new OkHttpClient();
 //        client.networkInterceptors().add(new StethoInterceptor());
 

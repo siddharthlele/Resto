@@ -64,15 +64,6 @@ public class ShowMsg {
                         return;
                     }
                 }).show();
-//        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
-//        alertDialog.setMessage(msg);
-//        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//            public void onClick(DialogInterface dialog, int whichButton) {
-//                return ;
-//            }
-//        });
-//        alertDialog.create();
-//        alertDialog.show();
     }
 
     private static String getEposExceptionText(int state) {
