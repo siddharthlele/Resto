@@ -176,13 +176,13 @@ public class CategoryCreator extends AppCompatActivity {
                         printerData.setPrinterName(null);
                     }
 
-                    /** GET THE PRINTER_SELECTED_NAME **/
-                    if (cursor.getString(cursor.getColumnIndex(db.PRINTER_SELECTED_NAME)) != null)	{
-                        String PRINTER_SELECTED_NAME = cursor.getString(cursor.getColumnIndex(db.PRINTER_SELECTED_NAME));
-                        printerData.setPrinterSelectedName(PRINTER_SELECTED_NAME);
-                    } else {
-                        printerData.setPrinterSelectedName(null);
-                    }
+//                    /** GET THE PRINTER_SELECTED_NAME **/
+//                    if (cursor.getString(cursor.getColumnIndex(db.PRINTER_SELECTED_NAME)) != null)	{
+//                        String PRINTER_SELECTED_NAME = cursor.getString(cursor.getColumnIndex(db.PRINTER_SELECTED_NAME));
+//                        printerData.setPrinterSelectedName(PRINTER_SELECTED_NAME);
+//                    } else {
+//                        printerData.setPrinterSelectedName(null);
+//                    }
 
                     /** ADD THE COLLECTED DATA TO THE ARRAYLIST **/
                     arrPrinters.add(printerData);

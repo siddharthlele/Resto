@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -122,6 +123,7 @@ public class MenuActivity extends AppCompatActivity {
 
             /** CAST THE QUERY IN THE CURSOR TO FETCH THE RESULTS **/
             cursor = db.selectAllData(strQueryData);
+            Log.e("DISHES", DatabaseUtils.dumpCursorToString(cursor));
         }
 
         @Override
@@ -336,7 +338,7 @@ public class MenuActivity extends AppCompatActivity {
         imgvwOrderCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent showOrders = new Intent(MenuActivity.this, TestOrderCart.class);
+                Intent showOrders = new Intent(MenuActivity.this, OrderCart.class);
                 showOrders.putExtra("TABLE_NO", INCOMING_TABLE_NO);
                 startActivityForResult(showOrders, ACTION_EDIT_ORDERS);
             }

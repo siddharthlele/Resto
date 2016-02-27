@@ -55,7 +55,6 @@ public class DBResto {
     public final String ORDER_CART = "orderCart";
     public final String SESSIONS = "sessions";
     public final String PRINTERS = "printers";
-//    public final String PRINT_CATEGORIES = "printCategories";
 
     /* RESTAURANT */
     public final String RESTAURANT_ID = "restID";
@@ -145,7 +144,7 @@ public class DBResto {
     public final String PRINTER_ID = "printerID";
     public final String PRINTER_NAME = "printerName";
     public final String PRINTER_IP = "printerIP";
-    public final String PRINTER_SELECTED_NAME = "printerSelectedName";
+    public final String PRINTER_PRINTS = "printerPrints";
 
 //    /* PRINT CATEGORIES */
 //    public final String PRINT_CATEGORY_ID = "printCategoryID";
@@ -199,7 +198,7 @@ public class DBResto {
 //        db.insert(PRINT_CATEGORIES, null, values);
 //    }
 
-    public long addPrinter(String printerName, String printerIP, String selectedName)   {
+    public long addPrinter(String printerName, String printerIP, String prints)   {
 
 		/* OPEN THE DATABASE AGAIN */
         this.db = helper.getWritableDatabase();
@@ -208,7 +207,7 @@ public class DBResto {
         ContentValues valNewPrinter = new ContentValues();
         valNewPrinter.put(PRINTER_NAME, printerName);
         valNewPrinter.put(PRINTER_IP, printerIP);
-        valNewPrinter.put(PRINTER_SELECTED_NAME, selectedName);
+        valNewPrinter.put(PRINTER_PRINTS, prints);
 
 		/* INSERT THE COLLECTED DATA TO THE COUNTRY TABLE */
         long printerID = db.insert(PRINTERS, null, valNewPrinter);
@@ -404,7 +403,7 @@ public class DBResto {
         db.update(CATEGORY, valUpdateCategory, CATEGORY_ID + "=" + catID, null);
     }
 
-    // UPDATE AN ORDER
+    /* UPDATE THE ORDER QUANTITY */
     public void updateOrderQuantity(String orderID, int orderQuantity, String orderTotal)    {
 
         /* OPEN THE DATABASE AGAIN */
@@ -414,6 +413,20 @@ public class DBResto {
         ContentValues valUpdateOrder = new ContentValues();
         valUpdateOrder.put(ORDER_QUANTITY, orderQuantity);
         valUpdateOrder.put(ORDER_TOTAL, orderTotal);
+
+        /* INSERT THE COLLECTED DATA TO THE ORDER CART TABLE */
+        db.update(ORDER_CART, valUpdateOrder, ORDER_CART_ID + "=" + orderID, null);
+    }
+
+    /* UPDATE ORDER STATUS */
+    public void updateOrderStatus(String orderID, boolean orderStatus)  {
+
+        /* OPEN THE DATABASE AGAIN */
+        this.db = helper.getWritableDatabase();
+
+        /* ADD AND CREATE KEY VALUE PAIRS FOR UPDATING AN EXISTING TAX */
+        ContentValues valUpdateOrder = new ContentValues();
+        valUpdateOrder.put(ORDER_STATUS, orderStatus);
 
         /* INSERT THE COLLECTED DATA TO THE ORDER CART TABLE */
         db.update(ORDER_CART, valUpdateOrder, ORDER_CART_ID + "=" + orderID, null);
@@ -636,7 +649,7 @@ public class DBResto {
                 PRINTER_ID + " integer primary key autoincrement, " +
                 PRINTER_NAME + " text, " +
                 PRINTER_IP + " text, " +
-                PRINTER_SELECTED_NAME + " text, " +
+                PRINTER_PRINTS + " text, " +
                 "UNIQUE" + " (" + PRINTER_IP + " )" + ");";
 
         // EXECUTE THE strCreatePrintersTable TO CREATE THE TABLE

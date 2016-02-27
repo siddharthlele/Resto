@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- PRINTER OPTIONS -->
+    <string-array name="printOptions">
+        <item>Print KOT\'s</item>
+        <item>Print Receipts / Bills</item>
+    </string-array>
+
     <!-- ORDER QUANTITY -->
     <string-array name="menuServes">
         <item>1</item>

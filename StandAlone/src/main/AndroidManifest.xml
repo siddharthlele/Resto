@@ -111,10 +111,6 @@
             android:windowSoftInputMode="adjustPan" />
 
         <activity
-            android:name=".frontend.menu.TestOrderCart"
-            android:windowSoftInputMode="adjustPan" />
-
-        <activity
             android:name=".frontend.menu.MenuDetails"
             android:windowSoftInputMode="adjustPan" />
     </application>

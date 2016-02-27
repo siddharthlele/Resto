@@ -161,13 +161,13 @@ public class Printers extends Fragment {
                         data.setPrinterIP(null);
                     }
 
-                    /** GET THE PRINTER_SELECTED_NAME **/
-                    if (cursor.getString(cursor.getColumnIndex(db.PRINTER_SELECTED_NAME)) != null)	{
-                        String PRINTER_SELECTED_NAME = cursor.getString(cursor.getColumnIndex(db.PRINTER_SELECTED_NAME));
-                        data.setPrinterSelectedName(PRINTER_SELECTED_NAME);
-                    } else {
-                        data.setPrinterSelectedName(null);
-                    }
+//                    /** GET THE PRINTER_SELECTED_NAME **/
+//                    if (cursor.getString(cursor.getColumnIndex(db.PRINTER_SELECTED_NAME)) != null)	{
+//                        String PRINTER_SELECTED_NAME = cursor.getString(cursor.getColumnIndex(db.PRINTER_SELECTED_NAME));
+//                        data.setPrinterSelectedName(PRINTER_SELECTED_NAME);
+//                    } else {
+//                        data.setPrinterSelectedName(null);
+//                    }
 
                     /** ADD THE COLLECTED DATA TO THE ARRAYLIST **/
                     arrPrinters.add(data);
@@ -359,7 +359,7 @@ public class Printers extends Fragment {
             final PrinterData data = arrAdapPrinters.get(position);
 
             /** SET THE PRINTER NAME **/
-            holder.txtPrinterName.setText(data.getPrinterSelectedName());
+            holder.txtPrinterName.setText(data.getPrinterName());
 
             /** SET THE PRINTER IP ADDRESS **/
             holder.txtPrinterIP.setText(data.getPrinterIP());
