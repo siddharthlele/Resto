@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/foo_toolbar" />
+
+    <LinearLayout
+        android:id="@+id/linlaHeaderProgress"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="2dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/txtCategoryName"
+            fontPath="fonts/HelveticaNeueLTW1G-MdCn.otf"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:padding="11dp"
+            android:textColor="@android:color/primary_text_dark"
+            android:textSize="16sp" />
+
+        <ListView
+            android:id="@+id/listTaxes"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:cacheColorHint="@android:color/transparent"
+            android:fadingEdge="none"
+            android:persistentDrawingCache="scrolling"
+            android:scrollbarSize="5dp"
+            android:scrollbarThumbVertical="@color/primaryColorDark"
+            android:scrollbars="vertical"
+            android:visibility="visible" />
+
+        <LinearLayout
+            android:id="@+id/linlaEmpty"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <android.support.v7.widget.AppCompatTextView
+                fontPath="fonts/MaterialIcons-Regular.ttf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/app_icon"
+                android:textColor="@android:color/holo_orange_dark"
+                android:textSize="@dimen/empty_icon" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txtEmpty"
+                fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:padding="6dp"
+                android:text="You haven't configured your Taxes yet. Head back to the Dashboard, select Taxes from the side-bar and add all taxes that apply."
+                android:textColor="@android:color/tertiary_text_light"
+                android:textSize="20sp"
+                tools:ignore="MissingPrefix" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -32,6 +32,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.dzinesunlimited.resto.R;
+import com.dzinesunlimited.resto.frontend.billing.BillingActivity;
 import com.dzinesunlimited.resto.utils.AppPrefs;
 import com.dzinesunlimited.resto.utils.TypefaceSpan;
 import com.dzinesunlimited.resto.utils.db.DBResto;
@@ -349,18 +350,19 @@ public class MenuActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         switch (item.getItemId()) {
             case android.R.id.home:
-
                 this.finish();
-
                 break;
-
+            case R.id.menuCheckout:
+                /** SHOW THE BILL **/
+                Intent showBill = new Intent(MenuActivity.this, BillingActivity.class);
+                showBill.putExtra("TABLE_NO", INCOMING_TABLE_NO);
+                startActivity(showBill);
+                break;
             default:
                 break;
         }
-
         return false;
     }
 

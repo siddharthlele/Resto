@@ -73,8 +73,8 @@
     <string name="cat_creator_ID_label">MENU CATEGORY ID (<b>THIS IS AN AUTO-GENERATED NUMBER</b>)</string>
     <string name="cat_creator_name_label">NAME THE MENU CATEGORY</string>
     <string name="cat_creator_name">(*) Enter The Menu Category Name</string>
-    <string name="cat_creator_printer_label">Select the <b>Printer</b> this Category Prints to.</string>
-    <string name="cat_creator_tax_label">CHOOSE THE TAXES THAT APPLY TO THIS CATEGORY</string>
+    <string name="cat_creator_printer_label">SELECTSelect the <b>Printer</b> this Category Prints to.</string>
+    <string name="cat_creator_tax_label">CHOOSE TAXES FOR THIS CATEGORY</string>
     <string name="cat_creator_tax_sel_1">You have selected </string>
     <string name="cat_creator_tax_sel_2">tax(es)</string>
     <string name="cat_creator_dish_thumb_label">Please assign an Image that will represent the Category to your Guests. You can either <i>\"click\"</i> a new Picture using a <i>Camera</i> application. Or, you can choose an Image from a <i>Gallery</i> application.</string>

@@ -55,6 +55,7 @@ public class DBResto {
     public final String ORDER_CART = "orderCart";
     public final String SESSIONS = "sessions";
     public final String PRINTERS = "printers";
+    public final String CAT_TAXES = "categoryTaxes";
 
     /* RESTAURANT */
     public final String RESTAURANT_ID = "restID";
@@ -89,7 +90,6 @@ public class DBResto {
     public final String CATEGORY_ID = "categoryID";
     public final String CATEGORY_NAME = "categoryName";
     public final String CATEGORY_IMAGE = "categoryImage";
-    public final String CATEGORY_PRINTER_ID = "categoryPrinterID";
 
     /* MENU */
     public final String MENU_ID = "menuID";
@@ -146,11 +146,10 @@ public class DBResto {
     public final String PRINTER_IP = "printerIP";
     public final String PRINTER_PRINTS = "printerPrints";
 
-//    /* PRINT CATEGORIES */
-//    public final String PRINT_CATEGORY_ID = "printCategoryID";
-//    public final String PRINT_PRINTER_ID = "printerID";
-//    public final String PRINT_CAT_ID = "categoryID";
-//    public final String PRINT_CAT_STATUS = "printCatStatus";
+    /* CATEGORY TAXES */
+    public final String CATEGORY_TAX_ID = "categoryTaxID";
+    public final String TRANS_TAX_ID = "taxID";
+    public final String TRANS_CAT_ID = "categoryID";
 
 
     /** GET ALL THE DATA IN THE DATABASE BASED ON THE QUERY **/
@@ -354,7 +353,7 @@ public class DBResto {
     }
 
     /***** CREATE / ADD A NEW MENU CATEGORY *****/
-    public void newMenuCategory(String strMealName, byte[] bytMealThumb, Integer printerID) {
+    public long newMenuCategory(String strMealName, byte[] bytMealThumb) {
 
 		/* OPEN THE DATABASE AGAIN */
         this.db = helper.getWritableDatabase();
@@ -363,10 +362,10 @@ public class DBResto {
         ContentValues valNewCategory = new ContentValues();
         valNewCategory.put(CATEGORY_NAME, strMealName);
         valNewCategory.put(CATEGORY_IMAGE, bytMealThumb);
-        valNewCategory.put(CATEGORY_PRINTER_ID, printerID);
 
 		/* INSERT THE COLLECTED DATA TO THE CATEGORIES TABLE */
-        db.insert(CATEGORY, null, valNewCategory);
+        long categoryID = db.insert(CATEGORY, null, valNewCategory);;
+        return categoryID;
     }
 
     /** CREATE A NEW SESSION FOR THE SELECTED TABLE **/
@@ -388,7 +387,7 @@ public class DBResto {
     /********************   UPDATES     ********************/
 
     // UPDATE CATEGORY
-    public void updateCategory(String catID, String catName, byte[] catImage, Integer printer)  {
+    public void updateCategory(String catID, String catName, byte[] catImage)  {
 
         /* OPEN THE DATABASE AGAIN */
         this.db = helper.getWritableDatabase();
@@ -397,7 +396,6 @@ public class DBResto {
         ContentValues valUpdateCategory = new ContentValues();
         valUpdateCategory.put(CATEGORY_NAME, catName);
         valUpdateCategory.put(CATEGORY_IMAGE, catImage);
-        valUpdateCategory.put(CATEGORY_PRINTER_ID, printer);
 
         /* UPDATE THE COLLECTED DATA TO THE CATEGORY TABLE */
         db.update(CATEGORY, valUpdateCategory, CATEGORY_ID + "=" + catID, null);
@@ -450,6 +448,10 @@ public class DBResto {
 
         /* INSERT THE COLLECTED DATA TO THE TAXES TABLE */
         db.update(TAXES, valUpdateTax, TAX_ID + "=" + taxID, null);
+    }
+
+    public void updateCatTax(int catTaxesID, boolean isChecked) {
+
     }
 
     /** UPDATE AN EXISTING TABLE **/
@@ -619,8 +621,8 @@ public class DBResto {
             /** CREATE THE PRINTERS TABLE **/
             createPrintersTable(db);
 
-//            /** CREATE PRINT CATEGORIES TABLE **/
-//            createPrintCategoriesTable(db);
+            /** CREATE CATEGORY TAXES TABLE **/
+            createCategoryTaxesTable(db);
 		}
 
 		@Override
@@ -628,19 +630,19 @@ public class DBResto {
 		}
 	}
 
-//    private void createPrintCategoriesTable(SQLiteDatabase db) {
-//
-//        String strCreatePrintCategoriesTable = "create table " + PRINT_CATEGORIES +
-//                " (" +
-//                PRINT_CATEGORY_ID + " integer primary key autoincrement, " +
-//                PRINT_PRINTER_ID + " integer, " +
-//                PRINT_CAT_ID + " integer, " +
-//                PRINT_CAT_STATUS + " boolean, " +
-//                "UNIQUE" + " (" + PRINT_CATEGORY_ID + " )" + ");";
-//
-//        // EXECUTE THE strCreatePrintCategoriesTable TO CREATE THE TABLE
-//        db.execSQL(strCreatePrintCategoriesTable);
-//    }
+    /** CREATE CATEGORY TAXES TABLE **/
+    private void createCategoryTaxesTable(SQLiteDatabase db) {
+
+        String strCreatePrintCategoriesTable = "create table " + CAT_TAXES +
+                " (" +
+                CATEGORY_TAX_ID + " integer primary key autoincrement, " +
+                TRANS_TAX_ID + " integer, " +
+                TRANS_CAT_ID + " integer, " +
+                "UNIQUE" + " (" + CATEGORY_TAX_ID + " )" + ");";
+
+        // EXECUTE THE strCreatePrintCategoriesTable TO CREATE THE TABLE
+        db.execSQL(strCreatePrintCategoriesTable);
+    }
 
     private void createPrintersTable(SQLiteDatabase db) {
 
@@ -785,7 +787,6 @@ public class DBResto {
                 CATEGORY_ID + " integer primary key autoincrement, " +
                 CATEGORY_NAME + " text, " +
                 CATEGORY_IMAGE + " BLOB, " +
-                CATEGORY_PRINTER_ID + " integer, " +
                 "UNIQUE" + " (" + CATEGORY_NAME + " )" + ");";
 
         // EXECUTE THE strCreateMealTypesTable TO CREATE THE TABLE

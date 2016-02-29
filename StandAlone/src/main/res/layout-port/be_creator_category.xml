@@ -53,7 +53,7 @@
                     android:textColor="@android:color/primary_text_dark"
                     android:textSize="@dimen/mnu_cat_cre_text_size" />
 
-                <android.support.v7.widget.AppCompatTextView
+                <!--<android.support.v7.widget.AppCompatTextView
                     fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -92,7 +92,39 @@
                         android:text="@string/cre_menu_new_category"
                         android:textColor="@android:color/primary_text_dark"
                         android:textSize="29sp" />
-                </LinearLayout>
+                </LinearLayout>-->
+
+                <!--<LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/mnu_cat_cre_image_cont_margin"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.AppCompatTextView
+                        fontPath="fonts/HelveticaNeueLTW1G-Cn.otf"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/mnu_cat_cre_card_image_pad_margin"
+                        android:layout_marginTop="@dimen/mnu_cat_cre_card_image_pad_margin"
+                        android:layout_weight="1"
+                        android:padding="11dp"
+                        android:text="@string/cat_creator_tax_label"
+                        android:textColor="@android:color/secondary_text_dark"
+                        android:textSize="15sp" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/txtTaxes"
+                        fontPath="fonts/MaterialIcons-Regular.ttf"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:padding="11dp"
+                        android:text="&#xE84F;"
+                        android:textColor="@android:color/primary_text_dark"
+                        android:textSize="29sp" />
+                </LinearLayout>-->
 
                 <LinearLayout
                     android:id="@+id/linlaImageContainer"

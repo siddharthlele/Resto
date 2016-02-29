@@ -55,12 +55,9 @@ public class CategoryCreator extends AppCompatActivity {
     /****** DATATYPES FOR CATEGORY DETAILS *****/
     private String CATEGORY_NAME = null;
     private byte[] CATEGORY_THUMB = null;
-    private String CATEGORY_PRINTER = null;
 
     /***** DECLARE THE LAYOUT ELEMENTS *****/
     private AppCompatEditText edtCategoryName;
-    private AppCompatSpinner spnPrinters;
-    private AppCompatTextView txtAddPrinter;
     private AppCompatImageView imgvwCategoryThumb;
 
     /***** A PROGRESS DIALOG INSTANCE *****/
@@ -68,12 +65,6 @@ public class CategoryCreator extends AppCompatActivity {
 
     /** BOOLEAN INSTANCE TO CHECK IF THE TAX EXISTS **/
     boolean blnCategoryExists = false;
-
-    /** THE ARRAYLIST FOR THE PRINTERS **/
-    ArrayList<PrinterData> arrPrinters = new ArrayList<>();
-
-    /** THE REQUEST FOR A NEW PRINTER **/
-    private static final int ACTION_REQUEST_NEW_PRINTER = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,148 +76,13 @@ public class CategoryCreator extends AppCompatActivity {
 
         /***** CAST THE LAYOUT ELEMENTS *****/
         castLayoutElements();
-
-        /** CHECK IF PRINTERS ARE AVAILABLE **/
-        db = new DBResto(CategoryCreator.this);
-        Cursor cursor = db.selectAllData("SELECT * FROM " + db.PRINTERS);
-//        cursor.close();
-        int printerCount = cursor.getCount();
-        if (printerCount != 0) {
-            /** FETCH THE LIST OF PRINTERS **/
-            new fetchPrintersList().execute();
-        } else {
-            new MaterialDialog.Builder(CategoryCreator.this)
-                    .icon(ContextCompat.getDrawable(CategoryCreator.this, R.drawable.ic_info_outline_black_24dp))
-                    .title("No Printers Found")
-                    .content("Please add Printer/s to Resto. This is essential to enable the printing of KOT\'s (and the Bills / Receipts too).\n\nAdd Printer/s from the \"Printers\" section of the Dashboard before adding Categories.\n\nPlease Note: Printing KOT\'s and Bills / Receipts is an essential feature of Resto and requires at least one of the compatible Printers installed and configured for in-app use. See the \"Printers\" section of the Dashboard to know more.")
-                    .neutralText("Go Back")
-                    .theme(Theme.LIGHT)
-                    .typeface("HelveticaNeueLTW1G-MdCn.otf", "HelveticaNeueLTW1G-Cn.otf")
-                    .onNeutral(new MaterialDialog.SingleButtonCallback() {
-                        @Override
-                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                            dialog.dismiss();
-                            finish();
-                        }
-                    }).show();
-        }
-
-        /** SELECT THE PRINTER THE NEW CATEGORY PRINTS TO **/
-        spnPrinters.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                CATEGORY_PRINTER = arrPrinters.get(position).getPrinterID();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-    }
-
-    /** TASK TO FETCH A LIST OF ALL PRINTERS **/
-    private class fetchPrintersList extends AsyncTask<Void, Void, Void> {
-
-        /** A CURSOR INSTANCE **/
-        Cursor cursor;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            /** INSTANTIATE THE DATABASE HELPER CLASS **/
-            db = new DBResto(CategoryCreator.this);
-
-            /** CONSTRUCT THE QUERY TO FETCH ALL TWEETS FROM THE DATABASE **/
-            String strQueryData = "SELECT * FROM " + db.PRINTERS;
-
-            /** CAST THE QUERY IN THE CURSOR TO FETCH THE RESULTS **/
-            cursor = db.selectAllData(strQueryData);
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-
-            /** CHECK THAT THE DATABASE QUERY RETURNED SOME RESULTS **/
-            if (cursor != null && cursor.getCount() != 0)	{
-
-            /* AN INSTANCE OF THE PrinterData POJO CLASS */
-                PrinterData printerData;
-
-                /** LOOP THROUGH THE RESULT SET AND PARSE NECESSARY INFORMATION **/
-                for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-
-                    /***** INSTANTIATE THE PrinterData INSTANCE "printerData" *****/
-                    printerData = new PrinterData();
-
-                    /** GET THE PRINTER ID **/
-                    if (cursor.getString(cursor.getColumnIndex(db.PRINTER_ID)) != null)	{
-                        String PRINTER_ID = cursor.getString(cursor.getColumnIndex(db.PRINTER_ID));
-                        printerData.setPrinterID(PRINTER_ID);
-                    } else {
-                        printerData.setPrinterID(null);
-                    }
-
-                    /** GET THE PRINTER NAME **/
-                    if (cursor.getString(cursor.getColumnIndex(db.PRINTER_NAME)) != null)	{
-                        String PRINTER_NAME = cursor.getString(cursor.getColumnIndex(db.PRINTER_NAME));
-                        printerData.setPrinterName(PRINTER_NAME);
-                    } else {
-                        printerData.setPrinterName(null);
-                    }
-
-//                    /** GET THE PRINTER_SELECTED_NAME **/
-//                    if (cursor.getString(cursor.getColumnIndex(db.PRINTER_SELECTED_NAME)) != null)	{
-//                        String PRINTER_SELECTED_NAME = cursor.getString(cursor.getColumnIndex(db.PRINTER_SELECTED_NAME));
-//                        printerData.setPrinterSelectedName(PRINTER_SELECTED_NAME);
-//                    } else {
-//                        printerData.setPrinterSelectedName(null);
-//                    }
-
-                    /** ADD THE COLLECTED DATA TO THE ARRAYLIST **/
-                    arrPrinters.add(printerData);
-                }
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-
-            /** CLOSE THE CURSOR **/
-            if (cursor != null && !cursor.isClosed())	{
-                cursor.close();
-            }
-
-            /** CLOSE THE DATABASE **/
-            db.close();
-
-            /** SET THE ADAPTER TO THE SPINNER **/
-            spnPrinters.setAdapter(new PrintersAdapter(
-                    CategoryCreator.this,
-                    R.layout.custom_spinner_row,
-                    arrPrinters));
-        }
     }
 
     /***** CAST THE LAYOUT ELEMENTS *****/
     private void castLayoutElements() {
 
         edtCategoryName = (AppCompatEditText) findViewById(R.id.edtCategoryName);
-        spnPrinters = (AppCompatSpinner) findViewById(R.id.spnPrinters);
-        txtAddPrinter = (AppCompatTextView) findViewById(R.id.txtAddPrinter);
         imgvwCategoryThumb = (AppCompatImageView) findViewById(R.id.imgvwCategoryThumb);
-
-        /** ADD A PRINTER TO THE DATABASE **/
-        txtAddPrinter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent newPrinter = new Intent(CategoryCreator.this, PrinterDiscovery.class);
-                startActivityForResult(newPrinter, ACTION_REQUEST_NEW_PRINTER);
-            }
-        });
 
         /***** GET THE CATEGORY IMAGE *****/
         imgvwCategoryThumb.setOnClickListener(new View.OnClickListener() {
@@ -240,13 +96,13 @@ public class CategoryCreator extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (resultCode == RESULT_OK && requestCode == ACTION_REQUEST_NEW_PRINTER)    {
+        /*if (resultCode == RESULT_OK && requestCode == ACTION_REQUEST_NEW_PRINTER)    {
 
-            /** CLEAR THE ARRAYLIST AND REFRESH THE LIST OF PRINTERS **/
-            arrPrinters.clear();
-            new fetchPrintersList().execute();
+//            *//** CLEAR THE ARRAYLIST AND REFRESH THE LIST OF PRINTERS **//*
+//            arrPrinters.clear();
+//            new fetchPrintersList().execute();
 
-        } else if (resultCode == RESULT_OK) {
+        } else if (resultCode == RESULT_OK) {*/
             EasyImage.handleActivityResult(requestCode, resultCode, data, CategoryCreator.this, new DefaultCallback() {
 
                 @Override
@@ -265,7 +121,7 @@ public class CategoryCreator extends AppCompatActivity {
                     super.onCanceled(source);
                 }
             });
-        }
+//        }
     }
 
     private Target target = new Target() {
@@ -448,43 +304,11 @@ public class CategoryCreator extends AppCompatActivity {
                 CATEGORY_NAME = edtCategoryName.getText().toString().trim();
 
                 /***** SAVE THE CATEGORY IN THE DATABASE *****/
-                db.newMenuCategory(CATEGORY_NAME.trim(), CATEGORY_THUMB, Integer.valueOf(CATEGORY_PRINTER));
+                Long newCategoryID = db.newMenuCategory(CATEGORY_NAME, CATEGORY_THUMB);
 
                 /** CLOSE THE CURSOR **/
                 if (cursor != null && !cursor.isClosed())	{
                     cursor.close();
-                }
-
-                /** GET THE RECENTLY CREATED CATEGORY ID **/
-                String strQueryCat = "SELECT * FROM " + db.CATEGORY + " ORDER BY " + db.CATEGORY_ID + " DESC LIMIT 1";
-                Log.e("QUERY", strQueryCat);
-                Cursor cur = db.selectAllData(strQueryCat);
-                String strCatID = null;
-                String strCatName = null;
-
-                /** CHECK THAT THE DATABASE QUERY RETURNED SOME RESULTS **/
-                if (cur != null && cur.getCount() != 0)	{
-
-                    /** LOOP THROUGH THE RESULT SET AND PARSE NECESSARY INFORMATION **/
-                    for (cur.moveToFirst(); !cur.isAfterLast(); cur.moveToNext()) {
-
-                        /* GET THE LAST CATEGORY ID */
-                        if (cur.getString(cur.getColumnIndex(db.CATEGORY_ID)) != null)	{
-                            strCatID = cur.getString(cur.getColumnIndex(db.CATEGORY_ID));
-                        } else {
-                            strCatID = "1";
-                        }
-
-                        /* GET THE LAST CATEGORY NAME */
-                        if (cur.getString(cur.getColumnIndex(db.CATEGORY_NAME)) != null)	{
-                            strCatName = cur.getString(cur.getColumnIndex(db.CATEGORY_NAME));
-                        } else {
-                            strCatName = null;
-                        }
-                    }
-                } else {
-                    strCatID = "1";
-                    strCatName = null;
                 }
 
                 /** CLOSE THE DATABASE **/
@@ -493,10 +317,11 @@ public class CategoryCreator extends AppCompatActivity {
                 /** DISMISS THE DIALOG **/
                 pdNewCategory.dismiss();
 
-                Intent success = new Intent();
-                setResult(RESULT_OK, success);
-
-                /** FINISH THE TASK **/
+                /** START THE CATEGORY TAX SELECTOR **/
+                Intent selectCatTaxes = new Intent(CategoryCreator.this, CategoryTaxesSelector.class);
+                selectCatTaxes.putExtra("CATEGORY_ID", String.valueOf(newCategoryID));
+                selectCatTaxes.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(selectCatTaxes);
                 finish();
             } else {
                 /** SET THE ERROR MESSAGE **/

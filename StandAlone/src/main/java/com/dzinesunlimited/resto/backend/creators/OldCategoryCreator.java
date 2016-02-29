@@ -1,58 +1,42 @@
-package com.dzinesunlimited.resto.backend.modifiers;
+package com.dzinesunlimited.resto.backend.creators;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
 import android.widget.Toast;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
-import com.afollestad.materialdialogs.Theme;
 import com.dzinesunlimited.resto.R;
-import com.dzinesunlimited.resto.backend.admin.frags.PrinterDiscovery;
 import com.dzinesunlimited.resto.utils.TypefaceSpan;
 import com.dzinesunlimited.resto.utils.db.DBResto;
-import com.dzinesunlimited.resto.utils.helpers.adapters.backend.PrintersAdapter;
-import com.dzinesunlimited.resto.utils.helpers.pojos.PrinterData;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.util.ArrayList;
 
 import pl.aprilapps.easyphotopicker.DefaultCallback;
 import pl.aprilapps.easyphotopicker.EasyImage;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class CategoryModifier extends AppCompatActivity {
-
-    /** THE INCOMING CATEGORY ID **/
-    private String INCOMING_CATEGORY_ID = null;
-    private String INCOMING_CATEGORY_NAME = null;
+public class OldCategoryCreator extends AppCompatActivity {
 
     /***** DATABASE INSTANCE *****/
     private DBResto db;
@@ -69,6 +53,12 @@ public class CategoryModifier extends AppCompatActivity {
     private AppCompatTextView txtTaxes;
     private AppCompatImageView imgvwCategoryThumb;
 
+    /***** A PROGRESS DIALOG INSTANCE *****/
+    ProgressDialog pdNewCategory;
+
+    /** BOOLEAN INSTANCE TO CHECK IF THE TAX EXISTS **/
+    boolean blnCategoryExists = false;
+
     /** THE ARRAYLIST FOR THE PRINTERS **/
 //    ArrayList<PrinterData> arrPrinters = new ArrayList<>();
 
@@ -76,21 +66,40 @@ public class CategoryModifier extends AppCompatActivity {
     private static final int ACTION_REQUEST_NEW_PRINTER = 101;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.be_modifier_category);
-
-        /***** CAST THE LAYOUT ELEMENTS *****/
-        castLayoutElements();
+        setContentView(R.layout.be_creator_category);
 
         /***** CONFIGURE THE ACTIONBAR *****/
         configAB();
 
-//        /** FETCH THE LIST OF PRINTERS **/
-//        new fetchPrintersList().execute();
+        /***** CAST THE LAYOUT ELEMENTS *****/
+        castLayoutElements();
 
-        /** FETCH THE INCOMING DATA **/
-        fetchIncomingData();
+//        /** CHECK IF PRINTERS ARE AVAILABLE **/
+//        db = new DBResto(CategoryCreator.this);
+//        Cursor cursor = db.selectAllData("SELECT * FROM " + db.PRINTERS);
+////        cursor.close();
+//        int printerCount = cursor.getCount();
+//        if (printerCount != 0) {
+//            /** FETCH THE LIST OF PRINTERS **/
+//            new fetchPrintersList().execute();
+//        } else {
+//            new MaterialDialog.Builder(CategoryCreator.this)
+//                    .icon(ContextCompat.getDrawable(CategoryCreator.this, R.drawable.ic_info_outline_black_24dp))
+//                    .title("No Printers Found")
+//                    .content("Please add Printer/s to Resto. This is essential to enable the printing of KOT\'s (and the Bills / Receipts too).\n\nAdd Printer/s from the \"Printers\" section of the Dashboard before adding Categories.\n\nPlease Note: Printing KOT\'s and Bills / Receipts is an essential feature of Resto and requires at least one of the compatible Printers installed and configured for in-app use. See the \"Printers\" section of the Dashboard to know more.")
+//                    .neutralText("Go Back")
+//                    .theme(Theme.LIGHT)
+//                    .typeface("HelveticaNeueLTW1G-MdCn.otf", "HelveticaNeueLTW1G-Cn.otf")
+//                    .onNeutral(new MaterialDialog.SingleButtonCallback() {
+//                        @Override
+//                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+//                            dialog.dismiss();
+//                            finish();
+//                        }
+//                    }).show();
+//        }
 
 //        /** SELECT THE PRINTER THE NEW CATEGORY PRINTS TO **/
 //        spnPrinters.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -106,7 +115,7 @@ public class CategoryModifier extends AppCompatActivity {
 //        });
     }
 
-//    /** TASK TO FETCH A LIST OF ALL PRINTERS **/
+    /** TASK TO FETCH A LIST OF ALL PRINTERS **/
 //    private class fetchPrintersList extends AsyncTask<Void, Void, Void> {
 //
 //        /** A CURSOR INSTANCE **/
@@ -117,7 +126,7 @@ public class CategoryModifier extends AppCompatActivity {
 //            super.onPreExecute();
 //
 //            /** INSTANTIATE THE DATABASE HELPER CLASS **/
-//            db = new DBResto(CategoryModifier.this);
+//            db = new DBResto(CategoryCreator.this);
 //
 //            /** CONSTRUCT THE QUERY TO FETCH ALL TWEETS FROM THE DATABASE **/
 //            String strQueryData = "SELECT * FROM " + db.PRINTERS;
@@ -157,13 +166,13 @@ public class CategoryModifier extends AppCompatActivity {
 //                        printerData.setPrinterName(null);
 //                    }
 //
-//                    /** GET THE PRINTER_SELECTED_NAME **/
-//                    if (cursor.getString(cursor.getColumnIndex(db.PRINTER_SELECTED_NAME)) != null)	{
-//                        String PRINTER_SELECTED_NAME = cursor.getString(cursor.getColumnIndex(db.PRINTER_SELECTED_NAME));
-//                        printerData.setPrinterSelectedName(PRINTER_SELECTED_NAME);
-//                    } else {
-//                        printerData.setPrinterSelectedName(null);
-//                    }
+////                    /** GET THE PRINTER_SELECTED_NAME **/
+////                    if (cursor.getString(cursor.getColumnIndex(db.PRINTER_SELECTED_NAME)) != null)	{
+////                        String PRINTER_SELECTED_NAME = cursor.getString(cursor.getColumnIndex(db.PRINTER_SELECTED_NAME));
+////                        printerData.setPrinterSelectedName(PRINTER_SELECTED_NAME);
+////                    } else {
+////                        printerData.setPrinterSelectedName(null);
+////                    }
 //
 //                    /** ADD THE COLLECTED DATA TO THE ARRAYLIST **/
 //                    arrPrinters.add(printerData);
@@ -186,101 +195,11 @@ public class CategoryModifier extends AppCompatActivity {
 //
 //            /** SET THE ADAPTER TO THE SPINNER **/
 //            spnPrinters.setAdapter(new PrintersAdapter(
-//                    CategoryModifier.this,
+//                    CategoryCreator.this,
 //                    R.layout.custom_spinner_row,
 //                    arrPrinters));
 //        }
 //    }
-
-    /** FETCH THE CATEGORY DETAILS **/
-    private class fetchCategoryDetails extends AsyncTask<Void, Void, Void>  {
-
-        /** A CURSOR INSTANCE **/
-        Cursor cursor;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            /** INSTANTIATE THE DATABASE INSTANCE **/
-            db = new DBResto(CategoryModifier.this);
-
-            /** CONSTRUCT THE QUERY **/
-            String s = "SELECT * FROM " + db.CATEGORY + " WHERE " + db.CATEGORY_ID + " = " + INCOMING_CATEGORY_ID;
-
-            /** FETCH THE RESULT **/
-            cursor = db.selectAllData(s);
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            if (cursor != null && cursor.getCount() != 0) {
-                for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                    /** GET THE CATEGORY NAME **/
-                    if (cursor.getString(cursor.getColumnIndex(db.CATEGORY_NAME)) != null)	{
-                        CATEGORY_NAME = cursor.getString(cursor.getColumnIndex(db.CATEGORY_NAME));
-                    } else {
-                        CATEGORY_NAME = null;
-                    }
-
-                    /** GET THE CATEGORY IMAGE **/
-                    if (cursor.getBlob(cursor.getColumnIndex(db.CATEGORY_IMAGE)) != null)	{
-                        CATEGORY_THUMB = cursor.getBlob(cursor.getColumnIndex(db.CATEGORY_IMAGE));
-                    } else {
-                        CATEGORY_THUMB = null;
-                    }
-
-//                    /** GET THE CATEGORY PRINTER **/
-//                    if (cursor.getString(cursor.getColumnIndex(db.CATEGORY_PRINTER_ID)) != null)	{
-//                        CATEGORY_PRINTER = cursor.getString(cursor.getColumnIndex(db.CATEGORY_PRINTER_ID));
-//                    } else {
-//                        CATEGORY_PRINTER = null;
-//                    }
-                }
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-
-            /** CLOSE THE CURSOR **/
-            if (cursor != null && !cursor.isClosed())	{
-                cursor.close();
-            }
-
-            /** CLOSE THE DATABASE **/
-            db.close();
-
-            /***** SET THE COLLECTED DATA *****/
-            if (CATEGORY_NAME != null)  {
-                edtCategoryName.setText(CATEGORY_NAME);
-            }
-
-            if (CATEGORY_THUMB != null) {
-                Bitmap bitmap = BitmapFactory.decodeByteArray(CATEGORY_THUMB, 0, CATEGORY_THUMB.length);
-                imgvwCategoryThumb.setScaleType(AppCompatImageView.ScaleType.CENTER_CROP);
-                imgvwCategoryThumb.setImageBitmap(bitmap);
-            }
-        }
-    }
-
-    private void fetchIncomingData() {
-        Bundle bundle = getIntent().getExtras();
-        if (bundle.containsKey("CATEGORY_ID") && bundle.containsKey("CATEGORY_NAME"))  {
-            INCOMING_CATEGORY_NAME = bundle.getString("CATEGORY_NAME");
-            INCOMING_CATEGORY_ID = bundle.getString("CATEGORY_ID");
-            if (INCOMING_CATEGORY_ID != null)   {
-                new fetchCategoryDetails().execute();
-            } else {
-                //TODO: SHOW AN ERROR
-            }
-        } else {
-            //TODO: SHOW AN ERROR
-        }
-    }
 
     /***** CAST THE LAYOUT ELEMENTS *****/
     private void castLayoutElements() {
@@ -290,11 +209,11 @@ public class CategoryModifier extends AppCompatActivity {
 //        txtAddPrinter = (AppCompatTextView) findViewById(R.id.txtAddPrinter);
         imgvwCategoryThumb = (AppCompatImageView) findViewById(R.id.imgvwCategoryThumb);
 
-//        /** ADD A PRINTER TO THE DATABASE **/
+        /** ADD A PRINTER TO THE DATABASE **/
 //        txtAddPrinter.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                Intent newPrinter = new Intent(CategoryModifier.this, PrinterDiscovery.class);
+//                Intent newPrinter = new Intent(CategoryCreator.this, PrinterDiscovery.class);
 //                startActivityForResult(newPrinter, ACTION_REQUEST_NEW_PRINTER);
 //            }
 //        });
@@ -303,7 +222,7 @@ public class CategoryModifier extends AppCompatActivity {
         imgvwCategoryThumb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EasyImage.openChooser(CategoryModifier.this, "Pick Image Source", true);
+                EasyImage.openChooser(OldCategoryCreator.this, "Pick Image Source", true);
             }
         });
     }
@@ -318,7 +237,7 @@ public class CategoryModifier extends AppCompatActivity {
 //            new fetchPrintersList().execute();
 
         } else if (resultCode == RESULT_OK) {
-            EasyImage.handleActivityResult(requestCode, resultCode, data, CategoryModifier.this, new DefaultCallback() {
+            EasyImage.handleActivityResult(requestCode, resultCode, data, OldCategoryCreator.this, new DefaultCallback() {
 
                 @Override
                 public void onImagePicked(File imageFile, EasyImage.ImageSource source) {
@@ -362,7 +281,7 @@ public class CategoryModifier extends AppCompatActivity {
     };
 
     private void onPhotoReturned(File photoFile) {
-        Picasso.with(CategoryModifier.this)
+        Picasso.with(OldCategoryCreator.this)
                 .load(photoFile)
                 .resize(800, 800)
                 .centerInside()
@@ -375,10 +294,10 @@ public class CategoryModifier extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.myToolbar);
         setSupportActionBar(myToolbar);
 
-        String strTitle = getResources().getString(R.string.category_modifier_title);
+        String strTitle = getResources().getString(R.string.category_creator_title);
         SpannableString s = new SpannableString(strTitle);
         s.setSpan(new TypefaceSpan(
-                CategoryModifier.this, "RobotoCondensed-Regular.ttf"), 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                OldCategoryCreator.this, "RobotoCondensed-Regular.ttf"), 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -389,7 +308,7 @@ public class CategoryModifier extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = new MenuInflater(CategoryModifier.this);
+        MenuInflater inflater = new MenuInflater(OldCategoryCreator.this);
         inflater.inflate(R.menu.category_creator, menu);
         return super.onCreateOptionsMenu(menu);
     }
@@ -399,19 +318,23 @@ public class CategoryModifier extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case android.R.id.home:
-                Intent i1 = new Intent();
-                setResult(RESULT_CANCELED, i1);
-                finish();
+
+                this.finish();
+
                 break;
 
             case R.id.save:
-                validateData();
+
+                /***** CHECK FOR ALL DETAILS  *****/
+                checkCatDetails();
+
                 break;
 
             case R.id.cancel:
-                Intent i2 = new Intent();
-                setResult(RESULT_CANCELED, i2);
+
+                /** CANCEL CATEGORY CREATION **/
                 finish();
+
                 break;
 
             default:
@@ -421,10 +344,10 @@ public class CategoryModifier extends AppCompatActivity {
         return false;
     }
 
-    /***** VALIDATE REQUIRED DATA *****/
-    private void validateData() {
+    /***** CHECK FOR NECESSARY DETAILS *****/
+    private void checkCatDetails() {
 
-		/** HIDE THE KEYBOARD **/
+		/* HIDE THE KEYBOARD */
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(edtCategoryName.getWindowToken(), 0);
 
@@ -444,37 +367,36 @@ public class CategoryModifier extends AppCompatActivity {
         }
     }
 
-    /** CHECK FOR A UNIQUE CATEGORY NAME (IGNORE IF NAME IS SAME AS BEFORE) AND UPDATE **/
-    private class checkUniqueCategory extends AsyncTask<Void, Void, Void>   {
-
-        /** A PROGRESS DIALOG INSTANCE **/
-        ProgressDialog pdUpdateCategory;
+    /***** CLASS TO CHECK FOR A UNIQUE CATEGORY NAME AND SAVE IF NAME IS UNIQUE *****/
+    private class checkUniqueCategory extends AsyncTask<Void, Void, Void> {
 
         /** A CURSOR INSTANCE **/
         Cursor cursor;
-
-        /** A BOOLEAN TO TRACK EXISTING CATEGORY NAME **/
-        boolean blnCatExists = false;
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
 
-            /** INSTANTIATE AND CONFIGURE THE PROGRESS DIALOG **/
-            pdUpdateCategory = new ProgressDialog(CategoryModifier.this);
-            pdUpdateCategory.setMessage("Please wait while the Category is being updated....");
-            pdUpdateCategory.setIndeterminate(false);
-            pdUpdateCategory.setCancelable(false);
-            pdUpdateCategory.show();
+            /** INSTANTIATE AND CONFIGURE THE PROGRESSDIALOG **/
+            pdNewCategory = new ProgressDialog(OldCategoryCreator.this);
 
-            /** INSTANTIATE THE DATABASE INSTANCE **/
-            db = new DBResto(CategoryModifier.this);
+            String strRestDtlProgress = "Please wait while we save the new Category";
+            pdNewCategory.setMessage(strRestDtlProgress);
+            pdNewCategory.setIndeterminate(false);
+            pdNewCategory.setCancelable(true);
+            pdNewCategory.show();
 
-            /** CONSTRUCT THE QUERY **/
-            String s = "SELECT * FROM " + db.CATEGORY + " WHERE " + db.CATEGORY_ID + " = " + INCOMING_CATEGORY_ID;
+            /** INSTANTIATE THE DATABASE HELPER CLASS **/
+            db = new DBResto(OldCategoryCreator.this);
 
-            /** FETCH RESULTS FROM THE DATABASE **/
-            cursor = db.selectAllData(s);
+            String strCategoryName = edtCategoryName.getText().toString().trim();
+
+            /** CONSTRUCT A QUERY TO FETCH TABLES ON RECORD **/
+            String strQueryData = "SELECT * FROM " + db.CATEGORY + " WHERE " + db.CATEGORY_NAME.trim() + " = '" + strCategoryName + "'";
+//            Log.e("MEAL TYPE", strQueryData);
+
+            /** CAST THE QUERY IN THE CURSOR TO FETCH THE RESULTS **/
+            cursor = db.selectAllData(strQueryData);
         }
 
         @Override
@@ -484,28 +406,24 @@ public class CategoryModifier extends AppCompatActivity {
             if (cursor != null && cursor.getCount() != 0)	{
                 /** LOOP THROUGH THE RESULT SET AND PARSE NECESSARY INFORMATION **/
                 for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                    /** GET THE CATEGORY NAME **/
+					/* GET THE MEAL CATEGORY NAME */
                     if (cursor.getString(cursor.getColumnIndex(db.CATEGORY_NAME)) != null)	{
-                        String catName = cursor.getString(cursor.getColumnIndex(db.CATEGORY_NAME));
-                        if (catName.equals(CATEGORY_NAME))	{
-                            if (CATEGORY_NAME.equalsIgnoreCase(INCOMING_CATEGORY_NAME))   {
-							    /* TOGGLE THE BOOLEAN TO INDICATE THE CATEGORY DOES NOT EXIST */
-                                blnCatExists = false;
-                            } else {
-							    /* TOGGLE THE BOOLEAN TO INDICATE THE CATEGORY EXISTS */
-                                blnCatExists = true;
-                            }
+                        String strTypeName = cursor.getString(cursor.getColumnIndex(db.CATEGORY_NAME));
+                        if (strTypeName.equals(CATEGORY_NAME))	{
+							/* TOGGLE THE BOOLEAN TO INDICATE THE CATEGORY EXISTS */
+                            blnCategoryExists = true;
                         } else {
 							/* TOGGLE THE BOOLEAN TO INDICATE THE CATEGORY DOES NOT EXIST */
-                            blnCatExists = false;
+                            blnCategoryExists = false;
                         }
                     } else {
 						/* TOGGLE THE BOOLEAN TO INDICATE THE CATEGORY DOES NOT EXIST */
-                        blnCatExists = false;
+                        blnCategoryExists = false;
                     }
                 }
             } else {
-                blnCatExists = false;
+				/* TOGGLE THE BOOLEAN TO INDICATE THE CATEGORY DOES NOT EXIST */
+                blnCategoryExists = false;
             }
 
             return null;
@@ -514,54 +432,69 @@ public class CategoryModifier extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            /** CHECK FOR EXISTING MEAL CATEGORY **/
+            if (!blnCategoryExists)  {
+                /***** GET THE CATEGORY NAME *****/
+                CATEGORY_NAME = edtCategoryName.getText().toString().trim();
 
-            if (!blnCatExists)  {
-
-                /** UPDATE THE CATEGORY **/
-                db.updateCategory(INCOMING_CATEGORY_ID, edtCategoryName.getText().toString().trim(), CATEGORY_THUMB);
-
-                /** CLOSE THE DATABASE **/
-                db.close();
+                /***** SAVE THE CATEGORY IN THE DATABASE *****/
+                db.newMenuCategory(CATEGORY_NAME.trim(), CATEGORY_THUMB);
 
                 /** CLOSE THE CURSOR **/
                 if (cursor != null && !cursor.isClosed())	{
                     cursor.close();
                 }
 
-                /** DISMISS THE PROGRESS DIALOG **/
-                pdUpdateCategory.dismiss();
+                /** GET THE RECENTLY CREATED CATEGORY ID **/
+                String strQueryCat = "SELECT * FROM " + db.CATEGORY + " ORDER BY " + db.CATEGORY_ID + " DESC LIMIT 1";
+                Log.e("QUERY", strQueryCat);
+                Cursor cur = db.selectAllData(strQueryCat);
+                String strCatID = null;
+                String strCatName = null;
 
-                /***** SET THE RESULT TO "RESULT_OK" AND FINISH THE ACTIVITY *****/
-                Intent updatedCategory = new Intent();
-                setResult(RESULT_OK, updatedCategory);
+                /** CHECK THAT THE DATABASE QUERY RETURNED SOME RESULTS **/
+                if (cur != null && cur.getCount() != 0)	{
 
-                /** FINISH THE ACTIVITY **/
-                finish();
+                    /** LOOP THROUGH THE RESULT SET AND PARSE NECESSARY INFORMATION **/
+                    for (cur.moveToFirst(); !cur.isAfterLast(); cur.moveToNext()) {
 
-            } else {
+                        /* GET THE LAST CATEGORY ID */
+                        if (cur.getString(cur.getColumnIndex(db.CATEGORY_ID)) != null)	{
+                            strCatID = cur.getString(cur.getColumnIndex(db.CATEGORY_ID));
+                        } else {
+                            strCatID = "1";
+                        }
+
+                        /* GET THE LAST CATEGORY NAME */
+                        if (cur.getString(cur.getColumnIndex(db.CATEGORY_NAME)) != null)	{
+                            strCatName = cur.getString(cur.getColumnIndex(db.CATEGORY_NAME));
+                        } else {
+                            strCatName = null;
+                        }
+                    }
+                } else {
+                    strCatID = "1";
+                    strCatName = null;
+                }
+
+                /** CLOSE THE DATABASE **/
+                db.close();
 
                 /** DISMISS THE DIALOG **/
-                pdUpdateCategory.dismiss();
+                pdNewCategory.dismiss();
 
-                /** SHOW THE OVERWRITE PROMPT **/
-                String strTitle = getResources().getString(R.string.cat_modifier_duplicate_error_title);
-                String strMessage = getResources().getString(R.string.cat_modifier_duplicate_error_message);
-                String strNeutral = getResources().getString(R.string.generic_mb_ok);
+                Intent success = new Intent();
+                setResult(RESULT_OK, success);
 
-                /** CONFIGURE THE ALERTDIALOG **/
-                new MaterialDialog.Builder(CategoryModifier.this)
-                        .icon(ContextCompat.getDrawable(CategoryModifier.this, R.drawable.ic_info_outline_black_24dp))
-                        .title(strTitle)
-                        .content(strMessage)
-                        .theme(Theme.LIGHT)
-                        .typeface("HelveticaNeueLTW1G-MdCn.otf", "HelveticaNeueLTW1G-Cn.otf")
-                        .neutralText(strNeutral)
-                        .onNeutral(new MaterialDialog.SingleButtonCallback() {
-                            @Override
-                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                dialog.dismiss();
-                            }
-                        }).show();
+                /** FINISH THE TASK **/
+                finish();
+            } else {
+                /** SET THE ERROR MESSAGE **/
+                edtCategoryName.setError("This Meal Category already exists on record. Please choose a different name");
+
+                /** DISMISS THE DIALOG **/
+                pdNewCategory.dismiss();
+
             }
         }
     }

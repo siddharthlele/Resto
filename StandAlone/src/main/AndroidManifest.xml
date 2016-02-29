@@ -71,6 +71,10 @@
             android:windowSoftInputMode="adjustPan" />
 
         <activity
+            android:name=".backend.creators.CategoryTaxesSelector"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
             android:name=".backend.creators.MenuCreator"
             android:windowSoftInputMode="adjustPan" />
 
@@ -107,11 +111,15 @@
             android:windowSoftInputMode="adjustPan" />
 
         <activity
+            android:name=".frontend.menu.MenuDetails"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
             android:name=".frontend.menu.OrderCart"
             android:windowSoftInputMode="adjustPan" />
 
         <activity
-            android:name=".frontend.menu.MenuDetails"
+            android:name=".frontend.billing.BillingActivity"
             android:windowSoftInputMode="adjustPan" />
     </application>
 

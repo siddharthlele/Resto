@@ -14,7 +14,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -237,9 +236,6 @@ public class OrderCart extends AppCompatActivity implements ReceiveListener {
                     /** SET THE ADAPTER TO THE RECYCLERVIEW **/
                     orderCart.setAdapter(adapter);
 
-                    /** HIDE THE PROGRESS AFTER FETCHING CURRENT ORDERS **/
-                    linlaHeaderProgress.setVisibility(View.GONE);
-
                     /** REFRESH THE CURRENT ORDER TOTAL **/
                     refreshOrderTotal();
 
@@ -255,6 +251,9 @@ public class OrderCart extends AppCompatActivity implements ReceiveListener {
                     /** HIDE THE RECYCLERVIEW **/
                     orderCart.setVisibility(View.GONE);
                 }
+
+                /** HIDE THE PROGRESS AFTER FETCHING CURRENT ORDERS **/
+                linlaHeaderProgress.setVisibility(View.GONE);
 
             } else {
                 //TODO: SHOW AN ERROR
