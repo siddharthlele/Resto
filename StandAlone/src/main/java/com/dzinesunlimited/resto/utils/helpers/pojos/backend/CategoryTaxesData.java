@@ -2,34 +2,34 @@ package com.dzinesunlimited.resto.utils.helpers.pojos.backend;
 
 public class CategoryTaxesData {
 
-    private int catTaxesID;
-    private int catID;
-    private int taxID;
+    private String catTaxesID;
+    private String catID;
+    private String taxID;
     private boolean taxStatus;
     private String taxName;
     private String taxPercentage;
 
-    public int getCatTaxesID() {
+    public String getCatTaxesID() {
         return catTaxesID;
     }
 
-    public void setCatTaxesID(int catTaxesID) {
+    public void setCatTaxesID(String catTaxesID) {
         this.catTaxesID = catTaxesID;
     }
 
-    public int getCatID() {
+    public String getCatID() {
         return catID;
     }
 
-    public void setCatID(int catID) {
+    public void setCatID(String catID) {
         this.catID = catID;
     }
 
-    public int getTaxID() {
+    public String getTaxID() {
         return taxID;
     }
 
-    public void setTaxID(int taxID) {
+    public void setTaxID(String taxID) {
         this.taxID = taxID;
     }
 

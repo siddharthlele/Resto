@@ -1,6 +1,7 @@
 package com.dzinesunlimited.resto.backend.creators;
 
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -34,7 +36,6 @@ public class CategoryTaxesSelector extends AppCompatActivity {
 
     /** DECLARE THE LAYOUT ELEMENTS **/
     @Bind(R.id.linlaHeaderProgress)LinearLayout linlaHeaderProgress;
-    @Bind(R.id.txtCategoryName)AppCompatTextView txtCategoryName;
     @Bind(R.id.listTaxes)ListView listTaxes;
     @Bind(R.id.linlaEmpty)LinearLayout linlaEmpty;
 
@@ -51,12 +52,42 @@ public class CategoryTaxesSelector extends AppCompatActivity {
         /***** CONFIGURE THE ACTIONBAR *****/
         configAB();
 
+        /** INSTANTIATE THE ADAPTER **/
+        adapter = new CategoryTaxesAdapter(CategoryTaxesSelector.this, arrTaxes);
+
         /** GET THE INCOMING DATA **/
         Bundle bundle = getIntent().getExtras();
         if (bundle != null && bundle.containsKey("CATEGORY_ID"))    {
             INCOMING_CATEGORY_ID = bundle.getString("CATEGORY_ID");
             if (INCOMING_CATEGORY_ID != null)   {
-                new fetchCategoryTaxes().execute();
+                /** CHECK IF CATEGORY HAS TAXES CONFIGURED **/
+                db = new DBResto(CategoryTaxesSelector.this);
+                String s = " SELECT * FROM " + db.CAT_TAXES + " WHERE " + db.TRANS_CAT_ID + " = " + INCOMING_CATEGORY_ID;
+                Log.e("QUERY 1", s);
+                Cursor cursor = db.selectAllData(s);
+                if (cursor.getCount() != 0) {
+                    /** FETCH THE CATEGORY TAXES **/
+                    new fetchCategoryTaxes().execute();
+                } else {
+                    /** ADD THE TAXES IN "FALSE / INACTIVE" STATE TO THE CATEGORY TAXES TABLE **/
+                    String s1 = "SELECT * FROM " + db.TAXES;
+                    Cursor curTaxes = db.selectAllData(s1);
+                    Log.e("QUERY 2", s1);
+//                    Log.e("TAXES", DatabaseUtils.dumpCursorToString(cursor));
+                    if (curTaxes != null && curTaxes.getCount() != 0)	{
+                        for (curTaxes.moveToFirst(); !curTaxes.isAfterLast(); curTaxes.moveToNext()) {
+
+                            /** GET THE TAX ID **/
+                            if (curTaxes.getString(curTaxes.getColumnIndex(db.TAX_ID)) != null)	{
+                                String TAX_ID = curTaxes.getString(curTaxes.getColumnIndex(db.TAX_ID));
+                                Log.e("TAX ID", TAX_ID);
+                                db.addCategoryTaxes(TAX_ID, INCOMING_CATEGORY_ID, false);
+                            }
+                        }
+                        /** FETCH THE CATEGORY TAXES **/
+                        new fetchCategoryTaxes().execute();
+                    }
+                }
             } else {
                 //// TODO: 2/29/2016
             }
@@ -79,10 +110,11 @@ public class CategoryTaxesSelector extends AppCompatActivity {
             db = new DBResto(CategoryTaxesSelector.this);
 
             /** CONSTRUCT THE QUERY TO FETCH ALL USER FROM THE CATEGORY TAXES TABLE **/
-            String strQueryData = "SELECT * FROM " + db.CAT_TAXES + " WHERE " + db.CATEGORY_TAX_ID + " = " + INCOMING_CATEGORY_ID;
+            String strQueryData = "SELECT * FROM " + db.CAT_TAXES + " WHERE " + db.TRANS_CAT_ID + " = " + INCOMING_CATEGORY_ID;
 
             /** CAST THE QUERY IN THE CURSOR TO FETCH THE RESULTS **/
             cursor = db.selectAllData(strQueryData);
+            Log.e("CATEGORY TAXES", DatabaseUtils.dumpCursorToString(cursor));
         }
 
         @Override
@@ -136,13 +168,13 @@ public class CategoryTaxesSelector extends AppCompatActivity {
                     /** GET THE CATEGORY_TAX_ID **/
                     if (cursor.getString(cursor.getColumnIndex(db.CATEGORY_TAX_ID)) != null)	{
                         String CAT_TAXES_ID = cursor.getString(cursor.getColumnIndex(db.CATEGORY_TAX_ID));
-                        taxesData.setCatTaxesID(Integer.parseInt(CAT_TAXES_ID));
+                        taxesData.setCatTaxesID(CAT_TAXES_ID);
                     }
 
                     /** GET THE TRANS_TAX_ID **/
                     if (cursor.getString(cursor.getColumnIndex(db.TRANS_TAX_ID)) != null)	{
                         String TRANS_TAX_ID = cursor.getString(cursor.getColumnIndex(db.TRANS_TAX_ID));
-                        taxesData.setCatID(Integer.parseInt(TRANS_TAX_ID));
+                        taxesData.setCatID(TRANS_TAX_ID);
 
                         /** GET THE TAX NAME **/
                         String strQueryTax = "SELECT * FROM " + db.TAXES + " WHERE " + db.TAX_ID + " = " + TRANS_TAX_ID;
@@ -158,7 +190,7 @@ public class CategoryTaxesSelector extends AppCompatActivity {
                     /** GET THE TRANS_CAT_ID **/
                     if (cursor.getString(cursor.getColumnIndex(db.TRANS_CAT_ID)) != null)	{
                         String CAT_TAX_ID = cursor.getString(cursor.getColumnIndex(db.TRANS_CAT_ID));
-                        taxesData.setTaxID(Integer.parseInt(CAT_TAX_ID));
+                        taxesData.setTaxID(CAT_TAX_ID);
                     }
 
                     /** ADD THE COLLECTED DATA TO THE ARRAYLIST **/

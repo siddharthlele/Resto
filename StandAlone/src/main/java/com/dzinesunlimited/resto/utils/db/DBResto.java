@@ -150,6 +150,7 @@ public class DBResto {
     public final String CATEGORY_TAX_ID = "categoryTaxID";
     public final String TRANS_TAX_ID = "taxID";
     public final String TRANS_CAT_ID = "categoryID";
+    public final String TRANS_TAX_STATUS = "taxStatus";
 
 
     /** GET ALL THE DATA IN THE DATABASE BASED ON THE QUERY **/
@@ -368,6 +369,22 @@ public class DBResto {
         return categoryID;
     }
 
+    /** ADD THE CATEGORY TAXES **/
+    public void addCategoryTaxes(String taxID, String categoryID, boolean taxStatus) {
+
+		/* OPEN THE DATABASE AGAIN */
+        this.db = helper.getWritableDatabase();
+
+        /** ADD AND CREATE KEY VALUE PAIRS FOR ADDING A NEW CATEGORY TO THE DATABASE **/
+        ContentValues values = new ContentValues();
+        values.put(TRANS_TAX_ID, taxID);
+        values.put(TRANS_CAT_ID, categoryID);
+        values.put(TRANS_TAX_STATUS, taxStatus);
+
+		/* INSERT THE COLLECTED DATA TO THE CATEGORY TAXES TABLE */
+        db.insert(CAT_TAXES, null, values);
+    }
+
     /** CREATE A NEW SESSION FOR THE SELECTED TABLE **/
     public void generateSession(String sessionToken, String tableID, String status) {
 
@@ -450,8 +467,17 @@ public class DBResto {
         db.update(TAXES, valUpdateTax, TAX_ID + "=" + taxID, null);
     }
 
-    public void updateCatTax(int catTaxesID, boolean isChecked) {
+    public void updateCatTax(String catTaxesID, boolean isChecked) {
 
+        /* OPEN THE DATABASE AGAIN */
+        this.db = helper.getWritableDatabase();
+
+        /* ADD AND CREATE KEY VALUE PAIRS FOR UPDATING AN EXISTING TAX */
+        ContentValues valUpdateTax = new ContentValues();
+        valUpdateTax.put(TRANS_TAX_STATUS, isChecked);
+
+        /* INSERT THE COLLECTED DATA TO THE TAXES TABLE */
+        db.update(CAT_TAXES, valUpdateTax, CATEGORY_TAX_ID + "=" + catTaxesID, null);
     }
 
     /** UPDATE AN EXISTING TABLE **/
@@ -638,6 +664,7 @@ public class DBResto {
                 CATEGORY_TAX_ID + " integer primary key autoincrement, " +
                 TRANS_TAX_ID + " integer, " +
                 TRANS_CAT_ID + " integer, " +
+                TRANS_TAX_STATUS + " boolean, " +
                 "UNIQUE" + " (" + CATEGORY_TAX_ID + " )" + ");";
 
         // EXECUTE THE strCreatePrintCategoriesTable TO CREATE THE TABLE
@@ -1593,6 +1620,23 @@ public class DBResto {
 
         // EXECUTE THE strCreateTaxesTable TO CREATE THE TABLE
         db.execSQL(strCreateTaxesTable);
+
+        /***** ADD A FEW DUMMY VALUES *****/
+        ContentValues cv = new ContentValues();
+
+        cv.put(TAX_NAME, "Service Tax");
+        cv.put(TAX_REGISTRATION, "QWERTY");
+        cv.put(TAX_PERCENTAGE, "14.50");
+        cv.put(TAX_ENTIRE_AMOUNT, "false");
+        cv.put(TAX_TAXABLE_PERCENTAGE, "40");
+        db.insert(TAXES, null, cv);
+
+        cv.put(TAX_NAME, "Value Added Tax");
+        cv.put(TAX_REGISTRATION, "POIUYT");
+        cv.put(TAX_PERCENTAGE, "12.50");
+        cv.put(TAX_ENTIRE_AMOUNT, "true");
+        cv.put(TAX_TAXABLE_PERCENTAGE, "100");
+        db.insert(TAXES, null, cv);
     }
 
     private void createCountriesTable(SQLiteDatabase db) {
