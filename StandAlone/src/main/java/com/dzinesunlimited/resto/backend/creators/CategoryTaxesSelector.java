@@ -1,5 +1,6 @@
 package com.dzinesunlimited.resto.backend.creators;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.os.AsyncTask;
@@ -11,6 +12,9 @@ import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -193,6 +197,17 @@ public class CategoryTaxesSelector extends AppCompatActivity {
                         taxesData.setTaxID(CAT_TAX_ID);
                     }
 
+                    /** GET THE TRANS_TAX_STATUS **/
+                    if (cursor.getString(cursor.getColumnIndex(db.TRANS_TAX_STATUS)) != null)	{
+                        String TRANS_TAX_STATUS = cursor.getString(cursor.getColumnIndex(db.TRANS_TAX_STATUS));
+                        Log.e("TRANS TAX STATUS", TRANS_TAX_STATUS);
+                        if (TRANS_TAX_STATUS.equals("1"))   {
+                            taxesData.setTaxStatus(true);
+                        } else {
+                            taxesData.setTaxStatus(false);
+                        }
+                    }
+
                     /** ADD THE COLLECTED DATA TO THE ARRAYLIST **/
                     arrTaxes.add(taxesData);
                 }
@@ -232,5 +247,40 @@ public class CategoryTaxesSelector extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setTitle(s);
         getSupportActionBar().setSubtitle(null);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = new MenuInflater(CategoryTaxesSelector.this);
+        inflater.inflate(R.menu.generic_creator, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                /***** SET THE RESULT TO "RESULT_CANCELED" AND FINISH THE ACTIVITY *****/
+                Intent intent = new Intent();
+                setResult(RESULT_CANCELED, intent);
+                finish();
+                break;
+            case R.id.save:
+                Intent taxesSaved = new Intent();
+                setResult(RESULT_OK, taxesSaved);
+                finish();
+                break;
+            case R.id.clear:
+                /***** SET THE RESULT TO "RESULT_CANCELED" AND FINISH THE ACTIVITY *****/
+                Intent intent1 = new Intent();
+                setResult(RESULT_CANCELED, intent1);
+                finish();
+                break;
+            default:
+                break;
+        }
+
+        return false;
     }
 }

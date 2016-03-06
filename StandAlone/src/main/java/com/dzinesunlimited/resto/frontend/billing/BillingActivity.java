@@ -125,6 +125,22 @@ public class BillingActivity extends AppCompatActivity {
                             if (curMenu != null && curMenu.getCount() != 0)	{
                                 for (curMenu.moveToFirst(); !curMenu.isAfterLast(); curMenu.moveToNext()) {
 
+                                    /** GET THE MEAL CATEGORY ID **/
+                                    if (curMenu.getString(curMenu.getColumnIndex(db.MENU_CATEGORY_ID)) != null)	{
+                                        String strMenuCatID = curMenu.getString(curMenu.getColumnIndex(db.MENU_CATEGORY_ID));
+                                        String qryCategoryTaxes = "SELECT * FROM " + db.CAT_TAXES + " WHERE " + db.TRANS_CAT_ID + " = " + strMenuCatID;
+                                        Cursor cursor1 = db.selectAllData(qryCategoryTaxes);
+                                        if (cursor1 != null && cursor1.getCount() != 0) {
+                                            for (cursor1.moveToFirst(); !cursor1.isAfterLast(); cursor1.moveToNext()) {
+
+                                                /** GET THE TAX ID**/
+                                                if (cursor1.getString(cursor1.getColumnIndex(db.TRANS_TAX_ID)) != null)	{
+                                                    String strTaxID = cursor1.getString(cursor1.getColumnIndex(db.TRANS_TAX_ID));
+                                                }
+                                            }
+                                        }
+                                    }
+
                                     /** GET THE MEAL NAME **/
                                     if (curMenu.getString(curMenu.getColumnIndex(db.MENU_NAME)) != null)	{
                                         String strMealName = curMenu.getString(curMenu.getColumnIndex(db.MENU_NAME));

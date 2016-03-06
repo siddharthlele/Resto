@@ -27,6 +27,7 @@ import android.widget.LinearLayout;
 
 import com.dzinesunlimited.resto.R;
 import com.dzinesunlimited.resto.frontend.billing.BillingActivity;
+import com.dzinesunlimited.resto.frontend.cart.OrderCart;
 import com.dzinesunlimited.resto.utils.TypefaceSpan;
 import com.dzinesunlimited.resto.utils.db.DBResto;
 import com.dzinesunlimited.resto.utils.helpers.pojos.CategoriesData;

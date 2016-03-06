@@ -115,7 +115,7 @@
             android:windowSoftInputMode="adjustPan" />
 
         <activity
-            android:name=".frontend.menu.OrderCart"
+            android:name=".frontend.cart.OrderCart"
             android:windowSoftInputMode="adjustPan" />
 
         <activity
